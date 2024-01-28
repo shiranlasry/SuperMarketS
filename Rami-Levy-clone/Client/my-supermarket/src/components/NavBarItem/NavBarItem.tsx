@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom';
 import "./navbarItem.scss"; // Assuming you have a separate SCSS file for styling
 
 type NavbarItemProps = {
-  label: string;
-  iconSrc: string;
-  activeIconSrc: string;
-  to: string;
+  // label: string;
+  // iconSrc: string;
+  // activeIconSrc: string;
+  // to: string;
+  item: any //type
 };
 
-const NavbarItem: React.FC<NavbarItemProps> = ({ label, iconSrc, activeIconSrc, to }) => {
+const NavbarItem: React.FC<NavbarItemProps> = ({item}) => {
+  const { label, iconSrc, activeIconSrc, to } = item
   const [isActive, setIsActive] = useState(false);
 
   return (
