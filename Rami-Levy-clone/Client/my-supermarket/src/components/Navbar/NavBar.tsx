@@ -1,56 +1,35 @@
-import './navBar.scss'
-import { Link } from 'react-router-dom';
+import React from 'react';
+import NavbarItem from '../NavBarItem/NavBarItem';
+import "./navBar.scss"
 
-const NavBar = () => {
-    return (
-      <ul id="main-menu" className="menu d-lg-flex showMenu justify-content-between">
-        <li>
-          <Link to="/history">History</Link>
-        </li>
-        <li>
-          <Link to="/sale">Sale</Link>
-        </li>
-        <li>
-          <Link to="/fruits">Fruits & Vegetables</Link>
-        </li>
-        <li>
-          <Link to="/milk">milk & eggs</Link>
-        </li>
-        <li>
-          <Link to="/meat">meat & fish</Link>
-        </li>
-        <li>
-          <Link to="/organic">organic</Link>
-        </li>
-        <li>
-          <Link to="/frozen">frozen</Link>
-        </li>
-        <li>
-          <Link to="/conserves">conserves & bake</Link>
-        </li>
-        <li>
-          <Link to="/pease">pease</Link>
-        </li>
-        <li>
-          <Link to="/sweets">sweets</Link>
-        </li>
-        <li>
-          <Link to="/drinks">drinks</Link>
-        </li>
-        <li>
-          <Link to="/recycle">recycle</Link>
-        </li>
-        <li>
-          <Link to="/home">home & pets</Link>
-        </li>
-        <li>
-          <Link to="/Pharm">Pharm & Babies</Link>
-        </li>
-        <li>
-          <Link to="/bread">bread & pastry</Link>
-        </li>
-      </ul>
-    );
-  };
-  
-  export default NavBar;
+const NavBar: React.FC = () => {
+  return (
+    <div
+      role="navigation"
+      aria-label="תפריט מחלקות החנות"
+      className="navbar navbar-app nav-menu rl-transition is-not-accessibility"
+    >
+      <div className="container-fluid">
+        <ul id="main-menu" className="menu d-lg-flex showMenu justify-content-between ml-auto">
+          {/* Example usage of NavbarItem 1 */}
+          <NavbarItem
+            label="פירות וירקות"
+            iconSrc="/images/menu/blue-icons/49.svg"
+            activeIconSrc="/images/menu/colorful-icons/49.svg"
+            to="/fruits"
+          />
+
+          <NavbarItem
+            label="חלב ביצים וסלטים"
+            iconSrc="/assets/icons/inactive/dairy-inactive.svg"
+            activeIconSrc="/images/menu/colorful-icons/49.svg"
+            to="/dairy"
+          />
+          {/* Add more NavbarItem components as needed */}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default NavBar;
