@@ -1,4 +1,4 @@
-import { BreadActive } from "../assets/icons/active";
+import { BreadActive, PharmNbabies } from "../assets/icons/active";
 
 export const navbarItems = [
     { label:"היסטוריית רכישה", iconSrc: "/images/menu/blue-icons/49.svg", activeIconSrc: "/images/menu/colorful-icons/49.svg", to: "/fruits" },
@@ -14,7 +14,7 @@ export const navbarItems = [
     { label: "משקאות", iconSrc: "/images/menu/blue-icons/49.svg", activeIconSrc: "/images/menu/colorful-icons/49.svg", to: "/fruits" },
     { label: "חד-פעמי ומתכלה", iconSrc: "/assets/icons/inactive/dairy-inactive.svg", activeIconSrc: "/images/menu/colorful-icons/49.svg", to: "/dairy" },
     { label: "אחזקת הבית ובע'ח", iconSrc: "/images/menu/blue-icons/49.svg", activeIconSrc: "/images/menu/colorful-icons/49.svg", to: "/fruits" },
-    { label: "פארם ותינוקות", iconSrc: "/assets/icons/inactive/dairy-inactive.svg", activeIconSrc: "/images/menu/colorful-icons/49.svg", to: "/dairy" },
+    { label: "פארם ותינוקות", iconSrc: "/assets/icons/inactive/dairy-inactive.svg", activeIconSrc: PharmNbabies, to: "/dairy" },
     { label: "לחם ומאפים טריים", iconSrc: "/images/menu/blue-icons/49.svg", activeIconSrc: BreadActive, to: "/fruits" },
     // Add more items as needed
   ];
