@@ -1,7 +1,9 @@
 // NavbarItem.tsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import "./navbarItem.scss"; // Assuming you have a separate SCSS file for styling
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./navbarItem.scss";
+
 
 type NavbarItemProps = {
   // label: string;
