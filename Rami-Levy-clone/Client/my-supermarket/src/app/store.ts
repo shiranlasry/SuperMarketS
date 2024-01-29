@@ -1,9 +1,7 @@
 // src/store/store.ts
-import { configureStore } from '@reduxjs/toolkit';
+import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
 
-// Define your slices and reducers here
-// For example:
-// import counterReducer from '../features/counter/counterSlice';
+
 
 const store = configureStore({
   reducer: {
