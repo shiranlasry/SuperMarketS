@@ -22,6 +22,8 @@ app.use(upload.single('file'));
 import userRoutes from "./API/users/usersRoutes"
 app.use("/api/users", userRoutes)
 
+import citiesRoutes from "./API/cities/citiesRoutes"
+app.use("/api/cities", citiesRoutes)
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);

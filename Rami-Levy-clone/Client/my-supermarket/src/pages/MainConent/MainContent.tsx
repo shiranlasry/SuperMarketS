@@ -2,7 +2,8 @@
 import React from 'react';
 import NavBar from '../../components/Navbar/NavBar';
 import Feed from '../../components/Feed/Feed';
-import { Product } from '../../types/productTypes'; // Import the Product type
+import { Product } from '../../rami-types';
+
 
 type MainContentPageProps = {
   products: Product[]; // Define the type of the products parameter
