@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import NavBar from '../../components/Navbar/NavBar';
 
 const Home: React.FC = () => {
+  const navigate=useNavigate();
   return (
     <div>
+      <NavBar />
       <h2>Home</h2>
-      <Link to="/other">Go to Other Page</Link>
+
+     <button onClick={()=>navigate("/register")}>Register</button>
     </div>
   );
 };

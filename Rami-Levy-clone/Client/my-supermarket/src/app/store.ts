@@ -1,16 +1,20 @@
-// src/store/store.ts
-import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
+import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit"; 
+import loggesInUserReducer from "../features/logged_in_user/loggedInUserSlice";
+import citiesReducer from "../features/cities/citiesSlice";
 
 
-
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    // Add your reducers here
-    // counter: counterReducer,
+    loggedInUser: loggesInUserReducer,
+    cities : citiesReducer,
   },
 });
 
-export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
-export default store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;

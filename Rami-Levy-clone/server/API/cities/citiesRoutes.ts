@@ -1,12 +1,13 @@
 //users routes server side
 import express from "express";
-import { getAllUsers } from "./usersCtrl";
+import { getAllCities } from "./citiesCtrl";
+
 
 
 const router = express.Router()
 
 router
-.get("", getAllUsers);
+.get("", getAllCities);
 
 
 export default router
