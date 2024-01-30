@@ -1,5 +1,5 @@
 // NavbarItem.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./navbarItem.scss";
@@ -13,9 +13,22 @@ type NavbarItemProps = {
   item: any //type
 };
 
-const NavbarItem: React.FC<NavbarItemProps> = ({item}) => {
-  const { label, iconSrc, activeIconSrc, to } = item
+const NavbarItem: React.FC<NavbarItemProps> = ({ item }) => {
+  const { label, iconSrc, activeIconSrc, to } = item;
   const [isActive, setIsActive] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 900);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 950);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // empty dependency array means this effect runs once on mount
 
   return (
     <li className={`nav-item${isActive ? ' active' : ''}`}>
@@ -27,7 +40,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({item}) => {
         onClick={() => setIsActive(!isActive)}
       >
         <div className="navbar-item-content">
-          <img src={isActive ? activeIconSrc : iconSrc} />
+          <img src={isSmallScreen ? activeIconSrc : (isActive ? activeIconSrc : iconSrc)} />
           <span>{label}</span>
         </div>
       </Link>

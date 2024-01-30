@@ -1,57 +1,88 @@
 //register tsx file
 
-import React, { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { citiesSelector } from '../../features/cities/citiesSlice';
-import { useNavigate } from 'react-router-dom';
-import { getAllCitiesAPI } from '../../features/cities/citiesAPI';
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { citiesSelector } from "../../features/cities/citiesSlice";
+import { useNavigate } from "react-router-dom";
+import { getAllCitiesAPI } from "../../features/cities/citiesAPI";
+import "./Register.scss";
 
 const Register = () => {
-    const cities = useAppSelector(citiesSelector);
-    const dispatch = useAppDispatch();
-     const navigate = useNavigate();
+  const cities = useAppSelector(citiesSelector);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        
-        dispatch(getAllCitiesAPI())
-        
-    }  , [])
+  useEffect(() => {
+    dispatch(getAllCitiesAPI());
+  }, []);
 
-   const handelRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  const handelRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("register")
-   } 
+    console.log("register");
+  };
   return (
-    <div>
-      <h1>Register</h1>
-      <form onSubmit={handelRegister}>
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email" />
-        <label htmlFor="password">Password</label>
-        <input type="password" name="password" id="password" />
-        <label htmlFor="password">Confirm Password</label>
-        <input type="password" name="Cpassword" id="Cpassword" />
-        <label htmlFor="first_name">First Name</label>
-        <input type="text" name="first_name" id="first_name" />
-        <label htmlFor="last_name">Last Name</label>
-        <input type="text" name="last_name" id="last_name" />
-        <label htmlFor="phone_number">Phone</label>
-        <input type="text" name="phone_number" id="phone_number" />
-        <label htmlFor="id_number">ID Number</label>
-        <input type="text" name="id_number" id="id_number" />
-        <label htmlFor="city">City</label>
-        <input type="text" name="city" id="city" />
-        <label htmlFor="street">Street</label>
-        <input type="text" name="street" id="street" />
-        <label htmlFor="house_number">House Number</label>
-        <input type="text" name="house_number" id="house_number" />
-
-        <button type="submit">Register</button>
-
+    <div className="register-main">
+      <h1 className="register-title">הרשמה</h1>
+      <form className="register-form" onSubmit={handelRegister}>
+        <input
+          type="text"
+          placeholder="שם פרטי*"
+          name="last_name"
+          id="last_name"
+        />
+        <input
+          type="text"
+          placeholder="שם משפחה*"
+          name="phone_number"
+          id="phone_number"
+        />
+        <input
+          type="email"
+          placeholder="דואר אלקטרוני*"
+          name="id_number"
+          id="id_number"
+        />
+        <input
+          type="password"
+          placeholder="סיסמה*"
+          name="password"
+          id="password"
+        />
+        <input
+          type="password"
+          placeholder="אישור סיסמה*"
+          name="confirm"
+          id="confirm"
+        />
+        <input
+          type="text"
+          placeholder="תעודת זהות*"
+          name="id_number"
+          id="id_number"
+        />
       </form>
-      <button onClick={() => navigate("/")}>Back</button>
-    </div>
-  )
-}
 
-export default Register
+      <div className="reg-disclaimers">
+        <p>
+          הנני מאשר/ת את תקנון אתר רמי לוי באינטרנט המחודש ואת הצטרפותי ללא עלות
+          למועדון לקוחות רמי לוי בכפוף לתקנון המועדון *
+        </p>
+        <p>
+          הנני מאשר/ת לקבל הטבות, מבצעים, עדכונים והצעות למוצרים ושירותים מקבוצת
+          רמי לוי באמצעי התקשורת שמסרתי לקבוצה. ידוע לי כי אוכל לחזור בי מהסכמתי
+          בכל עת.
+        </p>
+      </div>
+      <div>
+        <button className="register-cancel" onClick={() => navigate("/")}>
+          ביטול
+        </button>
+        <button className="register-btn" type="submit">
+          קחו אותי לסופר!
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Register;
