@@ -1,12 +1,14 @@
 //users routes server side
 import express from "express";
-import { getAllUsers } from "./usersCtrl";
+import { getAllUsers,registerUser } from "./usersCtrl";
 
 
 const router = express.Router()
 
 router
-.get("", getAllUsers);
+.get("", getAllUsers)
+.post("/register", registerUser);
+
 
 
 export default router

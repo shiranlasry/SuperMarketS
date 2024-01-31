@@ -1,33 +1,57 @@
 //register tsx file
 
 import React, { useEffect, useState } from "react";
-import { useAppDispatch,  } from "../../app/hook";
+import { useAppDispatch, } from "../../app/hook";
 import { useNavigate } from "react-router-dom";
 import "./Register.scss";
 import { User } from "../../rami-types";
-import registerAPI from "../../features/logged_in_user/registerAPI";
+import registerAPI from "../../features/usersAPI";
 
 const Register = () => {
   const initialUserState: User = {
-    user_id:null,
+    user_id: null,
     email: '',
     id_number: '',
     password: '',
-    confirm_password: ''  ,
-    first_name:'',
+    confirm_password: '',
+    first_name: '',
     last_name: '',
-    phone_number: '',
     role_id: 2,
     addresses: []
   };
   const [newUser, setNewUser] = useState<User>(initialUserState);
-  
+  const [passwordValidation, setPasswordValidation] = useState<string | null>(null);
+  const [confirmPasswordValidation, setconfirmPasswordValidation] = useState<string | null>(null);
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setNewUser({ ...newUser, [name]: value });
-  };
+
+    if (name === "password") {
+      setPasswordValidation(validatePassword(value));
+    }
+    if (name === "confirm_password") {
+      if (newUser.password !== value) {
+        setconfirmPasswordValidation("הסיסמאות אינן תואמות");
+      }
+      else {
+        setconfirmPasswordValidation(null);}
+    }
+    ;
+  }
+  const validatePassword = (password: string) => {
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+    if (newUser.password == newUser.confirm_password) {
+      return null;
+    }
+    if (regex.test(password)) {
+      return null;
+    } else {
+      return "הסיסמה חייבת להכיל לפחות 8 תווים, אות גדולה, אות קטנה ומספר";
+    }
+  }
   // const cities = useAppSelector(citiesSelector);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -39,9 +63,17 @@ const Register = () => {
   const handelRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      
+      if (newUser.password !== newUser.confirm_password) {
+        setconfirmPasswordValidation("הסיסמאות אינן תואמות");
+        return;
+      }
+
       const resultAction: any = await registerAPI(newUser);
-      
+      if
+        (resultAction.ok) {
+        navigate("/login");
+      }
+
     } catch (error) {
       console.error(error);
     }
@@ -85,6 +117,9 @@ const Register = () => {
           value={newUser.password}
           onChange={handleInputChange}
         />
+        {passwordValidation && (
+          <div className="error-message">{passwordValidation}</div>
+        )}
         <input
           type="password"
           placeholder="אישור סיסמה*"
@@ -93,6 +128,10 @@ const Register = () => {
           value={newUser.confirm_password}
           onChange={handleInputChange}
         />
+        {confirmPasswordValidation && (
+          <div className="error-message">{confirmPasswordValidation}</div>
+        )}
+
         <input
           type="text"
           placeholder="תעודת זהות*"
@@ -121,7 +160,7 @@ const Register = () => {
         <button className="register-cancel" onClick={() => navigate("/")}>
           ביטול
         </button>
-        
+
       </div>
     </div>
   );

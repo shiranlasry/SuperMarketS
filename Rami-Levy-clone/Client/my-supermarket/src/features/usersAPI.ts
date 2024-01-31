@@ -1,16 +1,15 @@
 // register axios request
 import axios from "axios";
-import { User } from "../../rami-types";
+import { User } from "../rami-types";
 
  export const registerAPI = async (user:User) => {
   try {
     debugger    
     // Assuming your registration endpoint is /api/register
-    const response = await axios.post("/api/register", user);
+    const response = await axios.post("/api/users/register", user);
 
     // Assuming the server returns some data upon successful registration
     const responseData = response.data;
-
     // You can handle the response data or perform additional actions here
 
     console.log("Registration successful:", responseData);
