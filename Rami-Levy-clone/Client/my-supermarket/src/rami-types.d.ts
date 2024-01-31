@@ -22,14 +22,15 @@ export interface Product  {
     city_name: string;
   };
   export interface User {
-    user_id: number;
-    email: string;
-    id_number: string;
-    password: string;
-    first_name: string;
-    last_name: string;
-    phone_number: string;
-    role_id: number;
-    addresses: Address[];
+    user_id: number|null ;
+    email: string ='';
+    id_number: string ='';
+    password: string ='';
+    confirm_password: string =''  
+    first_name: string='';
+    last_name: string='';
+    phone_number: string='';
+    role_id: number|null =0;
+    addresses: Address[] =[];
   };
   
