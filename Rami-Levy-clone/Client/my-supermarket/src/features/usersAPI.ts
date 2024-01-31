@@ -3,8 +3,7 @@ import axios from "axios";
 import { User } from "../rami-types";
 
  export const registerAPI = async (user:User) => {
-  try {
-    debugger    
+  try {    
     // Assuming your registration endpoint is /api/register
     const response = await axios.post("/api/users/register", user);
 

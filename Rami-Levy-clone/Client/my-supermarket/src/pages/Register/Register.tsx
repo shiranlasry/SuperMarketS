@@ -71,7 +71,7 @@ const Register = () => {
       const resultAction: any = await registerAPI(newUser);
       if
         (resultAction.ok) {
-        navigate("/login");
+        navigate("/");
       }
 
     } catch (error) {
