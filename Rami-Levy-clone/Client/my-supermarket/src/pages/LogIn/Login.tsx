@@ -36,7 +36,7 @@ const Login = () => {
                 return;
             }
             const resultAction: any = await dispatch(logInUserApi(arg));
-            debugger;
+            ;
            
             if (!resultAction.payload) {
 
@@ -78,6 +78,9 @@ const Login = () => {
                 </button>
 
             </form>
+            <button className="register-cancel" onClick={() => navigate("/")}>
+          חזור
+        </button>
         </div>
     )
 }

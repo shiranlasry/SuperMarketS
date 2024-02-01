@@ -5,12 +5,14 @@ import Home from './pages/Home/Home';
 import './App.css'
 import Register from './pages/Register/Register';
 import Login from './pages/LogIn/Login';
+import AddNewAddress from './components/AddNewAddress/AddNewAddress';
 
 function App() {
   const router= createBrowserRouter([
     { path: "/", element: <Home /> },
     {path:"/register",element:<Register/>}
     ,{path:"/login",element:<Login/>}
+    ,{path:"/add_user_addresses",element:<AddNewAddress/>}
   ])
   return (
     <RouterProvider router={router} />
