@@ -111,7 +111,7 @@ const Register = () => {
       const resultAction: any = await registerAPI(newUser);
       if (resultAction.ok) {
         alert("ההרשמה בוצעה בהצלחה");
-        navigate("/");
+        navigate("/login");
       }
     } catch (error) {
       console.error(error);
@@ -147,7 +147,6 @@ const Register = () => {
           id="email"
           value={newUser.email}
           onChange={handleInputChange}
-          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
           required
           title="הכנס כתובת מייל נכונה"
         />
