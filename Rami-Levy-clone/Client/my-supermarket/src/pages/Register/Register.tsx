@@ -67,10 +67,15 @@ const Register = () => {
         setconfirmPasswordValidation("הסיסמאות אינן תואמות");
         return;
       }
+      if (passwordValidation !=null || confirmPasswordValidation !=null) {
+        alert("הסיסמה חייבת להכיל לפחות 8 תווים, אות גדולה, אות קטנה ומספר");
+        return;
+      }
 
       const resultAction: any = await registerAPI(newUser);
       if
         (resultAction.ok) {
+        alert("ההרשמה בוצעה בהצלחה");
         navigate("/");
       }
 
