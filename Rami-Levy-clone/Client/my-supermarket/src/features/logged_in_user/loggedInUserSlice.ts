@@ -3,6 +3,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../../app/store"
 import { User } from "../../rami-types"
+import { logInUserApi ,logOutUserApi} from "./loggedInUserAPI"
 
 
 enum Status {
@@ -32,6 +33,26 @@ export const LoggedInUserSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(logInUserApi.pending, (state) => {
+                state.status = Status.LOADING
+            })
+            .addCase(logInUserApi.fulfilled, (state, action) => {
+                state.status = Status.IDLE
+                state.value = action.payload
+            })
+            .addCase(logInUserApi.rejected, (state) => {
+                state.status = Status.FAILED
+            })
+            .addCase(logOutUserApi.pending, (state) => {
+                state.status = Status.LOADING
+            })
+            .addCase(logOutUserApi.fulfilled, (state) => {
+                state.status = Status.IDLE
+                state.value = null
+            })
+            .addCase(logOutUserApi.rejected, (state) => {
+                state.status = Status.FAILED
+            })
         
     }
 })
