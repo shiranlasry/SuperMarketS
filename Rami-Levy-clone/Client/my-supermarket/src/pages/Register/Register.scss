@@ -1,0 +1,70 @@
+.register-main {
+  margin: 1rem auto auto auto;
+  padding: 2rem;
+  justify-content: center;
+  text-align: center;
+  width: 660px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  .register-title {
+    font-size: 27px;
+    margin: 20px;
+    color: #1579f2;
+    
+  }
+
+  .register-form {
+    margin: auto;
+    display: flex;
+    flex-flow: column;
+
+    input,
+    label,
+    .register-btn {
+      margin: 9px auto auto auto;
+      height: 40px;
+      width: 300px;
+    }
+
+    input {
+      width: 500px;
+      margin-bottom: 5px;
+      background-color: #f3f5f8;
+      border: none;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 7px;
+      padding: 8px;
+    }
+  
+  }
+
+  .register-btn {
+    height: 42px;
+    width: 200px;
+    border: none;
+    color: white;
+    background-color: #1579f2;
+    font-size: 18px;
+    border-radius: 5px;
+    padding: 8px;
+  }
+
+ 
+
+  .register-cancel {
+    width: 200px;
+    font-size: 18px;
+    border: none;
+    background-color: #fff;
+  }
+
+  .reg-disclaimers {
+    margin: 35px auto auto auto;
+    width: 560px;
+    text-align: right;
+    font-size: 12px;
+  }
+}
