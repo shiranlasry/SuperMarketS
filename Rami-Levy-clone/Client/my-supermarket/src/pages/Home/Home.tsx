@@ -11,7 +11,7 @@ const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const handelLogOut = () => {
     dispatch(logOutUserApi());
-    
+  
   }
   return (
     <div>
@@ -28,6 +28,7 @@ const Home: React.FC = () => {
         loggedInUser && <>
           <p>hello {loggedInUser.first_name}</p>
           <button onClick={handelLogOut}>התנתקות</button>
+          <button onClick={() => navigate("/add_user_addresses")}>הוספת כתובת למשלוח</button>
         </>
 
 

@@ -24,6 +24,10 @@ app.use("/api/users", userRoutes)
 
 import citiesRoutes from "./API/cities/citiesRoutes"
 app.use("/api/cities", citiesRoutes)
+import streetsRoutes from "./API/streets/streetsRoutes"
+app.use("/api/streets", streetsRoutes)
+import addressesRoutes from "./API/addresses/addressesRoutes"
+app.use("/api/addresses", addressesRoutes)
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);

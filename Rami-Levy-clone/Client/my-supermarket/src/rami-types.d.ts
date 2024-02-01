@@ -6,21 +6,28 @@ export interface Product  {
     unit: string;
   };
   export interface Address {
-    address_id: number;
-    user_id: number;
-    city_id: string;
+    address_id: number|null;
+    user_id: number|null;
+    city_id: number|null;
     city_name: string;
-    street_id: string;
+    street_id: number|null;
     street_name: string;
-    floor: number;
-    apartment: number;
-    zip_code: number;
+    floor: number|null;
+    apartment: number |null;
+    zip_code: string;
+    phone_number:string;
+    is_default:boolean;
   };
 
   export interface City {
     city_id: number;
     city_name: string;
   };
+  export interface Street {
+    street_id: number;
+    street_name: string;
+  };
+
   export interface User {
     user_id: number|null ;
     email: string ='';
