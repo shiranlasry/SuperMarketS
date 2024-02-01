@@ -1,28 +1,54 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hook';
+import { loggedInUserSelector } from '../../features/logged_in_user/loggedInUserSlice';
+import { logInUserApi } from '../../features/logged_in_user/loggedInUserAPI';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const loggedInUser = useAppSelector(loggedInUserSelector)
+    useEffect(() => {
+        if (loggedInUser) {
+            console.log(loggedInUser)
+            navigate("/");
+        }
+    }, [loggedInUser, navigate]);
 
     const handleEmailChange = (e: {
         target: { value: React.SetStateAction<string> };
-      }) => {
+    }) => {
         setEmail(e.target.value);
-      };
-    
-      const handlePasswordChange = (e: {
+    };
+
+    const handlePasswordChange = (e: {
         target: { value: React.SetStateAction<string> };
-      }) => {
+    }) => {
         setPassword(e.target.value);
-      };
-      const handleLogin = (e: { preventDefault: () => void }) => {
+    };
+    const handleLogin = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         try {
-            
+            const arg = { email, password };
+            if (!arg.email || !arg.password) {
+                return;
+            }
+            const resultAction: any = await dispatch(logInUserApi(arg));
+            debugger;
+           
+            if (!resultAction.payload) {
+
+                alert("שם משתמש או סיסמא לא נכונים");
+                console.log("Invalid credentials");
+                //setErrorMessage("Invalid email or password"); // Set error message state
+            }
+            console.log(resultAction.payload);
         } catch (error) {
             console.error(error);
         }
-      }
+    }
     return (
         <div>
             <h1>Log In</h1>
@@ -33,7 +59,6 @@ const Login = () => {
                         type="email"
                         value={email}
                         onChange={handleEmailChange}
-                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                         required
                         title="Enter a valid email address"
 
