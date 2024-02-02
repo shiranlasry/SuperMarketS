@@ -188,11 +188,7 @@ const Register = () => {
         {IDValidation && (
           <div className="error-message">{IDValidation}</div>
         )}
-        <button className="register-btn" type="submit">
-          קחו אותי לסופר!
-        </button>
-      </form>
-      <div className="reg-disclaimers">
+        <div className="reg-disclaimers">
         <p>
           הנני מאשר/ת את תקנון אתר רמי לוי באינטרנט המחודש ואת הצטרפותי ללא עלות
           למועדון לקוחות רמי לוי בכפוף לתקנון המועדון *
@@ -204,10 +200,18 @@ const Register = () => {
         </p>
       </div>
       <div>
-        <button className="register-cancel" onClick={() => navigate("/")}>
+      <button className="register-cancel" onClick={() => navigate("/login")}>
           ביטול
         </button>
+        <button className="register-btn" type="submit">
+          קחו אותי לסופר!
+        </button>
+        
+       
       </div>
+      </form>
+      
+   
     </div>
   );
 };

@@ -3,7 +3,7 @@
   padding: 2rem;
   justify-content: center;
   text-align: center;
-  width: 660px;
+  width: fit-content;
   background-color: #fff;
   border-radius: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -29,7 +29,7 @@
     }
 
     input {
-      width: 500px;
+      max-width: 500px;
       margin-bottom: 5px;
       background-color: #f3f5f8;
       border: none;
@@ -43,7 +43,7 @@
 
   .register-btn {
     height: 42px;
-    width: 200px;
+    max-width: 200px;
     border: none;
     color: white;
     background-color: #1579f2;
@@ -63,8 +63,8 @@
 
   .reg-disclaimers {
     margin: 35px auto auto auto;
-    width: 560px;
+    max-width: 560px;
     text-align: right;
-    font-size: 12px;
+    font-size: .8rem;
   }
 }
