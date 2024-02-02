@@ -1,9 +1,9 @@
 $button: #1579f2;
 
 .login-main {
-    width: fit-content;
+  width: fit-content;
   margin: 1rem auto auto auto;
-  padding: 3rem 1.5rem 3rem 1.5rem;
+  padding: 2rem 1.5rem 3rem 1.5rem;
   justify-content: center;
   text-align: center;
   width: fit-content;
@@ -11,11 +11,21 @@ $button: #1579f2;
   border-radius: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
+  .exit-log-svg {
+    float: left;
+    color: $button;
+    margin-top: -.7rem;
+  }
+
   .login-title,
   .registration {
     font-size: 27px;
-    margin: 20px;
+    margin: 25px  0  10px  0;
     color: $button;
+
+    .login-svg {
+      margin: 3px 0 8px 6px;
+    }
   }
 
   .forgot-password {
@@ -37,15 +47,19 @@ $button: #1579f2;
     margin: auto;
     display: flex;
     flex-flow: column;
-   
 
     input,
     .login-btn {
       margin: 10px auto auto auto;
+      font-size: 1.1rem;
     }
     input {
       height: 40px;
-      min-width: 200px;
+      min-width: fit-content;
+
+      @media screen and (max-width: 670px) {
+        max-width: 390px;
+      }
     }
 
     .login-btn {
@@ -76,12 +90,17 @@ $button: #1579f2;
     align-items: center;
 
     .registration {
-        margin-top: 9rem;
+      margin-top: 9.4rem;
+
+      .reg-svg {
+        margin: 3px 0 8px 6px;
+      }
     }
 
     .firs-time-reg {
       height: 52px;
       width: 230px;
+      margin: 0.7rem auto auto auto;
       border: none;
       color: white;
       background-color: $button;
