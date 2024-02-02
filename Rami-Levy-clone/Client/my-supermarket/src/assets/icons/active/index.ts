@@ -15,6 +15,6 @@ import history from "./history-active.svg"
 import organic from "./organic-active.svg"
 
 
-//for each navbar item
+
 
 export {BreadActive, PharmNbabies, houseAndPets, recycle, drinks, candies, weat, cooking, organic, meat, dairy, frozen, fruits, sale, history }
