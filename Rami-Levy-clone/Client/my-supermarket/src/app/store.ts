@@ -1,22 +1,17 @@
-import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit"; 
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from '../features/cart/cartSlice'; // Adjust the path based on your project structure
 import loggesInUserReducer from "../features/logged_in_user/loggedInUserSlice";
 import citiesReducer from "../features/cities/citiesSlice";
 import streetsReducer from "../features/streets/streetsSlice";
 
-
 export const store = configureStore({
   reducer: {
     loggedInUser: loggesInUserReducer,
-    cities : citiesReducer,
-    streets : streetsReducer,
+    cities: citiesReducer,
+    streets: streetsReducer,
+    cart: cartReducer, // Include the cart reducer here
   },
 });
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;

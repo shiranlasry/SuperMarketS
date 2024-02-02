@@ -1,0 +1,43 @@
+$button: #1579f2;
+
+.to-main-navBar,
+.to-shoppin-navBar {
+  background-image: linear-gradient(#b4cff1, white);
+  border-bottom-left-radius: -20px;
+  height: 65px;
+  max-width: 280px;
+  margin-right: 0.4rem;
+  border: none;
+
+  .rami-online,
+  .rami-shopping {
+    width: 210px;
+    height: 22px;
+    margin: 0.7rem 1rem 0.5rem auto;
+  }
+}
+.to-shoppin-navBar {
+  margin-right: 0;
+  border-bottom-right-radius: 7px;
+}
+.hp-loginBtn, .access {
+    margin: .8rem 0 .8rem 3rem;
+  float: left;
+  color: $button;
+  font-size: .5;
+  background-color: #f3f5f8;
+  border: none;
+
+  .hp-loginSvg {
+    margin: 0 0 0 .2rem;
+    width: 17.18px;
+    height: 19.25px;
+  }
+
+
+}
+.access {
+    float: left;
+    text-decoration: underline;
+    margin: .8rem 0 .8rem 3rem;
+  }
