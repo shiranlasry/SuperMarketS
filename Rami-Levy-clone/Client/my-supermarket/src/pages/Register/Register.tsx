@@ -120,7 +120,10 @@ const Register = () => {
 
   return (
     <div className="register-main">
-      <h1 className="register-title">הרשמה</h1>
+      <svg data-v-2d7301cc="" aria-label="סגור" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="none" viewBox="0 0 24 24" className="exit-reg-svg" stroke="currentColor"><path data-v-2d7301cc="" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path></svg>
+      <h1 className="register-title"><svg data-v-c9960dd8="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22.58" height="24.52" viewBox="0 0 22.58 24.52" className="reg-svg"><defs data-v-c9960dd8=""><clipPath data-v-c9960dd8="" id="a" transform="translate(-1.62 -0.65)"><rect data-v-c9960dd8="" width="25.82" height="25.82" fill="none"></rect></clipPath></defs><circle data-v-c9960dd8="" cx="10.93" cy="6.15" r="5.65" fill="none" stroke="#0079f2" stroke-linecap="round" stroke-linejoin="round"></circle><path data-v-c9960dd8="" d="M12.55,24.67a14.74,14.74,0,0,0,9.71-3.89,2.21,2.21,0,0,0,.33-2.85,11.94,11.94,0,0,0-20.16.13,2.14,2.14,0,0,0,.41,2.71A14.68,14.68,0,0,0,12.55,24.67Z" transform="translate(-1.62 -0.65)" fill="none" stroke="#0079f2" stroke-linecap="round" stroke-linejoin="round"></path><line data-v-c9960dd8="" x1="17.22" y1="2.93" x2="22.08" y2="2.93" fill="none" stroke="#0079f2" stroke-linecap="round" stroke-linejoin="round"></line><line data-v-c9960dd8="" x1="19.65" y1="0.5" x2="19.65" y2="5.37" fill="none" stroke="#0079f2" stroke-linecap="round" stroke-linejoin="round"></line></svg>
+        הרשמה
+      </h1>
       <form className="register-form" onSubmit={handelRegister}>
         <input
           type="text"
@@ -188,11 +191,7 @@ const Register = () => {
         {IDValidation && (
           <div className="error-message">{IDValidation}</div>
         )}
-        <button className="register-btn" type="submit">
-          קחו אותי לסופר!
-        </button>
-      </form>
-      <div className="reg-disclaimers">
+        <div className="reg-disclaimers">
         <p>
           הנני מאשר/ת את תקנון אתר רמי לוי באינטרנט המחודש ואת הצטרפותי ללא עלות
           למועדון לקוחות רמי לוי בכפוף לתקנון המועדון *
@@ -204,10 +203,18 @@ const Register = () => {
         </p>
       </div>
       <div>
-        <button className="register-cancel" onClick={() => navigate("/")}>
+      <button className="register-cancel" onClick={() => navigate("/login")}>
           ביטול
         </button>
+        <button className="register-btn" type="submit">
+          קחו אותי לסופר!
+        </button>
+        
+       
       </div>
+      </form>
+      
+   
     </div>
   );
 };
