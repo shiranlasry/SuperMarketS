@@ -40,7 +40,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ item }) => {
         onClick={() => setIsActive(!isActive)}
       >
         <div className="navbar-item-content">
-          <img src={isSmallScreen ? activeIconSrc : (isActive ? activeIconSrc : iconSrc)} />
+          <img className='nav-icons' src={isSmallScreen ? activeIconSrc : (isActive ? activeIconSrc : iconSrc)} />
           <span>{label}</span>
         </div>
       </Link>

@@ -1,43 +1,84 @@
 $button: #1579f2;
 
-.to-main-navBar,
-.to-shoppin-navBar {
+.to-main-navBar {
   background-image: linear-gradient(#b4cff1, white);
   border-bottom-left-radius: -20px;
   height: 65px;
-  max-width: 280px;
-  margin-right: 0.4rem;
+  max-width: 330px;
+  margin-right: 0.5rem;
   border: none;
+  @media screen and (max-width: 950px) {
+    background-image: linear-gradient(#f3f5f8, #f3f5f8);
+  }
 
-  .rami-online,
-  .rami-shopping {
-    width: 210px;
-    height: 22px;
+  .rami-online {
+    width: 200px;
+    height: 20px;
     margin: 0.7rem 1rem 0.5rem auto;
+    @media screen and (max-width: 950px) {
+      height: 17px;
+      width: 120px;
+    }
   }
 }
-.to-shoppin-navBar {
-  margin-right: 0;
-  border-bottom-right-radius: 7px;
-}
-.hp-loginBtn, .access {
-    margin: .8rem 0 .8rem 3rem;
+
+.hp-loginBtn,
+.access {
+  margin: 1rem 0 0.8rem 1rem;
   float: left;
   color: $button;
-  font-size: .5;
+  font-size: 0.5;
   background-color: #f3f5f8;
   border: none;
 
   .hp-loginSvg {
-    margin: 0 0 0 .2rem;
+    margin: 0 0 0 0.2rem;
     width: 17.18px;
     height: 19.25px;
   }
+}
 
-
+.login-title {
+  @media screen and (max-width: 950px) {
+    display: none;
+  }
 }
 .access {
-    float: left;
-    text-decoration: underline;
-    margin: .8rem 0 .8rem 3rem;
+  float: left;
+  text-decoration: underline;
+  margin: 1rem 0 0.8rem 0;
+
+  @media screen and (max-width: 950px) {
+    display: none;
   }
+}
+
+.to-shoppin-navBar {
+  float: inline;
+  height: 60px;
+  max-width: 330px;
+  border-bottom-right-radius: 22px;
+  margin-right: -0.2rem;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  background-color: #f3f5f8;
+  border: none;
+
+  @media screen and (max-width: 950px) {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .rami-shopping {
+    height: 20px;
+    width: 170px;
+    margin-right: 1rem;
+
+    @media screen and (max-width: 950px) {
+      height: 17px;
+      width: 120px;
+    }
+
+    @media screen and (max-width: 320px) {
+      display: none;
+    }
+  }
+}

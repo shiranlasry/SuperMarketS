@@ -1,0 +1,55 @@
+$button: #1579f2;
+
+body {
+  color: $button;
+
+  .shopping-cart {
+    margin: -7rem 0 0 10rem;
+    float: left;
+    width: 140px;
+    height: 86px;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+
+    @media screen and (max-width: 1700px) {
+      margin: -7rem 0 0 9.2rem;
+      width: 130px;
+    }
+
+    @media screen and (max-width: 1600px) {
+      margin: -7rem 0 0 9rem;
+      width: 120px;
+    }
+    @media screen and (max-width: 1490px) {
+      margin: -7rem 0 0 8.4rem;
+      width: 115px;
+    }
+    @media screen and (max-width: 1390px) {
+      margin: -7rem 0 0 7.5rem;
+      width: 105px;
+    }
+
+    @media screen and (max-width: 1260px) {
+      display: none;
+    }
+
+    .cart-icon {
+      justify-content: center;
+      padding-top: 8px;
+    }
+
+    .cart-price {
+      color: $button;
+      background-color: white;
+      border: none;
+      align-items: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+  }
+  .cart-icon {
+    color: $button;
+  }
+}
