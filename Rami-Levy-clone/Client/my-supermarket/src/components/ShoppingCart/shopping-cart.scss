@@ -13,6 +13,11 @@ body {
     border-radius: 10px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 
+    @media screen and (max-width: 1900px) {
+      margin: -7rem 0 0 9.7rem;
+      width: 130px;
+    }
+
     @media screen and (max-width: 1800px) {
       margin: -7rem 0 0 9.2rem;
       width: 130px;
@@ -23,7 +28,7 @@ body {
       width: 120px;
     }
     @media screen and (max-width: 1540px) {
-      margin: -7rem 0 0 8rem;
+      margin: -7rem 0 0 7.9rem;
       width: 110px;
     }
     @media screen and (max-width: 1490px) {
@@ -35,11 +40,11 @@ body {
       
     }
     @media screen and (max-width: 1390px) {
-      margin: -7rem 0 0 7.2rem;
+      margin: -7rem 0 0 7.1rem;
       width: 100px;
     }
 
-    @media screen and (max-width: 1295px) {
+    @media screen and (max-width: 1292px) {
       display: none;
     }
 
