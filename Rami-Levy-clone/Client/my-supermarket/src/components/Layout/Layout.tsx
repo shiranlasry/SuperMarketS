@@ -59,6 +59,7 @@ const Layout: React.FC = () => {
           <p>hello {loggedInUser.first_name}</p>
           <button onClick={handelLogOut}>התנתקות</button>
           <button onClick={() => navigate("/add_user_addresses")}>הוספת כתובת למשלוח</button>
+          {loggedInUser.role_id===1 && <button onClick={() => navigate("/admin")}>מסך מנהל</button>}
         </>
 
 

@@ -1,12 +1,11 @@
 import React from 'react';
-import NavBar from '../../components/Navbar/NavBar';
 import './home.scss'
-import ShoppingCart from '../../components/ShoppingCart/ShoppingCart';
-import ShoppingBasket from '../../components/ShoppingBasket/ShoppingBasket';
 import Layout from '../../components/Layout/Layout';
+import { useAppSelector } from '../../app/hook';
+import { loggedInUserSelector } from '../../features/logged_in_user/loggedInUserSlice';
 
 const Home: React.FC = () => {
-
+  const loggedInUser = useAppSelector(loggedInUserSelector)
  
   return (
     <div>

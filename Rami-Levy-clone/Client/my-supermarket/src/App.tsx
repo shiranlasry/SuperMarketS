@@ -6,13 +6,15 @@ import './App.css'
 import Register from './pages/Register/Register';
 import Login from './pages/LogIn/Login';
 import AddNewAddress from './components/AddNewAddress/AddNewAddress';
+import AdminMainPage from './pages/Admin/AdminMainPage';
 
 function App() {
   const router= createBrowserRouter([
     { path: "/", element: <Home /> },
-    {path:"/register",element:<Register/>}
-    ,{path:"/login",element:<Login/>}
-    ,{path:"/add_user_addresses",element:<AddNewAddress/>}
+    {path:"/register",element:<Register onClose={()=>{}}/>},
+    {path:"/login",element:<Login onClose={()=>{}} RegisterPressed={()=>{}}/>},
+    {path:"/add_user_addresses",element:<AddNewAddress/>},
+    {path:"/admin",element:<AdminMainPage/>}  
   ])
   return (
     <RouterProvider router={router} />

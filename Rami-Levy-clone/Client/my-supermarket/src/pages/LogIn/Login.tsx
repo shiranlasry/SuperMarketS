@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import { logInUserApi } from "../../features/logged_in_user/loggedInUserAPI";
 
 import "./login.scss";
-import Register from "../Register/Register";
 interface LoginProps {
     onClose: () => void;
     RegisterPressed: () => void; 

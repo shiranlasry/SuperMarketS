@@ -10,13 +10,14 @@ import cookieParser from 'cookie-parser';
 import { Request, Response } from 'express';
 
 
+
 const saltRounds = 10; 
 
 export const getAllUsers = async (req: express.Request, res: express.Response) => {
   try {
-// select users and users roles and address from users table and roles table
+// select users and users roles from users table and roles table
 
-    const query = "SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_id INNER JOIN addresses ON users.user_id = addresses.user_id";
+    const query = "SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_id";
     connection.query(query, (err, results, fields) => {
       try {
         if (err) throw err;

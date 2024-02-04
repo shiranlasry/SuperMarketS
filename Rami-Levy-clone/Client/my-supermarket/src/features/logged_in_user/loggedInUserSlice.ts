@@ -66,6 +66,9 @@ export const LoggedInUserSlice = createSlice({
                     }
                 }
             })
+            .addCase(addNewUserAddressApi.rejected, (state) => {
+                state.status = Status.FAILED
+            })
         
     }
 })
