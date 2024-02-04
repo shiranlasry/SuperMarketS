@@ -13,25 +13,33 @@ body {
     border-radius: 10px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 
-    @media screen and (max-width: 1700px) {
+    @media screen and (max-width: 1800px) {
       margin: -7rem 0 0 9.2rem;
       width: 130px;
     }
 
-    @media screen and (max-width: 1600px) {
-      margin: -7rem 0 0 9rem;
+    @media screen and (max-width: 1680px) {
+      margin: -7rem 0 0 8.5rem;
       width: 120px;
     }
-    @media screen and (max-width: 1490px) {
+    @media screen and (max-width: 1540px) {
       margin: -7rem 0 0 8.4rem;
-      width: 115px;
+      width: 110px;
+    }
+    @media screen and (max-width: 1490px) {
+      margin: -7rem 0 0 7.8rem;
+      
+    }
+    @media screen and (max-width: 1420px) {
+      margin: -7rem 0 0 7.5rem;
+      
     }
     @media screen and (max-width: 1390px) {
-      margin: -7rem 0 0 7.5rem;
-      width: 105px;
+      margin: -7rem 0 0 7.2rem;
+      width: 100px;
     }
 
-    @media screen and (max-width: 1260px) {
+    @media screen and (max-width: 1295px) {
       display: none;
     }
 

@@ -13,16 +13,19 @@ body {
     border-radius: 10px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 
-    @media screen and (max-width: 1700px) {
+    @media screen and (max-width: 1800px) {
       width: 130px;
     }
-    @media screen and (max-width: 1490px) {
-      width: 115px;
+    @media screen and (max-width: 1680px) {
+      width: 120px;
+    }
+    @media screen and (max-width: 1540px) {
+      width: 110px;
     }
     @media screen and (max-width: 1390px) {
-      width: 105px;
+      width: 100px;
     }
-    @media screen and (max-width: 1270px) {
+    @media screen and (max-width: 1295px) {
       display: none;
     }
 
