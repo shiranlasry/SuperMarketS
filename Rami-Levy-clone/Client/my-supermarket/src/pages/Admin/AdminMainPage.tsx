@@ -21,8 +21,8 @@ const AdminMainPage = () => {
  }
     return (
         <div>
-            <h1>Admin Management</h1>
-            {loggedInUser && <h2>Welcome Big Boss {loggedInUser.first_name}</h2>  }
+            <h1>איזור מנהלים</h1>
+            {loggedInUser && <h2>ברוך הבא בוס גדול  {loggedInUser.first_name}</h2>  }
             <button onClick={showAllUsers}>Manage Users</button>
             <button>Manage Products</button>
             <button onClick={() => navigate('/')}>חזור</button>
