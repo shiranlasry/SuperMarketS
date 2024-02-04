@@ -19,11 +19,15 @@ const AdminMainPage = () => {
         setIsUsersShown(true);
        
  }
+ const AddNewProductPressed = () => {
+        navigate('/add_new_product');
+ }
     return (
         <div>
             <h1>איזור מנהלים</h1>
             {loggedInUser && <h2>ברוך הבא בוס גדול  {loggedInUser.first_name}</h2>  }
             <button onClick={showAllUsers}>Manage Users</button>
+            <button onClick={AddNewProductPressed}>Add New Product</button>
             <button>Manage Products</button>
             <button onClick={() => navigate('/')}>חזור</button>
 

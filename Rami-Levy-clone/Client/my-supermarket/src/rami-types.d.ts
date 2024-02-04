@@ -1,9 +1,36 @@
+export interface FoodCategories {
+  food_category_id: number;
+  food_category_name: string;
+}
+export interface SubFoodCategories {
+  sub_food_category_id: number;
+  sub_food_category_name: string;
+  food_category_id: number;
+  food_category_name: string;
+}
+export interface ProductsImages{
+  product_id:number;
+  product_image_id:number;
+  product_img_name:string;
+  product_img_data:string;
+}
 export interface Product  {
-    product_id: number;
-    name: string;
-    image: string;
-    price: number;
-    unit: string;
+  product_id: number;
+  sub_food_category_id: number;
+  sub_food_category_name: string;
+  food_category_id: number;
+  food_category_name: string;
+  product_price: number;
+  product_name: string;
+  product_description: string;
+  export_country: string;
+  brand: string;
+  content: string;
+  allergy_info: string;
+  type: string;
+  israel_milk: string;
+  cosher: string;
+
   };
   export interface Address {
     address_id: number|null;
