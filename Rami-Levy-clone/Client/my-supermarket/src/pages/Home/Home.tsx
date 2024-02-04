@@ -11,10 +11,6 @@ const Home: React.FC = () => {
   return (
     <div>
       <Layout/> 
-       <NavBar /> 
-       <ShoppingCart/>
-       <ShoppingBasket/>
-       
       
     </div>
   );

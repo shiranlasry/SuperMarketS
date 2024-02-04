@@ -7,6 +7,10 @@ import { loggedInUserSelector } from '../../features/logged_in_user/loggedInUser
 import { useNavigate } from 'react-router-dom';
 import { logOutUserApi } from '../../features/logged_in_user/loggedInUserAPI';
 import Login from '../../pages/LogIn/Login';
+import NavBar from '../Navbar/NavBar';
+import ShoppingCart from '../ShoppingCart/ShoppingCart';
+import ShoppingBasket from '../ShoppingBasket/ShoppingBasket';
+import Register from '../../pages/Register/Register';
 // import ShoppingCart from './ShoppingCart';
 // import ShoppingBasket from './ShoppingBasket';
 // import Footer from './Footer';
@@ -15,14 +19,22 @@ import Login from '../../pages/LogIn/Login';
 const Layout: React.FC = () => {
   const loggedInUser = useAppSelector(loggedInUserSelector)
   const [isloginpressed, setIsloginpressed] = useState(false);
+  const[isRegisterPressed,setisRegisterPressed]=useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const handelRgisterPressed=()=>{
+    setisRegisterPressed(true);
+    setIsloginpressed(false);
+  }
   const handelLogOut = () => {
     dispatch(logOutUserApi());
 
   }
   const handelCloseLogin = () => {
     setIsloginpressed(false);
+  }
+  const handelCloseRegister = () => {
+    setisRegisterPressed(false);
   }
   return (
     <div className="app-container">
@@ -51,11 +63,19 @@ const Layout: React.FC = () => {
 
 
       }
-
+       <NavBar /> 
+       <ShoppingCart/>
+       <ShoppingBasket/>
       {
         isloginpressed && 
         <>
-          <Login onClose={handelCloseLogin} />
+          <Login onClose={handelCloseLogin} RegisterPressed={handelRgisterPressed}/>
+        </>
+      }
+      {
+        isRegisterPressed && 
+        <>
+          <Register onClose={handelCloseRegister}/>
         </>
       }
     </div>
