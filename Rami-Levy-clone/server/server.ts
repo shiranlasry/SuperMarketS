@@ -28,6 +28,8 @@ import streetsRoutes from "./API/streets/streetsRoutes"
 app.use("/api/streets", streetsRoutes)
 import addressesRoutes from "./API/addresses/addressesRoutes"
 app.use("/api/addresses", addressesRoutes)
+import categoriesRoutes from "./API/categories/categoriesRoutes"
+app.use("/api/categories", categoriesRoutes)
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
