@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import NightMode from "../NightMode/NightMode";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
@@ -12,27 +12,33 @@ import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { User } from "../../rami-types";
 import "./layout.scss";
+import Register from "../../pages/Register/Register";
 
 const Layout: React.FC = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const handelRgisterPressed = () => {
-    // Redirect to registration page or perform any other logic if needed
-    navigate("/register");
-  };
+  useEffect(() => {
+    if (showRegisterModal) {
+      setShowLoginModal(false);
+    }
+  }, [showRegisterModal]);
 
   const handelLogOut = () => {
     dispatch(logOutUserApi());
   };
 
   // State to control the visibility of login modal
-  const [showLoginModal, setShowLoginModal] = React.useState(false);
-
   const handelCloseLogin = () => {
     // Close the login modal
     setShowLoginModal(false);
+  };
+  const handelCloseRegister = () => {
+    // Close the register modal
+    setShowRegisterModal(false);
+    
   };
 
   return (
@@ -214,11 +220,21 @@ const Layout: React.FC = () => {
           <Modal.Body>
             <Login
               onClose={handelCloseLogin}
-              RegisterPressed={handelRgisterPressed}
+              RegisterPressed={() => setShowRegisterModal(true)}
             />
           </Modal.Body>
         </Modal>
       )}
+
+<Modal
+          show={showRegisterModal}
+          onHide={handelCloseRegister}
+          dialogClassName="custom-modal"
+        >
+          <Modal.Body>
+           <Register onClose={handelCloseRegister} />
+          </Modal.Body>
+        </Modal>
     </div>
   );
 };
