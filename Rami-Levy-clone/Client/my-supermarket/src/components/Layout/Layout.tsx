@@ -142,7 +142,7 @@ const Layout: React.FC = () => {
             הוספת כתובת למשלוח
           </button> */}
           {loggedInUser.role_id === 1 && (
-            <button onClick={() => navigate("/admin")}>מסך מנהל</button>
+            <button className="go-to-adminBtn" onClick={() => navigate("/admin")}>מסך מנהל</button>
           )}
         </div>
       )}
