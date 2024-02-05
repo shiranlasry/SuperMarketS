@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { foodCategoriesSelector, subFoodCategoriesSelector } from '../../features/categories/categoriesSlice';
 import { getFoodCategoriesApi, get_SUB_FoodCategoriesApi } from '../../features/categories/categoriesAPI';
-import { FoodCategories, SubFoodCategories } from '../../rami-types';
+import { FoodCategories, Product, SubFoodCategories } from '../../rami-types';
+import { addNewProductDetailes } from '../../features/api/productsAPI';
 
 const AddNewProduct = () => {
   const initialProduct: Product = {
@@ -22,7 +23,9 @@ const AddNewProduct = () => {
     israel_milk: '',
     cosher: '',
   };
-
+  
+  const [imagesProductFiles, setImagesProductFiles] = useState<File[]>();
+  const [add, setAdd] = useState<number>(0);
   const [newProduct, setNewProduct] = useState(initialProduct);
   const [filteredSubFoodCategories, setFilteredSubFoodCategories] = useState<SubFoodCategories[] | null>(null);
   const foodCategories = useAppSelector(foodCategoriesSelector);
@@ -47,14 +50,20 @@ const AddNewProduct = () => {
         )
       );
     }
+    else {
+      setFilteredSubFoodCategories(null);
+    }
   };
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-  const handelAddNewProduct = (e: React.FormEvent<HTMLFormElement>) => {
+    const files = e.target.files;
+    setImagesProductFiles(files ? Array.from(files) : []  );
+  }
+  const handelAddNewProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Add logic to submit the new product, for example, dispatch an action
-    // dispatch(addNewProduct(newProduct));
-    // Reset the form after submission if needed
-    // setNewProduct(initialProduct);
+    
+    const insertProductId= await addNewProductDetailes(newProduct);
+   
   };
 
   return (
@@ -97,6 +106,9 @@ const AddNewProduct = () => {
             </select>
           </>
         )}
+          
+         
+
 
         {/* Product Name */}
         <label htmlFor="product_name">שם המוצר:</label>
@@ -196,7 +208,27 @@ const AddNewProduct = () => {
           value={newProduct.cosher}
           onChange={handleInputChange}
         />
+        <div>
+          <label htmlFor="imagesProduct">תמונות המוצר:</label>
+          <input
+            type="file"
+            id="imagesProduct"
+            name="imagesProduct"
+            multiple
+            onChange={handleFileChange}
+          />
+        </div>
+        <div>
+        <label htmlFor="imagesProduct">כמה במלאי ?</label>
+        <input
+          type="number"
+          id="add"
+          name="add"
+          value={add}
+          onChange={(e) => setAdd(+e.target.value)}
+        />
 
+        </div>
         <button type="submit">שלח</button>
       </form>
     </div>

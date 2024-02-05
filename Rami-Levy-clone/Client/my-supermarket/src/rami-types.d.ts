@@ -32,6 +32,14 @@ export interface Product  {
   cosher: string;
 
   };
+  export interface Inventories {
+    inventory_id: number;
+    product_id: number;
+    last_update_date : string;
+    add?: number;
+    remove?: number;
+    units_stock: number;
+  }
   export interface Address {
     address_id: number|null;
     user_id: number|null;
