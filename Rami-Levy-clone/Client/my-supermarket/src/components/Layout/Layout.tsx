@@ -1,6 +1,5 @@
-// layout.tsx
-
-import React, { useState } from "react";
+import React from "react";
+import { Modal, Button } from "react-bootstrap";
 import NightMode from "../NightMode/NightMode";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
@@ -10,30 +9,32 @@ import Login from "../../pages/LogIn/Login";
 import NavBar from "../Navbar/NavBar";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
-import Register from "../../pages/Register/Register";
-// import ShoppingCart from './ShoppingCart';
-// import ShoppingBasket from './ShoppingBasket';
-// import Footer from './Footer';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { User } from "../../rami-types";
+import "./layout.scss";
 
 const Layout: React.FC = () => {
-  const loggedInUser = useAppSelector(loggedInUserSelector);
-  const [isloginpressed, setIsloginpressed] = useState(false);
-  const [isRegisterPressed, setisRegisterPressed] = useState(false);
+  const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   const handelRgisterPressed = () => {
-    setisRegisterPressed(true);
-    setIsloginpressed(false);
+    // Redirect to registration page or perform any other logic if needed
+    navigate("/register");
   };
+
   const handelLogOut = () => {
     dispatch(logOutUserApi());
   };
+
+  // State to control the visibility of login modal
+  const [showLoginModal, setShowLoginModal] = React.useState(false);
+
   const handelCloseLogin = () => {
-    setIsloginpressed(false);
+    // Close the login modal
+    setShowLoginModal(false);
   };
-  const handelCloseRegister = () => {
-    setisRegisterPressed(false);
-  };
+
   return (
     <div className="app-container">
       <button className="to-main-navBar">
@@ -51,13 +52,106 @@ const Layout: React.FC = () => {
       <NightMode />
       <button className="access">הצהרת נגישות</button>
 
+      {loggedInUser && (
+        <div className="greet-user">
+          
+            <svg
+              data-v-c9960dd8=""
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="21.84"
+              height="24.52"
+              viewBox="0 0 21.84 24.52"
+              className="loggedin-Svg"
+            >
+              <defs data-v-c9960dd8="">
+                <clipPath
+                  data-v-c9960dd8=""
+                  id="a"
+                  transform="translate(-1.99 -0.65)"
+                >
+                  <rect
+                    data-v-c9960dd8=""
+                    width="25.82"
+                    height="25.82"
+                    fill="none"
+                  ></rect>
+                </clipPath>
+              </defs>
+              <circle
+                data-v-c9960dd8=""
+                cx="10.93"
+                cy="6.15"
+                r="5.65"
+                fill="none"
+                stroke="#0079f2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></circle>
+              <path
+                data-v-c9960dd8=""
+                d="M12.92,24.67a14.74,14.74,0,0,0,9.71-3.89A2.22,2.22,0,0,0,23,17.93a11.94,11.94,0,0,0-20.16.13,2.14,2.14,0,0,0,.41,2.71A14.68,14.68,0,0,0,12.92,24.67Z"
+                transform="translate(-1.99 -0.65)"
+                fill="none"
+                stroke="#0079f2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+            {loggedInUser.first_name}
+          
+          <button className="logout-btn" onClick={handelLogOut}>
+            <svg
+              data-v-6f1b17ad=""
+              xmlns="http://www.w3.org/2000/svg"
+              width="15.46"
+              height="17.5"
+              viewBox="0 0 15.46 17.5"
+              className="logout-svg"
+            >
+              <polyline
+                data-v-6f1b17ad=""
+                points="8.91 17 14.96 17 14.96 0.5 8.91 0.5"
+                fill="none"
+                stroke="#e30a00"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></polyline>
+              <polyline
+                data-v-6f1b17ad=""
+                points="7.89 12.99 11.47 9.41 7.89 5.83"
+                fill="none"
+                stroke="#e30a00"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></polyline>
+              <line
+                data-v-6f1b17ad=""
+                x1="11.26"
+                y1="9.41"
+                x2="0.5"
+                y2="9.41"
+                fill="none"
+                stroke="#e30a00"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></line>
+            </svg>
+          </button>
+          {/* <button onClick={() => navigate("/add_user_addresses")}>
+            הוספת כתובת למשלוח
+          </button> */}
+          {loggedInUser.role_id === 1 && (
+            <button onClick={() => navigate("/admin")}>מסך מנהל</button>
+          )}
+        </div>
+      )}
+
       {!loggedInUser && (
         <>
-          {/* <button className='hp-regBtn' onClick={() => navigate("/register")}>הרשם</button> */}
-
           <button
             className="hp-loginBtn"
-            onClick={() => setIsloginpressed(true)}
+            onClick={() => setShowLoginModal(true)}
           >
             <svg
               data-v-c9960dd8=""
@@ -106,33 +200,24 @@ const Layout: React.FC = () => {
           </button>
         </>
       )}
-      {loggedInUser && (
-        <>
-          <p>hello {loggedInUser.first_name}</p>
-          <button onClick={handelLogOut}>התנתקות</button>
-          <button onClick={() => navigate("/add_user_addresses")}>
-            הוספת כתובת למשלוח
-          </button>
-          {loggedInUser.role_id === 1 && (
-            <button onClick={() => navigate("/admin")}>מסך מנהל</button>
-          )}
-        </>
-      )}
+
       <NavBar />
       <ShoppingCart />
       <ShoppingBasket />
-      {isloginpressed && (
-        <>
-          <Login
-            onClose={handelCloseLogin}
-            RegisterPressed={handelRgisterPressed}
-          />
-        </>
-      )}
-      {isRegisterPressed && (
-        <>
-          <Register onClose={handelCloseRegister} />
-        </>
+
+      {!loggedInUser && (
+        <Modal
+          show={showLoginModal}
+          onHide={handelCloseLogin}
+          dialogClassName="custom-modal"
+        >
+          <Modal.Body>
+            <Login
+              onClose={handelCloseLogin}
+              RegisterPressed={handelRgisterPressed}
+            />
+          </Modal.Body>
+        </Modal>
       )}
     </div>
   );

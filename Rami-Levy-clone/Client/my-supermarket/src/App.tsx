@@ -1,13 +1,11 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Navbar from './components/Navbar/NavBar';
-import Home from './pages/Home/Home';
-import './App.css'
-import Register from './pages/Register/Register';
-import Login from './pages/LogIn/Login';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import './App.css';
 import AddNewAddress from './components/AddNewAddress/AddNewAddress';
-import AdminMainPage from './pages/Admin/AdminMainPage';
 import AddNewProduct from './components/AddNewProduct/AddNewProduct';
+import AdminMainPage from './pages/Admin/AdminMainPage';
+import Home from './pages/Home/Home';
+import Login from './pages/LogIn/Login';
+import Register from './pages/Register/Register';
 
 function App() {
   const router= createBrowserRouter([
