@@ -1,0 +1,32 @@
+$button: #1579f2;
+
+.custom-modal {
+  .modal-content {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+.greet-user {
+  float: left;
+  margin: 1rem 0 0.8rem 2.5rem;
+  font-size: 1rem;
+
+  .loggedin-Svg {
+    margin: 0 0 0.4rem 0.4rem;
+    width: 17.18px;
+    height: 19.25px;
+  }
+}
+
+.logout-btn {
+  border: none;
+  background-color: #f3f5f8;
+}
+
+.go-to-adminBtn {
+  border: none;
+  color: $button;
+  background-color: #f3f5f8;
+}
