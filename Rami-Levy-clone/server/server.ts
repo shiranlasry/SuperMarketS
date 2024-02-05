@@ -30,6 +30,13 @@ import addressesRoutes from "./API/addresses/addressesRoutes"
 app.use("/api/addresses", addressesRoutes)
 import categoriesRoutes from "./API/categories/categoriesRoutes"
 app.use("/api/categories", categoriesRoutes)
+import productsDetailsRoutes from "./API/products/productsDetais/productsDetaisRoutes"
+app.use("/api/products-details", productsDetailsRoutes)
+import productsInventoriesRoutes from "./API/products/productsInventories/productsInventoriesRoutes"
+app.use("/api/products-inventories", productsInventoriesRoutes)
+import productsImagesRoutes from "./API/products/productsImages/productsImagesRoutes"
+app.use("/api/products-images", productsImagesRoutes)
+
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
