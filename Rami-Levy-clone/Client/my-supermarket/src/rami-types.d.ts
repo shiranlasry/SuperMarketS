@@ -15,12 +15,12 @@ export interface ProductsImages{
   product_img_data:string;
 }
 export interface Product  {
-  product_id: number;
-  sub_food_category_id: number;
+  product_id: number | null;
+  sub_food_category_id:number | null;
   sub_food_category_name: string;
-  food_category_id: number;
+  food_category_id: number | null;
   food_category_name: string;
-  product_price: number;
+  product_price: number | null;
   product_name: string;
   product_description: string;
   export_country: string;
