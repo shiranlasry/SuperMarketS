@@ -4,6 +4,7 @@ import loggesInUserReducer from "../features/logged_in_user/loggedInUserSlice";
 import citiesReducer from "../features/cities/citiesSlice";
 import streetsReducer from "../features/streets/streetsSlice";
 import allUsersReducer from "../features/all_users_admin/allUsersSlice";
+import categoriesReducer from "../features/categories/categoriesSlice"
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     allUsers: allUsersReducer,
     cities: citiesReducer,
     streets: streetsReducer,
+    categories: categoriesReducer,
     
     cart: cartReducer, // Include the cart reducer here
   },
