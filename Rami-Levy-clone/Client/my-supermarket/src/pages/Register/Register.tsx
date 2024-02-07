@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../app/hook";
 import { useNavigate } from "react-router-dom";
 import "./Register.scss";
 import { User } from "../../rami-types";
-import registerAPI from "../../features/usersAPI";
+import registerAPI from "../../features/api/usersAPI";
 
 interface RegisterProps {
   onClose: () => void;

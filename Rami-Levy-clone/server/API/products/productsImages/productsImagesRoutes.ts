@@ -1,4 +1,5 @@
 import express from "express";
+import { addNewProductImages } from "./productsImagesCtrl";
 
 
 
@@ -6,6 +7,7 @@ import express from "express";
 const router = express.Router()
 
 router
+    .post("/add-new-product-images", addNewProductImages)
 
 
 

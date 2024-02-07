@@ -1,5 +1,6 @@
-//users routes server side
+//inventory routes
 import express from "express";
+import { addNewProductInventory } from "./productsInventoriesCtrl";
 
 
 
@@ -7,6 +8,7 @@ import express from "express";
 const router = express.Router()
 
 router
+    .post("/add-new-product-inventory", addNewProductInventory)
 
 
 

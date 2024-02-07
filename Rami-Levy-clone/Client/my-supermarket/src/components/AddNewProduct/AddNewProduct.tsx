@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hook';
 import { foodCategoriesSelector, subFoodCategoriesSelector } from '../../features/categories/categoriesSlice';
 import { getFoodCategoriesApi, get_SUB_FoodCategoriesApi } from '../../features/categories/categoriesAPI';
 import { FoodCategories, Product, SubFoodCategories } from '../../rami-types';
-import { addNewProductDetailes } from '../../features/api/productsAPI';
+import { addNewProductDetailes,addNewProductInventory, saveProductImages } from '../../features/api/productsAPI';
 
 const AddNewProduct = () => {
   const initialProduct: Product = {
@@ -61,8 +61,39 @@ const AddNewProduct = () => {
   }
   const handelAddNewProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try {
+      const insertProductId= await addNewProductDetailes(newProduct);
+      if (!insertProductId) {
+        throw new Error('Error adding new product , no product id returned');
+      }
+  
+      await addNewProductInventory(insertProductId,add);
+     // need to save images to server
+      if (imagesProductFiles && imagesProductFiles.length > 0) {
+        // const formData = new FormData();
+        // formData.append('product_id', insertProductId.toString());
+        // imagesProductFiles.forEach((image) => {
+        //   formData.append('product_images', image);
+        // });
+        await saveProductImages(insertProductId,imagesProductFiles);
+      }
+     
+      
+  
+      // Clear form data after successful submission
+ 
+  
+      // Optionally, display a success message to the user
+      alert('Product added successfully');
     
-    const insertProductId= await addNewProductDetailes(newProduct);
+
+
+      
+    } catch (error) {
+      console.error('Error adding new product on handelAddNewProduct', error);
+    }
+  
+
    
   };
 
