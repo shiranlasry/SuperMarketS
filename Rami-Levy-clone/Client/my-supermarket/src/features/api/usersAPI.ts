@@ -1,6 +1,6 @@
 // register axios request
 import axios from "axios";
-import { User } from "../rami-types";
+import { User } from "../../rami-types";
 
  export const registerAPI = async (user:User) => {
   try {    

@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 // Multer middleware for handling file uploads
-app.use(upload.single('file'));
+app.use(upload.fields([{ name: 'imagesProduct', maxCount: 2 }]));
 
 import userRoutes from "./API/users/usersRoutes"
 app.use("/api/users", userRoutes)
