@@ -34,21 +34,24 @@ $button: #1579f2;
 
 }
 .hp-loginBtn{
-  margin: -3rem 0 0 8rem;
+  margin: -3rem 0 0 12rem;
 
   @media screen and (max-width: 1700px) {
-    margin: 1rem 0 0.8rem 1.5rem;
+    margin: -3rem 0 0 10rem;
   }
 
   .hp-loginSvg {
     margin: 0 0 0 0.2rem;
     width: 17.18px;
     height: 19.25px;
+    @media screen and (max-width: 1020px) {
+   display: none;
+    }
   }
 }
 
 .login-title {
-  @media screen and (max-width: 950px) {
+  @media screen and (max-width: 1100px) {
     display: none;
   }
 }
