@@ -12,6 +12,7 @@ import NightMode from "../NightMode/NightMode";
 import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import "./layout.scss";
+import SearchBar from "../SearchBar/SearchBar";
 
 const Layout: React.FC = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
@@ -67,6 +68,7 @@ const Layout: React.FC = () => {
           src="./src/assets/logos/rami-levy-shopping.png"
         />
       </button>
+      <SearchBar />
       <NightMode />
       <button className="access">הצהרת נגישות</button>
       {!loggedInUser && (
@@ -124,7 +126,10 @@ const Layout: React.FC = () => {
       )}
 
       {loggedInUser && (
-        <div className={`greet-user ${isMenuOpen ? 'menu-open' : ''}`} onClick={toggleMenu}>
+        <div
+          className={`greet-user ${isMenuOpen ? "menu-open" : ""}`}
+          onClick={toggleMenu}
+        >
           <svg
             data-v-c9960dd8=""
             xmlns="http://www.w3.org/2000/svg"

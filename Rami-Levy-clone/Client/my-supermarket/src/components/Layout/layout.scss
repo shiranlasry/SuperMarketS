@@ -10,11 +10,15 @@ $button: #1579f2;
 
 .greet-user {
   float: left;
-  margin: 0.8rem 0 0.8rem 2.2rem;
+  margin: -3.2rem 0 0.8rem 12.5rem;
   user-select: none;
   font-size: 1rem;
   border-radius: 9px;
   padding: 4px 7px 2px 7px;
+
+  @media screen and (max-width: 1120px) {
+    display: none;
+     }
 
   &:hover {
     background-color: rgba(211, 211, 211, 0.493);
