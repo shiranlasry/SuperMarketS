@@ -34,7 +34,11 @@ $button: #1579f2;
 
 }
 .hp-loginBtn{
-  margin: 1rem 0 0.8rem 1rem;
+  margin: 1rem 0 0.8rem 3.8rem;
+
+  @media screen and (max-width: 1700px) {
+    margin: 1rem 0 0.8rem 1.5rem;
+  }
 
   .hp-loginSvg {
     margin: 0 0 0 0.2rem;

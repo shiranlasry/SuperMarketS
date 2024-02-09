@@ -10,7 +10,7 @@ $button: #1579f2;
 
 .greet-user {
   float: left;
-  margin: .7rem 0 0.8rem 2.2rem;
+  margin: 0.8rem 0 0.8rem 2.2rem;
   user-select: none;
   font-size: 1rem;
   border-radius: 9px;
@@ -23,8 +23,6 @@ $button: #1579f2;
   &.menu-open {
     background-color: rgba(211, 211, 211, 0.493);
   }
-
-  
 
   .loggedin-Svg {
     margin: 0 0 0.4rem 0.5rem;
