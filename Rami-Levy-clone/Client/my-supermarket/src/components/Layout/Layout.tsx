@@ -12,6 +12,7 @@ import NightMode from "../NightMode/NightMode";
 import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import "./layout.scss";
+import SearchBar from "../SearchBar/SearchBar";
 
 const Layout: React.FC = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
@@ -55,11 +56,13 @@ const Layout: React.FC = () => {
 
   return (
     <div className="app-container">
+      
       <button className="to-main-navBar">
         <img
           className="rami-online"
           src="./src/assets/logos/rami-levy-online.png"
         />
+        
       </button>
       <button className="to-shoppin-navBar">
         <img
@@ -67,6 +70,8 @@ const Layout: React.FC = () => {
           src="./src/assets/logos/rami-levy-shopping.png"
         />
       </button>
+      <SearchBar/>
+
       <NightMode />
       <button className="access">הצהרת נגישות</button>
       {!loggedInUser && (
