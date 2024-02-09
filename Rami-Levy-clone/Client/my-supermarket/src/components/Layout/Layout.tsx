@@ -13,7 +13,6 @@ import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import "./layout.scss";
 
-
 const Layout: React.FC = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -22,17 +21,17 @@ const Layout: React.FC = () => {
 
   const toggleMenu = () => {
     // Toggle the menu state regardless of user login status
-    setIsMenuOpen(prevState => !prevState);
+    setIsMenuOpen((prevState) => !prevState);
   };
-  
+
   // Open the menu only when the user clicks on their name
-  const handleMenuClick = () => {
-    // Only open the menu if the user is logged in
-    if (loggedInUser) {
-      setIsMenuOpen(true);
-    }
-  };
-  
+  // const handleMenuClick = () => {
+  //   // Only open the menu if the user is logged in
+  //   if (loggedInUser) {
+  //     setIsMenuOpen(true);
+  //   }
+  // };
+
   // Close the menu when the user logs in
   useEffect(() => {
     if (loggedInUser) {
@@ -54,8 +53,6 @@ const Layout: React.FC = () => {
     setShowLoginModal(true);
   };
 
-
-
   return (
     <div className="app-container">
       <button className="to-main-navBar">
@@ -72,60 +69,6 @@ const Layout: React.FC = () => {
       </button>
       <NightMode />
       <button className="access">הצהרת נגישות</button>
-
-      {loggedInUser && (
-        <div className="greet-user" onClick={toggleMenu}>
-          <svg
-            data-v-c9960dd8=""
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            width="21.84"
-            height="24.52"
-            viewBox="0 0 21.84 24.52"
-            className="loggedin-Svg"
-          >
-            <defs data-v-c9960dd8="">
-              <clipPath
-                data-v-c9960dd8=""
-                id="a"
-                transform="translate(-1.99 -0.65)"
-              >
-                <rect
-                  data-v-c9960dd8=""
-                  width="25.82"
-                  height="25.82"
-                  fill="none"
-                ></rect>
-              </clipPath>
-            </defs>
-            <circle
-              data-v-c9960dd8=""
-              cx="10.93"
-              cy="6.15"
-              r="5.65"
-              fill="none"
-              stroke="#0079f2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></circle>
-            <path
-              data-v-c9960dd8=""
-              d="M12.92,24.67a14.74,14.74,0,0,0,9.71-3.89A2.22,2.22,0,0,0,23,17.93a11.94,11.94,0,0,0-20.16.13,2.14,2.14,0,0,0,.41,2.71A14.68,14.68,0,0,0,12.92,24.67Z"
-              transform="translate(-1.99 -0.65)"
-              fill="none"
-              stroke="#0079f2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
-          </svg>
-          {loggedInUser.first_name}
-        </div>
-      )}
-
-      <NavBar />
-      <ShoppingCart />
-      <ShoppingBasket />
-
       {!loggedInUser && (
         <>
           <button
@@ -179,6 +122,59 @@ const Layout: React.FC = () => {
           </button>
         </>
       )}
+
+      {loggedInUser && (
+        <div className="greet-user" onClick={toggleMenu}>
+          <svg
+            data-v-c9960dd8=""
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="21.84"
+            height="24.52"
+            viewBox="0 0 21.84 24.52"
+            className="loggedin-Svg"
+          >
+            <defs data-v-c9960dd8="">
+              <clipPath
+                data-v-c9960dd8=""
+                id="a"
+                transform="translate(-1.99 -0.65)"
+              >
+                <rect
+                  data-v-c9960dd8=""
+                  width="25.82"
+                  height="25.82"
+                  fill="none"
+                ></rect>
+              </clipPath>
+            </defs>
+            <circle
+              data-v-c9960dd8=""
+              cx="10.93"
+              cy="6.15"
+              r="5.65"
+              fill="none"
+              stroke="#0079f2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></circle>
+            <path
+              data-v-c9960dd8=""
+              d="M12.92,24.67a14.74,14.74,0,0,0,9.71-3.89A2.22,2.22,0,0,0,23,17.93a11.94,11.94,0,0,0-20.16.13,2.14,2.14,0,0,0,.41,2.71A14.68,14.68,0,0,0,12.92,24.67Z"
+              transform="translate(-1.99 -0.65)"
+              fill="none"
+              stroke="#0079f2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+          {loggedInUser.first_name}
+        </div>
+      )}
+
+      <NavBar />
+      <ShoppingCart />
+      <ShoppingBasket />
 
       {!loggedInUser && (
         <Modal
