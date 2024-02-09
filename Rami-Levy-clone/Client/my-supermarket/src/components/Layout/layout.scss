@@ -16,6 +16,10 @@ $button: #1579f2;
   border-radius: 9px;
   padding: 4px 7px 2px 7px;
 
+  @media screen and (max-width: 1120px) {
+    display: none;
+     }
+
   &:hover {
     background-color: rgba(211, 211, 211, 0.493);
   }
