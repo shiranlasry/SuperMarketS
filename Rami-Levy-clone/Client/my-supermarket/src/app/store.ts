@@ -6,6 +6,7 @@ import streetsReducer from "../features/streets/streetsSlice";
 import allUsersReducer from "../features/all_users_admin/allUsersSlice";
 import categoriesReducer from "../features/categories/categoriesSlice"
 import productsReducer from "../features/products/productsSlice"
+import navbarReducer from "../features/navbar_items/navbarItemsSlise"
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     streets: streetsReducer,
     categories: categoriesReducer,
     products: productsReducer,
+    navbarItems: navbarReducer,
     
     cart: cartReducer, // Include the cart reducer here
   },

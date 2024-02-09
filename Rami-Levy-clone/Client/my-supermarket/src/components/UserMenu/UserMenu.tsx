@@ -1,8 +1,9 @@
 import "./user-menu.scss";
-import { logOutUserApi } from "../../features/logged_out_user/logOutUserApi";
+
 import { User } from "../../rami-types";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hook";
+import { logOutUserApi } from "../../features/logged_in_user/loggedInUserAPI";
 
 interface UserMenuProps {
   loggedInUser: User | null;
