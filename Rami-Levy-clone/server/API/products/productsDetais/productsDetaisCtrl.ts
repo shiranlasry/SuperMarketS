@@ -26,3 +26,21 @@ export const addNewProductDetailes = async (req: express.Request, res: express.R
         res.status(500).send({ ok: false, error })
     }
 }
+
+export const getAllProductDetailes = async (req: express.Request, res: express.Response) => {   
+    try {
+        const query = `SELECT * FROM rami_levy_db.products`
+        connection.query(query, (err, results, fields) => {
+            try {
+                if (err) throw err;
+                res.send({ ok: true, results })
+            } catch (error) {
+                console.error(error)
+                res.status(500).send({ ok: false, error })
+            }
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+    }
+}

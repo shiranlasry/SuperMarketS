@@ -34,7 +34,7 @@ export const logOutUserApi = createAsyncThunk('delete-token', async () => {
         return null;
     }
 })
-interface AddNewUserApiArgs {
+interface AddNewUserAddresseArgs {
     user_id:number;
     is_default:boolean;
     city_id:number;
@@ -45,7 +45,7 @@ interface AddNewUserApiArgs {
     phone_number:string;
    
 }
-export const addNewUserAddressApi = createAsyncThunk<Address[] |AddNewUserApiArgs,Address >('add-new-user-address', async (args) => {
+export const addNewUserAddressApi = createAsyncThunk<Address[] |AddNewUserAddresseArgs,Address >('add-new-user-address', async (args) => {
     try {
         const response = await axios.post("/api/addresses/add-new-address", args);
         const { ok, selectresult } = response.data;
