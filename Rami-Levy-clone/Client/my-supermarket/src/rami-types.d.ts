@@ -75,4 +75,12 @@ export interface Product  {
     role_id: number|null =0;
     addresses: Address[] =[];
   };
+
+  export interface NavBarItem{
+    navbar_item_id : number;
+    label: string;
+    icon_src : string;
+    active_icon_src : string;
+    to : string;
+  }
   
