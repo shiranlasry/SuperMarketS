@@ -10,13 +10,26 @@ $button: #1579f2;
 
 .greet-user {
   float: left;
-  margin: 1rem 0 0.8rem 2.5rem;
+  margin: .7rem 0 0.8rem 2.2rem;
+  user-select: none;
   font-size: 1rem;
+  border-radius: 9px;
+  padding: 4px 7px 2px 7px;
+
+  &:hover {
+    background-color: rgba(211, 211, 211, 0.493);
+  }
+
+  &.menu-open {
+    background-color: rgba(211, 211, 211, 0.493);
+  }
+
+  
 
   .loggedin-Svg {
-    margin: 0 0 0.4rem 0.4rem;
-    width: 17.18px;
-    height: 19.25px;
+    margin: 0 0 0.4rem 0.5rem;
+    width: 18px;
+    height: 18px;
   }
 }
 

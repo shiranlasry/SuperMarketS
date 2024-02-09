@@ -24,12 +24,17 @@ $button: #1579f2;
 
 .hp-loginBtn,
 .access {
-  margin: 1rem 0 0.8rem 1rem;
+  margin: 1rem 0 0 0;
   float: left;
   color: $button;
+  user-select: none;
   font-size: 0.5;
   background-color: #f3f5f8;
   border: none;
+
+}
+.hp-loginBtn{
+  margin: 1rem 0 0.8rem 1rem;
 
   .hp-loginSvg {
     margin: 0 0 0 0.2rem;
@@ -46,8 +51,8 @@ $button: #1579f2;
 .access {
   float: left;
   text-decoration: underline;
-  margin: 1rem 0 0.8rem 0;
-  font-size: .9rem;
+  margin: 1rem 0 0 0;
+  font-size: 0.9rem;
 
   @media screen and (max-width: 950px) {
     display: none;
