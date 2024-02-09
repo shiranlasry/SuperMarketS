@@ -1,0 +1,65 @@
+// user-menu.scss
+
+.user-menu {
+  margin-top: 0.5rem;
+  position: absolute; /* Position the menu absolutely */
+  z-index: 9999; /* Ensure the menu appears in front of everything */
+  left: 0.8rem;
+  width: 276px;
+  height: 385px;
+  background-color: white;
+  border-radius: 13px;
+  box-shadow: 0px 0px 30px #0000004d;
+  user-select: none;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem;
+    border: none;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+    &:hover {
+      background-color: rgba(211, 211, 211, 0.493);
+      border-radius: 10px;
+    }
+  }
+
+  li:last-child {
+    border-bottom: none; /* Remove border from the last menu item */
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    margin-left: 7px;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .uMenu-logout {
+    margin: 25px 0 0 0;
+    .eMenu-logout-title {
+      color: red;
+    }
+
+    .logout-svg {
+      margin-left: .7rem;
+    }
+  }
+
+  .uMenu-admin{
+    background-color: white;
+    border: none;
+    margin: 0;
+  }
+}

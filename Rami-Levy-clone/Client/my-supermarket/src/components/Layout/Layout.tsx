@@ -1,45 +1,60 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import NightMode from "../NightMode/NightMode";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
-import { useNavigate } from "react-router-dom";
-import { logOutUserApi } from "../../features/logged_in_user/loggedInUserAPI";
-import Login from "../../pages/LogIn/Login";
-import NavBar from "../Navbar/NavBar";
-import ShoppingCart from "../ShoppingCart/ShoppingCart";
-import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { User } from "../../rami-types";
-import "./layout.scss";
+import React, { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
+import { useAppSelector } from "../../app/hook";
+import UserMenu from "../../components/UserMenu/UserMenu";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
+import { User } from "../../rami-types";
+import NavBar from "../Navbar/NavBar";
+import NightMode from "../NightMode/NightMode";
+import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
+import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import "./layout.scss";
+
 
 const Layout: React.FC = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    // Toggle the menu state regardless of user login status
+    setIsMenuOpen(prevState => !prevState);
+  };
+  
+  // Open the menu only when the user clicks on their name
+  const handleMenuClick = () => {
+    // Only open the menu if the user is logged in
+    if (loggedInUser) {
+      setIsMenuOpen(true);
+    }
+  };
+  
+  // Close the menu when the user logs in
+  useEffect(() => {
+    if (loggedInUser) {
+      setIsMenuOpen(false);
+    }
+  }, [loggedInUser]);
+
   useEffect(() => {
     if (showRegisterModal) {
       setShowLoginModal(false);
     }
   }, [showRegisterModal]);
 
-  const handelLogOut = () => {
-    dispatch(logOutUserApi());
-  };
-
-  // State to control the visibility of login modal
-  const handelCloseLogin = () => {
-    // Close the login modal
+  const handleCloseLogin = () => {
     setShowLoginModal(false);
   };
-  const handelCloseRegister = () => {
-    // Close the register modal
+  const handleCloseRegister = () => {
     setShowRegisterModal(false);
     setShowLoginModal(true);
   };
+
+
 
   return (
     <div className="app-container">
@@ -59,7 +74,7 @@ const Layout: React.FC = () => {
       <button className="access">הצהרת נגישות</button>
 
       {loggedInUser && (
-        <div className="greet-user">
+        <div className="greet-user" onClick={toggleMenu}>
           <svg
             data-v-c9960dd8=""
             xmlns="http://www.w3.org/2000/svg"
@@ -104,58 +119,12 @@ const Layout: React.FC = () => {
             ></path>
           </svg>
           {loggedInUser.first_name}
-
-          <button className="logout-btn" onClick={handelLogOut}>
-            <svg
-              data-v-6f1b17ad=""
-              xmlns="http://www.w3.org/2000/svg"
-              width="15.46"
-              height="17.5"
-              viewBox="0 0 15.46 17.5"
-              className="logout-svg"
-            >
-              <polyline
-                data-v-6f1b17ad=""
-                points="8.91 17 14.96 17 14.96 0.5 8.91 0.5"
-                fill="none"
-                stroke="#e30a00"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></polyline>
-              <polyline
-                data-v-6f1b17ad=""
-                points="7.89 12.99 11.47 9.41 7.89 5.83"
-                fill="none"
-                stroke="#e30a00"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></polyline>
-              <line
-                data-v-6f1b17ad=""
-                x1="11.26"
-                y1="9.41"
-                x2="0.5"
-                y2="9.41"
-                fill="none"
-                stroke="#e30a00"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></line>
-            </svg>
-          </button>
-          {/* <button onClick={() => navigate("/add_user_addresses")}>
-            הוספת כתובת למשלוח
-          </button> */}
-          {loggedInUser.role_id === 1 && (
-            <button
-              className="go-to-adminBtn"
-              onClick={() => navigate("/admin")}
-            >
-              מסך מנהל
-            </button>
-          )}
         </div>
       )}
+
+      <NavBar />
+      <ShoppingCart />
+      <ShoppingBasket />
 
       {!loggedInUser && (
         <>
@@ -211,19 +180,15 @@ const Layout: React.FC = () => {
         </>
       )}
 
-      <NavBar />
-      <ShoppingCart />
-      <ShoppingBasket />
-
       {!loggedInUser && (
         <Modal
           show={showLoginModal}
-          onHide={handelCloseLogin}
+          onHide={handleCloseLogin}
           dialogClassName="custom-modal"
         >
           <Modal.Body>
             <Login
-              onClose={handelCloseLogin}
+              onClose={handleCloseLogin}
               RegisterPressed={() => setShowRegisterModal(true)}
             />
           </Modal.Body>
@@ -232,13 +197,16 @@ const Layout: React.FC = () => {
 
       <Modal
         show={showRegisterModal}
-        onHide={handelCloseRegister}
+        onHide={handleCloseRegister}
         dialogClassName="custom-modal"
       >
         <Modal.Body>
-          <Register onClose={handelCloseRegister} />
+          <Register onClose={handleCloseRegister} />
         </Modal.Body>
       </Modal>
+
+      {/* Render UserMenu conditionally */}
+      {loggedInUser && isMenuOpen && <UserMenu loggedInUser={loggedInUser} />}
     </div>
   );
 };
