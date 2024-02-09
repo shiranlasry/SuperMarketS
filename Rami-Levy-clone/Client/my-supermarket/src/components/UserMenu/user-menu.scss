@@ -5,7 +5,8 @@
   z-index: 9999;
   left: 1rem;
   width: 276px;
-  margin-top: -7rem;
+  margin-top: -7.2rem;
+  padding: 10px;
   height: fit-content;
   background-color: white;
   border-radius: 13px;
@@ -44,19 +45,25 @@
     text-decoration: none;
     color: black;
     font-size: 16px;
-    margin-right: 12px;
+    margin-right: 15px;
   }
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: 23px;
+    height: 23px;
   }
 
   .uMenu-logout {
     margin: 40px 0 0 0;
 
     .eMenu-logout-title {
-      color: red;
+      color: #e30a00;
+      font-size: 16px;
+    }
+
+    .logout-svg {
+      width: 18px;
+      height: 18px;
     }
   }
 
@@ -64,6 +71,6 @@
     background-color: rgba(255, 255, 255, 0);
     border: none;
     padding: 0;
-    margin-right: 10px;
+    margin-right: 15px;
   }
 }

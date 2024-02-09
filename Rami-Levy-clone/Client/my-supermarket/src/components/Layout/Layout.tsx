@@ -124,7 +124,7 @@ const Layout: React.FC = () => {
       )}
 
       {loggedInUser && (
-        <div className="greet-user" onClick={toggleMenu}>
+        <div className={`greet-user ${isMenuOpen ? 'menu-open' : ''}`} onClick={toggleMenu}>
           <svg
             data-v-c9960dd8=""
             xmlns="http://www.w3.org/2000/svg"
