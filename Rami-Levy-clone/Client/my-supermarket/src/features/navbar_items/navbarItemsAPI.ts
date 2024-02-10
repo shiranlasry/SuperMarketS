@@ -4,12 +4,12 @@ import { NavBarItem } from "../../rami-types";
 
 export const getAllNavBarItemsApi = createAsyncThunk<NavBarItem[] | null, void>('get-all-nav_bar_items', async () => {
     try {
-        const response = await axios.get("/api/navbar_itsems");
+        const response = await axios.get("/api/navbar-items");
         const { ok, results } = response.data;
         if (!ok) {
             throw new Error("Invalid credentials getAllProductsApi()");
         }
-       
+        debugger;
         return results;
 
     } catch (error) {

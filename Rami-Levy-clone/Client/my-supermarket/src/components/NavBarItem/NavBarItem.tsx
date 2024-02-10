@@ -6,15 +6,11 @@ import "./navbarItem.scss";
 
 
 type NavbarItemProps = {
-  // label: string;
-  // iconSrc: string;
-  // activeIconSrc: string;
-  // to: string;
-  item: any //type
+  item: any; // Adjust the type according to your item structure
 };
 
 const NavbarItem: React.FC<NavbarItemProps> = ({ item }) => {
-  const { label, iconSrc, activeIconSrc, to } = item;
+  const { label, icon_src: iconSrc, active_icon_src: activeIconSrc, to } = item;
   const [isActive, setIsActive] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 900);
 
@@ -40,7 +36,12 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ item }) => {
         onClick={() => setIsActive(!isActive)}
       >
         <div className="navbar-item-content">
-          <img className='nav-icons' src={isSmallScreen ? activeIconSrc : (isActive ? activeIconSrc : iconSrc)} />
+          {/* Render SVG elements based on screen size */}
+          {isSmallScreen ? (
+            <div dangerouslySetInnerHTML={{ __html: activeIconSrc }} />
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: isActive ? activeIconSrc : iconSrc }} />
+          )}
           <span>{label}</span>
         </div>
       </Link>
