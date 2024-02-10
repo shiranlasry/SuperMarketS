@@ -1,0 +1,51 @@
+.site-footer {
+    background-color: #f6f6f6;
+    letter-spacing: 1.3px;
+    padding: 24px 48px 0;
+    position: absolute; 
+    bottom: 0; 
+    right: 0; 
+    width: 100%; 
+
+    @media screen and (max-width: 950px) {
+        display: none;
+      }
+  
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -15px;
+      margin-left: -15px;
+  
+      .col-12 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+  
+    h5 {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+  
+    li {
+      margin-bottom: 1rem;
+    }
+  
+    a {
+      text-decoration: none;
+      color: #212529; // Adjust font color
+    }
+  
+    .all-rights {
+      padding: 1.5rem 0;
+      font-size: 1rem;
+    }
+  }
+  

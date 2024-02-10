@@ -13,6 +13,7 @@ import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import "./layout.scss";
 import SearchBar from "../SearchBar/SearchBar";
+import Footer from "../Footer/Footer";
 
 const Layout: React.FC = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
@@ -208,6 +209,7 @@ const Layout: React.FC = () => {
 
       {/* Render UserMenu conditionally */}
       {loggedInUser && isMenuOpen && <UserMenu loggedInUser={loggedInUser} />}
+      <Footer/>
     </div>
   );
 };

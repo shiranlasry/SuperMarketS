@@ -14,7 +14,7 @@ export const navbarItems = [
     { label: "חטיפים ומתוקים", iconSrc: candiesIn, activeIconSrc: candies, to: "/candies" },
     { label: "משקאות", iconSrc: drinksIn, activeIconSrc: drinks, to: "/drinks" },
     { label: "חד-פעמי ומתכלה", iconSrc: recycleIn, activeIconSrc: recycle, to: "/recycle" },
-    { label: "אחזקת הבית ובעלי חיים", iconSrc: houseAndPetsIn, activeIconSrc: houseAndPets, to: "/pets" },
+    { label: "אחזקת הבית ובע''ח", iconSrc: houseAndPetsIn, activeIconSrc: houseAndPets, to: "/pets" },
     { label: "פארם ותינוקות", iconSrc: PharmNbabiesIn, activeIconSrc: PharmNbabies, to: "/pharm" },
     { label: "לחם ומאפים טריים", iconSrc: BreadIn, activeIconSrc: BreadActive, to: "/bread" },
     
