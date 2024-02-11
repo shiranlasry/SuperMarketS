@@ -3,6 +3,7 @@
 import express from "express";
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
+import session from 'express-session';
 
 const multer = require('multer');
 
@@ -11,6 +12,14 @@ const upload = multer({ storage: storage });
 dotenv.config();
 
 const app = express();
+
+app.use(session
+  ({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+  }))
 
 const port = process.env.PORT;
 app.use(cookieParser());

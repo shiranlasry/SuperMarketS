@@ -35,6 +35,7 @@ export const NavBarItemsSlice = createSlice({
                 state.status = Status.LOADING
             })
             .addCase(getAllNavBarItemsApi.fulfilled, (state, action) => {
+                
                 state.status = Status.IDLE
                 state.value = action.payload
             })
