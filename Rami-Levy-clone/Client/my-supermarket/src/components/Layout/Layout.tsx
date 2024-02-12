@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { useAppSelector } from "../../app/hook";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
 import UserMenu from "../../components/UserMenu/UserMenu";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import Login from "../../pages/LogIn/Login";
@@ -14,13 +14,14 @@ import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import "./layout.scss";
 import SearchBar from "../SearchBar/SearchBar";
 import Footer from "../Footer/Footer";
+import { getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserAPI";
 
 const Layout: React.FC = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const dispatch = useAppDispatch();
   const toggleMenu = () => {
     // Toggle the menu state regardless of user login status
     setIsMenuOpen((prevState) => !prevState);
@@ -33,6 +34,13 @@ const Layout: React.FC = () => {
   //     setIsMenuOpen(true);
   //   }
   // };
+
+  // check if there is user loggedin on cookie token
+  useEffect(() => {
+    if (!loggedInUser) {
+      dispatch(getUserFromTokenApi())
+    }
+  }, []);
 
   // Close the menu when the user logs in
   useEffect(() => {

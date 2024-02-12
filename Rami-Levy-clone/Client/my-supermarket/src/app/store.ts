@@ -6,7 +6,7 @@ import streetsReducer from "../features/streets/streetsSlice";
 import allUsersReducer from "../features/all_users_admin/allUsersSlice";
 import categoriesReducer from "../features/categories/categoriesSlice"
 import productsReducer from "../features/products/productsSlice"
-import navbarReducer from "../features/navbar_items/navbarItemsSlise"
+import navbarReducer from "../features/navbar_items/navbarItemsSlice"
 
 export const store = configureStore({
   reducer: {

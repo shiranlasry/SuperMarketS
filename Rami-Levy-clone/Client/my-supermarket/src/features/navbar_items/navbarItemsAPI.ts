@@ -1,3 +1,5 @@
+//navbar items api client
+
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { NavBarItem } from "../../rami-types";

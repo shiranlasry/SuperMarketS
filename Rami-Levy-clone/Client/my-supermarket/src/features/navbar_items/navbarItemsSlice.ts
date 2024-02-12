@@ -1,4 +1,4 @@
-//logged in user slice
+//NavBarItems in user slice
 
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../../app/store"
@@ -35,7 +35,6 @@ export const NavBarItemsSlice = createSlice({
                 state.status = Status.LOADING
             })
             .addCase(getAllNavBarItemsApi.fulfilled, (state, action) => {
-                debugger;
                 state.status = Status.IDLE
                 state.value = action.payload
             })
@@ -48,7 +47,14 @@ export const NavBarItemsSlice = createSlice({
 })
 
 
-export const navBarItemsSelector = (state: RootState) => state.navbarItems.value
+export const navBarItemsSelector = (state: RootState) => {
+    const sessionItems = JSON.parse(sessionStorage.getItem('navbarItems') || '[]');
+    if (sessionItems.length > 0) {
+      return sessionItems;
+    } else {
+      return state.navbarItems.value;
+    }
+  }
 
 
 export default NavBarItemsSlice.reducer

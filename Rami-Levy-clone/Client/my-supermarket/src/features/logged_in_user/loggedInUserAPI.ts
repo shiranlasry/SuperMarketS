@@ -34,6 +34,21 @@ export const logOutUserApi = createAsyncThunk('delete-token', async () => {
         return null;
     }
 })
+export const getUserFromTokenApi = createAsyncThunk<User | null>('get-user-from-token', async () => {
+    try {
+
+        const response = await axios.get("/api/users/user-from-token");
+        const { ok, user } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials getUserFromTokenApi()");
+        }
+        return user;
+
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
 interface AddNewUserAddresseArgs {
     user_id:number;
     is_default:boolean;

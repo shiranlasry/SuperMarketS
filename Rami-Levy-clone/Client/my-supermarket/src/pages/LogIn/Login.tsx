@@ -12,15 +12,11 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ onClose ,RegisterPressed}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false); // State to control password visibility
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     //const loggedInUser = useAppSelector(loggedInUserSelector);
-    // useEffect(() => {
-    //     if (loggedInUser) {
-    //         console.log(loggedInUser);
-    //         navigate("/");
-    //     }
-    // }, [loggedInUser, navigate]);
+   
 
     const handleEmailChange = (e: {
         target: { value: React.SetStateAction<string> };
@@ -33,6 +29,11 @@ const Login: React.FC<LoginProps> = ({ onClose ,RegisterPressed}) => {
     }) => {
         setPassword(e.target.value);
     };
+  
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     const handleLogin = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         try {
@@ -67,13 +68,22 @@ const Login: React.FC<LoginProps> = ({ onClose ,RegisterPressed}) => {
                     required
                     title="Enter a valid email address"
                 />
-                <input
-                    type="password"
-                    placeholder="סיסמה*"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    required
-                />
+                <div className="password-wrapper">
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="סיסמה*"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        required
+                    />
+                    <button
+                        type="button"
+                        onClick={handleTogglePasswordVisibility}
+                        className="password-toggle"
+                    >
+                        {showPassword ? "הסתר" : "הצג"}
+                    </button>
+                </div>
                 <button type="submit" className="login-btn">
                     כניסה
                 </button>
