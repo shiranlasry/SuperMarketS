@@ -1,9 +1,8 @@
 // NavbarItem.tsx
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./navbarItem.scss";
-
 
 type NavbarItemProps = {
   item: any; // Adjust the type according to your item structure
@@ -19,18 +18,18 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ item }) => {
       setIsSmallScreen(window.innerWidth <= 950);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []); // empty dependency array means this effect runs once on mount
 
   return (
-    <li className={`nav-item${isActive ? ' active' : ''}`}>
+    <li className={`nav-item${isActive ? " active" : ""}`}>
       <Link
         to={to}
-        className={`nav-link${isActive ? ' active' : ''}`}
+        className={`nav-link${isActive ? " active" : ""}`}
         onMouseEnter={() => setIsActive(true)}
         onMouseLeave={() => setIsActive(false)}
         onClick={() => setIsActive(!isActive)}
@@ -40,9 +39,13 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ item }) => {
           {isSmallScreen ? (
             <div dangerouslySetInnerHTML={{ __html: activeIconSrc }} />
           ) : (
-            <div dangerouslySetInnerHTML={{ __html: isActive ? activeIconSrc : iconSrc }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: isActive ? activeIconSrc : iconSrc,
+              }}
+            />
           )}
-          <span>{label}</span>
+          <span className="nav-category">{label}</span>
         </div>
       </Link>
     </li>
