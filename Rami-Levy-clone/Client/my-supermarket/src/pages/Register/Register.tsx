@@ -1,5 +1,3 @@
-// register.tsx file
-
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../app/hook";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +26,7 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
   const [confirmPasswordValidation, setConfirmPasswordValidation] = useState<string | null>(null);
   const [IDValidation, setIDValidation] = useState<string | null>(null);
   const [emailValidation, setEmailValidation] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState<boolean>(false); // Add state for showing password
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -61,16 +60,17 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
   };
 
   const validatePassword = (password: string) => {
-    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/;
     if (newUser.password === newUser.confirm_password) {
       return null;
     }
     if (regex.test(password)) {
       return null;
     } else {
-      return "הסיסמה חייבת להכיל לפחות 8 תווים, אות גדולה, אות קטנה ומספר";
+      return "הסיסמה חייבת להכיל לפחות 8 תווים, אות גדולה, אות קטנה, מספר ותו מיוחד";
     }
   };
+  
 
   const validateConfirmPassword = (confirmPassword: string) => {
     if (newUser.password === confirmPassword) {
@@ -87,6 +87,10 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
     // Sample regex for basic email validation:
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email) ? null : "כתובת הדואר האלקטרוני אינה תקינה";
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(prevState => !prevState); // Toggle the state
   };
 
   const handelRegister = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -160,7 +164,7 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
           <div className="error-message">{emailValidation}</div>
         )}
         <input
-          type="password"
+          type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
           placeholder="סיסמה*"
           name="password"
           id="password"
@@ -172,7 +176,7 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
           <div className="error-message">{passwordValidation}</div>
         )}
         <input
-          type="password"
+          type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
           placeholder="אישור סיסמה*"
           name="confirm_password"
           id="confirm_password"
@@ -182,6 +186,9 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
         {confirmPasswordValidation && (
           <div className="error-message">{confirmPasswordValidation}</div>
         )}
+        <button className="show-password-btn" type="button" onClick={toggleShowPassword}>
+          {showPassword ? "הסתר סיסמה" : "הצג סיסמה"}
+        </button>
         <input
           type="text"
           placeholder="תעודת זהות*"
@@ -213,7 +220,6 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
           קחו אותי לסופר!
         </button>
         
-       
       </div>
       </form>
       

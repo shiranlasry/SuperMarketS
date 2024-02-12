@@ -116,3 +116,34 @@ export const logOutUser = async (req: express.Request, res: express.Response) =>
     res.status(500).send({ ok: false, error });
   }
 }
+export const getUserFromToken = async (req: express.Request, res: express.Response) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      // No token, no user connected
+      res.send({ ok: true, user: null });
+      return;
+    }
+    const secret = process.env.SECRET_KEY;
+    if (!secret) {
+      throw new Error("No secret key available");
+    }
+
+    const decoded = jwt.verify(token, secret) as { user_id: number };
+    const { user_id } = decoded;
+    const query = `SELECT * FROM users WHERE user_id = ?;`;
+    connection.query(query, [user_id], (err, results: RowDataPacket[], fields) => {
+      try {
+        if (err) throw err;
+        const user = results[0];
+        res.send({ ok: true, user });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ ok: false, error });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ ok: false, error });
+  }
+};
