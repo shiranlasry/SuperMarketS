@@ -75,3 +75,16 @@ $button: #1579f2;
     font-size: 0.8rem;
   }
 }
+
+.reg-pass-wrapper {
+  position: relative;
+
+  .show-password-btn {
+    position: absolute;
+
+    margin-top: 0.9rem;
+    margin-right: 15.8rem;
+    background-color: #f3f5f800;
+    border: none;
+  }
+}

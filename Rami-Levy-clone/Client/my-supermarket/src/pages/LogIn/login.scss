@@ -107,31 +107,27 @@ $button: #1579f2;
       padding: 8px;
     }
   }
-}
 
-.password-wrapper {
-  display: flex;
-  align-items: center;
-  min-width: fit-content;
-}
+  .password-wrapper {
+    display: flex;
+    align-items: center;
+    min-width: fit-content;
+  }
 
-.password-toggle {
-  float: left;
-}
+  .password-toggle {
+    float: left;
+  }
 
-.password-wrapper {
-  position: relative; /* To position the button */
-}
+  .password-wrapper {
+    position: relative;
+  }
 
-.password-wrapper input {
-  margin-right: 10px; /* Adjust as needed */
-}
-
-.password-wrapper button {
-  position: absolute;
-  top: 15px; /* Adjust as needed */
-  left: 10px; /* Adjust as needed */
-  z-index: 2;
-  background-color: #f3f5f800;
-  border: none;
+  .password-wrapper button {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    z-index: 2;
+    background-color: #f3f5f800;
+    border: none;
+  }
 }
