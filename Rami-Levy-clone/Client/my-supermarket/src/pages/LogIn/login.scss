@@ -1,4 +1,4 @@
-$button: #1579F2;
+$button: #1579f2;
 
 .login-main {
   width: fit-content;
@@ -14,13 +14,13 @@ $button: #1579F2;
   .exit-log-svg {
     float: left;
     color: $button;
-    margin-top: -.7rem;
+    margin-top: -0.7rem;
   }
 
   .login-title,
   .registration {
     font-size: 27px;
-    margin: 25px  0  10px  0;
+    margin: 25px 0 10px 0;
     color: $button;
 
     .login-svg {
@@ -47,6 +47,7 @@ $button: #1579F2;
     margin: auto;
     display: flex;
     flex-flow: column;
+    padding: 1rem;
 
     input,
     .login-btn {
@@ -56,6 +57,14 @@ $button: #1579F2;
     input {
       height: 40px;
       min-width: fit-content;
+      width: 500px;
+      margin-bottom: 5px;
+      background-color: #f3f5f8;
+      border: none;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 7px;
+      padding: 8px;
 
       @media screen and (max-width: 670px) {
         max-width: 390px;
@@ -70,17 +79,6 @@ $button: #1579F2;
       color: white;
       background-color: $button;
       border: none;
-    }
-
-    input {
-      width: 500px;
-      margin-bottom: 5px;
-      background-color: #f3f5f8;
-      border: none;
-      text-align: center;
-      font-size: 14px;
-      border-radius: 7px;
-      padding: 8px;
     }
   }
 
@@ -109,4 +107,31 @@ $button: #1579F2;
       padding: 8px;
     }
   }
+}
+
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  min-width: fit-content;
+}
+
+.password-toggle {
+  float: left;
+}
+
+.password-wrapper {
+  position: relative; /* To position the button */
+}
+
+.password-wrapper input {
+  margin-right: 10px; /* Adjust as needed */
+}
+
+.password-wrapper button {
+  position: absolute;
+  top: 15px; /* Adjust as needed */
+  left: 10px; /* Adjust as needed */
+  z-index: 2;
+  background-color: #f3f5f800;
+  border: none;
 }
