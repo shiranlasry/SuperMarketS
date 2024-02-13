@@ -9,6 +9,7 @@ import Register from "./pages/Register/Register";
 import UsersManage from "./pages/Admin/UsesManage/UsersManage";
 import ProductsAdmin from "./pages/Admin/ProductAdmin/ProductAdmin";
 import ErrorPage from "./pages/404-page/ErrorPage";
+import UpdateUser from "./pages/Admin/UsesManage/UpdateUser";
 
 function App() {
   const router = createBrowserRouter([
@@ -23,6 +24,7 @@ function App() {
     { path: "/add_new_product", element: <AddNewProduct /> },
     { path: "/manage_users", element: <UsersManage /> },
     { path: "/manage_products", element: <ProductsAdmin /> },
+    { path: "/update_user", element: <UpdateUser /> },
     { path: "/*", element: <ErrorPage /> },
   ]);
   return <RouterProvider router={router} />;

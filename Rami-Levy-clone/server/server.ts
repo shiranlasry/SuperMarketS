@@ -31,6 +31,8 @@ app.use(upload.fields([{ name: 'imagesProduct', maxCount: 2 }]));
 import userRoutes from "./API/users/usersRoutes"
 app.use("/api/users", userRoutes)
 
+import rolesRoutes from "./API/roles/rolesRoutes"
+app.use("/api/roles", rolesRoutes)
 import citiesRoutes from "./API/cities/citiesRoutes"
 app.use("/api/cities", citiesRoutes)
 import streetsRoutes from "./API/streets/streetsRoutes"

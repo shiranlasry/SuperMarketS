@@ -66,7 +66,7 @@ export const loginUser = async (req: express.Request, res: express.Response) => 
       res.status(400).send({ ok: false, error: 'Missing email or password loginUser()' });
       return;
     }
-    const query = `SELECT * FROM rami_levy_db.users WHERE email = ?;`;
+    const query = `SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_id WHERE email = ?;`;
 
     connection.query(query, [email], async (err, results: RowDataPacket[], fields) => {
       try {
@@ -147,3 +147,24 @@ export const getUserFromToken = async (req: express.Request, res: express.Respon
     res.status(500).send({ ok: false, error });
   }
 };
+export const updateUserRole = async (req: express.Request, res: express.Response) => {
+  try {
+    const { user_id, role_id } = req.body;
+    if (!user_id || !role_id) {
+      throw new Error("Missing fields");
+    }
+    const query = "UPDATE users SET role_id = ? WHERE user_id = ?";
+    connection.query(query, [role_id, user_id], (err, results, fields) => {
+      try {
+        if (err) throw err;
+        res.send({ ok: true, results })
+      } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+      }
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send({ ok: false, error })
+  }
+}

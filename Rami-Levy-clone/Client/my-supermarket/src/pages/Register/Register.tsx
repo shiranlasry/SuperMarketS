@@ -18,7 +18,9 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
     first_name: "",
     last_name: "",
     role_id: 2,
+    role_name:"user",
     addresses: [],
+    
   };
 
   const [newUser, setNewUser] = useState<User>(initialUserState);

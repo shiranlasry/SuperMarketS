@@ -73,7 +73,12 @@ export interface Product  {
     last_name: string='';
    
     role_id: number|null =0;
+    role_name: string='';
     addresses: Address[] =[];
+  };
+  export interface Role {
+    role_id: number;
+    role_name: string;
   };
 
   export interface NavBarItem{

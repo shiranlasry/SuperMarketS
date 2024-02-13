@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hook';
 import { getAllUsersApi } from '../../../features/all_users_admin/allUsersAPI';
 import { useNavigate } from 'react-router';
 import { User } from '../../../rami-types';
+import UserCard from './UserCard';
 
 const UsersManage = () => {
     const [isUsersShown, setIsUsersShown] = useState(false);
@@ -46,11 +47,7 @@ const UsersManage = () => {
             </div>
             {isUsersShown && filteredUsers.map((user) => {
                 return (
-                    <div key={user.email}>
-                        <h3>{user.email}</h3>
-                        <button>Block</button>
-                        <button>Unblock</button>
-                    </div>
+                    <UserCard key={user.user_id} user={user} />
                 )
             })}
             <button onClick={()=>navigate(-1)}>חזור</button>
