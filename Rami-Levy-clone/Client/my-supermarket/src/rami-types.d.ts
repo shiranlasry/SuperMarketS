@@ -3,6 +3,7 @@ export interface FoodCategories {
   food_category_name: string;
 }
 export interface SubFoodCategories {
+  navbar_item_id: number;
   sub_food_category_id: number;
   sub_food_category_name: string;
   food_category_id: number;
