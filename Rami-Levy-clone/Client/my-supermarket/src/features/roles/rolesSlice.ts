@@ -2,10 +2,8 @@
 
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../../app/store"
-import { Street } from "../../rami-types"
-import { getAllStreetsAPI } from "./streetsAPI"
-
-
+import { Role } from "../../rami-types"
+import { getAllRolesAPI } from "./rolesAPI"
 
 enum Status {
     IDLE = "idle",
@@ -13,18 +11,18 @@ enum Status {
     FAILED = "failed"
 }
 
-interface StreetsState {
-    value: Street [] | null ,
+interface rolesState {
+    value: Role [] | null ,
     status: Status
 }
 
-const initialState: StreetsState = {
+const initialState: rolesState = {
     value: null,
     status: Status.IDLE
 }
 
-export const StreetsSlice = createSlice({
-    name: "streets",
+export const RolesSlice = createSlice({
+    name: "roles",
     initialState,
     reducers: {
        
@@ -32,22 +30,23 @@ export const StreetsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addCase(getAllStreetsAPI.pending, (state) => {
+        .addCase(getAllRolesAPI.pending, (state) => {
             state.status = Status.LOADING;
           })
-          .addCase(getAllStreetsAPI.fulfilled, (state, action) => {
+          .addCase(getAllRolesAPI.fulfilled, (state, action) => {
             state.status = Status.IDLE;
             state.value = action.payload;
           })
-          .addCase(getAllStreetsAPI.rejected, (state) => {
+          .addCase(getAllRolesAPI.rejected, (state) => {
             state.status = Status.FAILED;
           })
        
+
         
     }
 })
 
-export const streetsSelector = (state: RootState) => state.streets.value
+export const rolesSelector = (state: RootState) => state.roles.value
 
 
-export default StreetsSlice.reducer
+export default RolesSlice.reducer

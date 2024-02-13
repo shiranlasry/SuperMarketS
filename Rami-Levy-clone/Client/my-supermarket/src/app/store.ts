@@ -7,6 +7,7 @@ import allUsersReducer from "../features/all_users_admin/allUsersSlice";
 import categoriesReducer from "../features/categories/categoriesSlice"
 import productsReducer from "../features/products/productsSlice"
 import navbarReducer from "../features/navbar_items/navbarItemsSlice"
+import roleRducer from "../features/roles/rolesSlice"
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     categories: categoriesReducer,
     products: productsReducer,
     navbarItems: navbarReducer,
+    roles: roleRducer,
     
     cart: cartReducer, // Include the cart reducer here
   },

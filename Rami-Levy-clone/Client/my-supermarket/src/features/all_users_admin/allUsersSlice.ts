@@ -3,7 +3,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../../app/store"
 import { User } from "../../rami-types"
-import { getAllUsersApi } from "./allUsersAPI"  
+import { getAllUsersApi ,updateUserRoleApi} from "./allUsersAPI"  
 
 
 
@@ -42,6 +42,7 @@ export const AllUsersSlice = createSlice({
         .addCase(getAllUsersApi.rejected, (state) => {
             state.status = Status.FAILED
         })
+  
         
     }
 })
