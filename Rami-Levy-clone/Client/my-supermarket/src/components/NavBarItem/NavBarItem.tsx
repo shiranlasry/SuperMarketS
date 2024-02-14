@@ -72,7 +72,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ item }) => {
           <span className="nav-category">{label}</span>
         </div>
       </Link>
-      {isActive && isStati ? <SubCatagoryManu key={label} navbar_item_id={navbar_item_id} /> : <></>}
+      {isActive && isStati ? <div><SubCatagoryManu key={label} navbar_item_id={navbar_item_id} /></div> : <></>}
     </li>
   );
 };
