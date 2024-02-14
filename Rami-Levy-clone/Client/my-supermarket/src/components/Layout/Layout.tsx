@@ -38,7 +38,7 @@ const Layout: React.FC = () => {
   // check if there is user loggedin on cookie token
   useEffect(() => {
     if (!loggedInUser) {
-      dispatch(getUserFromTokenApi())
+      dispatch(getUserFromTokenApi());
     }
   }, []);
 
@@ -64,7 +64,7 @@ const Layout: React.FC = () => {
   };
 
   return (
-    <div className="app-container">
+    <div className="sub-categories-main">
       <button className="to-main-navBar">
         <img
           className="rami-online"
@@ -217,7 +217,7 @@ const Layout: React.FC = () => {
 
       {/* Render UserMenu conditionally */}
       {loggedInUser && isMenuOpen && <UserMenu loggedInUser={loggedInUser} />}
-      <Footer/>
+      <Footer />
     </div>
   );
 };

@@ -1,34 +1,22 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
+import "./subCatagoryItem.scss";
+import { Link } from "react-router-dom";
 
-
-
-type SubCatagoryItemProps = {
-    // Adjust the type according to your item structure
-    item: any;
+type SubCategoryItemProps = {
+  item: any;
 };
 
-    
-const SubCatagoryItem: React.FC<SubCatagoryItemProps> = ({ item }) => { 
-    // const [isActive, setIsActive] = useState(false);
-
-    const { sub_food_category_name } = item;
-    return (
-        <li>
-        <Link
-          to={''}
-        //   className={`nav-link${isActive ? " active" : ""}`}
-        //   onMouseEnter={() => setIsActive(true)}
-        //   onMouseLeave={() => setIsActive(false)}
-        //   onClick={() => setIsActive(!isActive)}
-        >
-          <div className="sub-catagory-name">
-                <p>{sub_food_category_name}</p>
-          </div>
-        </Link>
-      </li>
-    );
+const SubCategoryItem: React.FC<SubCategoryItemProps> = ({ item }) => {
+  const { sub_food_category_name } = item;
+  return (
+    <div className="sub-category-item">
+      <Link to={""}>
+        <div className="sub-category-name">
+          <p>{sub_food_category_name}</p>
+        </div>
+      </Link>
+    </div>
+  );
 };
 
-
-export default SubCatagoryItem
+export default SubCategoryItem;
