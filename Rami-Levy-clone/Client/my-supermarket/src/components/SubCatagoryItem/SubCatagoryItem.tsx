@@ -12,7 +12,7 @@ const SubCategoryItem: React.FC<SubCategoryItemProps> = ({ item }) => {
     <div className="sub-category-item">
       <Link to={""}>
         <div className="sub-category-name">
-          <p>{sub_food_category_name}</p>
+          <p className="sub-cat-title">{sub_food_category_name}</p>
         </div>
       </Link>
     </div>

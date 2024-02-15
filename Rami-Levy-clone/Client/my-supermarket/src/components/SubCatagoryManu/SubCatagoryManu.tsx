@@ -1,16 +1,18 @@
-import React, { useEffect } from "react";
-import { subFoodCategoriesSelector } from "../../features/categories/categoriesSlice";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { get_SUB_FoodCategoriesApi } from "../../features/categories/categoriesAPI";
-import SabCatagoryItem from "../SubCatagoryItem/SubCatagoryItem";
+import { subFoodCategoriesSelector } from "../../features/categories/categoriesSlice";
+import SubCategoryItem from "../SubCatagoryItem/SubCatagoryItem";
 import "./subCatagoryManu.scss";
 
-interface SubCatagoryManuProps {
-  navbar_item_id: number; // Add a prop for navbar_item_id
+interface SubCategoryMenuProps {
+  navbar_item_id: number;
+  onHover: () => void;
 }
 
-const SubCatagoryManu: React.FC<SubCatagoryManuProps> = ({
+const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({
   navbar_item_id,
+  onHover,
 }) => {
   const dispatch = useAppDispatch();
   const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
@@ -21,13 +23,26 @@ const SubCatagoryManu: React.FC<SubCatagoryManuProps> = ({
     }
   }, []);
 
-  // Filter subFoodCategories based on navbar_item_id
+  const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
+
+  const handleCategoryExpand = (categoryId: number) => {
+    if (expandedCategories.includes(categoryId)) {
+      setExpandedCategories(
+        expandedCategories.filter((id) => id !== categoryId)
+      );
+    } else {
+      setExpandedCategories([...expandedCategories, categoryId]);
+    }
+  };
+
+  const isCategoryExpanded = (categoryId: number) =>
+    expandedCategories.includes(categoryId);
+
   const filteredCategories =
     subFoodCategories?.filter(
       (item) => item.navbar_item_id === navbar_item_id
     ) || [];
 
-  // Group subcategories by their category IDs
   const categoriesMap = filteredCategories.reduce((map, category) => {
     if (!map.has(category.food_category_id)) {
       map.set(category.food_category_id, {
@@ -38,21 +53,39 @@ const SubCatagoryManu: React.FC<SubCatagoryManuProps> = ({
     map.get(category.food_category_id)?.subcategories.push(category);
     return map;
   }, new Map<number, { categoryName: string; subcategories: typeof filteredCategories }>());
-  console.log(categoriesMap);
+
   return (
     <div className="sub-category-menu">
-      {Array.from(categoriesMap.entries()).map(([categoryId, categoryData], index) => (
-        <div key={index}>
-          <h3>{categoryData.categoryName}</h3>
-          <ul className="sub-cat-items">
-            {categoryData.subcategories.map((item, subIndex) => (
-              <SabCatagoryItem key={subIndex} item={item} />
-            ))}
-          </ul>
-        </div>
-      ))}
+      {Array.from(categoriesMap.entries()).map(
+        ([categoryId, categoryData], index) => (
+          <div key={index} className="category-container">
+            <div className="sub-cat-container">
+              <div className="sub-cat-name">{categoryData.categoryName}</div>
+              <ul className="sub-cat-items">
+                {categoryData.subcategories
+                  .slice(0, 7)
+                  .map((item, subIndex) => (
+                    <li key={subIndex} className="sub-category-item">
+                      <SubCategoryItem item={item} />
+                    </li>
+                  ))}
+              </ul>
+              {categoryData.subcategories.length > 7 && (
+                <div
+                  className="sub-cat-chevron"
+                  onClick={() => handleCategoryExpand(categoryId)}
+                >
+                  <span className="chevron-icon">
+                    {isCategoryExpanded(categoryId) ? "▲" : "▼"}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      )}
     </div>
   );
 };
 
-export default SubCatagoryManu;
+export default SubCategoryMenu;
