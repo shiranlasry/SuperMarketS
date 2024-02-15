@@ -27,13 +27,30 @@ const SubCatagoryManu: React.FC<SubCatagoryManuProps> = ({
       (item) => item.navbar_item_id === navbar_item_id
     ) || [];
 
+  // Group subcategories by their category IDs
+  const categoriesMap = filteredCategories.reduce((map, category) => {
+    if (!map.has(category.food_category_id)) {
+      map.set(category.food_category_id, {
+        categoryName: category.food_category_name,
+        subcategories: [],
+      });
+    }
+    map.get(category.food_category_id)?.subcategories.push(category);
+    return map;
+  }, new Map<number, { categoryName: string; subcategories: typeof filteredCategories }>());
+  console.log(categoriesMap);
   return (
     <div className="sub-category-menu">
-      <ul className="sub-cat-items">
-        {filteredCategories.map((item, index) => (
-          <SabCatagoryItem key={index} item={item} />
-        ))}
-      </ul>
+      {Array.from(categoriesMap.entries()).map(([categoryId, categoryData], index) => (
+        <div key={index}>
+          <h3>{categoryData.categoryName}</h3>
+          <ul className="sub-cat-items">
+            {categoryData.subcategories.map((item, subIndex) => (
+              <SabCatagoryItem key={subIndex} item={item} />
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 };
