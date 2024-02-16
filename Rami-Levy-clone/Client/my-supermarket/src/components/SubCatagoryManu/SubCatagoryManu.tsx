@@ -1,3 +1,4 @@
+// SubCategoryMenu.tsx
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { get_SUB_FoodCategoriesApi } from "../../features/categories/categoriesAPI";
@@ -6,12 +7,10 @@ import SubCategoryItem from "../SubCatagoryItem/SubCatagoryItem";
 import "./subCatagoryManu.scss";
 
 interface SubCategoryMenuProps {
-  navbar_item_id: number;
+  navbarItemId: number | null; // Change prop name to navbarItemId
 }
 
-const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({
-  navbar_item_id,
-}) => {
+const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => { // Change prop name to navbarItemId
   const dispatch = useAppDispatch();
   const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
 
@@ -38,7 +37,7 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({
 
   const filteredCategories =
     subFoodCategories?.filter(
-      (item) => item.navbar_item_id === navbar_item_id
+      (item) => item.navbar_item_id === navbarItemId
     ) || [];
 
   const categoriesMap = filteredCategories.reduce((map, category) => {
@@ -53,7 +52,11 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({
   }, new Map<number, { categoryName: string; subcategories: typeof filteredCategories }>());
 
   return (
-    <div className="sub-category-menu">
+    <div
+      className="sub-category-menu"
+      onMouseEnter={() => navbarItemId && setExpandedCategories([navbarItemId])} // Add mouse enter event handler
+      onMouseLeave={() => navbarItemId && setExpandedCategories([])} // Add mouse leave event handler
+    >
       {Array.from(categoriesMap.entries()).map(
         ([categoryId, categoryData], index) => (
           <div key={index} className="category-container">
