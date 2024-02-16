@@ -168,3 +168,25 @@ export const updateUserRole = async (req: express.Request, res: express.Response
     res.status(500).send({ ok: false, error })
   }
 }
+
+export const deleteUser = async (req: express.Request, res: express.Response) => {
+  try {
+    const user_id = req.params.user_id;
+    if (!user_id) {
+      throw new Error("Missing fields");
+    }
+    const query = "DELETE FROM users WHERE user_id = ?";
+    connection.query(query, [user_id], (err, results, fields) => {
+      try {
+        if (err) throw err;
+        res.send({ ok: true, results })
+      } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+      }
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send({ ok: false, error })
+  }
+}
