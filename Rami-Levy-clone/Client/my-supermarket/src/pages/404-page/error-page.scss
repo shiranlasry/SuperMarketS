@@ -1,0 +1,20 @@
+.error-page-wrap {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+
+  .Err-to-hp {
+    background-color: #1579f2;
+    color: white;
+    border: none;
+    margin-top: 8px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    padding: 16px 45px 16px 45px;
+  }
+
+  .page-not-found {
+    font-size: 1.3rem;
+  }
+}

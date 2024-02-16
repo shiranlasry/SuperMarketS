@@ -10,13 +10,14 @@ import cookieParser from 'cookie-parser';
 import { Request, Response } from 'express';
 
 
+
 const saltRounds = 10; 
 
 export const getAllUsers = async (req: express.Request, res: express.Response) => {
   try {
-// select users and users roles and address from users table and roles table
+// select users and users roles from users table and roles table
 
-    const query = "SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_id INNER JOIN addresses ON users.user_id = addresses.user_id";
+    const query = "SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_id";
     connection.query(query, (err, results, fields) => {
       try {
         if (err) throw err;
@@ -65,7 +66,7 @@ export const loginUser = async (req: express.Request, res: express.Response) => 
       res.status(400).send({ ok: false, error: 'Missing email or password loginUser()' });
       return;
     }
-    const query = `SELECT * FROM rami_levy_db.users WHERE email = ?;`;
+    const query = `SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_id WHERE email = ?;`;
 
     connection.query(query, [email], async (err, results: RowDataPacket[], fields) => {
       try {
@@ -113,5 +114,57 @@ export const logOutUser = async (req: express.Request, res: express.Response) =>
   } catch (error) {
     console.error(error);
     res.status(500).send({ ok: false, error });
+  }
+}
+export const getUserFromToken = async (req: express.Request, res: express.Response) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      // No token, no user connected
+      res.send({ ok: true, user: null });
+      return;
+    }
+    const secret = process.env.SECRET_KEY;
+    if (!secret) {
+      throw new Error("No secret key available");
+    }
+
+    const decoded = jwt.verify(token, secret) as { user_id: number };
+    const { user_id } = decoded;
+    const query = `SELECT * FROM users WHERE user_id = ?;`;
+    connection.query(query, [user_id], (err, results: RowDataPacket[], fields) => {
+      try {
+        if (err) throw err;
+        const user = results[0];
+        res.send({ ok: true, user });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ ok: false, error });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ ok: false, error });
+  }
+};
+export const updateUserRole = async (req: express.Request, res: express.Response) => {
+  try {
+    const { user_id, role_id } = req.body;
+    if (!user_id || !role_id) {
+      throw new Error("Missing fields");
+    }
+    const query = "UPDATE users SET role_id = ? WHERE user_id = ?";
+    connection.query(query, [role_id, user_id], (err, results, fields) => {
+      try {
+        if (err) throw err;
+        res.send({ ok: true, results })
+      } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+      }
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send({ ok: false, error })
   }
 }

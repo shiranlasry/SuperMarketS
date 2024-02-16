@@ -1,0 +1,15 @@
+.night-mode {
+  float: left;
+ 
+  margin: -3rem auto auto .5rem;
+
+
+.night-svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media screen and (max-width: 950px) {
+  display: none;
+}
+}

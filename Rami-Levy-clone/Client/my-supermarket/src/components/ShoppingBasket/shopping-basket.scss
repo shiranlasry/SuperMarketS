@@ -1,0 +1,50 @@
+$button: #1579f2;
+
+body {
+  color: $button;
+
+  .shopping-basket {
+    margin: -7rem 0 0 0.5rem;
+    float: left;
+    width: 140px;
+    height: 86px;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+
+    @media screen and (max-width: 1800px) {
+      width: 130px;
+    }
+    @media screen and (max-width: 1680px) {
+      width: 120px;
+    }
+    @media screen and (max-width: 1540px) {
+      width: 110px;
+    }
+    @media screen and (max-width: 1390px) {
+      width: 100px;
+    }
+    @media screen and (max-width: 1292px) {
+      display: none;
+    }
+
+    .basket-icon {
+      justify-content: center;
+      padding-top: 7px;
+      margin-right: 20px;
+    }
+
+    .basket-price {
+      color: $button;
+      background-color: white;
+      border: none;
+      align-items: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+  }
+  .basket-icon {
+    color: $button;
+  }
+}
