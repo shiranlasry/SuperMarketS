@@ -7,12 +7,10 @@ import "./subCatagoryManu.scss";
 
 interface SubCategoryMenuProps {
   navbar_item_id: number;
-  onHover: () => void;
 }
 
 const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({
   navbar_item_id,
-  onHover,
 }) => {
   const dispatch = useAppDispatch();
   const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
