@@ -7,9 +7,10 @@ import { getAllUsersApi, updateUserRoleApi } from '../../../features/all_users_a
 
 type UserProps = {
   user: User;
+  onClose: () => void;
 };
 
-const UpdateUserRole: React.FC<UserProps> = ({ user }) => {
+const UpdateUserRole: React.FC<UserProps> = ({ user, onClose }) => {
   const rolesDB = useAppSelector(rolesSelector);
   const dispatch = useAppDispatch();
   const [selectedRole, setSelectedRole] = useState<number | null>(user.role_id);
@@ -32,17 +33,18 @@ const UpdateUserRole: React.FC<UserProps> = ({ user }) => {
     }
     await dispatch (updateUserRoleApi(userRoleargs));
     dispatch(getAllUsersApi());
+    onClose();
   }
 
   return (
     <div>
-      <h1>Update User Role</h1>
+      <h1>עדכון הרשאה למשתמש</h1>
       <div>
-        <label>User Name:</label>
+        <label>שם מלא:</label>
         <span>{`${user.first_name} ${user.last_name}`}</span>
       </div>
       <div>
-        <label>Select Role:</label>
+        <label>בחר הרשאה:</label>
         <select value={selectedRole || ''} onChange={handleRoleChange}>
           <option value="">Select Role</option>
           {rolesDB &&rolesDB.map((role: Role) => (
@@ -52,6 +54,7 @@ const UpdateUserRole: React.FC<UserProps> = ({ user }) => {
           ))}
         </select>
         <button onClick={saveUserRole}>עדכן</button>
+        <button onClick={onClose}>ביטול</button>
       </div>
     </div>
   );
