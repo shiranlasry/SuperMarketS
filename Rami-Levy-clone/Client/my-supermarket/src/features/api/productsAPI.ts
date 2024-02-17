@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const addNewProductDetailes = async (product_datelis:Product) => {
     try {
-        debugger
+        
         const response = await axios.post("/api/products-details/add-new-product-detailes", product_datelis);
         const { ok, results } = response.data;
         if (!ok) {
@@ -67,7 +67,7 @@ export const saveProductImages = async (productId: number, productImages: File[]
 //get products by food category id
 export const getProductDetailesBySubFoodCatagoryId = async (food_category_id: number) => {
     try {
-        debugger
+        
         const response = await axios.get(`/api/products-details/get-products-by-sub-food-category-id/${food_category_id}`);
         const { ok, results } = response.data;
         if (!ok) {

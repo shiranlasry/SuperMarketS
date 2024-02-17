@@ -31,15 +31,13 @@ const CategoryVisual = () => {
 
   
   return (
-    <div>
-     
       <div>
     
         {products && products.map((product) => (
           <ProductCard key={product.product_id} product={product} />
         ))}
       </div>
-    </div>
+    
   );
 }
 

@@ -58,7 +58,7 @@ const AddNewProduct = () => {
       if (!insertProductId) {
         throw new Error('Error adding new product , no product id returned');
       }
-      debugger;
+      ;
       await addNewProductInventory(insertProductId,add);
      // need to save images to server
       if (imagesProductFiles && imagesProductFiles.length > 0) {
@@ -67,7 +67,7 @@ const AddNewProduct = () => {
         // imagesProductFiles.forEach((image) => {
         //   formData.append('product_images', image);
         // });
-        debugger;
+        ;
         await saveProductImages(insertProductId,imagesProductFiles);
       }
      

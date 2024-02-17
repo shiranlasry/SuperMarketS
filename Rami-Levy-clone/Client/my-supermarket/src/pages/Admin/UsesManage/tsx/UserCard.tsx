@@ -13,7 +13,7 @@ type UserCardProps = {
     const [isPopDelete, setIsPopDelete] = useState(false);
     const [isPopUpdatePassword, setIsPopUpdatePassword] = useState(false);
     const popUpdatePassword = () => {
-      debugger
+      
         setIsPopUpdatePassword(true);
     }
     const popUpdateRole = () => {
