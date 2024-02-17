@@ -3,6 +3,7 @@ import { User } from '../../../rami-types';
 import './userCard.scss';
 import UpdateUserRole from './UpdateUserRole';
 import DeleteUser from './DeleteUser';
+import ResetPassword from './ResetPassword';
 
 type UserCardProps = {
     user: User;
@@ -10,6 +11,11 @@ type UserCardProps = {
   const UserCard: React.FC<UserCardProps> = ({ user }) => {
     const [isPopRole, setIsPopRole] = useState(false);
     const [isPopDelete, setIsPopDelete] = useState(false);
+    const [isPopUpdatePassword, setIsPopUpdatePassword] = useState(false);
+    const popUpdatePassword = () => {
+      debugger
+        setIsPopUpdatePassword(true);
+    }
     const popUpdateRole = () => {
         setIsPopRole(true);
  
@@ -20,6 +26,7 @@ type UserCardProps = {
     const hendelClose = () => {
         setIsPopRole(false);
         setIsPopDelete(false);
+        setIsPopUpdatePassword(false);
     }
   return (
     <div>
@@ -32,9 +39,10 @@ type UserCardProps = {
             <button>ערוך</button>
             <button  onClick={popDelete}>מחק</button>
             <button onClick={popUpdateRole}>עדכן הרשאה</button>
-            <button>איפוס סיסמא </button>
+            <button onClick={popUpdatePassword}>איפוס סיסמא </button>
             {isPopRole && <UpdateUserRole user={user} onClose={hendelClose} />}
             {isPopDelete && <DeleteUser user={user} onClose={hendelClose} />}
+            {isPopUpdatePassword && <ResetPassword user={user} onClose={hendelClose} />}
         </div>
         </>}
       

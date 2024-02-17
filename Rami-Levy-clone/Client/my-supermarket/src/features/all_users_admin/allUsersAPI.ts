@@ -53,3 +53,18 @@ export const deleteUserApi = createAsyncThunk<User[] | null,number |null>('delet
         return null;
     }
 })
+
+export const updatePasswordApi = createAsyncThunk<User | null, { user_id:number|null,password: string }>('update-password', async (arg) => {
+    try {
+        const response = await axios.put("/api/users/update-password", arg);
+        const { ok } = response.data;
+        
+        if (!ok) {
+            throw new Error("Invalid credentials updatePasswordApi()");
+        }
+        alert("Password updated successfully")
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
