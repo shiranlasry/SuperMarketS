@@ -64,3 +64,19 @@ export const saveProductImages = async (productId: number, productImages: File[]
     }
 };
 
+//get products by food category id
+export const getProductDetailesBySubFoodCatagoryId = async (food_category_id: number) => {
+    try {
+        const response = await axios.get(`/api/products-details/get-products-by-sub-food-category-id/${food_category_id}`);
+        const { ok, results } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials getProductDetailesById()");
+        }
+
+        return results;
+    } catch (error) {
+        console.error("Error getProductDetailesById:", error);
+        throw error;
+    }
+}
+

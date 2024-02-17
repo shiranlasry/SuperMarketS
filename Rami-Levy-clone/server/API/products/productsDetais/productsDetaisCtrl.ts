@@ -44,3 +44,26 @@ export const getAllProductDetailes = async (req: express.Request, res: express.R
         res.status(500).send({ ok: false, error })
     }
 }
+
+export const getProductDetailesBySubFoodCatagoryId = async (req: express.Request, res: express.Response) => {
+    try {
+        const { sub_food_category_id } = req.params
+        if (!sub_food_category_id) {
+            res.status(400).send({ ok: false, error: 'missing required fields' })
+            return
+        }
+        const query = `SELECT * FROM rami_levy_db.products WHERE sub_food_category_id = ?`
+        connection.query(query, [sub_food_category_id], (err, results, fields) => {
+            try {
+                if (err) throw err;
+                res.send({ ok: true, results })
+            } catch (error) {
+                console.error(error)
+                res.status(500).send({ ok: false, error })
+            }
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+    }
+}
