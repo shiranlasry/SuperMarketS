@@ -1,23 +1,18 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Product from '../../types/productTypes';
+import { Product } from '../../rami-types';
+
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  const { name, image, price, brand, unitsOrWeight } = product;
-
+  const {  product_name,product_price} = product;
   return (
-    <div className="product-card card mx-2 mb-4">
-      <img src={image} alt={name} className="card-img-top" />
+    <div className="card" style={{ width: "18rem" }}>
+      {/* <img src={image_url} className="card-img-top" alt={product_name} /> */}
       <div className="card-body">
-        <h5 className="card-title">{name}</h5>
-        <p className="card-text">
-          <strong>{`₪${price.toFixed(2)}`}</strong> per {unitsOrWeight}
-        </p>
-        <p className="card-text">Brand: {brand}</p>
-        <button className="btn btn-primary">Add to Cart</button>
+        <h5 className="card-title">{product_name}</h5>
+        <p className="card-text">Price: {product_price}</p>
       </div>
     </div>
   );
-};
-
+}
 export default ProductCard;

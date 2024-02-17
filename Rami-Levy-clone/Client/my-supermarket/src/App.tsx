@@ -10,6 +10,7 @@ import UsersManage from "./pages/Admin/UsesManage/tsx/UsersManage";
 import ProductsAdmin from "./pages/Admin/ProductAdmin/ProductAdmin";
 import ErrorPage from "./pages/404-page/ErrorPage";
 import UpdateUser from "./pages/Admin/UsesManage/tsx/UpdateUser";
+import CategoryVisual from "./components/catagoryVisual/catagoryVisual";
 
 function App() {
   const router = createBrowserRouter([
@@ -25,6 +26,7 @@ function App() {
     { path: "/manage_users", element: <UsersManage /> },
     { path: "/manage_products", element: <ProductsAdmin /> },
     { path: "/update_user", element: <UpdateUser /> },
+    { path: "/category-visual/:id", element: <CategoryVisual /> },
     { path: "/*", element: <ErrorPage /> },
   ]);
   return <RouterProvider router={router} />;

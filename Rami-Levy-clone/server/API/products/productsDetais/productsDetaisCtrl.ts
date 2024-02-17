@@ -52,7 +52,14 @@ export const getProductDetailesBySubFoodCatagoryId = async (req: express.Request
             res.status(400).send({ ok: false, error: 'missing required fields' })
             return
         }
-        const query = `SELECT * FROM rami_levy_db.products WHERE sub_food_category_id = ?`
+        const query = `
+            SELECT p.*, s.sub_food_category_name 
+            FROM products p 
+            INNER JOIN sub_food_categories s 
+            ON p.sub_food_category_id = s.sub_food_category_id 
+            WHERE p.sub_food_category_id = ?;
+        `;
+
         connection.query(query, [sub_food_category_id], (err, results, fields) => {
             try {
                 if (err) throw err;

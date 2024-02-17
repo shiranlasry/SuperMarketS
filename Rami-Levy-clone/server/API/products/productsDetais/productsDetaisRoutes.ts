@@ -9,7 +9,7 @@ const router = express.Router()
 router
 .post('/add-new-product-detailes',isAdmin,addNewProductDetailes)
     .get('/', getAllProductDetailes)
-    .get('/get-products-by-sub-food-category-id', getProductDetailesBySubFoodCatagoryId)
+    .get('/get-products-by-sub-food-category-id/:sub_food_category_id', getProductDetailesBySubFoodCatagoryId)
 
 
 

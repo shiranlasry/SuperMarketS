@@ -1,16 +1,17 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./subCatagoryItem.scss";
-import { Link } from "react-router-dom";
 
 type SubCategoryItemProps = {
   item: any;
 };
 
 const SubCategoryItem: React.FC<SubCategoryItemProps> = ({ item }) => {
-  const { sub_food_category_name } = item;
+  const { sub_food_category_name, sub_food_category_id } = item;
+  const navigate=useNavigate();
   return (
     <div className="sub-category-item">
-      <Link to={""}>
+        <Link to={`/category-visual/${sub_food_category_id}`}>
         <div className="sub-category-name">
           <p className="sub-cat-title">{sub_food_category_name}</p>
         </div>
