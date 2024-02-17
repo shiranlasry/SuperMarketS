@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { User } from "../../../rami-types";
-import { getAllUsersApi, updatePasswordApi } from "../../../features/all_users_admin/allUsersAPI";
-import { useAppDispatch } from "../../../app/hook";
+import { User } from "../../../../rami-types";
+import { getAllUsersApi, updatePasswordApi } from "../../../../features/all_users_admin/allUsersAPI";
+import { useAppDispatch } from "../../../../app/hook";
+import "../scss/ResetPassword.scss";
 
 
 interface ResetPasswordModalProps {
@@ -62,7 +63,7 @@ const ResetPassword: React.FC<ResetPasswordModalProps> = ({ user, onClose }) => 
         // Handle validation errors accordingly (e.g., show error messages)
       }
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
       // Handle the error (e.g., show an error message)
     }
   };
@@ -74,7 +75,7 @@ const ResetPassword: React.FC<ResetPasswordModalProps> = ({ user, onClose }) => 
         <input
           type="password"
           name="password"
-          placeholder="New Password"
+          placeholder="סיסמא חדשה"
           value={password}
           onChange={handleInputChange}
         />
@@ -84,7 +85,7 @@ const ResetPassword: React.FC<ResetPasswordModalProps> = ({ user, onClose }) => 
         <input
           type="password"
           name="confirmPassword"
-          placeholder="Confirm Password"
+          placeholder="אשר סיסמא חדשה"
           value={confirmPassword}
           onChange={handleInputChange}
         />
@@ -93,10 +94,10 @@ const ResetPassword: React.FC<ResetPasswordModalProps> = ({ user, onClose }) => 
         )}
         <div>
           <button className="saveBtn" type="button" onClick={handleSave}>
-            Save
+            שמור
           </button>
           <button className="cancelBtn" type="button" onClick={onClose}>
-            Close
+            ביטול
           </button>
         </div>
       </form>

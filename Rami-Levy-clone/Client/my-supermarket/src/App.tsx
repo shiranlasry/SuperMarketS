@@ -1,15 +1,15 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import AddNewAddress from "./components/AddNewAddress/AddNewAddress";
-import AddNewProduct from "./components/AddNewProduct/AddNewProduct";
+import AddNewProduct from "./pages/Admin/ProductAdmin/AddNewProduct/AddNewProduct";
 import AdminMainPage from "./pages/Admin/AdminMainPage";
 import Home from "./pages/Home/Home";
 import Login from "./pages/LogIn/Login";
 import Register from "./pages/Register/Register";
-import UsersManage from "./pages/Admin/UsesManage/UsersManage";
+import UsersManage from "./pages/Admin/UsesManage/tsx/UsersManage";
 import ProductsAdmin from "./pages/Admin/ProductAdmin/ProductAdmin";
 import ErrorPage from "./pages/404-page/ErrorPage";
-import UpdateUser from "./pages/Admin/UsesManage/UpdateUser";
+import UpdateUser from "./pages/Admin/UsesManage/tsx/UpdateUser";
 
 function App() {
   const router = createBrowserRouter([

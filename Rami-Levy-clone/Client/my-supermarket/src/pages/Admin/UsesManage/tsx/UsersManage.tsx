@@ -1,10 +1,11 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
-import { allUsersSelector } from '../../../features/all_users_admin/allUsersSlice';
-import { useAppDispatch, useAppSelector } from '../../../app/hook';
-import { getAllUsersApi } from '../../../features/all_users_admin/allUsersAPI';
+import { allUsersSelector } from '../../../../features/all_users_admin/allUsersSlice';
+import { useAppDispatch, useAppSelector } from '../../../../app/hook';
+import { getAllUsersApi } from '../../../../features/all_users_admin/allUsersAPI';
 import { useNavigate } from 'react-router';
-import { User } from '../../../rami-types';
+import { User } from '../../../../rami-types';
 import UserCard from './UserCard';
+import '../scss/UsersManage.scss';
 
 const UsersManage = () => {
     const [isUsersShown, setIsUsersShown] = useState(false);
@@ -34,7 +35,7 @@ const UsersManage = () => {
     };
 
     return (
-        <>
+        <div className='users-manage-main'>
             <div>
             {isUsersShown &&
                 <input
@@ -43,15 +44,16 @@ const UsersManage = () => {
                     value={searchEmail}
                     onChange={handleSearchChange}
                 />}
-                <button onClick={showAllUsers}>חפש משתמש</button>
+               
             </div>
             {isUsersShown && filteredUsers.map((user) => {
                 return (
                     <UserCard key={user.user_id} user={user} />
                 )
             })}
+            <button onClick={showAllUsers}>חפש משתמש</button>
             <button onClick={()=>navigate(-1)}>חזור</button>
-        </>
+        </div>
     );
 };
 

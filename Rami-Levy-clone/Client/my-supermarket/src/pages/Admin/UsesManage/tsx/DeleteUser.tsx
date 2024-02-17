@@ -1,7 +1,8 @@
 import React from 'react'
-import { User } from '../../../rami-types';
-import { deleteUserApi, getAllUsersApi } from '../../../features/all_users_admin/allUsersAPI';
-import { useAppDispatch } from '../../../app/hook';
+import { User } from '../../../../rami-types';
+import { deleteUserApi, getAllUsersApi } from '../../../../features/all_users_admin/allUsersAPI';
+import { useAppDispatch } from '../../../../app/hook';
+import '../scss/DeleteUser.scss';
 
 type UserProps = {
     user: User;
@@ -17,7 +18,7 @@ const DeleteUser: React.FC<UserProps> = ({ user, onClose }) => {
     }
 
     return (
-        <div>
+        <div className='delete-user'>
             <h1> האם אתה בטוח שברצונך למחוק משתמש זה לצמיתות?</h1>
             <div>
                 <label>שם מלא:</label>

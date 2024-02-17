@@ -1,0 +1,35 @@
+.admin-main-page-container {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 600px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+  
+    &:hover {
+      background-color: #0056b3;
+    }
+  
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+  

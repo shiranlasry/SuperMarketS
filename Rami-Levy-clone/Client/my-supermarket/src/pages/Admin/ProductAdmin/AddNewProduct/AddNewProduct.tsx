@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { foodCategoriesSelector, subFoodCategoriesSelector } from '../../features/categories/categoriesSlice';
-import { getFoodCategoriesApi, get_SUB_FoodCategoriesApi } from '../../features/categories/categoriesAPI';
-import { FoodCategories, Product, SubFoodCategories } from '../../rami-types';
-import { addNewProductDetailes, addNewProductInventory, saveProductImages } from '../../features/api/productsAPI';
+import { useAppDispatch, useAppSelector } from '../../../../app/hook';
+import { getFoodCategoriesApi, get_SUB_FoodCategoriesApi } from '../../../../features/categories/categoriesAPI';
+import { foodCategoriesSelector, subFoodCategoriesSelector } from '../../../../features/categories/categoriesSlice';
+import { FoodCategories, Product, SubFoodCategories } from '../../../../rami-types';
+import { addNewProductDetailes, addNewProductInventory, saveProductImages } from '../../../../features/api/productsAPI';
+import { useNavigate } from 'react-router';
 
 const AddNewProduct = () => {
   const initialProduct: Product = {
@@ -30,6 +31,7 @@ const AddNewProduct = () => {
   const foodCategories = useAppSelector(foodCategoriesSelector);
   const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     dispatch(getFoodCategoriesApi());
@@ -51,7 +53,32 @@ const AddNewProduct = () => {
   const handelAddNewProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // Your code for adding a new product
+      ;
+      const insertProductId= await addNewProductDetailes(newProduct);
+      if (!insertProductId) {
+        throw new Error('Error adding new product , no product id returned');
+      }
+      debugger;
+      await addNewProductInventory(insertProductId,add);
+     // need to save images to server
+      if (imagesProductFiles && imagesProductFiles.length > 0) {
+        // const formData = new FormData();
+        // formData.append('product_id', insertProductId.toString());
+        // imagesProductFiles.forEach((image) => {
+        //   formData.append('product_images', image);
+        // });
+        debugger;
+        await saveProductImages(insertProductId,imagesProductFiles);
+      }
+     
+      
+  
+      // Clear form data after successful submission
+ 
+  
+      // Optionally, display a success message to the user
+      alert('Product added successfully');
+
     } catch (error) {
       console.error('Error adding new product on handelAddNewProduct', error);
     }
@@ -216,6 +243,8 @@ const AddNewProduct = () => {
           />
         </div>
         <button type="submit">שלח</button>
+        <button type="reset">נקה</button>
+        <button onClick={() => navigate('/manage_products')}>חזור</button>
       </form>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/hook';
 import { loggedInUserSelector } from '../../features/logged_in_user/loggedInUserSlice';
+import './AdminMainPage.scss';
 
 const AdminMainPage = () => {
 
@@ -15,7 +16,7 @@ const manageProductsPressed = () => {
 
    
     return (
-        <div>
+        <div className='admin-main-page-container'>
             <h1>איזור מנהלים</h1>
             {loggedInUser && <h2>ברוך הבא בוס גדול  {loggedInUser.first_name}</h2>}
 

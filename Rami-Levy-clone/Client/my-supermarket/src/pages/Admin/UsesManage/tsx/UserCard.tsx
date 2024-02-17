@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { User } from '../../../rami-types';
-import './userCard.scss';
+import { User } from '../../../../rami-types';
+import '../scss/UserCard.scss';
 import UpdateUserRole from './UpdateUserRole';
 import DeleteUser from './DeleteUser';
 import ResetPassword from './ResetPassword';

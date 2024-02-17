@@ -4,6 +4,7 @@ import axios from "axios";
 
 export const addNewProductDetailes = async (product_datelis:Product) => {
     try {
+        debugger
         const response = await axios.post("/api/products-details/add-new-product-detailes", product_datelis);
         const { ok, results } = response.data;
         if (!ok) {

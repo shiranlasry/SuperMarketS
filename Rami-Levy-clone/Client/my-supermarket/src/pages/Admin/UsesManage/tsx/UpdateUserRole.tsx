@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../app/hook';
-import { rolesSelector } from '../../../features/roles/rolesSlice';
-import { getAllRolesAPI } from '../../../features/roles/rolesAPI';
-import { User, Role } from '../../../rami-types';
-import { getAllUsersApi, updateUserRoleApi } from '../../../features/all_users_admin/allUsersAPI';
+import { useAppDispatch, useAppSelector } from '../../../../app/hook';
+import { rolesSelector } from '../../../../features/roles/rolesSlice';
+import { getAllRolesAPI } from '../../../../features/roles/rolesAPI';
+import { User, Role } from '../../../../rami-types';
+import { getAllUsersApi, updateUserRoleApi } from '../../../../features/all_users_admin/allUsersAPI';
+import '../scss/UpdateUserRole.scss';
 
 type UserProps = {
   user: User;
@@ -37,7 +38,7 @@ const UpdateUserRole: React.FC<UserProps> = ({ user, onClose }) => {
   }
 
   return (
-    <div>
+    <div className='update-user-role'>
       <h1>עדכון הרשאה למשתמש</h1>
       <div>
         <label>שם מלא:</label>

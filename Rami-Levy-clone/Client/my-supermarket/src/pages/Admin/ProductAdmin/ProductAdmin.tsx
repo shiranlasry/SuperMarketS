@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { productsSelector } from '../../../features/products/productsSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hook';
 import { getAllProductsApi } from '../../../features/products/productsAPI';
+import { productsSelector } from '../../../features/products/productsSlice';
 import { Product } from '../../../rami-types';
+import ProductCard from './ProductCard';
 
 
 const ProductsAdmin = () => {
@@ -45,20 +46,12 @@ const ProductsAdmin = () => {
                 />}
         {isProductsShown && filteredProducts.map((product) => {
                 return (
-                    <div key={product.product_id}>
-                        <h3>{product.product_id}</h3>
-                        <h3>{product.product_name}</h3>
-                        <h3>{product.product_price}</h3>
-                        <button>Update</button>
-                        <button>Delete</button>
-                        <button>Inventory Manage</button>
-                        <button>Update Images</button>
-                    </div>
+                   <ProductCard product={product} key={product.product_id} />
                 )
             })}
 
       </div>
-      <button onClick={() => navigate(-1)} >חזור</button>
+      <button onClick={() => navigate('/admin')} >חזור</button>
     </>
 
   )
