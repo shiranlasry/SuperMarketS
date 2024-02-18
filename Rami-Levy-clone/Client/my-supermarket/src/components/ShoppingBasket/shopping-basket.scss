@@ -37,7 +37,7 @@ body {
 
     .basket-price {
       color: $button;
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0);
       border: none;
       align-items: center;
       font-size: 1.3rem;
@@ -46,5 +46,10 @@ body {
   }
   .basket-icon {
     color: $button;
+
+    .basket-svg {
+      width: 50px;
+      height: 40px;
+    }
   }
 }

@@ -27,6 +27,7 @@ const ShoppingBasket = () => {
           width="25"
           height="35"
           viewBox="0 0 30.29 42.96"
+          className="basket-svg"
         >
           <defs data-v-1196b37a="">
             <clipPath

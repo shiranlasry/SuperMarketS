@@ -1,58 +1,57 @@
 .search-bar {
-    margin: -3.7rem 30rem 1rem auto;
-    max-width: 705px;
-    height: 45px;
-    border-radius: 10px;
-    background-color: #ffffff;
+  margin: -3.7rem 30rem 1rem auto;
+  max-width: 705px;
+  height: 45px;
+  border-radius: 10px;
+  background-color: #ffffff;
 
-    @media screen and (max-width: 1450px) {
-        width: 550px;;
-      }
-      @media screen and (max-width: 1290px) {
-        width: 450px;;
-      }
-      @media screen and (max-width: 1190px) {
-        width: 350px;
-      }
-      @media screen and (max-width: 950px) {
-       display: none;
-      }
-  
-    .search-input-container {
-      display: flex;
-      align-items: center;
-      padding: 5px 10px 0 17px;
-  
-      .filter-icon,
-      .microphone-icon {
-        width: 24px;
-        height: 24px;
-      }
-  
-      .search-input {
-        margin: auto;
-        flex: 1;
-        border: none;
-        outline: none;
-        background-color: transparent;
-        font-size: 1.3rem;
-  
-        & input {
-          margin-bottom: 1rem;
-        }
-      }
-  
-      .mic-svg {
-        margin-left: 25px;
-      }
-  
-      .filter-text {
-        color: #0079f24f; /* Faded blue color */
-      }
-  
-      .filter-svg {
-        margin-right: 10px;
+  @media screen and (max-width: 1450px) {
+    width: 550px;
+  }
+  @media screen and (max-width: 1290px) {
+    width: 450px;
+  }
+  @media screen and (max-width: 1190px) {
+    width: 350px;
+  }
+  @media screen and (max-width: 950px) {
+    display: none;
+  }
+
+  .search-input-container {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px 0 17px;
+
+    .filter-icon,
+    .microphone-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .search-input {
+      margin: auto;
+      flex: 1;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      font-size: 1.3rem;
+
+      & input {
+        margin-bottom: 1rem;
       }
     }
+
+    .mic-svg {
+      margin-left: 25px;
+    }
+
+    .filter-text {
+      color: #0079f24f; /* Faded blue color */
+    }
+
+    .filter-svg {
+      margin-right: 10px;
+    }
   }
-  
+}

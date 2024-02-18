@@ -18,7 +18,7 @@ $button: #1579f2;
 
   @media screen and (max-width: 1120px) {
     display: none;
-     }
+  }
 
   &:hover {
     background-color: rgba(211, 211, 211, 0.493);
@@ -44,4 +44,23 @@ $button: #1579f2;
   border: none;
   color: $button;
   background-color: #f3f5f8;
+}
+
+button.to-shoppin-navBar {
+  margin-left: -5rem;
+}
+
+.rami-shopping {
+  height: 20px;
+  width: 170px;
+  margin: 0;
+
+  @media screen and (max-width: 950px) {
+    height: 17px;
+    width: 120px;
+  }
+
+  @media screen and (max-width: 320px) {
+    display: none;
+  }
 }
