@@ -16,8 +16,8 @@ export const addNewProductImages = async (req: express.Request, res: express.Res
             return;
         }
         const { product_id } = req.body;
-        const { originalname_a, buffer: buffer_a} = files[0]?files[0]:null;
-        const { originalname_b, buffer :buffer_b} = files[1]?files[1]:null;
+        const { originalname:originalname_a, buffer: buffer_a} = files[0]?files[0]:null;
+        const { originalname:originalname_b, buffer :buffer_b} = files[1]?files[1]:null;
         const imageData = {
                     product_id: product_id,
                     product_img_name_a: originalname_a,

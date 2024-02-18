@@ -21,7 +21,11 @@ export interface Product  {
   product_id: number | null;
   sub_food_category_id:number | null;
   sub_food_category_name: string;
-  product_imgs: ProductsImages | null;
+  product_image_id:number | null;
+  product_img_name_a:string;
+  product_img_name_b:string;
+  product_img_data_a:string;
+  product_img_data_b:string;
   product_inventory: Inventories | null;
   food_category_id: number | null;
   food_category_name: string;

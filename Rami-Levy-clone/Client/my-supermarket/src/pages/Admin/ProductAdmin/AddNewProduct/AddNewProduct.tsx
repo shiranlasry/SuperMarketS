@@ -10,7 +10,11 @@ const AddNewProduct = () => {
   const initialProduct: Product = {
     product_id: null,
     sub_food_category_id: null,
-    product_imgs: null,
+    product_image_id:null,
+    product_img_name_a:'',
+    product_img_name_b:'',
+    product_img_data_a:'',
+    product_img_data_b:'',
     product_inventory: null,
     sub_food_category_name: '',
     food_category_id: null,
