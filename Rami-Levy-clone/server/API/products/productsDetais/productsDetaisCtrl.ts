@@ -29,7 +29,12 @@ export const addNewProductDetailes = async (req: express.Request, res: express.R
 
 export const getAllProductDetailes = async (req: express.Request, res: express.Response) => {   
     try {
-        const query = `SELECT * FROM rami_levy_db.products`
+        const query = ` SELECT p.*, s.sub_food_category_name ,i.inventory_id,i.add,i.remove,i.units_stock
+        FROM products p 
+        INNER JOIN sub_food_categories s 
+        ON p.sub_food_category_id = s.sub_food_category_id 
+        INNER JOIN inventories i
+        ON p.product_id = i.product_id;`
         connection.query(query, (err, results, fields) => {
             try {
                 if (err) throw err;

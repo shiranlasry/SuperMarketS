@@ -10,6 +10,8 @@ const AddNewProduct = () => {
   const initialProduct: Product = {
     product_id: null,
     sub_food_category_id: null,
+    product_imgs: null,
+    product_inventory: null,
     sub_food_category_name: '',
     food_category_id: null,
     food_category_name: '',
@@ -62,11 +64,7 @@ const AddNewProduct = () => {
       await addNewProductInventory(insertProductId,add);
      // need to save images to server
       if (imagesProductFiles && imagesProductFiles.length > 0) {
-        // const formData = new FormData();
-        // formData.append('product_id', insertProductId.toString());
-        // imagesProductFiles.forEach((image) => {
-        //   formData.append('product_images', image);
-        // });
+        
         ;
         await saveProductImages(insertProductId,imagesProductFiles);
       }

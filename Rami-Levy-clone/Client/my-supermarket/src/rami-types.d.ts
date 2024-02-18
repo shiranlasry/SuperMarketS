@@ -12,13 +12,17 @@ export interface SubFoodCategories {
 export interface ProductsImages{
   product_id:number;
   product_image_id:number;
-  product_img_name:string;
-  product_img_data:string;
+  product_img_name_a:string;
+  product_img_name_b:string;
+  product_img_data_a:string;
+  product_img_data_b:string;
 }
 export interface Product  {
   product_id: number | null;
   sub_food_category_id:number | null;
   sub_food_category_name: string;
+  product_imgs: ProductsImages | null;
+  product_inventory: Inventories | null;
   food_category_id: number | null;
   food_category_name: string;
   product_price: number | null;

@@ -1,45 +1,55 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { getProductDetailesBySubFoodCatagoryId } from "../../features/api/productsAPI";
-import ProductCard from "../ProductCard/ProductCard";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { getAllProductsApi } from "../../features/products/productsAPI";
+import { productsSelector } from "../../features/products/productsSlice";
 import { Product } from "../../rami-types";
-
-
+import Layout from "../Layout/Layout";
+import ProductCard from "../ProductCard/ProductCard";
 
 const CategoryVisual = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const {id} =useParams<{ id: string }>();
+  const allProducts = useAppSelector(productsSelector);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const { id } = useParams<{ id: string }>();
+  const dispatch = useAppDispatch();
   if (!id) {
     return null;
   }
- // make it number
-  const categoryId = parseInt(id);
+  // make it number
+  const selectedSubCategoryId = parseInt(id);
 
   // Fetch products by category ID
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const productList = await getProductDetailesBySubFoodCatagoryId(categoryId);
-        setProducts(productList);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
 
-    fetchProducts();
-  }, []);
+    if (!allProducts) {
+      dispatch(getAllProductsApi());
+      console.log(allProducts); // eslint-disable-line no-
+      
+    }
+  }, [dispatch, allProducts]);
 
-  
+  // Filter products based on selectedSubCategoryId
+  useEffect(() => {
+    if (allProducts) {
+     
+      const filtered = allProducts.filter(
+        (product) => product.sub_food_category_id === selectedSubCategoryId
+      );
+      setFilteredProducts(filtered);
+    }
+  }, [allProducts, selectedSubCategoryId]);
+
   return (
-      <div>
-    
-        {products && products.map((product) => (
-          <ProductCard key={product.product_id} product={product} />
-        ))}
-      </div>
-    
+    <div className="category-visual-container">
+      <Layout />
+      {filteredProducts.length > 0 && (
+        <h1>{filteredProducts[0].sub_food_category_name}</h1>
+      )}
+      {filteredProducts.map((product) => (
+        <ProductCard key={product.product_id} product={product} />
+      ))}
+    </div>
   );
-}
+};
 
 export default CategoryVisual;
-
