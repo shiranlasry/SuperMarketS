@@ -39,8 +39,9 @@ const CategoryVisual = () => {
   }, [allProducts, selectedSubCategoryId]);
 
   return (
+    <Layout>
     <div className="category-visual-container">
-      <Layout />
+    
 
       {filteredProducts.length > 0 && (
         <h1 className="product-sub-category">
@@ -51,6 +52,7 @@ const CategoryVisual = () => {
         <ProductCard key={product.product_id} product={product} />
       ))}
     </div>
+    </Layout>
   );
 };
 
