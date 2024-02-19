@@ -41,10 +41,11 @@ const CategoryVisual = () => {
   return (
     <div className="category-visual-container">
       <Layout />
+
       {filteredProducts.length > 0 && (
-        <h2 className="product-sub-category">
+        <h1 className="product-sub-category">
           {filteredProducts[0].sub_food_category_name}
-        </h2>
+        </h1>
       )}
       {filteredProducts.map((product) => (
         <ProductCard key={product.product_id} product={product} />
