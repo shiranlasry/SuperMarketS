@@ -19,6 +19,7 @@ import {
   saveProductImages,
 } from "../../../../features/api/productsAPI";
 import { useNavigate } from "react-router";
+import "./AddNewProduct.scss";
 
 const AddNewProduct = () => {
   const initialProduct: Product = {
@@ -50,6 +51,8 @@ const AddNewProduct = () => {
   const [newProduct, setNewProduct] = useState(initialProduct);
   const foodCategories = useAppSelector(foodCategoriesSelector);
   const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const [imgsValidation, setImgsValidation] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -70,11 +73,31 @@ const AddNewProduct = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     setImagesProductFiles(files ? Array.from(files) : []);
+    // Check if number of selected files exceeds 2
+  if (files && files.length > 2) {
+    setImgsValidation(true);
+  }
+  else {
+    setImgsValidation(false); 
+  }
+
+    // Display uploaded images
+    if (files && files.length > 0) {
+      const fileUrls = Array.from(files).map((file) =>
+        URL.createObjectURL(file)
+      );
+      setUploadedImages(fileUrls);
+    }
   };
 
   const handelAddNewProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      
+      if (imgsValidation) {
+        alert("אנא בחר עד 2 תמונות");
+        return;
+      }
       const insertProductId = await addNewProductDetailes(newProduct);
       if (!insertProductId) {
         throw new Error("Error adding new product , no product id returned");
@@ -82,6 +105,7 @@ const AddNewProduct = () => {
       await addNewProductInventory(insertProductId, add);
       // need to save images to server
       if (imagesProductFiles && imagesProductFiles.length > 0) {
+
         await saveProductImages(insertProductId, imagesProductFiles);
       }
 
@@ -95,7 +119,7 @@ const AddNewProduct = () => {
   };
 
   return (
-    <div>
+    <div className="add-new-product-container">
       <h1 className="add-new-product">הוספת מוצר חדש</h1>
       <form onSubmit={handelAddNewProduct}>
         <label htmlFor="food_category_id">קטגורית מזון ראשית:</label>
@@ -104,6 +128,7 @@ const AddNewProduct = () => {
           name="food_category_id"
           value={newProduct.food_category_id || ""}
           onChange={handleInputChange}
+          required
         >
           <option value="">בחר קטגוריה</option>
           {foodCategories &&
@@ -125,13 +150,16 @@ const AddNewProduct = () => {
               name="sub_food_category_id"
               value={newProduct.sub_food_category_id || ""}
               onChange={handleInputChange}
+              required
             >
               <option value="">בחר קטגוריה משנית</option>
               {subFoodCategories
                 .filter(
                   (subCategory: SubFoodCategories) =>
                     subCategory.food_category_id ===
-                    +newProduct.food_category_id
+                    (newProduct.food_category_id
+                      ? +newProduct.food_category_id
+                      : null)
                 )
                 .map((subCategory: SubFoodCategories) => (
                   <option
@@ -152,6 +180,7 @@ const AddNewProduct = () => {
           name="product_name"
           value={newProduct.product_name}
           onChange={handleInputChange}
+          required
         />
 
         {/* Product Description */}
@@ -161,6 +190,7 @@ const AddNewProduct = () => {
           name="product_description"
           value={newProduct.product_description}
           onChange={handleInputChange}
+          required
         ></textarea>
 
         {/* Product Price */}
@@ -171,6 +201,7 @@ const AddNewProduct = () => {
           name="product_price"
           value={newProduct.product_price || ""}
           onChange={handleInputChange}
+          required
         />
 
         {/* Export Country */}
@@ -252,6 +283,20 @@ const AddNewProduct = () => {
             onChange={handleFileChange}
           />
         </div>
+        {uploadedImages.length > 0 && (
+          <div>
+            <label>תמונות שהועלו:</label>
+            {uploadedImages.map((imageUrl, index) => (
+              <img
+                key={index}
+                src={imageUrl}
+                alt={`Image ${index}`}
+                style={{ width: "100px", height: "100px", margin: "5px" }}
+              />
+            ))}
+            {imgsValidation && <p>אנא בחר עד 2 תמונות</p>}
+          </div>
+        )}
         <div>
           <label htmlFor="imagesProduct">כמה במלאי ?</label>
           <input

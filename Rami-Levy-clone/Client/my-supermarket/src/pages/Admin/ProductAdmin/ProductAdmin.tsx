@@ -5,6 +5,7 @@ import { getAllProductsApi } from '../../../features/products/productsAPI';
 import { productsSelector } from '../../../features/products/productsSlice';
 import { Product } from '../../../rami-types';
 import ProductCard from './ProductCard';
+import './ProductsAdmin.scss';
 
 
 const ProductsAdmin = () => {
@@ -33,7 +34,7 @@ const ProductsAdmin = () => {
   }
   return (
     <>
-      <div>
+      <div className="products-admin-container">
         <button onClick={addNewProductPressed}>הוסף מוצר חדש</button>
         <button onClick={showAllProducts}>חפש מוצר</button>
 
@@ -49,9 +50,9 @@ const ProductsAdmin = () => {
                    <ProductCard product={product} key={product.product_id} />
                 )
             })}
+      <button onClick={() => navigate('/admin')} >חזור</button>
 
       </div>
-      <button onClick={() => navigate('/admin')} >חזור</button>
     </>
 
   )

@@ -52,8 +52,9 @@ export const saveProductImages = async (productId: number, productImages: File[]
                 'Content-Type': 'multipart/form-data'
             }
         });
-
+        
         const { ok, message } = response.data;
+        
         if (!ok) {
             throw new Error(message || "Error saving product images");
         }
