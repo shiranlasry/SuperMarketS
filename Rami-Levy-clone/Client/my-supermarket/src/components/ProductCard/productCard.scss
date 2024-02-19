@@ -1,0 +1,38 @@
+.product-card {
+  margin: 0.5rem;
+  padding: 8px 8px 0 8px;
+  border: none;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  cursor: pointer;
+  max-height: 400px;
+  max-width: 260px;
+
+  .card-title {
+    font-size: 0.875em;
+    color: #6c757d;
+  }
+
+  .card-desc {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  .card-price {
+    margin-bottom: 0;
+    color: #1579f2;
+    font-size: 1.7rem;
+    font-weight: 600;
+    text-align: left;
+
+    .card-shekel {
+      font-weight: 400;
+      font-size: 0.875em;
+    }
+
+    .per-unit {
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+  }
+}

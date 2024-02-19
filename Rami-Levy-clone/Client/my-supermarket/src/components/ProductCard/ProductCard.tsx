@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Product } from "../../rami-types";
+import "./productCard.scss";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   // Convert LONGBLOB data to base64 for each image
@@ -28,48 +29,55 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   };
 
   return (
-    <div className="card" style={{ width: "18rem" }}>
-      <div className="carousel slide" data-bs-ride="carousel">
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img
-              src={`data:image/jpeg;base64,${currentImage}`}
-              className="d-block w-100"
-              alt="Product Image"
-            />
+    <div className="cards-container">
+      {" "}
+      {/* Adjust column sizes here */}
+      <div className="product-card card">
+        <div className="carousel slide" data-bs-ride="carousel">
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+              <img
+                src={`data:image/jpeg;base64,${currentImage}`}
+                className="d-block w-100"
+                alt="Product Image"
+              />
+            </div>
           </div>
+          {base64ImageB && (
+            <>
+              <button
+                className="carousel-control-prev"
+                type="button"
+                onClick={handleImageSwitch}
+              >
+                <span
+                  className="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button
+                className="carousel-control-next"
+                type="button"
+                onClick={handleImageSwitch}
+              >
+                <span
+                  className="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Next</span>
+              </button>
+            </>
+          )}
         </div>
-        {base64ImageB && (
-          <>
-            <button
-              className="carousel-control-prev"
-              type="button"
-              onClick={handleImageSwitch}
-            >
-              <span
-                className="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button
-              className="carousel-control-next"
-              type="button"
-              onClick={handleImageSwitch}
-            >
-              <span
-                className="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Next</span>
-            </button>
-          </>
-        )}
-      </div>
-      <div className="card-body">
-        <h5 className="card-title">{product.product_name}</h5>
-        <p className="card-price">Price: {product.product_price}</p>
-        <p className="card-desc">Description: {product.product_description}</p>
+        <div className="card-body">
+          <p className="card-title">{product.product_name}</p>
+          <p className="card-desc"> {product.product_description}</p>
+          <p className="card-price">
+            {product.product_price} <span className="card-shekel">₪</span>{" "}
+            <span className="per-unit">ליח'</span>
+          </p>
+        </div>
       </div>
     </div>
   );

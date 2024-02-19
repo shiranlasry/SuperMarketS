@@ -1,68 +1,79 @@
 .update-user-role {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    z-index: 999;
-  
-    h1 {
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
-  
-    div {
-      margin-bottom: 15px;
-  
-      label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-  
-      span {
-        display: block;
-        margin-bottom: 10px;
-      }
-  
-      select {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 16px;
-        margin-top: 5px;
-      }
-  
-      button {
-        padding: 10px 20px;
-        margin-right: 10px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-      }
-  
-      .saveBtn {
-        background-color: #007bff;
-        color: #fff;
-  
-        &:hover {
-          background-color: #0056b3;
-        }
-      }
-  
-      .cancelBtn {
-        background-color: #ccc;
-        color: #000;
-  
-        &:hover {
-          background-color: #999;
-        }
-      }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  z-index: 999;
+
+  //DEFINE CLASSNAME
+
+  // h1 {
+  //   font-size: 20px;
+  //   margin-bottom: 20px;
+  // }
+
+  //DEFINE CLASSNAME
+
+  // div {
+  //   margin-bottom: 15px;
+
+  //DEFINE CLASSNAME
+
+  // label {
+  //   display: block;
+  //   font-weight: bold;
+  //   margin-bottom: 5px;
+  // }
+
+  //DEFINE CLASSNAME
+
+  // span {
+  //   display: block;
+  //   margin-bottom: 10px;
+  // }
+
+  //DEFINE CLASSNAME
+
+  // select {
+  //   width: 100%;
+  //   padding: 10px;
+  //   border: 1px solid #ccc;
+  //   border-radius: 4px;
+  //   font-size: 16px;
+  //   margin-top: 5px;
+  // }
+
+  //DEFINE CLASSNAME
+
+  // button {
+  //   padding: 10px 20px;
+  //   margin-right: 10px;
+  //   border: none;
+  //   border-radius: 4px;
+  //   cursor: pointer;
+  //   font-size: 16px;
+  // }
+
+  .saveBtn {
+    background-color: #007bff;
+    color: #fff;
+
+    &:hover {
+      background-color: #0056b3;
     }
   }
-  
+
+  .cancelBtn {
+    background-color: #ccc;
+    color: #000;
+
+    &:hover {
+      background-color: #999;
+    }
+  }
+}
+// }
