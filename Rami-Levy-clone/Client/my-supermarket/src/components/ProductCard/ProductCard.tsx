@@ -36,9 +36,9 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <div className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             <div className="carousel-item active">
-              <img
+              <img 
                 src={`data:image/jpeg;base64,${currentImage}`}
-                className="d-block w-100"
+                className="d-block w-100 product-img"
                 alt="Product Image"
               />
             </div>

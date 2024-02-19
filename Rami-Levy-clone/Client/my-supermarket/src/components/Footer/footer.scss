@@ -1,66 +1,74 @@
+
 .site-footer {
   background-color: #f6f6f6;
   letter-spacing: 1.3px;
   padding: 24px 48px 0;
-  position: fixed;
-  bottom: 0;
-  right: 0;
+  position: sticky;
+  top: auto;
+  left: 0;
   width: 100%;
+  
+  max-height: 500px; /* Set a minimum height to ensure visibility */
+ 
   font-size: 0.9rem;
-  z-index: -1;
+  z-index: 1;
+}
 
-  @media screen and (max-width: 950px) {
+
+@media screen and (max-width: 950px) {
+  .site-footer {
     display: none;
   }
+}
 
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+.site-footer .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
 
-    .col-12 {
-      width: 20%; /* Adjust the width as needed */
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-  }
+.site-footer .row .col-12 {
+  width: 20%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
 
-  h5 {
-    font-weight: 700;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    color: #212529;
-    text-shadow: 0px 1px #212529fa;
-  }
+.site-footer h5 {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #212529;
+  text-shadow: 0px 1px #212529fa;
+}
 
-  ul {
-    list-style: none;
-    padding-left: 0;
-    margin-bottom: auto;
-  }
+.site-footer ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: auto;
+}
 
-  li {
-    margin-bottom: .5rem;
-  }
+.site-footer li {
+  margin-bottom: .5rem;
+}
 
-  a, p {
-    text-decoration: none;
-    color: #212529; // Adjust font color
-    margin-bottom: .2rem;
-    &:hover {
-      text-decoration: underline;
-      color: #212529;
-    }
-  }
+.site-footer a,
+.site-footer p {
+  text-decoration: none;
+  color: #212529;
+  margin-bottom: .2rem;
+}
 
-  .rights, .version {
-    color: #212529
-  }
-  .all-rights {
-    padding: 1.5rem 0;
-    font-size: 1rem;
-  }
+.site-footer a:hover {
+  text-decoration: underline;
+}
 
-  
+.site-footer .rights,
+.site-footer .version {
+  color: #212529;
+}
+
+.site-footer .all-rights {
+  padding: 1.5rem 0;
+  font-size: 1rem;
 }

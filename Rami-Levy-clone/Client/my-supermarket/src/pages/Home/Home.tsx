@@ -9,7 +9,15 @@ const Home: React.FC = () => {
  
   return (
     <div>
-      <Layout/> 
+      <Layout>
+        <div className="home-container">
+          <div className="home-content">
+            <h1>ברוך הבא לרמי לוי</h1>
+            <p>הקניון שלך באינטרנט</p>
+          </div>
+        </div>
+      </Layout>
+      
       
     </div>
   );

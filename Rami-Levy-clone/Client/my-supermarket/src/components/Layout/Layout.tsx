@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import UserMenu from "../../components/UserMenu/UserMenu";
@@ -16,7 +16,11 @@ import SearchBar from "../SearchBar/SearchBar";
 import Footer from "../Footer/Footer";
 import { getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserAPI";
 
-const Layout: React.FC = () => {
+interface LayoutProps {
+  children: ReactNode; // Define the type of children prop
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
@@ -189,7 +193,9 @@ const Layout: React.FC = () => {
       <NavBar />
       <ShoppingCart />
       <ShoppingBasket />
-
+      <div className="children-container">
+      { children }
+      </div>
       {!loggedInUser && (
         <Modal
           show={showLoginModal}
