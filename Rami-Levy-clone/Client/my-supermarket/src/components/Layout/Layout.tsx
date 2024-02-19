@@ -1,6 +1,5 @@
-//layout component
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import UserMenu from "../../components/UserMenu/UserMenu";
@@ -17,24 +16,32 @@ import SearchBar from "../SearchBar/SearchBar";
 import Footer from "../Footer/Footer";
 import { getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserAPI";
 
-interface LayoutProps {
-  children: ReactNode; // Define the type of children prop
-}
-
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dispatch = useAppDispatch();
   const toggleMenu = () => {
+    // Toggle the menu state regardless of user login status
     setIsMenuOpen((prevState) => !prevState);
   };
+
+  // Open the menu only when the user clicks on their name
+  // const handleMenuClick = () => {
+  //   // Only open the menu if the user is logged in
+  //   if (loggedInUser) {
+  //     setIsMenuOpen(true);
+  //   }
+  // };
+
+  // check if there is user loggedin on cookie token
   useEffect(() => {
     if (!loggedInUser) {
       dispatch(getUserFromTokenApi());
     }
   }, []);
+
   // Close the menu when the user logs in
   useEffect(() => {
     if (loggedInUser) {
@@ -48,14 +55,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     }
   }, [showRegisterModal]);
 
-  const handleCloseLogin = () => { setShowLoginModal(false); };
+  const handleCloseLogin = () => {
+    setShowLoginModal(false);
+  };
   const handleCloseRegister = () => {
     setShowRegisterModal(false);
     setShowLoginModal(true);
   };
 
   return (
-    <div className="layout-container">
+    <div className="sub-categories-main">
       <button className="to-main-navBar">
         <img
           className="rami-online"
@@ -71,7 +80,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <SearchBar />
       <NightMode />
       <button className="access">הצהרת נגישות</button>
-       {/* Render Login/Register buttons conditionally */}
       {!loggedInUser && (
         <>
           <button
@@ -125,7 +133,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </button>
         </>
       )}
-      {/* Render UserMenu conditionally */}
+
       {loggedInUser && (
         <div
           className={`greet-user ${isMenuOpen ? "menu-open" : ""}`}
@@ -177,12 +185,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           {loggedInUser.first_name}
         </div>
       )}
+
       <NavBar />
       <ShoppingCart />
       <ShoppingBasket />
-      <div className="children_div">
-      {children} {/* Render children components */}
-      </div>
+
       {!loggedInUser && (
         <Modal
           show={showLoginModal}
@@ -210,9 +217,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Render UserMenu conditionally */}
       {loggedInUser && isMenuOpen && <UserMenu loggedInUser={loggedInUser} />}
-    <Footer />
+      <Footer />
     </div>
-
   );
 };
 

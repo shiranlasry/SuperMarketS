@@ -1,5 +1,3 @@
-//footer component
-
 import './footer.scss';
 
 const Footer = () => {
