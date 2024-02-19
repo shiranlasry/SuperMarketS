@@ -6,6 +6,7 @@ import { productsSelector } from "../../features/products/productsSlice";
 import { Product } from "../../rami-types";
 import Layout from "../Layout/Layout";
 import ProductCard from "../ProductCard/ProductCard";
+import "./catagoryVisual.scss";
 
 const CategoryVisual = () => {
   const allProducts = useAppSelector(productsSelector);
@@ -20,18 +21,16 @@ const CategoryVisual = () => {
 
   // Fetch products by category ID
   useEffect(() => {
-
     if (!allProducts) {
       dispatch(getAllProductsApi());
       console.log(allProducts); // eslint-disable-line no-
-      
     }
   }, [dispatch, allProducts]);
 
   // Filter products based on selectedSubCategoryId
   useEffect(() => {
     if (allProducts) {
-     debugger;
+      debugger;
       const filtered = allProducts.filter(
         (product) => product.sub_food_category_id === selectedSubCategoryId
       );
@@ -43,7 +42,9 @@ const CategoryVisual = () => {
     <div className="category-visual-container">
       <Layout />
       {filteredProducts.length > 0 && (
-        <h1>{filteredProducts[0].sub_food_category_name}</h1>
+        <h2 className="product-sub-category">
+          {filteredProducts[0].sub_food_category_name}
+        </h2>
       )}
       {filteredProducts.map((product) => (
         <ProductCard key={product.product_id} product={product} />

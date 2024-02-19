@@ -1,34 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../app/hook';
-import { getFoodCategoriesApi, get_SUB_FoodCategoriesApi } from '../../../../features/categories/categoriesAPI';
-import { foodCategoriesSelector, subFoodCategoriesSelector } from '../../../../features/categories/categoriesSlice';
-import { FoodCategories, Product, SubFoodCategories } from '../../../../rami-types';
-import { addNewProductDetailes, addNewProductInventory, saveProductImages } from '../../../../features/api/productsAPI';
-import { useNavigate } from 'react-router';
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../app/hook";
+import {
+  getFoodCategoriesApi,
+  get_SUB_FoodCategoriesApi,
+} from "../../../../features/categories/categoriesAPI";
+import {
+  foodCategoriesSelector,
+  subFoodCategoriesSelector,
+} from "../../../../features/categories/categoriesSlice";
+import {
+  FoodCategories,
+  Product,
+  SubFoodCategories,
+} from "../../../../rami-types";
+import {
+  addNewProductDetailes,
+  addNewProductInventory,
+  saveProductImages,
+} from "../../../../features/api/productsAPI";
+import { useNavigate } from "react-router";
 
 const AddNewProduct = () => {
   const initialProduct: Product = {
     product_id: null,
     sub_food_category_id: null,
-    product_image_id:null,
-    product_img_name_a:'',
-    product_img_name_b:'',
-    product_img_data_a:'',
-    product_img_data_b:'',
+    product_image_id: null,
+    product_img_name_a: "",
+    product_img_name_b: "",
+    product_img_data_a: "",
+    product_img_data_b: "",
     product_inventory: null,
-    sub_food_category_name: '',
+    sub_food_category_name: "",
     food_category_id: null,
-    food_category_name: '',
+    food_category_name: "",
     product_price: null,
-    product_name: '',
-    product_description: '',
-    export_country: '',
-    brand: '',
-    content: '',
-    allergy_info: '',
-    type: '',
-    israel_milk: '',
-    cosher: '',
+    product_name: "",
+    product_description: "",
+    export_country: "",
+    brand: "",
+    content: "",
+    allergy_info: "",
+    type: "",
+    israel_milk: "",
+    cosher: "",
   };
 
   const [imagesProductFiles, setImagesProductFiles] = useState<File[]>();
@@ -37,7 +51,7 @@ const AddNewProduct = () => {
   const foodCategories = useAppSelector(foodCategoriesSelector);
   const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getFoodCategoriesApi());
@@ -45,7 +59,9 @@ const AddNewProduct = () => {
   }, []);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
     setNewProduct({ ...newProduct, [name]: value });
@@ -59,48 +75,43 @@ const AddNewProduct = () => {
   const handelAddNewProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      ;
-      const insertProductId= await addNewProductDetailes(newProduct);
+      const insertProductId = await addNewProductDetailes(newProduct);
       if (!insertProductId) {
-        throw new Error('Error adding new product , no product id returned');
+        throw new Error("Error adding new product , no product id returned");
       }
-      ;
-      await addNewProductInventory(insertProductId,add);
-     // need to save images to server
+      await addNewProductInventory(insertProductId, add);
+      // need to save images to server
       if (imagesProductFiles && imagesProductFiles.length > 0) {
-        
-        ;
-        await saveProductImages(insertProductId,imagesProductFiles);
+        await saveProductImages(insertProductId, imagesProductFiles);
       }
-     
-      
-  
-      // Clear form data after successful submission
- 
-  
-      // Optionally, display a success message to the user
-      alert('Product added successfully');
 
+      // Clear form data after successful submission
+
+      // Optionally, display a success message to the user
+      alert("Product added successfully");
     } catch (error) {
-      console.error('Error adding new product on handelAddNewProduct', error);
+      console.error("Error adding new product on handelAddNewProduct", error);
     }
   };
 
   return (
     <div>
-      <h1>הוספת מוצר חדש</h1>
+      <h1 className="add-new-product">הוספת מוצר חדש</h1>
       <form onSubmit={handelAddNewProduct}>
         <label htmlFor="food_category_id">קטגורית מזון ראשית:</label>
         <select
           id="food_category_id"
           name="food_category_id"
-          value={newProduct.food_category_id || ''}
+          value={newProduct.food_category_id || ""}
           onChange={handleInputChange}
         >
           <option value="">בחר קטגוריה</option>
           {foodCategories &&
             foodCategories.map((category: FoodCategories) => (
-              <option key={category.food_category_id} value={category.food_category_id}>
+              <option
+                key={category.food_category_id}
+                value={category.food_category_id}
+              >
                 {category.food_category_name}
               </option>
             ))}
@@ -112,14 +123,21 @@ const AddNewProduct = () => {
             <select
               id="sub_food_category_id"
               name="sub_food_category_id"
-              value={newProduct.sub_food_category_id || ''}
+              value={newProduct.sub_food_category_id || ""}
               onChange={handleInputChange}
             >
               <option value="">בחר קטגוריה משנית</option>
               {subFoodCategories
-                .filter((subCategory: SubFoodCategories) => subCategory.food_category_id === +newProduct.food_category_id)
+                .filter(
+                  (subCategory: SubFoodCategories) =>
+                    subCategory.food_category_id ===
+                    +newProduct.food_category_id
+                )
                 .map((subCategory: SubFoodCategories) => (
-                  <option key={subCategory.sub_food_category_id} value={subCategory.sub_food_category_id}>
+                  <option
+                    key={subCategory.sub_food_category_id}
+                    value={subCategory.sub_food_category_id}
+                  >
                     {subCategory.sub_food_category_name}
                   </option>
                 ))}
@@ -151,7 +169,7 @@ const AddNewProduct = () => {
           type="number"
           id="product_price"
           name="product_price"
-          value={newProduct.product_price || ''}
+          value={newProduct.product_price || ""}
           onChange={handleInputChange}
         />
 
@@ -225,7 +243,7 @@ const AddNewProduct = () => {
           onChange={handleInputChange}
         />
         <div>
-        <label htmlFor="imagesProduct">תמונות המוצר:</label>
+          <label htmlFor="imagesProduct">תמונות המוצר:</label>
           <input
             type="file"
             id="imagesProduct"
@@ -246,7 +264,7 @@ const AddNewProduct = () => {
         </div>
         <button type="submit">שלח</button>
         <button type="reset">נקה</button>
-        <button onClick={() => navigate('/manage_products')}>חזור</button>
+        <button onClick={() => navigate("/manage_products")}>חזור</button>
       </form>
     </div>
   );
