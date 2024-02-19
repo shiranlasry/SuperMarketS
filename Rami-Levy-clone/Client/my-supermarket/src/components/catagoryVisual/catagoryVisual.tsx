@@ -7,6 +7,8 @@ import { Product } from "../../rami-types";
 import Layout from "../Layout/Layout";
 import ProductCard from "../ProductCard/ProductCard";
 import "./catagoryVisual.scss";
+import Footer from "../Footer/Footer";
+
 
 const CategoryVisual = () => {
   const allProducts = useAppSelector(productsSelector);
@@ -38,9 +40,10 @@ const CategoryVisual = () => {
     }
   }, [allProducts, selectedSubCategoryId]);
 
-  return (
+  return (<>
+    <Layout >
     <div className="category-visual-container">
-      <Layout />
+     
 
       {filteredProducts.length > 0 && (
         <h1 className="product-sub-category">
@@ -51,6 +54,8 @@ const CategoryVisual = () => {
         <ProductCard key={product.product_id} product={product} />
       ))}
     </div>
+    </Layout>
+    </>
   );
 };
 

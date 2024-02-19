@@ -1,3 +1,5 @@
+// layout.scss  
+
 $button: #1579f2;
 
 .custom-modal {
@@ -7,7 +9,9 @@ $button: #1579f2;
     box-shadow: none;
   }
 }
-
+.children_div{
+  height: 500px;
+}
 .greet-user {
   float: left;
   margin: -3.2rem 0 0.8rem 12.5rem;
