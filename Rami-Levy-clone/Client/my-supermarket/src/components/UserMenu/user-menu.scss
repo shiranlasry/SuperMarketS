@@ -5,13 +5,17 @@
   z-index: 9999;
   left: 1rem;
   width: 276px;
-  margin-top: -34.2rem;
+  margin-top: -7.5rem;
   padding: 10px;
   height: fit-content;
   background-color: white;
   border-radius: 13px;
   box-shadow: 0px 0px 30px #0000004d;
   user-select: none;
+
+  @media screen and (max-width: 1120px) {
+    display: none;
+  }
 
   ul {
     list-style: none;

@@ -29,7 +29,6 @@ const CategoryVisual = () => {
   // Filter products based on selectedSubCategoryId
   useEffect(() => {
     if (allProducts) {
-   
       const filtered = allProducts.filter(
         (product) => product.sub_food_category_id === selectedSubCategoryId
       );
@@ -38,10 +37,7 @@ const CategoryVisual = () => {
   }, [allProducts, selectedSubCategoryId]);
 
   return (
-    <Layout>
     <div className="category-visual-container">
-    
-
       {filteredProducts.length > 0 && (
         <h1 className="product-sub-category">
           {filteredProducts[0].sub_food_category_name}
@@ -51,7 +47,6 @@ const CategoryVisual = () => {
         <ProductCard key={product.product_id} product={product} />
       ))}
     </div>
-    </Layout>
   );
 };
 
