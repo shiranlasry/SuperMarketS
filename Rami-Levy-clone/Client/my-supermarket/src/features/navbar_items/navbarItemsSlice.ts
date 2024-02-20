@@ -1,6 +1,6 @@
 //NavBarItems in user slice
 
-import { createSlice } from "@reduxjs/toolkit"
+import { createSelector, createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../../app/store"
 import { NavBarItem } from "../../rami-types"
 import { getAllNavBarItemsApi } from "./navbarItemsAPI"
@@ -47,14 +47,17 @@ export const NavBarItemsSlice = createSlice({
 })
 
 
-export const navBarItemsSelector = (state: RootState) => {
-    const sessionItems = JSON.parse(sessionStorage.getItem('navbarItems') || '[]');
-    if (sessionItems.length > 0) {
-      return sessionItems;
-    } else {
-      return state.navbarItems.value;
+export const navBarItemsSelector = createSelector(
+    (state: RootState) => state.navbarItems.value,
+    (value) => {
+      const sessionItems = JSON.parse(sessionStorage.getItem('navbarItems') || '[]');
+      if (sessionItems.length > 0) {
+        return sessionItems;
+      } else {
+        return value;
+      }
     }
-  }
+  );
 
 
 export default NavBarItemsSlice.reducer

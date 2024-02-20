@@ -69,7 +69,12 @@ const AddNewProduct = () => {
     const { name, value } = e.target;
     setNewProduct({ ...newProduct, [name]: value });
   };
-
+ const handleReset = () => {
+    setNewProduct(initialProduct);
+    setUploadedImages([]);
+    setImagesProductFiles([]);
+    setAdd(0);
+ }
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     setImagesProductFiles(files ? Array.from(files) : []);
@@ -308,7 +313,7 @@ const AddNewProduct = () => {
           />
         </div>
         <button type="submit">שלח</button>
-        <button type="reset">נקה</button>
+        <button type="reset"  onClick={handleReset}>נקה</button>
         <button onClick={() => navigate("/manage_products")}>חזור</button>
       </form>
     </div>

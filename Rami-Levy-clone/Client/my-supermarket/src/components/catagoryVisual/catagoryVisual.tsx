@@ -23,7 +23,6 @@ const CategoryVisual = () => {
   useEffect(() => {
     if (!allProducts) {
       dispatch(getAllProductsApi());
-      console.log(allProducts); // eslint-disable-line no-
     }
   }, [dispatch, allProducts]);
 

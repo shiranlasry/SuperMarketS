@@ -11,6 +11,7 @@ import ProductsAdmin from "./pages/Admin/ProductAdmin/ProductAdmin";
 import ErrorPage from "./pages/404-page/ErrorPage";
 import UpdateUser from "./pages/Admin/UsesManage/tsx/UpdateUser";
 import CategoryVisual from "./components/catagoryVisual/catagoryVisual";
+import AddNewFoodCategory from "./pages/Admin/ProductAdmin/AddNewFoodCategory/AddNewFoodCategory";
 
 function App() {
   const router = createBrowserRouter([
@@ -28,6 +29,7 @@ function App() {
     { path: "/update_user", element: <UpdateUser /> },
     { path: "/category-visual/:id", element: <CategoryVisual /> },
     { path: "/*", element: <ErrorPage /> },
+    { path: "/add_new_food_category", element: <AddNewFoodCategory /> },
   ]);
   return <RouterProvider router={router} />;
 }
