@@ -10,9 +10,10 @@ export const getAllProductsApi = createAsyncThunk<Product[] | null, void>('get-a
         if (!ok) {
             throw new Error("Invalid credentials getAllProductsApi()");
         }
-       
+        // Save the data into session storage
+           // sessionStorage.setItem('all_products', JSON.stringify(results));
         return results;
-
+        
     } catch (error) {
         console.error(error);
         return null;

@@ -119,7 +119,7 @@ const Footer = () => {
 
       </div>
       <div className="d-md-flex align-items-center justify-content-between w-100 all-rights border-top border-secondary mx-auto py-3 mt-5 position-relative">
-        <div className='rights'>כל הזכויות שמורות לרמי לוי שיווק השיקמה</div>
+        <div className='rights'>כל הזכויות שמורות ללי לירן ושירן התותחים   </div>
         <div className='version'>v2.4.6</div>
       </div>
     </footer>
