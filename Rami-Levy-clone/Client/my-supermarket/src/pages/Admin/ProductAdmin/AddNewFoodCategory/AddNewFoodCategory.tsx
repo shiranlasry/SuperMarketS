@@ -5,10 +5,10 @@ import { addNewFoodCategoryApi } from '../../../../features/api/categoriesAPI';
 const AddNewFoodCategory = () => {
 const dispatch = useAppDispatch();
 const hendelAddNewFoodCategory = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
+    try { 
         e.preventDefault();
         const category_name = (e.target as HTMLFormElement).category_name.value;
-      dispatch(addNewFoodCategoryApi(category_name));
+     // dispatch(addNewFoodCategoryApi(category_name));
         // Handle the action object here if needed
     } catch (error) {
         console.error("Error addNewProductInventories:", error);
