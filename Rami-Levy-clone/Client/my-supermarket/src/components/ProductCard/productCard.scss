@@ -1,55 +1,63 @@
-.product-card {
-  margin: 0.5rem;
-  padding: 8px;
-  border: 1px solid #ddd; /* Add a border for separation */
-  border-radius: 15px;
-  cursor: pointer;
-  max-width: 260px;
+.cards-container {
+  width: 100vw;
 
-  .card-body {
-    padding: 12px;
-  }
+  .product-card {
+    max-width: 355px;
+    max-height: 400px;
+    margin: 0.5rem;
+    padding: 8px;
+    border: 1px solid #ddd; /* Add a border for separation */
+    border-radius: 15px;
+    cursor: pointer;
 
-  .card-title {
-    font-size: 1.1em;
-    color: #333; /* Darken the title color */
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-
-  .card-desc {
-    font-size: 0.9rem;
-    color: #666; /* Dim the description color */
-    margin-bottom: 12px;
-  }
-
-  .card-price {
-    margin-bottom: 0;
-    color: #1579f2;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: left;
-
-    .card-shekel {
-      font-weight: 400;
-      font-size: 1rem;
+    .product-img {
+      height: 270px;
     }
 
-    .per-unit {
+    .card-body {
+      padding: 12px;
+    }
+
+    .card-title {
+      font-size: 1.1em;
+      color: #333; /* Darken the title color */
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
       font-size: 0.9rem;
-      font-weight: 500;
+      color: #666; /* Dim the description color */
+      margin-bottom: 12px;
     }
-  }
 
-  .product-img {
-    width: 100%;
-    border-radius: 12px; /* Round corners of the image */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-   
-  }
+    .card-price {
+      margin-bottom: 0;
+      color: #1579f2;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: left;
 
-  .carousel-control-prev-icon,
-  .carousel-control-next-icon {
-    background-color: #1579f2; /* Change carousel control buttons background color */
+      .card-shekel {
+        font-weight: 400;
+        font-size: 1rem;
+      }
+
+      .per-unit {
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+    }
+
+    .product-img {
+      width: 100%;
+      border-radius: 12px; /* Round corners of the image */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: #1579f2; /* Change carousel control buttons background color */
+    }
   }
 }
