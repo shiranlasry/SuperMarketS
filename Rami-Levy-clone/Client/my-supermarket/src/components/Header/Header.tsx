@@ -15,6 +15,8 @@ import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import "../Layout/layout.scss";
 import Logo from "../../assets/logos/rami-levy-online.png";
+import Shopping from "../../assets/logos/rami-levy-shopping.png";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
@@ -22,6 +24,7 @@ const Header = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const toggleMenu = () => {
     // Toggle the menu state regardless of user login status
     setIsMenuOpen((prevState) => !prevState);
@@ -65,14 +68,13 @@ const Header = () => {
 
   return (
     <div className="sub-categories-main">
-      <button className="to-main-navBar">
+      <button className="to-main-navBar" onClick={() => navigate("/")}>
+        {" "}
+        {/* Add onClick handler */}
         <img className="rami-online" src={Logo} />
       </button>
       <button className="to-shoppin-navBar">
-        <img
-          className="rami-shopping"
-          src="./src/assets/logos/rami-levy-shopping.png"
-        />
+        <img className="rami-shopping" src={Shopping} />
       </button>
       <SearchBar />
       <NightMode />
