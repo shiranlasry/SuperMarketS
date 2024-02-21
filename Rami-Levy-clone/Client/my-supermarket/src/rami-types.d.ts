@@ -1,4 +1,5 @@
 export interface FoodCategories {
+import { updateProductDetailes } from './../../../server/API/products/productsDetais/productsDetaisCtrl';
   food_category_id: number;
   food_category_name: string;
 }
@@ -98,3 +99,17 @@ export interface Product  {
     to : string;
   }
   
+export interface updateProductFields {
+  product_id: number | undefined;
+  sub_food_category_id: number | undefined;
+  product_name: string;
+  product_description: string;
+  product_price: number | undefined;
+  export_country: string;
+  brand: string;
+  content: string;
+  allergy_info: string;
+  type: string;
+  cosher: string;
+  israel_milk: string;
+}
