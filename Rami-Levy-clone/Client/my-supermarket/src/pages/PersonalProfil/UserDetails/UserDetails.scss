@@ -1,0 +1,31 @@
+.user-details-container {
+    padding: 20px;
+}
+
+.user-details-form {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+ 
+}
+.not-allowed {
+    cursor: not-allowed;
+}
+.user-details-field {
+    margin-bottom: 20px;
+}
+
+.user-details-field label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.user-details-field input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    color: #333;
+    
+}

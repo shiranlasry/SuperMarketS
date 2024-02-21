@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { loggedInUserSelector } from '../../features/logged_in_user/loggedInUserSlice';
-import { citiesSelector } from '../../features/cities/citiesSlice';
-import { streetsSelector } from '../../features/streets/streetsSlice';
-import { getAllCitiesAPI } from '../../features/cities/citiesAPI';
-import { getAllStreetsAPI } from '../../features/streets/streetsAPI';
-import { addNewUserAddressApi } from '../../features/logged_in_user/loggedInUserAPI';
-import { Address, City, Street } from '../../rami-types';
+import { useAppDispatch, useAppSelector } from '../../../../app/hook';
+import { loggedInUserSelector } from '../../../../features/logged_in_user/loggedInUserSlice';
+import { citiesSelector } from '../../../../features/cities/citiesSlice';
+import { streetsSelector } from '../../../../features/streets/streetsSlice';
+import { getAllCitiesAPI } from '../../../../features/cities/citiesAPI';
+import { getAllStreetsAPI } from '../../../../features/streets/streetsAPI';
+import { addNewUserAddressApi } from '../../../../features/logged_in_user/loggedInUserAPI';
+import { Address, City, Street } from '../../../../rami-types';
 import { useNavigate } from 'react-router-dom';
 
-const AddNewAddress = () => {
+type AddressProps = {
+  onClose: () => void;
+};
+
+const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
   const initialAddressState: Address = {
     address_id: null,
     user_id: null,
@@ -34,11 +38,10 @@ const AddNewAddress = () => {
   useEffect(() => {
     if (!loggedInUser) {
       navigate('/login');
+      return;
     }
-
-    if (!loggedInUser?.user_id) return;
     setNewAddress({ ...newAddress, user_id: loggedInUser.user_id });
-
+//get all cities and streets for select options
     dispatch(getAllCitiesAPI());
     dispatch(getAllStreetsAPI());
   }, []);
@@ -144,7 +147,8 @@ const handleSubmit = async (e: React.FormEvent) => {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit">Add Address</button>
+        <button type="submit">שמור</button>
+        <button onClick={onClose}>בטל</button>
       </form>
     </div>
   );
