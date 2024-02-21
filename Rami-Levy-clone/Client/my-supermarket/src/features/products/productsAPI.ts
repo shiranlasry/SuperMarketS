@@ -6,6 +6,7 @@ import { Product } from "../../rami-types";
 export const getAllProductsApi = createAsyncThunk<Product[] | null, void>('get-all-products', async () => {
     try {
         const response = await axios.get("/api/products-details");
+        console.log("response", response)
         const { ok, results } = response.data;
         if (!ok) {
             throw new Error("Invalid credentials getAllProductsApi()");
@@ -33,3 +34,4 @@ export const updateInventoryAPI = createAsyncThunk<number | null, { product_id: 
         return null;
     }
 })
+

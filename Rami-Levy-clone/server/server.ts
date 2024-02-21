@@ -49,6 +49,7 @@ import productsImagesRoutes from "./API/products/productsImages/productsImagesRo
 app.use("/api/products-images", productsImagesRoutes)
 import navbarRoutes from "./API/navbar/navbarRoutes"
 app.use("/api/navbar-items", navbarRoutes)
+
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });

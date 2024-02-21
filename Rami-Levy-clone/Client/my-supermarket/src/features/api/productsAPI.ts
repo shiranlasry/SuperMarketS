@@ -87,14 +87,30 @@ export const getProductDetailesBySubFoodCatagoryId = async (food_category_id: nu
 // Create the payload creator function for createAsyncThunk
 export const updateProductDetailes = createAsyncThunk<updateProductFields, updateProductFields>('update-product-detailes', async (updatedProduct) => {
     try {
+        console.log("updatedProduct", updatedProduct)
         const response = await axios.patch("/api/products-details/update-product-detailes", updatedProduct);
         const { ok, results } = response.data;
         if (!ok) {
             throw new Error("Invalid credentials updateProductDetailes()");
         }
-        return results.insertId;
+        return ok;
     } catch (error) {
         console.error("Error updateProductDetailes:", error);
+        return null;
+    }
+});
+
+export const deleteProduct = createAsyncThunk<number | null, { product_id: number | null }>('delete-product', async (product_id) => {
+    try {
+        const response = await axios.delete(`/api/products-details/delete-product/${product_id.product_id}`);
+        console.log("response", response)
+        const { ok, results } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials deleteProduct()");
+        }
+        return results.insertId;
+    } catch (error) {
+        console.error("Error deleteProduct:", error);
         return null;
     }
 });

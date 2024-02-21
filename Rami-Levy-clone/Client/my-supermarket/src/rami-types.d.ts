@@ -1,5 +1,4 @@
 export interface FoodCategories {
-import { updateProductDetailes } from './../../../server/API/products/productsDetais/productsDetaisCtrl';
   food_category_id: number;
   food_category_name: string;
 }

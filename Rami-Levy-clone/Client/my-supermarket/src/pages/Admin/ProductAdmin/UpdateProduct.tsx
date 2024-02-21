@@ -1,15 +1,25 @@
 import React, { useState } from "react";
-import { Product, updateProductFields } from "../../../rami-types";
-import { useAppDispatch } from "../../../app/hook";
+import { Product, SubFoodCategories, updateProductFields } from "../../../rami-types";
+import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { updateProductDetailes } from "../../../features/api/productsAPI";
+import { subFoodCategoriesSelector } from "../../../features/categories/categoriesSlice";
+import { getCategorybySubCategoryApi } from "../../../features/categories/categoriesAPI";
 
 interface UpdateProductProps {
     product: Product;
+    onClose: () => void;
 }
 
-const UpdateProduct: React.FC<UpdateProductProps> = ({ product }) => {
+const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
     const dispatch = useAppDispatch();
-
+    const [foodCatagory, setFoodCatagory] = useState<number | null>(null);
+    dispatch(getCategorybySubCategoryApi({ sub_food_category_id: product.sub_food_category_id })).then(
+        (response) => {
+            setFoodCatagory(response.payload.food_category_id);
+        }
+        )
+        
+        const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
     // State to manage input values
     const [updatedProduct, setUpdatedProduct] = useState<updateProductFields>({
         product_id: product.product_id? product.product_id : undefined,
@@ -24,6 +34,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product }) => {
         sub_food_category_id: product.sub_food_category_id ? product.sub_food_category_id : undefined,
         cosher: product.cosher,
         israel_milk: product.israel_milk
+
     });
 
     // Function to handle input changes
@@ -37,37 +48,77 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product }) => {
 
     // Function to handle updating the product
     const handleUpdateProduct = async () => {
-        await dispatch(updateProductDetailes(updatedProduct));
+        console.log("Updated Product:", updatedProduct);
+        const response = await dispatch(updateProductDetailes(updatedProduct));
+        if (response.payload) {
+            alert("Product updated successfully");
+        }
+        onClose();
     };
 
+    
     return (
-        <div>
+        <div id="update-product">
             <h1>Update Product</h1>
-            <label>Product Name:</label>
+            <label>שם מוצר:</label>
             <input type="text" name="product_name" value={updatedProduct.product_name} onChange={handleInputChange} />
-            <label>Product Price:</label>
+            <label>מחיר:</label>
             <input type="number" name="product_price" value={updatedProduct.product_price || ''} onChange={handleInputChange} />
-            <label>Product Description:</label>
+            <label>תיאור המוצר:</label>
             <textarea name="product_description" value={updatedProduct.product_description} onChange={handleInputChange} />
-            <label>Export Country:</label>
+            <label>מדינת ייצוא:</label>
             <input type="text" name="export_country" value={updatedProduct.export_country} onChange={handleInputChange} />
-            <label>Brand:</label>
+            <label>מותג:</label>
             <input type="text" name="brand" value={updatedProduct.brand} onChange={handleInputChange} />
-            <label>Content:</label>
+            <label>תוכן:</label>
             <input type="text" name="content" value={updatedProduct.content} onChange={handleInputChange} />
-            <label>Allergy Info:</label>
+            <label>מידע על אלרגנים:</label>
             <input type="text" name="allergy_info" value={updatedProduct.allergy_info} onChange={handleInputChange} />
-            <label>Type:</label>
+            <label>סוג המוצר:</label>
             <input type="text" name="type" value={updatedProduct.type} onChange={handleInputChange} />
-            <label>Sub Food Category ID:</label>
-            <input type="number" name="sub_food_category_id" value={updatedProduct.sub_food_category_id || ''} onChange={handleInputChange} />
-            <label>Cosher:</label>
+            <label>קטגוריית משנה:</label>
+            {foodCatagory && subFoodCategories && (
+    <>
+        <label htmlFor="sub_food_category_id">קטגוריה משנית:</label>
+        <select
+            id="sub_food_category_id"
+            name="sub_food_category_id"
+            value={updatedProduct.sub_food_category_id || ""}
+            onChange={handleInputChange}
+        >
+            <option value="">בחר קטגוריה משנית</option>
+            {subFoodCategories
+                .filter(
+                    (subCategory: SubFoodCategories) =>
+                        subCategory.food_category_id ===
+                        (foodCatagory
+                            ? +foodCatagory
+                            : null)
+                )
+                .map((subCategory: SubFoodCategories) => (
+                    <option
+                        key={subCategory.sub_food_category_id}
+                        value={subCategory.sub_food_category_id}
+                    >
+                        {subCategory.sub_food_category_name}
+                    </option>
+                ))}
+        </select>
+    </>
+)}
+
+            <label>כשרות:</label>
             <input type="text" name="cosher" value={updatedProduct.cosher} onChange={handleInputChange} />
-            <label>Israel Milk:</label>
+            <label>חלב ישראלי:</label>
             <input type="text" name="israel_milk" value={updatedProduct.israel_milk} onChange={handleInputChange} />
-            <button onClick={handleUpdateProduct}>Update</button>
-            <button onClick={() => { }}>Cancel</button>
-        </div>
+            <div>
+            <button className="saveBtn" type="button" onClick={handleUpdateProduct}>
+            שמור
+          </button>            <button className="cancelBtn" type="button" onClick={onClose}>
+            ביטול
+                </button>
+            </div>
+                </div>
     );
 };
 

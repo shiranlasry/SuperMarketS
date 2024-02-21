@@ -2,6 +2,7 @@ import express from "express";
 import connection from "../../../DB/database";
 import fs from "fs";
 import multer from "multer";
+import { Request, Response } from "express";
 
 export const addNewProductImages = async (
   req: express.Request,
@@ -74,3 +75,28 @@ export const addNewProductImages = async (
     res.status(500).send({ ok: false, error });
   }
 };
+
+export const deleteImagesWithProductId = async (req: Request, res: Response) => {
+  try {
+    const { product_id } = req.params
+      if (!product_id) {
+          res.status(400).send({ ok: false, error: 'missing required fields' })
+          return
+      }
+      const query = `DELETE FROM products_images WHERE product_id = ?;`
+      connection.query(query, [product_id], (err, results, fields) => {
+        try {
+            console.log("results:", results);
+              if (err) throw err;
+              res.send({ ok: true, results })
+          } catch (error) {
+              console.error(error)
+              res.status(500).send({ ok: false, error })
+          }
+      })
+  } catch (error) {
+      console.error(error)
+      res.status(500).send({ ok: false, error })
+  }
+}
+
