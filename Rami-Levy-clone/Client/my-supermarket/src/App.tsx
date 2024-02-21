@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-import AddNewAddress from "./components/AddNewAddress/AddNewAddress";
+import AddNewAddress from "./pages/PersonalProfil/UserAddress/AddNewAddress/AddNewAddress";
 import AddNewProduct from "./pages/Admin/ProductAdmin/AddNewProduct/AddNewProduct";
 import AdminMainPage from "./pages/Admin/AdminMainPage";
 import Home from "./pages/Home/Home";
@@ -13,7 +13,7 @@ import UpdateUser from "./pages/Admin/UsesManage/tsx/UpdateUser";
 import CategoryVisual from "./components/catagoryVisual/catagoryVisual";
 import AddNewFoodCategory from "./pages/Admin/ProductAdmin/AddNewFoodCategory/AddNewFoodCategory";
 import Layout from "./views/layouts/Layout";
-
+import PersonalProfil from "./pages/PersonalProfil/PersonalProfil";
 function App() {
   const router = createBrowserRouter([
     {
@@ -35,6 +35,7 @@ function App() {
         { path: "/category-visual/:id", element: <CategoryVisual /> },
         { path: "/*", element: <ErrorPage /> },
         { path: "/add_new_food_category", element: <AddNewFoodCategory /> },
+        {path:"/personal_profil" , element :<PersonalProfil/>}
       ],
     },
   ]);

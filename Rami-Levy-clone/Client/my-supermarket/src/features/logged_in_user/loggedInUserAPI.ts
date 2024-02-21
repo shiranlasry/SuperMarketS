@@ -62,6 +62,7 @@ interface AddNewUserAddresseArgs {
 }
 export const addNewUserAddressApi = createAsyncThunk<Address[] |AddNewUserAddresseArgs,Address >('add-new-user-address', async (args) => {
     try {
+        debugger
         const response = await axios.post("/api/addresses/add-new-address", args);
         const { ok, selectresult } = response.data;
         if (!ok) {

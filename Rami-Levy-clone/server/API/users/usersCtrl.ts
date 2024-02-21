@@ -194,16 +194,19 @@ export const deleteUser = async (req: express.Request, res: express.Response) =>
 export const updatePassword = async (req: Request, res: Response) => {
   try {
     const { user_id, password } = req.body;
-    if(!user_id || !password  ){  
+    if (!user_id || !password) {  
       res.status(400).send({ ok: false, error: 'Missing user_id or password' });
       return;
     }
+    
     // Hash the new password
     const hash = await bcrypt.hash(password, saltRounds);
+    console.log('Updating password for user_id:', user_id);
+    console.log('Hashed password:', hash);
 
     // Update the user's password in the database
     const query = `
-      UPDATE party_maker.users
+      UPDATE users
       SET password = ?
       WHERE user_id = ?;
     `;
@@ -213,7 +216,13 @@ export const updatePassword = async (req: Request, res: Response) => {
         res.status(500).send({ ok: false, error: 'Failed to update password' });
         return;
       }
-      res.send({ ok: true, message: 'Password updated successfully' });
+      
+      // if (results.affectedRows === 0) {
+      //   res.status(404).send({ ok: false, error: 'User not found or password unchanged' });
+      //   return;
+      // }
+
+      res.send({ ok: true, results });
     });
   } catch (error) {
     console.error(error);
