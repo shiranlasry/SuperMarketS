@@ -83,3 +83,62 @@ export const getProductDetailesBySubFoodCatagoryId = async (req: express.Request
         res.status(500).send({ ok: false, error })
     }
 }
+
+export const deleteProduct = async (req: express.Request, res: express.Response) => {
+    try {
+        const { product_id } = req.params
+        if (!product_id) {
+            res.status(400).send({ ok: false, error: 'missing required fields' })
+            return
+        }
+        const query = `DELETE FROM products WHERE product_id = ?;`
+        connection.query(query, [product_id], (err, results, fields) => {
+            try {
+                if (err) throw err;
+                res.send({ ok: true, results })
+            } catch (error) {
+                console.error(error)
+                res.status(500).send({ ok: false, error })
+            }
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+    }
+}
+
+export const updateProductDetailes = async (req: express.Request, res: express.Response) => {
+    try {
+        const { product_id, sub_food_category_id, product_price, product_name, product_description, export_country, brand, content, allergy_info, type, israel_milk, cosher } = req.body
+        if (!product_id) {
+            res.status(400).send({ ok: false, error: 'missing required fields' })
+            return
+        }
+        const query = `UPDATE products SET sub_food_category_id = ?, product_price = ?, product_name = ?, product_description = ?, export_country = ?, brand = ?, content = ?, allergy_info = ?, type = ?, israel_milk = ?, cosher = ? WHERE product_id = ?;`
+        connection.query(query, [
+            sub_food_category_id ? sub_food_category_id : null,
+            product_price ? product_price : null,
+            product_name ? product_name : null,
+            product_description ? product_description : null,
+            export_country ? export_country : null,
+            brand ? brand : null,
+            content ? content : null,
+            allergy_info ? allergy_info : null,
+            type ? type : null,
+            israel_milk ? israel_milk : null,
+            cosher ? cosher : null,
+            product_id
+        ], (err, results, fields) => {
+            try {
+                if (err) throw err;
+                res.send({ ok: true, results })
+            } catch (error) {
+                console.error(error)
+                res.status(500).send({ ok: false, error })
+            }
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+    }
+}

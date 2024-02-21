@@ -1,4 +1,5 @@
-import { Product } from "../../rami-types";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { Product,  updateProductFields } from "../../rami-types";
 import axios from "axios";
 
 
@@ -82,3 +83,18 @@ export const getProductDetailesBySubFoodCatagoryId = async (food_category_id: nu
     }
 }
 
+//update product detailes asyncthunk
+// Create the payload creator function for createAsyncThunk
+export const updateProductDetailes = createAsyncThunk<updateProductFields, updateProductFields>('update-product-detailes', async (updatedProduct) => {
+    try {
+        const response = await axios.patch("/api/products-details/update-product-detailes", updatedProduct);
+        const { ok, results } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials updateProductDetailes()");
+        }
+        return results.insertId;
+    } catch (error) {
+        console.error("Error updateProductDetailes:", error);
+        return null;
+    }
+});

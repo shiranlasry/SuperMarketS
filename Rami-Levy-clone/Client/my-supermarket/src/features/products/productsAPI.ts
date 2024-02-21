@@ -19,3 +19,17 @@ export const getAllProductsApi = createAsyncThunk<Product[] | null, void>('get-a
         return null;
     }
 })
+
+export const updateInventoryAPI = createAsyncThunk<number | null, { product_id: number | null, units_stock: number | undefined }>('update-inventory', async ({ product_id, units_stock }) => {
+    try {
+        const response = await axios.patch("/api/products-inventories/update-inventory", { product_id, units_stock });
+        const { ok, results } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials updateInventoryAPI()");
+        }
+        return results.insertId;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+})
