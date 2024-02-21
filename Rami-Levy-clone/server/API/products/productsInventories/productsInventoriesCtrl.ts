@@ -59,3 +59,26 @@ export const updateInventory = async (req: express.Request, res: express.Respons
         res.status(500).send({ ok: false, error });
     }
 }
+
+export const deleteInventory = async (req: express.Request, res: express.Response) => {
+    try {
+        const { product_id } = req.params;
+        if (!product_id) {
+            res.status(400).send({ ok: false, error: 'missing required fields' });
+            return;
+        }
+        const query = `DELETE FROM inventories WHERE product_id = ?;`;
+        connection.query(query, [product_id], (err, results, fields) => {
+            try {
+                if (err) throw err;
+                res.send({ ok: true, results });
+            } catch (error) {
+                console.error(error);
+                res.status(500).send({ ok: false, error });
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ ok: false, error });
+    }
+}

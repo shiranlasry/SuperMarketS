@@ -38,7 +38,41 @@ export const getAllProductDetailes = async (req: express.Request, res: express.R
         ON p.product_id = i.product_id
         INNER JOIN products_images pi
         ON p.product_id = pi.product_id
+        
         ;`
+    //     const query = `SELECT  p*,
+    //     GROUP_CONCAT(s.sub_food_category_name) AS sub_food_categories,
+    //     MAX(i.inventory_id) AS inventory_id,
+    //     MAX(i.'add') AS 'add',
+    //     MAX(i.\`remove\`) AS \`remove\`,
+    //     MAX(i.units_stock) AS units_stock,
+    //     MAX(pi.product_img_name_b) AS product_img_name_b,
+    //     MAX(pi.product_img_data_b) AS product_img_data_b,
+    //     MAX(pi.product_img_name_a) AS product_img_name_a,
+    //     MAX(pi.product_img_data_a) AS product_img_data_a,
+    //     MAX(pi.product_image_id) AS product_image_id
+    // FROM 
+    //     products p 
+    // INNER JOIN 
+    //     sub_food_categories s ON p.sub_food_category_id = s.sub_food_category_id 
+    // INNER JOIN 
+    //     inventories i ON p.product_id = i.product_id
+    // INNER JOIN 
+    //     products_images pi ON p.product_id = pi.product_id
+    // GROUP BY 
+    //     p.product_id,
+    //     p.product_name,
+    //     p.product_price,
+    //     p.product_description,
+    //     p.export_country,
+    //     p.brand,
+    //     p.content,
+    //     p.allergy_info,
+    //     p.type,
+    //     p.sub_food_category_id,
+    //     p.cosher,
+    //     p.israel_milk;
+    //  ;`
         connection.query(query, (err, results, fields) => {
             try {
                 if (err) throw err;
@@ -86,6 +120,7 @@ export const getProductDetailesBySubFoodCatagoryId = async (req: express.Request
 
 export const deleteProduct = async (req: express.Request, res: express.Response) => {
     try {
+        console.log("params",req.params)
         const { product_id } = req.params
         if (!product_id) {
             res.status(400).send({ ok: false, error: 'missing required fields' })
@@ -110,6 +145,7 @@ export const deleteProduct = async (req: express.Request, res: express.Response)
 export const updateProductDetailes = async (req: express.Request, res: express.Response) => {
     try {
         const { product_id, sub_food_category_id, product_price, product_name, product_description, export_country, brand, content, allergy_info, type, israel_milk, cosher } = req.body
+        console.log(req.body)
         if (!product_id) {
             res.status(400).send({ ok: false, error: 'missing required fields' })
             return

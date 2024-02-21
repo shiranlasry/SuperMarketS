@@ -5,7 +5,9 @@ import './ProductCard.scss';
 import { updateInventoryAPI } from '../../../features/products/productsAPI';
 import { useAppDispatch } from '../../../app/hook';
 import UpdateProduct from './UpdateProduct';
-
+import { deleteImagesWithProductIdAPI } from '../../../features/api/imagesAPI';
+import { deleteProduct } from '../../../features/api/productsAPI';
+import { deleteInventoryAPI } from '../../../features/api/inventoryAPI';
 type ProductCardProps = {
   product: Product;
 };
@@ -17,17 +19,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useAppDispatch();
 
   const handleDeleteProduct = async () => {
-    try {
-      const response = await axios.delete(`/api/products-details/delete-product/${product.product_id}`);
-      if (response.data.ok) {
-        console.log('Product deleted successfully');
-        // Optionally, you can update the UI to reflect the deletion
-      } else {
-        console.error('Error deleting product:', response.data.error);
-      }
-    } catch (error) {
-      console.error('Error deleting product:', error as Error);
-    }
+    dispatch(deleteInventoryAPI({ product_id: product.product_id }));
+    dispatch(deleteImagesWithProductIdAPI({ product_id: product.product_id }));
+    dispatch(deleteProduct({ product_id: product.product_id }));
   };
 
   const handleInventoryManage = () => {
@@ -46,6 +40,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const UpdateProductFields = () => {
     setIsUpdateProduct(true);
+  };
+
+  const handleClose = () => {
+    setIsUpdateProduct(false);
   };
 
   return (
@@ -73,9 +71,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <button onClick={handleCloseInventoryPopup}>Close</button>
         </div>
       )}
-      {isUpdateProduct && <UpdateProduct product={product} />}
+      {isUpdateProduct && <UpdateProduct product={product} onClose={handleClose} />}
     </div>
   );
 };
 
 export default ProductCard;
+

@@ -13,6 +13,7 @@ const ProductsAdmin = () => {
   const [isProductsShown, setIsProductsShown] = useState(false);
   const [searchProducts, setsearchProducts] = useState('');
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+
   const navigate = useNavigate();
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -42,6 +43,7 @@ const ProductsAdmin = () => {
   const addNewFoodCategoryPressed = () => {
     navigate('/add_new_food_category');
   }
+  console.log(filteredProducts.map((product) => product.product_id));
   return (
     <>
       <div className="products-admin-container">
