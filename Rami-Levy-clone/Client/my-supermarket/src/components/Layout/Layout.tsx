@@ -193,9 +193,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <NavBar />
       <ShoppingCart />
       <ShoppingBasket />
-      <div className="children-container">
-      { children }
-      </div>
+      <div className="children-container">{children}</div>
       {!loggedInUser && (
         <Modal
           show={showLoginModal}

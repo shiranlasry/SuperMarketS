@@ -1,0 +1,12 @@
+$button: #1579f2;
+
+.AppButton {
+  height: 42px;
+  max-width: 200px;
+  border: none;
+  color: white;
+  background-color: $button;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 8px;
+}
