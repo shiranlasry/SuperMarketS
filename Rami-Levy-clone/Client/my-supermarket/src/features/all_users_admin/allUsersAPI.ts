@@ -59,7 +59,7 @@ export const updatePasswordApi = createAsyncThunk<User | null, { user_id:number|
         const response = await axios.put("/api/users/update-password", arg);
         const { ok,results } = response.data;
         console.log('results:'+results) 
-        debugger
+        
 
         if (!ok) {
             throw new Error("Invalid credentials updatePasswordApi()");

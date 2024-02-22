@@ -24,7 +24,7 @@ const CategoryVisual = () => {
     if (!allProducts) {
       dispatch(getAllProductsApi());
     }
-  }, [dispatch, allProducts]);
+  }, []);
 
   // Filter products based on selectedSubCategoryId
   useEffect(() => {
@@ -34,7 +34,7 @@ const CategoryVisual = () => {
       );
       setFilteredProducts(filtered);
     }
-  }, [allProducts, selectedSubCategoryId]);
+  }, [allProducts,selectedSubCategoryId]);
 
   return (
     <div className="category-visual-container">

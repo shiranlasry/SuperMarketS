@@ -8,6 +8,7 @@ export const getAllProductsApi = createAsyncThunk<Product[] | null, void>('get-a
         const response = await axios.get("/api/products-details");
         console.log("response", response)
         const { ok, results } = response.data;
+        
         if (!ok) {
             throw new Error("Invalid credentials getAllProductsApi()");
         }

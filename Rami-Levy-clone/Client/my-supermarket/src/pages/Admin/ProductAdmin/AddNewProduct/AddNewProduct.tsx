@@ -20,6 +20,7 @@ import {
 } from "../../../../features/api/productsAPI";
 import { useNavigate } from "react-router";
 import "./AddNewProduct.scss";
+import { getAllProductsApi } from "../../../../features/products/productsAPI";
 
 const AddNewProduct = () => {
   const initialProduct: Product = {
@@ -114,10 +115,9 @@ const AddNewProduct = () => {
         await saveProductImages(insertProductId, imagesProductFiles);
       }
 
-      // Clear form data after successful submission
-
       // Optionally, display a success message to the user
       alert("Product added successfully");
+      navigate("/manage_products");
     } catch (error) {
       console.error("Error adding new product on handelAddNewProduct", error);
     }

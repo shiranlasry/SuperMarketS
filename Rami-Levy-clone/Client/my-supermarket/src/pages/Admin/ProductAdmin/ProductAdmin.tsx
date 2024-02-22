@@ -17,7 +17,6 @@ const ProductsAdmin = () => {
   const navigate = useNavigate();
     const dispatch = useAppDispatch();
     useEffect(() => {
-      if (!AllProducts)
       dispatch(getAllProductsApi())
     }, []);
     useEffect(() => {
