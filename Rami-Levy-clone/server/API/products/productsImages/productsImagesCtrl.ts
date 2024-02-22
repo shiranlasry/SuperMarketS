@@ -100,3 +100,77 @@ export const deleteImagesWithProductId = async (req: Request, res: Response) => 
   }
 }
 
+// export const getImagesByProductId = async (req: Request, res: Response) => {
+//   try {
+//     const { product_id } = req.params
+//     if (!product_id) {
+//         res.status(400).send({ ok: false, error: 'missing required fields' })
+//         return
+//     }
+//     const query = `SELECT * FROM products_images WHERE product_id = ?;`
+//     connection.query(query, [product_id], (err, results, fields) => {
+//       try {
+//           console.log("results:", results);
+//             if (err) throw err;
+//             res.send({ ok: true, results })
+//         } catch (error) {
+//             console.error(error)
+//             res.status(500).send({ ok: false, error })
+//         }
+//     })
+//   } catch (error) {
+//       console.error(error)
+//       res.status(500).send({ ok: false, error })
+//   }
+// }
+
+export const updateImagesWithProductId = async (req: Request, res: Response) => {
+  try {
+    const { product_id,product_img_name_a, product_img_data_a,product_img_name_b, product_img_data_b  } = req.params
+    if (!product_id) {
+        res.status(400).send({ ok: false, error: 'missing required fields' })
+        return
+    }
+    const query = `UPDATE products_images SET product_img_name_a = ?,product_img_name_b = ?,product_img_data_a = ?, product_img_data_b = ?  WHERE product_id = ?;`
+    connection.query(query, [product_img_name_a, product_img_name_b, product_img_data_a, product_img_data_b, product_id], (err, results, fields) => {
+    try {
+          console.log("results:", results);
+            if (err) throw err;
+            res.send({ ok: true, results })
+        } catch (error) {
+            console.error(error)
+            res.status(500).send({ ok: false, error })
+        }
+    })
+  } catch (error) {
+      console.error(error)
+      res.status(500).send({ ok: false, error })
+  }
+}
+
+export const deleteSingleImage = async (req: Request, res: Response) => {
+  try {
+    const { product_id, isA } = req.params;
+    if (!product_id) {
+        res.status(400).send({ ok: false, error: 'missing required fields' });
+        return;
+    }
+    const isImageA = isA === 'true'; // Convert string to boolean
+    const query = isImageA
+      ? `UPDATE products_images SET product_img_name_a = ?, product_img_data_a = ? WHERE product_id = ?;`
+      : `UPDATE products_images SET product_img_name_b = ?, product_img_data_b = ? WHERE product_id = ?;`;
+    connection.query(query,  [null, null, product_id], (err, results, fields) => {
+        try {
+            console.log("results:", results);
+            if (err) throw err;
+            res.send({ ok: true, results });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ ok: false, error });
+        }
+    });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send({ ok: false, error });
+  }
+};

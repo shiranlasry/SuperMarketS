@@ -114,3 +114,21 @@ export const deleteProduct = createAsyncThunk<number | null, { product_id: numbe
         return null;
     }
 });
+
+export const updateProductImages = createAsyncThunk<string | null, {
+    product_id: string | null, product_img_name_a: string | null, product_img_name_b: string | null,
+    product_img_data_a: string | null, product_img_data_b: string | null
+}>
+    ('update-product-images', async ({ product_id, product_img_data_a, product_img_data_b, product_img_name_a, product_img_name_b }) => {
+    try {
+        const response = await axios.patch("/api/products-images/update-product-images", { product_id, product_img_data_a, product_img_data_b, product_img_name_a, product_img_name_b });
+        const { ok, results } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials updateProductImages()");
+        }
+        return results.insertId;
+    } catch (error) {
+        console.error("Error updateProductImages:", error);
+        return null;
+    }
+    });
