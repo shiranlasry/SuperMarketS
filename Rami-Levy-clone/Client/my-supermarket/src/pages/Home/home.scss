@@ -22,8 +22,7 @@ $button: #1579f2;
   }
 }
 
-.hp-loginBtn,
-.access {
+.hp-loginBtn {
   margin: 1rem 0 0 0;
   float: left;
   color: $button;
@@ -51,16 +50,6 @@ $button: #1579f2;
 
 .login-title {
   @media screen and (max-width: 1100px) {
-    display: none;
-  }
-}
-.access {
-  float: left;
-  text-decoration: underline;
-  margin: -3rem 0 0 2.2rem;
-  font-size: 0.9rem;
-
-  @media screen and (max-width: 950px) {
     display: none;
   }
 }
