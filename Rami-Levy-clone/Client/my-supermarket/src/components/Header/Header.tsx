@@ -25,6 +25,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const toggleMenu = () => {
     // Toggle the menu state regardless of user login status
     setIsMenuOpen((prevState) => !prevState);
@@ -40,17 +41,22 @@ const Header = () => {
 
   // check if there is user loggedin on cookie token
   useEffect(() => {
-    if (!loggedInUser) {
-      dispatch(getUserFromTokenApi());
-    }
-  }, []);
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (!event.target) return;
 
-  // Close the menu when the user logs in
-  useEffect(() => {
-    if (loggedInUser) {
+      const target = event.target as HTMLElement;
+      const menu = document.querySelector(".greet-user");
+      if (!menu || menu.contains(target)) return;
+
       setIsMenuOpen(false);
-    }
-  }, [loggedInUser]);
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
 
   useEffect(() => {
     if (showRegisterModal) {
