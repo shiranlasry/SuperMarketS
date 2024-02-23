@@ -146,6 +146,9 @@ const Header = () => {
         <div
           className={`greet-user ${isMenuOpen ? "menu-open" : ""}`}
           onClick={toggleMenu}
+          title="לאזור האישי"
+          data-toggle="tooltip"
+          data-placement="bottom"
         >
           <svg
             data-v-c9960dd8=""
