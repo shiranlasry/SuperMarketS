@@ -1,8 +1,8 @@
 //users routes server side
 import express from "express";
-import { getAllUsers,updatePassword,deleteUser,registerUser,loginUser,logOutUser, getUserFromToken ,updateUserRole} from "./usersCtrl";
+import { getAllUsers,updateUserDetails,updatePassword,deleteUser,registerUser,loginUser,logOutUser, getUserFromToken ,updateUserRole} from "./usersCtrl";
 
-import { isAdmin } from '../middlewares/authMiddleware';
+import { isAdmin, isAdminUserUpdate } from '../middlewares/authMiddleware';
 const router = express.Router()
 
 router
@@ -13,8 +13,10 @@ router
 .delete("/delete-token", logOutUser)
 .get("/user-from-token", getUserFromToken)
 .put("/update-user-role",isAdmin, updateUserRole)
-.delete("/:user_id",isAdmin, deleteUser)
-.put("/update-password",isAdmin, updatePassword)
+.delete("/:user_id",isAdminUserUpdate, deleteUser)
+.put("/update-password",isAdminUserUpdate, updatePassword)
+.put("/update-user-details",isAdminUserUpdate, updateUserDetails)
+
 
 
 
