@@ -229,3 +229,30 @@ export const updatePassword = async (req: Request, res: Response) => {
     res.status(500).send({ ok: false, error: 'Internal server error' });
   }
 };
+
+export const updateUserDetails = async (req: Request, res: Response) => {
+  try {
+    const { user_id, first_name, last_name, phone_number,gender,birth_date } = req.body;
+    if (!user_id || !first_name || !last_name || !phone_number || !gender || !birth_date ) {
+      res.status(400).send({ ok: false, error: 'Missing fields' });
+      return;
+    }
+    const query = `
+      UPDATE users
+      SET first_name = ?, last_name = ?, phone_number= ? , gender = ?, birth_date = ?
+      WHERE user_id = ?;
+      `;
+    connection.query(query, [first_name, last_name, phone_number,gender, birth_date,user_id], (err, results: any, fields) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send({ ok: false, error: 'Failed to update user details' });
+        return;
+      }
+      res.send({ ok: true, results });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ ok: false, error: 'Internal server error' });
+  }
+}
+

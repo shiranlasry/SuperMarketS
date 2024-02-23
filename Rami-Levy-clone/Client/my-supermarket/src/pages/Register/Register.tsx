@@ -20,6 +20,9 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
     role_id: 2,
     role_name:"user",
     addresses: [],
+    phone_number: "",
+    gender: "",
+    birth_date: "",
     
   };
 

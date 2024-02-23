@@ -84,6 +84,9 @@ export interface Product  {
     role_id: number|null =0;
     role_name: string='';
     addresses: Address[] =[];
+    phone_number: string='';
+    gender: string='';
+    birth_date: string='';
   };
   export interface Role {
     role_id: number;

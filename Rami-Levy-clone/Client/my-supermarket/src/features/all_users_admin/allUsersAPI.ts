@@ -70,3 +70,28 @@ export const updatePasswordApi = createAsyncThunk<User | null, { user_id:number|
         return null;
     }
 })
+interface UserUpdateDetails {
+    user_id: number |null;
+    first_name: string | null;
+    last_name: string | null;
+    phone_number: string | null;
+    gender: string | null;
+    birth_date: string | null;
+}
+export const updateUserDetailsApi = createAsyncThunk<any, UserUpdateDetails>('update-user-details', async (arg) => {
+    try {
+        debugger
+        const response = await axios.put("/api/users/update-user-details", arg);
+        const { ok, results } = response.data;
+           
+        if (!ok) {
+            throw new Error("Invalid credentials updateUserDetailsApi()");
+        }
+        alert("User details updated successfully")
+        return results;
+
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
