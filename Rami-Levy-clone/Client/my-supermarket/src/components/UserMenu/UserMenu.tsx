@@ -1,5 +1,4 @@
 import "./user-menu.scss";
-
 import { User } from "../../rami-types";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hook";
@@ -55,7 +54,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser }) => {
   };
 
   return (
-    <div className="user-menu">
+    <div className="user-menu" ref={userMenuRef}>
       <ul>
         <li>
           <svg
@@ -429,11 +428,26 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser }) => {
               ></line>
             </svg>
           </svg>
-          <a className="eMenu-logout-title" href="#">
+          <a
+            className="eMenu-logout-title"
+            href="#"
+            title="לחץ להתנתקות"
+            data-toggle="tooltip"
+            data-placement="bottom"
+          >
             התנתק/י
           </a>
         </li>
       </ul>
+      {/* <button
+        className="btn btn-secondary"
+        onClick={handleLogOut}
+        title="Logout"
+        data-toggle="tooltip"
+        data-placement="bottom"
+      >
+        Logout
+      </button> */}
     </div>
   );
 };
