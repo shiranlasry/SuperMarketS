@@ -58,6 +58,7 @@ export const registerUser = async (req: express.Request, res: express.Response) 
     res.status(500).send({ ok: false, error })
   }
 }
+
 export const loginUser = async (req: express.Request, res: express.Response) => {
   try {
     
@@ -107,6 +108,29 @@ export const loginUser = async (req: express.Request, res: express.Response) => 
     res.status(500).send({ ok: false, error });
   }
 };
+export const getUserById = async (req: express.Request, res: express.Response) => {
+  try {
+    const user_id = req.params.user_id;
+    if (!user_id) {
+      throw new Error("Missing fields");
+    }
+    const query = "SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_id WHERE user_id = ?;";
+    connection.query(query, [user_id], (err, results, fields) => {
+      try {
+        if (err) throw err;
+        const user = results[0];
+        res.send({ ok: true, user })
+      } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+      }
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send({ ok: false, error })
+  }
+
+}
 export const logOutUser = async (req: express.Request, res: express.Response) => {
   try {
     res.clearCookie('token');
@@ -175,16 +199,29 @@ export const deleteUser = async (req: express.Request, res: express.Response) =>
     if (!user_id) {
       throw new Error("Missing fields");
     }
-    const query = "DELETE FROM users WHERE user_id = ?";
-    connection.query(query, [user_id], (err, results, fields) => {
+    // delete user address first
+    const queryDeleteAddress = "DELETE FROM addresses WHERE user_id = ?";
+    connection.query(queryDeleteAddress, [user_id], (err, results, fields) => {
       try {
         if (err) throw err;
-        res.send({ ok: true, results })
+        const query = "DELETE FROM users WHERE user_id = ?";
+        connection.query(query, [user_id], (err, results, fields) => {
+          try {
+            if (err) throw err;
+            res.send({ ok: true, results })
+          } catch (error) {
+            console.error(error)
+            res.status(500).send({ ok: false, error })
+          }
+        })
+
       } catch (error) {
         console.error(error)
         res.status(500).send({ ok: false, error })
       }
-    })
+    })  
+
+   
   } catch (error) {
     console.error(error)
     res.status(500).send({ ok: false, error })

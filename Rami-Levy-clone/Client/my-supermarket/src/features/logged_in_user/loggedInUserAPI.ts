@@ -20,6 +20,22 @@ export const logInUserApi = createAsyncThunk<User | null, GetUserApiArgs>('get-u
         return null;
     }
 })
+export const getUserByIdApi = createAsyncThunk<User | null, number |null>('get-user-by-id', async (user_id) => {
+    try {
+        
+        const response = await axios.get(`/api/users/${user_id}`);
+        const { ok, user } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials getUserByIdApi()");
+        }
+        return user;
+
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
+
 export const logOutUserApi = createAsyncThunk('delete-token', async () => {
     try {
         const response = await axios.delete("/api/users/delete-token");
