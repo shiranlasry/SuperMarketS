@@ -1,6 +1,6 @@
 .user-details-container {
-  width: 795px;
-  height: 560px;
+  max-width: 795px;
+  height: fit-content;
   padding: 16px 0 16px 0;
   background-color: #fff;
   border-radius: 15px;
@@ -35,7 +35,7 @@
 
   .user-details-field input {
     height: 40px;
-    width: 350px;
+    max-width: 350px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -43,5 +43,53 @@
     font-size: 16px;
     color: #333;
     border: none;
+  }
+}
+
+.uprofile-btns {
+  display: flex;
+  flex-direction: column;
+
+  .remove-user-btn {
+    justify-content: center;
+    margin-right: 38rem;
+    font-size: 1rem;
+    color: red;
+    background-color: #cccccc00;
+    border: none;
+  }
+
+  // .uprofile-btns {
+  //   display: flex;
+  //   flex-direction: column;
+  // }
+}
+
+.update-details-btn {
+  text-decoration: underline;
+  background-color: #cccccc00;
+  border: none;
+}
+
+.set-gender {
+  max-width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+
+  .gender {
+    margin-left: 1rem;
+    margin-bottom: 0;
+    align-items: center;
+    display: flex;
+    flex-flow: row;
+  }
+
+  .no-gender {
+    display: flex;
+  }
+
+  .gender-title {
+    width: 200px;
   }
 }

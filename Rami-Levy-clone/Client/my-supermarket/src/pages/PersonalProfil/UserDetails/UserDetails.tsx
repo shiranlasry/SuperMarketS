@@ -25,28 +25,41 @@ const UserDetails = () => {
     setIsPopDelete(true);
   };
   const dispatch = useAppDispatch();
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    
+
     // Validate phone number if the input name is 'phone_number'
-    if (name === 'phone_number') {
-       // setPhoneValidation(validatePhoneNumber(value));
+    if (name === "phone_number") {
+      // setPhoneValidation(validatePhoneNumber(value));
     }
 
-    setUpdatesFields(prevState => ({
-        ...prevState,
-        [name]: name === 'birth_date' ? new Date(value).toISOString().split('T')[0] : value
+    setUpdatesFields((prevState) => ({
+      ...prevState,
+      [name]:
+        name === "birth_date"
+          ? new Date(value).toISOString().split("T")[0]
+          : value,
     }));
-};
+  };
 
   const updateUserDetails = async () => {
-    if (!updatesFields.first_name || !updatesFields.last_name || !updatesFields.gender || !updatesFields.birth_date || !updatesFields.phone_number) {
-      alert('אנא מלא את כל השדות');
+    if (
+      !updatesFields.first_name ||
+      !updatesFields.last_name ||
+      !updatesFields.gender ||
+      !updatesFields.birth_date ||
+      !updatesFields.phone_number
+    ) {
+      alert("אנא מלא את כל השדות");
       return;
     }
     await dispatch(updateUserDetailsApi(updatesFields));
     dispatch(getUserByIdApi(updatesFields.user_id));
-  }
+  };
   return (
     <div className="user-details-container">
       <div className="user-details-title">
@@ -81,13 +94,7 @@ const UserDetails = () => {
               className="not-allowed"
             />
           </div>
-          <div className="user-details-field">
-          <select value={updatesFields.gender} onChange={handleChange} name="gender" id="gender">
-    <option value="">בחר מגדר</option>
-    <option value="זכר">זכר</option>
-    <option value="נקבה">נקבה</option>
-</select>
-          </div>
+
           <div className="user-details-field">
             <input
               type="date"
@@ -98,7 +105,7 @@ const UserDetails = () => {
               required
             />
           </div>
-         
+
           <div className="user-details-field">
             <input
               type="text"
@@ -110,10 +117,57 @@ const UserDetails = () => {
               required
             />
           </div>
-          {isPopDelete && <DeleteUserPersonal user={loggedInUser} onClose={() => setIsPopDelete(false)} />}
-          <div className="user-details-field">
-            <button className="update-details-btn" onClick={updateUserDetails}>עדכן פרטים</button>
-            <button className="delete-user-btn" onClick={popDeleteUser}>מחק משתמש</button>
+          <div className="user-details-field set-gender">
+            <div className="gender-title">
+              <label>אני</label>
+            </div>
+            <div className="gender">
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="זכר"
+                checked={updatesFields.gender === "זכר"}
+                onChange={handleChange}
+              />
+              <label htmlFor="male">זכר</label>
+            </div>
+            <div className="gender">
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="נקבה"
+                checked={updatesFields.gender === "נקבה"}
+                onChange={handleChange}
+              />
+              <label htmlFor="female">נקבה</label>
+            </div>
+            <div className="gender no-gender">
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="לא משנה"
+                checked={updatesFields.gender === "לא משנה"}
+                onChange={handleChange}
+              />
+              <label htmlFor="female">לא משנה</label>
+            </div>
+          </div>
+          {isPopDelete && (
+            <DeleteUserPersonal
+              user={loggedInUser}
+              onClose={() => setIsPopDelete(false)}
+            />
+          )}
+          <div className="user-details-field uprofile-btns">
+            <button className="update-details-btn" onClick={updateUserDetails}>
+              עדכן פרטים
+            </button>
+            <button className="remove-user-btn" onClick={popDeleteUser}>
+              הסרת משתמש
+            </button>
           </div>
         </div>
       )}
