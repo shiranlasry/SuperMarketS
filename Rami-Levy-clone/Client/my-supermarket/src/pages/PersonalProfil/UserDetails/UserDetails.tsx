@@ -171,7 +171,7 @@ const UserDetails = () => {
               onClose={() => setIsPopDelete(false)}
             />
           )}
-          <div className=" uprofile-btns">
+          <div className="uprofile-btns">
             <button className="update-details-btn" onClick={updateUserDetails}>
               עדכן פרטים
             </button>

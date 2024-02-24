@@ -13,6 +13,7 @@
     margin: 0 1rem 0 1rem;
     border-bottom: 1px solid #f3f5f8;
   }
+
   .user-details-div {
     padding: 2rem;
     display: flex;
@@ -25,10 +26,9 @@
     display: flex;
     flex-flow: row;
     margin-bottom: 20px;
-    // flex: 1 1 calc(50% - 1.7rem); /* Adjust width for two columns */
 
     @media screen and (min-width: 1500px) {
-      width: 220px; /* Make fields take full width on smaller screens */
+      width: 220px;
     }
   }
 
@@ -39,7 +39,7 @@
 
   .user-details-field input {
     height: 40px;
-    width: 220px; /* Make inputs fill the available space */
+    width: 220px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -61,24 +61,26 @@
     text-decoration: underline;
     background-color: #cccccc00;
     border: none;
-    align-items: right; /* Adjust margin for better spacing */
+    align-items: right;
   }
 
   .set-gender {
     width: 220px;
-    margin-bottom: 20px; /* Adjust margin for better spacing */
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
   }
 
   @media screen and (max-width: 600px) {
     .user-details-field {
-      flex: 1 1 100%; /* Make fields take full width on smaller screens */
+      flex: 1 1 100%;
     }
   }
+
   .choose-gender {
     display: flex;
     flex-flow: row;
+
     .gender {
       margin-left: 0.5rem;
     }
