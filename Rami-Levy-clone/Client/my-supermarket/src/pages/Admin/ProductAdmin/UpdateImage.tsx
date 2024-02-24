@@ -21,6 +21,7 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
     const [newImageA, setNewImageA] = useState<string>();
     const [newImageB, setNewImageB] = useState<string>();
 
+
     useEffect(() => {
         setImageAData(base64Image(product_img_data_a));
         console.log("product_img_data_a", product_img_data_a);
@@ -29,7 +30,6 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
             
     },[]);
         
-
 
     const base64Image = (product_img_data:any) => {
         if (product_img_data !== null && product_img_data !== undefined) {
@@ -60,7 +60,6 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         const isA = e.target.name === "imagesProduct1" ? true : false;
-        console.log(e.target)
         if (files) {
             const file = files[0];
             console.log("file:", file);
@@ -69,8 +68,8 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
                 const fileData = reader.result as string;
                 const formData = new FormData();
                 formData.append("product_id", product_id ? product_id.toString() : "");
-                formData.append("image", fileData); // Append the base64 string of the file
-                console.log("formData:", formData);
+                formData.append("imagesProduct", file); // Append the base64 string of the file
+                console.log("formData:", formData.getAll("imagesProduct"));
                 console.log("image:", fileData);
                 // Log formData keys and values
                 for (const [key, value] of formData.entries()) {

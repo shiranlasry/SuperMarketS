@@ -117,12 +117,6 @@ export const deleteProduct = createAsyncThunk<number | null, { product_id: numbe
 
 export const updateProductImages = createAsyncThunk<string | null, { product_id: number | null, product_img_name_a: string | null, product_img_name_b: string | null, product_img_data_a: string | null, product_img_data_b: string | null }>('update-product-image', async ({ product_id, product_img_data_a, product_img_data_b, product_img_name_a, product_img_name_b }) => {
     try {
-        console.log("in updateProductImages");
-        console.log("product_id", product_id);
-        console.log("product_img_data_a", product_img_data_a);
-        console.log("product_img_data_b", product_img_data_b);
-        console.log("product_img_name_a", product_img_name_a);
-        console.log("product_img_name_b", product_img_name_b);
         const response = await axios.patch("/api/products-images/update-product-image", { product_id, product_img_data_a, product_img_data_b, product_img_name_a, product_img_name_b });
         const { ok, results } = response.data;
         console.log("results", results);

@@ -116,7 +116,7 @@ export const deleteSingleImage = async (req: Request, res: Response) => {
         res.status(400).send({ ok: false, error: 'missing required fields' });
         return;
     }
-    const query = !isA
+    const query = isA === "true"
       ? `UPDATE products_images SET product_img_name_a = ?, product_img_data_a = ? WHERE product_id = ?;`
       : `UPDATE products_images SET product_img_name_b = ?, product_img_data_b = ? WHERE product_id = ?;`;
     connection.query(query,  [null, null, product_id], (err, results, fields) => {

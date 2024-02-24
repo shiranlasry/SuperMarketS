@@ -20,7 +20,7 @@ export const deleteImagesWithProductIdAPI = createAsyncThunk < number | null, { 
 export const deleteSingleImageAPI = createAsyncThunk<number | null, { product_id: number | null, isA: boolean }>('delete-single-image', async ({ product_id, isA }) => {
     try {
         console.log("delete single pic in client product_id", product_id , "isA", isA);
-        const response = await axios.patch(`/api/products-images/delete-single-image/${product_id}/${isA}`);
+        const response = await axios.patch(`/api/products-images/delete-single-image/${product_id}/${isA ? "true" : "false"}`);
         const { ok, results } = response.data;
         if (!ok) {
             throw new Error("Invalid credentials deleteSingleImageAPI()");
@@ -28,7 +28,7 @@ export const deleteSingleImageAPI = createAsyncThunk<number | null, { product_id
         alert("Image deleted successfully");
         return results.insertId;
     } catch (error) {
-        console.error(error);
+        console.error(error);   
         return null;
     }
 });
