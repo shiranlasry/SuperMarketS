@@ -4,6 +4,9 @@ import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInU
 import "./UserDetails.scss"; // Import the separate SCSS file for styling
 import { updateUserDetailsApi } from "../../../features/all_users_admin/allUsersAPI";
 import { useAppDispatch } from "../../../app/hook";
+import DeleteUser from "../DeleteUser/DeleteUserPersonal";
+import DeleteUserPersonal from "../DeleteUser/DeleteUserPersonal";
+import { getUserByIdApi } from "../../../features/logged_in_user/loggedInUserAPI";
 
 const UserDetails = () => {
   const loggedInUser = useSelector(loggedInUserSelector);
@@ -17,6 +20,10 @@ const UserDetails = () => {
   };
 
   const [updatesFields, setUpdatesFields] = useState(initialUserDetails);
+  const [isPopDelete, setIsPopDelete] = useState(false);
+  const popDeleteUser = () => {
+    setIsPopDelete(true);
+  };
   const dispatch = useAppDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -33,8 +40,12 @@ const UserDetails = () => {
 };
 
   const updateUserDetails = async () => {
-    debugger;
+    if (!updatesFields.first_name || !updatesFields.last_name || !updatesFields.gender || !updatesFields.birth_date || !updatesFields.phone_number) {
+      alert('אנא מלא את כל השדות');
+      return;
+    }
     await dispatch(updateUserDetailsApi(updatesFields));
+    dispatch(getUserByIdApi(updatesFields.user_id));
   }
   return (
     <div className="user-details-container">
@@ -93,14 +104,16 @@ const UserDetails = () => {
               type="text"
               name="phone_number"
               id="phone_number"
+              placeholder="מספר טלפון"
               value={updatesFields.phone_number}
               onChange={handleChange}
               required
             />
           </div>
+          {isPopDelete && <DeleteUserPersonal user={loggedInUser} onClose={() => setIsPopDelete(false)} />}
           <div className="user-details-field">
             <button className="update-details-btn" onClick={updateUserDetails}>עדכן פרטים</button>
-            <button className="delete-user-btn">מחק משתמש</button>
+            <button className="delete-user-btn" onClick={popDeleteUser}>מחק משתמש</button>
           </div>
         </div>
       )}

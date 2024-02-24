@@ -40,12 +40,13 @@ export const updateUserRoleApi = createAsyncThunk<User[] | null,UserUpdateRole>(
 
 export const deleteUserApi = createAsyncThunk<User[] | null,number |null>('delete-user', async (arg) => {
     try {
+        
         const response = await axios.delete(`/api/users/${arg}`);
         const { ok, results } = response.data;
         if (!ok) {
             throw new Error("Invalid credentials deleteUserApi()");
         }
-       
+       alert("שלום ולא להתראות")
         return results;
 
     } catch (error) {
@@ -80,7 +81,7 @@ interface UserUpdateDetails {
 }
 export const updateUserDetailsApi = createAsyncThunk<any, UserUpdateDetails>('update-user-details', async (arg) => {
     try {
-        debugger
+        
         const response = await axios.put("/api/users/update-user-details", arg);
         const { ok, results } = response.data;
            
