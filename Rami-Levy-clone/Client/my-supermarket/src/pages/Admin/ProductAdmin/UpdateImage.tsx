@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { deleteSingleImageAPI } from "../../../features/api/imagesAPI";
 import { useAppDispatch } from "../../../app/hook";
-import { string } from "prop-types";
+import { updateProductImages } from "../../../features/api/productsAPI";
+
 
 interface UpdateImageProps {
     product_img_name_a: string | undefined;
@@ -13,24 +14,23 @@ interface UpdateImageProps {
 }
     
 const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_a, product_img_data_b, product_img_name_a, product_img_name_b, onClose }) => {
-    const [imageAData, setImageAData] = useState(product_img_data_a);
-    const [imageBData, setImageBData] = useState(product_img_data_b);
-    const [imageAName, setImageAName] = useState(product_img_name_a);
-    const [imageBName, setImageBName] = useState(product_img_name_b);
-    
+    const [imageAData, setImageAData] = useState<string>(product_img_data_a || "");
+    const [imageBData, setImageBData] = useState<string>(product_img_data_b || "");
+    const [imageAName, setImageAName] = useState<string>(product_img_name_a || "");
+    const [imageBName, setImageBName] = useState<string>(product_img_name_b || "");
+    const [newImageA, setNewImageA] = useState<string>();
+    const [newImageB, setNewImageB] = useState<string>();
 
     useEffect(() => {
-        setImageAData(base64Image(product_img_data_a));
-        console.log("Image A Data:", imageAData);
-        setImageBData(base64Image(product_img_data_b));
-        console.log("Image B Data:", imageBData);
+            setImageAData(base64Image(product_img_data_a));
+            setImageBData(base64Image(product_img_data_b));
+            
     },[]);
         
 
 
     const base64Image = (product_img_data:any) => {
         if (product_img_data !== null && product_img_data !== undefined) {
-            console.log("Product Image Data:", product_img_data);
             return btoa(
                 String.fromCharCode(...new Uint8Array(product_img_data.data))
             );
@@ -39,14 +39,10 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
     }
 
     const dispatch = useAppDispatch();
-    const handleUpdateImageA = () => {
-        // Implement update logic for image A
+    const handleUpdateImage = () => {
+        dispatch(updateProductImages({ product_id, product_img_data_a: imageAData, product_img_data_b: imageBData, product_img_name_a: imageAName, product_img_name_b: imageBName }));
+       
     };
-
-    const handleUpdateImageB = () => {
-        // Implement update logic for image B
-    };
-
     const handleDeleteImageA = () => {
         dispatch(deleteSingleImageAPI({product_id, isA:true} ));
     };
@@ -60,21 +56,37 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         const isA = e.target.name === "imagesProduct1" ? true : false;
-        if (files)
-        {   
-            if (isA)
-            {
-                console.log("Image A:",  URL.createObjectURL(files[0]));
-                setImageAData(base64Image(files[0]));
-                setImageAName(files[0].name);
-            }
-            else
-            {
-                setImageBData(base64Image(files[0]));
-                setImageBName(files[0].name);
-            }
+        if (files) {
+            const file = files[0];
+            console.log("file:", file);
+            const reader = new FileReader();
+            reader.onload = () => {
+                const fileData = reader.result as string;
+                const formData = new FormData();
+                formData.append("product_id", product_id ? product_id.toString() : "");
+                formData.append("image", fileData); // Append the base64 string of the file
+                console.log("formData:", formData);
+                console.log("image:", fileData);
+                // Log formData keys and values
+                for (const [key, value] of formData.entries()) {
+                    console.log(key, value);
+                }
+    
+                const fileURL = URL.createObjectURL(file);
+                if (isA) {
+                    setNewImageA(fileURL);
+                    setImageAData(fileData); // Set base64 string as image data
+                    setImageAName(file.name);
+                } else {
+                    setNewImageB(fileURL);
+                    setImageBData(fileData); // Set base64 string as image data
+                    setImageBName(file.name);
+                }
+            };
+            reader.readAsDataURL(file); // Convert file to base64 string
         }
     }
+    
     
     return (
         <div>
@@ -82,26 +94,35 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
             <div>
                     <div className="productImage">
                     <label htmlFor="imagesProduct1">תמונה 1</label>
-                    <img src={`data:image/jpeg;base64,${imageAData}`} alt={imageAName || ""} />
+                    {newImageA ?
+                        <img src={newImageA} alt={imageAName || ""} />
+                        :
+                        <img src={`data:image/jpeg;base64, ${imageAData}`} alt={imageAName || ""} />
+                    }
+            
                         <input
                             type="file"
                             id="imagesProduct1"
                             name="imagesProduct1"
                             onChange={handleFileChange}
                         />
-                        <button onClick={handleUpdateImageA}>עדכן תמונה</button>
+                        <button onClick={handleUpdateImage}>עדכן תמונה</button>
                         <button onClick={handleDeleteImageA}>מחק תמונה</button>
                     </div>
                 <div className="productImage">
-                        <label htmlFor="imagesProduct2">תמונה 2</label>
+                    <label htmlFor="imagesProduct2">תמונה 2</label>
+                    {newImageB ? 
+                        <img src={newImageB} alt={imageBName || ""} />
+                        :
                         <img src={`data:image/jpeg;base64,${imageBData}`} alt={imageBName || ""} />
+                    }
                         <input
                             type="file"
                             id="imagesProduct2"
                             name="imagesProduct2"
                             onChange={handleFileChange}
                         />
-                        <button onClick={handleUpdateImageB}>עדכן תמונה</button>
+                        <button onClick={handleUpdateImage}>עדכן תמונה</button>
                         <button onClick={handleDeleteImageB}>מחק תמונה</button>
                     </div>
                     <button onClick={onClose}>סגור</button>

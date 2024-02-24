@@ -43,30 +43,6 @@ export const addNewProductImages = async (
       }
     });
 
-    // for (const fileKey in files) {
-    //     const file = files[fileKey]; // Assuming single file per fieldname
-    //     const { originalname, buffer } = file;
-
-    //     // Prepare the data to be inserted into the database
-    //     const imageData = {
-    //         product_id: product_id,
-    //         product_img_name: originalname,
-    //         product_img_data_a: buffer,
-    //         product_img_data_b: buffer
-    //     };
-
-    //     // Insert the image data into the database
-    //     const query = 'INSERT INTO products_images SET ?';
-    //     connection.query(query, imageData, (err, results) => {
-    //         if (err) {
-    //             console.error('Error inserting image into database:', err);
-    //             res.status(500).send({ ok: false, error: 'Error inserting image into database' });
-    //         } else {
-    //             console.log('Image inserted into database:', results);
-    //         }
-    //     });
-    // }
-
     res
       .status(200)
       .send({ ok: true, message: "Images uploaded successfully." });
@@ -100,53 +76,36 @@ export const deleteImagesWithProductId = async (req: Request, res: Response) => 
   }
 }
 
-// export const getImagesByProductId = async (req: Request, res: Response) => {
-//   try {
-//     const { product_id } = req.params
-//     if (!product_id) {
-//         res.status(400).send({ ok: false, error: 'missing required fields' })
-//         return
-//     }
-//     const query = `SELECT * FROM products_images WHERE product_id = ?;`
-//     connection.query(query, [product_id], (err, results, fields) => {
-//       try {
-//           console.log("results:", results);
-//             if (err) throw err;
-//             res.send({ ok: true, results })
-//         } catch (error) {
-//             console.error(error)
-//             res.status(500).send({ ok: false, error })
-//         }
-//     })
-//   } catch (error) {
-//       console.error(error)
-//       res.status(500).send({ ok: false, error })
-//   }
-// }
-
-export const updateImagesWithProductId = async (req: Request, res: Response) => {
+export const updateImagesWithProductId = async (req, res) => {
   try {
-    const { product_id,product_img_name_a, product_img_data_a,product_img_name_b, product_img_data_b  } = req.params
+    const { product_id } = req.body; // Access parameters from the request body
+    const { product_img_name_a, product_img_data_a, product_img_name_b, product_img_data_b } = req.body; // Destructure parameters from the request body
+    console.log("req.body:", req.body); // Log request body for debugging
+    
+    // Check if product_id is missing
     if (!product_id) {
-        res.status(400).send({ ok: false, error: 'missing required fields' })
-        return
+        res.status(400).send({ ok: false, error: 'missing required fields' });
+        return;
     }
-    const query = `UPDATE products_images SET product_img_name_a = ?,product_img_name_b = ?,product_img_data_a = ?, product_img_data_b = ?  WHERE product_id = ?;`
-    connection.query(query, [product_img_name_a, product_img_name_b, product_img_data_a, product_img_data_b, product_id], (err, results, fields) => {
-    try {
-          console.log("results:", results);
-            if (err) throw err;
-            res.send({ ok: true, results })
-        } catch (error) {
-            console.error(error)
-            res.status(500).send({ ok: false, error })
-        }
-    })
+    
+    const query = (product_img_name_a && product_img_data_a) ? `UPDATE products_images SET product_img_name_a = ?, product_img_data_a = ? WHERE product_id = ?;` : `UPDATE products_images SET product_img_name_b = ?, product_img_data_b = ? WHERE product_id = ?;`
+    
+    // Execute the query with parameter values
+    connection.query(query, [product_img_name_a, product_img_data_a, product_img_name_b, product_img_data_b, product_id], (err, results, fields) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send({ ok: false, error: err });
+        return;
+      }
+      console.log("results:", results);
+      res.send({ ok: true, results });
+    });
   } catch (error) {
-      console.error(error)
-      res.status(500).send({ ok: false, error })
+      console.error(error);
+      res.status(500).send({ ok: false, error });
   }
 }
+
 
 export const deleteSingleImage = async (req: Request, res: Response) => {
   try {

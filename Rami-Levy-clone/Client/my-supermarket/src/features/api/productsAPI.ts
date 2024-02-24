@@ -115,20 +115,18 @@ export const deleteProduct = createAsyncThunk<number | null, { product_id: numbe
     }
 });
 
-export const updateProductImages = createAsyncThunk<string | null, {
-    product_id: string | null, product_img_name_a: string | null, product_img_name_b: string | null,
-    product_img_data_a: string | null, product_img_data_b: string | null
-}>
-    ('update-product-images', async ({ product_id, product_img_data_a, product_img_data_b, product_img_name_a, product_img_name_b }) => {
+export const updateProductImages = createAsyncThunk<string | null, { product_id: number | null, product_img_name_a: string | null, product_img_name_b: string | null, product_img_data_a: string | null, product_img_data_b: string | null }>('update-product-image', async ({ product_id, product_img_data_a, product_img_data_b, product_img_name_a, product_img_name_b }) => {
     try {
-        const response = await axios.patch("/api/products-images/update-product-images", { product_id, product_img_data_a, product_img_data_b, product_img_name_a, product_img_name_b });
+        console.log("in updateProductImages");
+        const response = await axios.patch("/api/products-images/update-product-image", { product_id, product_img_data_a, product_img_data_b, product_img_name_a, product_img_name_b });
         const { ok, results } = response.data;
+        console.log("results", results);
         if (!ok) {
             throw new Error("Invalid credentials updateProductImages()");
         }
-        return results.insertId;
+        return results; // Return results directly
     } catch (error) {
         console.error("Error updateProductImages:", error);
-        return null;
+        throw error; // Re-throw the error to handle it in the calling code
     }
-    });
+});
