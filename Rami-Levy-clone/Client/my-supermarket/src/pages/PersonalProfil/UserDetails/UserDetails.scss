@@ -1,31 +1,35 @@
 .user-details-container {
-  width: 795px;
-  height: 560px;
+  display: flex;
+  flex-direction: column;
+  max-width: 780px;
+  width: fit-content;
+  height: fit-content;
   padding: 16px 0 16px 0;
   background-color: #fff;
   border-radius: 15px;
+
+  .user-details-title {
+    padding-right: 1rem;
+    margin: 0 1rem 0 1rem;
+    border-bottom: 1px solid #f3f5f8;
+  }
 
   .user-details-div {
     padding: 2rem;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
     row-gap: 7px;
     column-gap: 1.7rem;
   }
 
-  .personal-details-title {
-    height: 40px;
-    width: 740;
-    margin: 15px;
-
-    border-bottom: 1px solid #f3f5f8;
-  }
-  .not-allowed {
-    cursor: not-allowed;
-  }
   .user-details-field {
+    display: flex;
+    flex-flow: row;
     margin-bottom: 20px;
+
+    @media screen and (min-width: 1500px) {
+      width: 220px;
+    }
   }
 
   .user-details-field label {
@@ -35,7 +39,7 @@
 
   .user-details-field input {
     height: 40px;
-    width: 350px;
+    width: 220px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -43,5 +47,42 @@
     font-size: 16px;
     color: #333;
     border: none;
+  }
+
+  .remove-user-btn {
+    font-size: 1rem;
+    color: red;
+    background-color: #cccccc00;
+    border: none;
+    margin-right: 35rem;
+  }
+
+  .update-details-btn {
+    text-decoration: underline;
+    background-color: #cccccc00;
+    border: none;
+    align-items: right;
+  }
+
+  .set-gender {
+    width: 220px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 600px) {
+    .user-details-field {
+      flex: 1 1 100%;
+    }
+  }
+
+  .choose-gender {
+    display: flex;
+    flex-flow: row;
+
+    .gender {
+      margin-left: 0.5rem;
+    }
   }
 }
