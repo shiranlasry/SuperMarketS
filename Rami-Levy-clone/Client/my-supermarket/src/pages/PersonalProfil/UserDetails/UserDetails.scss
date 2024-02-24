@@ -1,31 +1,35 @@
 .user-details-container {
-  max-width: 795px;
+  display: flex;
+  flex-direction: column;
+  max-width: 780px;
+  width: fit-content;
   height: fit-content;
   padding: 16px 0 16px 0;
   background-color: #fff;
   border-radius: 15px;
 
+  .user-details-title {
+    padding-right: 1rem;
+    margin: 0 1rem 0 1rem;
+    border-bottom: 1px solid #f3f5f8;
+  }
   .user-details-div {
     padding: 2rem;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
     row-gap: 7px;
     column-gap: 1.7rem;
   }
 
-  .personal-details-title {
-    height: 40px;
-    width: 740;
-    margin: 15px;
-
-    border-bottom: 1px solid #f3f5f8;
-  }
-  .not-allowed {
-    cursor: not-allowed;
-  }
   .user-details-field {
+    display: flex;
+    flex-flow: row;
     margin-bottom: 20px;
+    // flex: 1 1 calc(50% - 1.7rem); /* Adjust width for two columns */
+
+    @media screen and (min-width: 1500px) {
+      width: 220px; /* Make fields take full width on smaller screens */
+    }
   }
 
   .user-details-field label {
@@ -35,7 +39,7 @@
 
   .user-details-field input {
     height: 40px;
-    max-width: 350px;
+    width: 220px; /* Make inputs fill the available space */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -44,52 +48,39 @@
     color: #333;
     border: none;
   }
-}
-
-.uprofile-btns {
-  display: flex;
-  flex-direction: column;
 
   .remove-user-btn {
-    justify-content: center;
-    margin-right: 38rem;
     font-size: 1rem;
     color: red;
     background-color: #cccccc00;
     border: none;
+    margin-right: 35rem;
   }
 
-  // .uprofile-btns {
-  //   display: flex;
-  //   flex-direction: column;
-  // }
-}
+  .update-details-btn {
+    text-decoration: underline;
+    background-color: #cccccc00;
+    border: none;
+    align-items: right; /* Adjust margin for better spacing */
+  }
 
-.update-details-btn {
-  text-decoration: underline;
-  background-color: #cccccc00;
-  border: none;
-}
+  .set-gender {
+    width: 220px;
+    margin-bottom: 20px; /* Adjust margin for better spacing */
+    display: flex;
+    flex-direction: column;
+  }
 
-.set-gender {
-  max-width: 200px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-
-  .gender {
-    margin-left: 1rem;
-    margin-bottom: 0;
-    align-items: center;
+  @media screen and (max-width: 600px) {
+    .user-details-field {
+      flex: 1 1 100%; /* Make fields take full width on smaller screens */
+    }
+  }
+  .choose-gender {
     display: flex;
     flex-flow: row;
-  }
-
-  .no-gender {
-    display: flex;
-  }
-
-  .gender-title {
-    width: 200px;
+    .gender {
+      margin-left: 0.5rem;
+    }
   }
 }

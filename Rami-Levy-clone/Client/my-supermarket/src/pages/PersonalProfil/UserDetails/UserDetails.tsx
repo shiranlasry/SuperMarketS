@@ -117,33 +117,43 @@ const UserDetails = () => {
               required
             />
           </div>
-          <div className="user-details-field set-gender">
+          {/* <div className="user-details-field">
+            <input
+              type="text"
+              name="another_number"
+              id="another_number"
+              placeholder="טלפון נוסף"
+            />
+          </div> */}
+          <div className="set-gender">
             <div className="gender-title">
               <label>אני</label>
             </div>
-            <div className="gender">
-              <input
-                type="radio"
-                id="male"
-                name="gender"
-                value="זכר"
-                checked={updatesFields.gender === "זכר"}
-                onChange={handleChange}
-              />
-              <label htmlFor="male">זכר</label>
+            <div className="choose-gender">
+              <div className="gender">
+                <input
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  value="זכר"
+                  checked={updatesFields.gender === "זכר"}
+                  onChange={handleChange}
+                />
+                <label htmlFor="male">זכר</label>
+              </div>
+              <div className="gender">
+                <input
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="נקבה"
+                  checked={updatesFields.gender === "נקבה"}
+                  onChange={handleChange}
+                />
+                <label htmlFor="female">נקבה</label>
+              </div>
             </div>
-            <div className="gender">
-              <input
-                type="radio"
-                id="female"
-                name="gender"
-                value="נקבה"
-                checked={updatesFields.gender === "נקבה"}
-                onChange={handleChange}
-              />
-              <label htmlFor="female">נקבה</label>
-            </div>
-            <div className="gender no-gender">
+            <div className="no-gender">
               <input
                 type="radio"
                 id="female"
@@ -161,7 +171,7 @@ const UserDetails = () => {
               onClose={() => setIsPopDelete(false)}
             />
           )}
-          <div className="user-details-field uprofile-btns">
+          <div className=" uprofile-btns">
             <button className="update-details-btn" onClick={updateUserDetails}>
               עדכן פרטים
             </button>
