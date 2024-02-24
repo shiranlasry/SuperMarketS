@@ -80,18 +80,19 @@ export const updateImagesWithProductId = async (req, res) => {
   try {
     const { product_id } = req.body; // Access parameters from the request body
     const { product_img_name_a, product_img_data_a, product_img_name_b, product_img_data_b } = req.body; // Destructure parameters from the request body
-    console.log("req.body:", req.body); // Log request body for debugging
+    console.log(" in Sercer req.body:", req.body); // Log request body for debugging
     
     // Check if product_id is missing
     if (!product_id) {
         res.status(400).send({ ok: false, error: 'missing required fields' });
         return;
     }
-    
+    console.log("product_img_name_a:", product_img_name_a);
     const query = (product_img_name_a && product_img_data_a) ? `UPDATE products_images SET product_img_name_a = ?, product_img_data_a = ? WHERE product_id = ?;` : `UPDATE products_images SET product_img_name_b = ?, product_img_data_b = ? WHERE product_id = ?;`
-    
+    const product_img_name = !product_img_name_a ? product_img_name_b : product_img_name_a;
+    const product_img_data = !product_img_data_a ? product_img_data_b : product_img_data_a;
     // Execute the query with parameter values
-    connection.query(query, [product_img_name_a, product_img_data_a, product_img_name_b, product_img_data_b, product_id], (err, results, fields) => {
+    connection.query(query, [product_img_name, product_img_data, product_id], (err, results, fields) => {
       if (err) {
         console.error(err);
         res.status(500).send({ ok: false, error: err });
@@ -109,19 +110,19 @@ export const updateImagesWithProductId = async (req, res) => {
 
 export const deleteSingleImage = async (req: Request, res: Response) => {
   try {
+    console.log("delete single pic in server req.params:", req.params);
     const { product_id, isA } = req.params;
     if (!product_id) {
         res.status(400).send({ ok: false, error: 'missing required fields' });
         return;
     }
-    const isImageA = isA === 'true'; // Convert string to boolean
-    const query = isImageA
+    const query = !isA
       ? `UPDATE products_images SET product_img_name_a = ?, product_img_data_a = ? WHERE product_id = ?;`
       : `UPDATE products_images SET product_img_name_b = ?, product_img_data_b = ? WHERE product_id = ?;`;
     connection.query(query,  [null, null, product_id], (err, results, fields) => {
         try {
             console.log("results:", results);
-            if (err) throw err;
+          if (err) throw err;
             res.send({ ok: true, results });
         } catch (error) {
             console.error(error);

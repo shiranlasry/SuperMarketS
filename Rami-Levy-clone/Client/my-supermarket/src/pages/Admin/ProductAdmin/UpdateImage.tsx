@@ -22,8 +22,10 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
     const [newImageB, setNewImageB] = useState<string>();
 
     useEffect(() => {
-            setImageAData(base64Image(product_img_data_a));
-            setImageBData(base64Image(product_img_data_b));
+        setImageAData(base64Image(product_img_data_a));
+        console.log("product_img_data_a", product_img_data_a);
+        setImageBData(base64Image(product_img_data_b));
+        console.log("product_img_data_b", product_img_data_b);
             
     },[]);
         
@@ -39,9 +41,11 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
     }
 
     const dispatch = useAppDispatch();
-    const handleUpdateImage = () => {
-        dispatch(updateProductImages({ product_id, product_img_data_a: imageAData, product_img_data_b: imageBData, product_img_name_a: imageAName, product_img_name_b: imageBName }));
-       
+    const handleUpdateImage = (isA:boolean) => {
+        isA ?
+            dispatch(updateProductImages({ product_id, product_img_data_a: imageAData, product_img_data_b: null, product_img_name_a: imageAName, product_img_name_b: null }))
+            :
+            dispatch(updateProductImages({ product_id, product_img_data_a: null, product_img_data_b: imageBData, product_img_name_a: null, product_img_name_b: imageBName }));
     };
     const handleDeleteImageA = () => {
         dispatch(deleteSingleImageAPI({product_id, isA:true} ));
@@ -56,6 +60,7 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         const isA = e.target.name === "imagesProduct1" ? true : false;
+        console.log(e.target)
         if (files) {
             const file = files[0];
             console.log("file:", file);
@@ -74,10 +79,12 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
     
                 const fileURL = URL.createObjectURL(file);
                 if (isA) {
+                    console.log("Set A")
                     setNewImageA(fileURL);
                     setImageAData(fileData); // Set base64 string as image data
                     setImageAName(file.name);
                 } else {
+                    console.log("Set B")
                     setNewImageB(fileURL);
                     setImageBData(fileData); // Set base64 string as image data
                     setImageBName(file.name);
@@ -106,7 +113,7 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
                             name="imagesProduct1"
                             onChange={handleFileChange}
                         />
-                        <button onClick={handleUpdateImage}>עדכן תמונה</button>
+                        <button onClick={() => handleUpdateImage(true)}>עדכן תמונה</button>
                         <button onClick={handleDeleteImageA}>מחק תמונה</button>
                     </div>
                 <div className="productImage">
@@ -122,7 +129,7 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
                             name="imagesProduct2"
                             onChange={handleFileChange}
                         />
-                        <button onClick={handleUpdateImage}>עדכן תמונה</button>
+                        <button onClick={() => handleUpdateImage(false)}>עדכן תמונה</button>
                         <button onClick={handleDeleteImageB}>מחק תמונה</button>
                     </div>
                     <button onClick={onClose}>סגור</button>
