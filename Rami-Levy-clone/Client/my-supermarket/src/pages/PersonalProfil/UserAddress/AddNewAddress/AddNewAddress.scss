@@ -1,0 +1,53 @@
+.new-address-main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 800px;
+
+  .custom-modal-content {
+    height: 100%; // Ensure the modal content takes full height of the modal
+    width: 100%;
+  }
+
+  // Add more custom styles as needed
+  .map-img-new-add {
+    margin: 1rem;
+  }
+
+  .new-map-img {
+    margin-bottom: 1rem;
+  }
+}
+
+.address-info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  .addNew-add {
+    border: none;
+    border-bottom: 1px solid black;
+    margin: 1rem;
+
+    &:focus {
+      outline: none;
+    }
+  }
+  .add-name {
+    width: 430px;
+  }
+}
+.custom-modal-dialog {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+.addNew-content {
+  height: 500px;
+}
+
+.custom-modal-rounded {
+  border-radius: 15px !important;
+}
