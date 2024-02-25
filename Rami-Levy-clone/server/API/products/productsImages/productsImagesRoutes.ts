@@ -10,6 +10,6 @@ const router = express.Router()
 router
     .post("/add-new-product-images", addNewProductImages)
     .delete('/delete-product-image/:product_id',deleteImagesWithProductId)
-    .patch(`/update-product-image`, isAdmin, updateImagesWithProductId)  
+    .post(`/update-product-image`, updateImagesWithProductId)
     .patch(`/delete-single-image/:product_id/:isA`, isAdmin, deleteSingleImage)
 export default router

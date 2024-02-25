@@ -101,6 +101,7 @@ export interface Product  {
 export interface updateProductFields {
   product_id: number | undefined;
   sub_food_category_id: number | undefined;
+  food_category_id: number | undefined;
   product_name: string;
   product_description: string;
   product_price: number | undefined;

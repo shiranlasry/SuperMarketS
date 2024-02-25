@@ -1,26 +1,28 @@
+// UpdateImageProps.tsx
 import React, { useEffect, useState } from "react";
 import { deleteSingleImageAPI } from "../../../features/api/imagesAPI";
 import { useAppDispatch } from "../../../app/hook";
-import { updateProductImages } from "../../../features/api/productsAPI";
+import { updateProductImageAPi } from "../../../features/api/productsAPI";
+import { getAllProductsApi } from "../../../features/products/productsAPI";
 
 
 interface UpdateImageProps {
+    product_id: number | null;
     product_img_name_a: string | undefined;
     product_img_data_a: string | undefined;
     product_img_name_b: string | undefined;
     product_img_data_b: string | undefined;
-    product_id: number | null;
     onClose: () => void;
 }
     
-const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_a, product_img_data_b, product_img_name_a, product_img_name_b, onClose }) => {
+const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_name_a, product_img_data_a, product_img_name_b, product_img_data_b, onClose }) => {
     const [imageAData, setImageAData] = useState<string>(product_img_data_a || "");
     const [imageBData, setImageBData] = useState<string>(product_img_data_b || "");
     const [imageAName, setImageAName] = useState<string>(product_img_name_a || "");
     const [imageBName, setImageBName] = useState<string>(product_img_name_b || "");
-    const [newImageA, setNewImageA] = useState<string>();
-    const [newImageB, setNewImageB] = useState<string>();
-
+    const [newImageA, setNewImageA] = useState<File>();
+    const [newImageB, setNewImageB] = useState<File>();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         setImageAData(base64Image(product_img_data_a));
@@ -30,7 +32,6 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
             
     },[]);
         
-
     const base64Image = (product_img_data:any) => {
         if (product_img_data !== null && product_img_data !== undefined) {
             return btoa(
@@ -40,60 +41,59 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
         return "";
     }
 
-    const dispatch = useAppDispatch();
-    const handleUpdateImage = (isA:boolean) => {
-        isA ?
-            dispatch(updateProductImages({ product_id, product_img_data_a: imageAData, product_img_data_b: null, product_img_name_a: imageAName, product_img_name_b: null }))
-            :
-            dispatch(updateProductImages({ product_id, product_img_data_a: null, product_img_data_b: imageBData, product_img_name_a: null, product_img_name_b: imageBName }));
-    };
-    const handleDeleteImageA = () => {
-        dispatch(deleteSingleImageAPI({product_id, isA:true} ));
-    };
+    const handleUpdateImage = async (isA: boolean) => {
+      
+        const formData = new FormData();
+        formData.append("product_id", product_id!.toString());
+       
+        if (isA) {
+            if(!newImageA){
+                alert("לא נבחרה תמונה");
+                return;
+            }
+            formData.append("imagesProduct", newImageA);
+            formData.append("field_name", "A");
+        } else {
+            if(!newImageB){
+                alert("לא נבחרה תמונה");
+                return;
+            }
+            formData.append("imagesProduct", newImageB);
+            formData.append("field_name", "B");
+            }
+             await dispatch(updateProductImageAPi(formData));
+             dispatch(getAllProductsApi());
+            
+        }
     
-
-    const handleDeleteImageB = () => {
-        // Implement delete logic for image B
-        dispatch(deleteSingleImageAPI({ product_id, isA:false}));
-    };
-
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
+        if (!files) return;
         const isA = e.target.name === "imagesProduct1" ? true : false;
-        if (files) {
-            const file = files[0];
-            console.log("file:", file);
-            const reader = new FileReader();
-            reader.onload = () => {
-                const fileData = reader.result as string;
-                const formData = new FormData();
-                formData.append("product_id", product_id ? product_id.toString() : "");
-                formData.append("imagesProduct", file); // Append the base64 string of the file
-                console.log("formData:", formData.getAll("imagesProduct"));
-                console.log("image:", fileData);
-                // Log formData keys and values
-                for (const [key, value] of formData.entries()) {
-                    console.log(key, value);
-                }
-    
-                const fileURL = URL.createObjectURL(file);
-                if (isA) {
-                    console.log("Set A")
-                    setNewImageA(fileURL);
-                    setImageAData(fileData); // Set base64 string as image data
-                    setImageAName(file.name);
-                } else {
-                    console.log("Set B")
-                    setNewImageB(fileURL);
-                    setImageBData(fileData); // Set base64 string as image data
-                    setImageBName(file.name);
-                }
-            };
-            reader.readAsDataURL(file); // Convert file to base64 string
-        }
+     if (isA) {
+        setNewImageA( files[0]);
+      }
+    else {
+        setNewImageB( files[0] );
     }
-    
-    
+}
+const handleDeleteImageA = async () => {
+    if (product_id) {
+        await dispatch(deleteSingleImageAPI({ product_id: product_id, isA: true }));
+        dispatch(getAllProductsApi());
+        setImageAData("");
+        setImageAName("");
+        
+    }
+}
+const handleDeleteImageB = async () => {
+    if (product_id) {
+        await dispatch(deleteSingleImageAPI({ product_id: product_id, isA: false }));
+        dispatch(getAllProductsApi());
+        setImageBData("");
+        setImageBName("");
+    }   
+    }
     return (
         <div>
             <h1>עדכן תמונות</h1>
@@ -101,7 +101,7 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
                     <div className="productImage">
                     <label htmlFor="imagesProduct1">תמונה 1</label>
                     {newImageA ?
-                        <img src={newImageA} alt={imageAName || ""} />
+                        <img src={URL.createObjectURL(newImageA)} alt={imageAName || ""} />
                         :
                         <img src={`data:image/jpeg;base64, ${imageAData}`} alt={imageAName || ""} />
                     }
@@ -112,13 +112,13 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
                             name="imagesProduct1"
                             onChange={handleFileChange}
                         />
-                        <button onClick={() => handleUpdateImage(true)}>עדכן תמונה</button>
-                        <button onClick={handleDeleteImageA}>מחק תמונה</button>
+                        {newImageA &&<button onClick={() => handleUpdateImage(true)}>עדכן תמונה</button>  }
+                       { imageAData && <button onClick={handleDeleteImageA}>מחק תמונה</button> }
                     </div>
                 <div className="productImage">
                     <label htmlFor="imagesProduct2">תמונה 2</label>
                     {newImageB ? 
-                        <img src={newImageB} alt={imageBName || ""} />
+                        <img src={URL.createObjectURL(newImageB)} alt={imageBName || ""} />
                         :
                         <img src={`data:image/jpeg;base64,${imageBData}`} alt={imageBName || ""} />
                     }
@@ -128,8 +128,8 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_data_
                             name="imagesProduct2"
                             onChange={handleFileChange}
                         />
-                        <button onClick={() => handleUpdateImage(false)}>עדכן תמונה</button>
-                        <button onClick={handleDeleteImageB}>מחק תמונה</button>
+                         {newImageB &&<button onClick={() => handleUpdateImage(false)}>עדכן תמונה</button>  }
+                       { imageBData && <button onClick={handleDeleteImageB}>מחק תמונה</button> }
                     </div>
                     <button onClick={onClose}>סגור</button>
             </div>

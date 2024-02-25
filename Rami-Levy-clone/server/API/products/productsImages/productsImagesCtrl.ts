@@ -76,31 +76,28 @@ export const deleteImagesWithProductId = async (req: Request, res: Response) => 
   }
 }
 
-export const updateImagesWithProductId = async (req, res) => {
+export const updateImagesWithProductId = async (req: Request, res: Response) => {
   try {
-    const { product_id } = req.body; // Access parameters from the request body
-    const { product_img_name_a, product_img_data_a, product_img_name_b, product_img_data_b } = req.body; // Destructure parameters from the request body
-    console.log(" in Sercer req.body:", req.body); // Log request body for debugging
-    
-    // Check if product_id is missing
-    if (!product_id) {
-        res.status(400).send({ ok: false, error: 'missing required fields' });
-        return;
-    }
-    console.log("product_img_name_a:", product_img_name_a);
-    const query = (product_img_name_a && product_img_data_a) ? `UPDATE products_images SET product_img_name_a = ?, product_img_data_a = ? WHERE product_id = ?;` : `UPDATE products_images SET product_img_name_b = ?, product_img_data_b = ? WHERE product_id = ?;`
-    const product_img_name = !product_img_name_a ? product_img_name_b : product_img_name_a;
-    const product_img_data = !product_img_data_a ? product_img_data_b : product_img_data_a;
-    // Execute the query with parameter values
-    connection.query(query, [product_img_name, product_img_data, product_id], (err, results, fields) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send({ ok: false, error: err });
-        return;
+    console.log("updateImagesWithProductId req.body:", req.body);
+    //@ts-ignore
+    const files = req.files.imagesProduct;
+    const { product_id ,field_name } = req.body;  
+    console.log("product_id:", product_id);
+    console.log("files:", files);
+    const field_data_to_update = field_name === "A" ? "product_img_data_a" : "product_img_data_b";
+    const field_name_to_update = field_name === "A" ? "product_img_name_a" : "product_img_name_b";
+  const query = `UPDATE products_images SET ${field_data_to_update} = ?, ${field_name_to_update} = ? WHERE product_id = ?;`;
+  connection.query(query, [files[0].buffer, files[0].originalname, product_id], (err, results, fields) => {
+      try {
+          console.log("results:", results);
+          if (err) throw err;
+          console.log("results:", results);
+          res.send({ ok: true, results });
+      } catch (error) {
+          console.error(error);
+          res.status(500).send({ ok: false, error });
       }
-      console.log("results:", results);
-      res.send({ ok: true, results });
-    });
+  });
   } catch (error) {
       console.error(error);
       res.status(500).send({ ok: false, error });
