@@ -43,11 +43,7 @@ export const saveProductImages = async (productId: number, productImages: File[]
         productImages.forEach((image) => {
             formData.append("imagesProduct", image); // Change the field name to match the Multer middleware configuration
         });
-     // print the form data details
-     for (const pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-      }
-
+  
         const response = await axios.post("/api/products-images/add-new-product-images", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -114,3 +110,54 @@ export const deleteProduct = createAsyncThunk<number | null, { product_id: numbe
         return null;
     }
 });
+
+// export const updateProductImage = async (productId: number, productImage: File,field_name:string) => {
+//     try {
+//         const formData = new FormData();
+//         formData.append("product_id", productId.toString());
+//         formData.append("file", productImage);
+//         formData.append("field_name", field_name); 
+//         debugger;
+//         const response = await axios.post("/api/products-images/update-product-image", formData);
+        
+//         const { ok, message } = response.data;
+        
+//         if (!ok) {
+//             throw new Error(message || "Error saving product images");
+//         }
+//         alert("Product images saved successfully");
+        
+      
+//     } catch (error) {
+//         console.error("Error updateProductImage:", error);
+//         throw error;
+//     }
+// };
+
+export const updateProductImageAPi = createAsyncThunk<{ ok: boolean }, FormData>(
+    'update-product-image',
+    async (formData) => {
+      try {
+        debugger;
+        // const response = await axios.post("/api/products-images/update-product-image", imagesProduct);
+        const response = await axios.post("/api/products-images/update-product-image", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        
+        console.log(response)
+        
+        const { ok} = response.data;
+
+        if (!ok) {
+          throw new Error("Error creating party");
+        }
+        alert("Product images saved successfully");
+        return { ok };
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    }
+  );

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { Product, SubFoodCategories, updateProductFields } from "../../../rami-types";
+import React, { useEffect, useState } from "react";
+import { FoodCategories, Product, SubFoodCategories, updateProductFields } from "../../../rami-types";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { updateProductDetailes } from "../../../features/api/productsAPI";
-import { subFoodCategoriesSelector } from "../../../features/categories/categoriesSlice";
-import { getCategorybySubCategoryApi } from "../../../features/categories/categoriesAPI";
+import { foodCategoriesSelector, subFoodCategoriesSelector } from "../../../features/categories/categoriesSlice";
+import { getCategorybySubCategoryApi, getFoodCategoriesApi, get_SUB_FoodCategoriesApi } from "../../../features/categories/categoriesAPI";
+import './updateProduct.scss';
 
 interface UpdateProductProps {
     product: Product;
@@ -13,14 +14,8 @@ interface UpdateProductProps {
 const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
     const dispatch = useAppDispatch();
     const [foodCatagory, setFoodCatagory] = useState<number | null>(null);
-    dispatch(getCategorybySubCategoryApi({ sub_food_category_id: product.sub_food_category_id })).then(
-        (response) => {
-            setFoodCatagory(response.payload.food_category_id);
-        }
-        )
-        
-        const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
-    // State to manage input values
+    const foodCategories = useAppSelector(foodCategoriesSelector);
+    const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
     const [updatedProduct, setUpdatedProduct] = useState<updateProductFields>({
         product_id: product.product_id? product.product_id : undefined,
         product_name: product.product_name,
@@ -32,13 +27,18 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
         allergy_info: product.allergy_info,
         type: product.type,
         sub_food_category_id: product.sub_food_category_id ? product.sub_food_category_id : undefined,
+        food_category_id: product.food_category_id ? product.food_category_id : undefined,
         cosher: product.cosher,
         israel_milk: product.israel_milk
 
     });
-
-    // Function to handle input changes
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    useEffect(() => {
+        dispatch(getFoodCategoriesApi());
+        dispatch(get_SUB_FoodCategoriesApi());
+      }, []);
+  
+   
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setUpdatedProduct(prevState => ({
             ...prevState,
@@ -76,36 +76,55 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
             <input type="text" name="allergy_info" value={updatedProduct.allergy_info} onChange={handleInputChange} />
             <label>סוג המוצר:</label>
             <input type="text" name="type" value={updatedProduct.type} onChange={handleInputChange} />
-            <label>קטגוריית משנה:</label>
-            {foodCatagory && subFoodCategories && (
-    <>
-        <label htmlFor="sub_food_category_id">קטגוריה משנית:</label>
+            <label htmlFor="food_category_id">קטגורית מזון ראשית:</label>
         <select
-            id="sub_food_category_id"
-            name="sub_food_category_id"
-            value={updatedProduct.sub_food_category_id || ""}
-            onChange={handleInputChange}
+          id="food_category_id"
+          name="food_category_id"
+          value={updatedProduct.food_category_id || ""}
+          onChange={handleInputChange}
+          required
         >
-            <option value="">בחר קטגוריה משנית</option>
-            {subFoodCategories
+          <option value="">בחר קטגוריה</option>
+          {foodCategories &&
+            foodCategories.map((category: FoodCategories) => (
+              <option
+                key={category.food_category_id}
+                value={category.food_category_id}
+              >
+                {category.food_category_name}
+              </option>
+            ))}
+        </select>
+        {updatedProduct.food_category_id && subFoodCategories && (
+          <>
+            <label htmlFor="sub_food_category_id">קטגוריה משנית:</label>
+            <select
+              id="sub_food_category_id"
+              name="sub_food_category_id"
+              value={updatedProduct.sub_food_category_id || ""}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">בחר קטגוריה משנית</option>
+              {subFoodCategories
                 .filter(
-                    (subCategory: SubFoodCategories) =>
-                        subCategory.food_category_id ===
-                        (foodCatagory
-                            ? +foodCatagory
-                            : null)
+                  (subCategory: SubFoodCategories) =>
+                    subCategory.food_category_id ===
+                    (updatedProduct.food_category_id
+                      ? +updatedProduct.food_category_id
+                      : null)
                 )
                 .map((subCategory: SubFoodCategories) => (
-                    <option
-                        key={subCategory.sub_food_category_id}
-                        value={subCategory.sub_food_category_id}
-                    >
-                        {subCategory.sub_food_category_name}
-                    </option>
+                  <option
+                    key={subCategory.sub_food_category_id}
+                    value={subCategory.sub_food_category_id}
+                  >
+                    {subCategory.sub_food_category_name}
+                  </option>
                 ))}
-        </select>
-    </>
-)}
+            </select>
+          </>
+        )}
 
             <label>כשרות:</label>
             <input type="text" name="cosher" value={updatedProduct.cosher} onChange={handleInputChange} />
