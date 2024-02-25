@@ -8,6 +8,7 @@ export const deleteInventoryAPI = createAsyncThunk<number | null, { product_id: 
         if (!ok) {
             throw new Error("Invalid credentials deleteInventoryAPI()");
         }
+      
         return results.insertId;
     } catch (error) {
         console.error(error);

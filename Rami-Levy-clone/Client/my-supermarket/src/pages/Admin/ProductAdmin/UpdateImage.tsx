@@ -26,10 +26,7 @@ const UpdateImage: React.FC<UpdateImageProps> = ({ product_id, product_img_name_
 
     useEffect(() => {
         setImageAData(base64Image(product_img_data_a));
-        console.log("product_img_data_a", product_img_data_a);
-        setImageBData(base64Image(product_img_data_b));
-        console.log("product_img_data_b", product_img_data_b);
-            
+        setImageBData(base64Image(product_img_data_b));      
     },[]);
         
     const base64Image = (product_img_data:any) => {
