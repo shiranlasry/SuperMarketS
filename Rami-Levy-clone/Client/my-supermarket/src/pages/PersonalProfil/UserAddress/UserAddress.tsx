@@ -5,9 +5,11 @@ import "./UserAddress.scss";
 const UserAddress = () => {
   const [addNewAddressPressed, setAddNewAddressPressed] = useState(false);
   return (
-    <div className="address-container">
-      <h3 className="address-title">הכתובות שלי</h3>
-      <img className="map-img" src="/src/assets/img/map.png" />
+    <div className="address-main">
+      <div className="address-container">
+        <h3 className="address-title">הכתובות שלי</h3>
+        <img className="map-img" src="/src/assets/img/map.png" />
+      </div>
       {/* Add the user address list here */}
       <button
         className="new-address-btn"
