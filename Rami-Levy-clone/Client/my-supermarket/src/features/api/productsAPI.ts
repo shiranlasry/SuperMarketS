@@ -104,6 +104,7 @@ export const deleteProduct = createAsyncThunk<number | null, { product_id: numbe
         if (!ok) {
             throw new Error("Invalid credentials deleteProduct()");
         }
+        alert("מוצר נמחק בהצלחה מסחררת")
         return results.insertId;
     } catch (error) {
         console.error("Error deleteProduct:", error);
