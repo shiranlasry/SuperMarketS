@@ -3,14 +3,15 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { get_SUB_FoodCategoriesApi } from "../../features/categories/categoriesAPI";
 import { subFoodCategoriesSelector } from "../../features/categories/categoriesSlice";
-import SubCategoryItem from "../SubCatagoryItem/SubCatagoryItem";
-import "./subCatagoryManu.scss";
+import SubCategoryItem from "../SubCategoryItem/SubCatagoryItem";
+import "./subCategoryMenu.scss";
 
 interface SubCategoryMenuProps {
   navbarItemId: number | null; // Change prop name to navbarItemId
 }
 
-const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => { // Change prop name to navbarItemId
+const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => {
+  // Change prop name to navbarItemId
   const dispatch = useAppDispatch();
   const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
 
@@ -21,6 +22,23 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => { 
   }, []);
 
   const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
+  const [openDelayTimer, setOpenDelayTimer] = useState<NodeJS.Timeout | null>(
+    null
+  );
+
+  const handleMouseEnter = () => {
+    if (openDelayTimer) clearTimeout(openDelayTimer);
+    setOpenDelayTimer(
+      setTimeout(() => {
+        if (navbarItemId) setExpandedCategories([navbarItemId]);
+      }, 1000) // Adjust delay time here (in milliseconds)
+    );
+  };
+
+  const handleMouseLeave = () => {
+    if (openDelayTimer) clearTimeout(openDelayTimer);
+    setExpandedCategories([]);
+  };
 
   const handleCategoryExpand = (categoryId: number) => {
     if (expandedCategories.includes(categoryId)) {
@@ -36,9 +54,8 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => { 
     expandedCategories.includes(categoryId);
 
   const filteredCategories =
-    subFoodCategories?.filter(
-      (item) => item.navbar_item_id === navbarItemId
-    ) || [];
+    subFoodCategories?.filter((item) => item.navbar_item_id === navbarItemId) ||
+    [];
 
   const categoriesMap = filteredCategories.reduce((map, category) => {
     if (!map.has(category.food_category_id)) {
@@ -54,8 +71,8 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => { 
   return (
     <div
       className="sub-category-menu"
-      onMouseEnter={() => navbarItemId && setExpandedCategories([navbarItemId])} // Add mouse enter event handler
-      onMouseLeave={() => navbarItemId && setExpandedCategories([])} // Add mouse leave event handler
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {Array.from(categoriesMap.entries()).map(
         ([categoryId, categoryData], index) => (
