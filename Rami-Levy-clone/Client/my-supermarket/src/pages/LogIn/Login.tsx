@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { logInUserApi } from "../../features/logged_in_user/loggedInUserAPI";
+import { getUserAddressesApi, logInUserApi } from "../../features/logged_in_user/loggedInUserAPI";
 import "./login.scss";
 
 interface LoginProps {
@@ -46,6 +46,7 @@ const Login: React.FC<LoginProps> = ({ onClose, RegisterPressed }) => {
         console.log("Invalid credentials");
         return;
       }
+      dispatch(getUserAddressesApi(resultAction.payload.user_id))
       alert("התחברת בהצלחה");
       onClose();
     } catch (error) {

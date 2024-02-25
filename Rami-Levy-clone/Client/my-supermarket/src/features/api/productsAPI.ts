@@ -139,7 +139,7 @@ export const updateProductImageAPi = createAsyncThunk<{ ok: boolean }, FormData>
     'update-product-image',
     async (formData) => {
       try {
-        debugger;
+
         // const response = await axios.post("/api/products-images/update-product-image", imagesProduct);
         const response = await axios.post("/api/products-images/update-product-image", formData, {
             headers: {

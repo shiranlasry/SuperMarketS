@@ -74,6 +74,7 @@ interface AddNewUserAddresseArgs {
     apartment:number;
     zip_code:number;
     phone_number:string;
+    address_name:string;
    
 }
 export const addNewUserAddressApi = createAsyncThunk<Address[] |AddNewUserAddresseArgs,Address >('add-new-user-address', async (args) => {
@@ -85,6 +86,21 @@ export const addNewUserAddressApi = createAsyncThunk<Address[] |AddNewUserAddres
             throw new Error("Invalid credentials addNewUserAddressApi()");
         }
         return selectresult;
+
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
+export const getUserAddressesApi = createAsyncThunk<Address[] | null, number>('get-user-addresses', async (user_id) => {
+    try {
+            
+        const response = await axios.get(`/api/addresses/get-user-addresses/${user_id}`);
+        const { ok, result } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials getUserAddressesApi()");
+        }
+        return result;
 
     } catch (error) {
         console.error(error) // this is temporary

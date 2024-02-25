@@ -61,6 +61,7 @@ export interface Product  {
     zip_code: string;
     phone_number:string;
     is_default:boolean;
+    address_name: string;
   };
 
   export interface City {
