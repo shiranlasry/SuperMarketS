@@ -1,10 +1,13 @@
 .category-visual-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px; /* Add gap between product cards */
-  
- 
+  flex-direction: column;
+  justify-content: right;
+}
+
+.product-sub-category {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
 }
 
 .product-sub-category {
@@ -13,6 +16,12 @@
   color: #1579f2;
   font-size: 1.8rem;
   text-align: center;
-  width: 100%; /* Ensure the sub-category heading takes full width */
-  border-bottom: 2px solid #1579f2; /* Add a border line beneath the heading */
+  margin-right: 1.5rem;
+  // width: 100%; /* Ensure the sub-category heading takes full width */
+}
+
+.sub-categories-feed {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
 }

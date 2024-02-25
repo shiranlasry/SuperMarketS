@@ -34,18 +34,20 @@ const CategoryVisual = () => {
       );
       setFilteredProducts(filtered);
     }
-  }, [allProducts,selectedSubCategoryId]);
+  }, [allProducts, selectedSubCategoryId]);
 
   return (
     <div className="category-visual-container">
       {filteredProducts.length > 0 && (
-        <h1 className="product-sub-category">
-          {filteredProducts[0].sub_food_category_name}
-        </h1>
+        <div className="product-sub-category">
+          <h2>{filteredProducts[0].sub_food_category_name}</h2>
+        </div>
       )}
-      {filteredProducts.map((product) => (
-        <ProductCard key={product.product_id} product={product} />
-      ))}
+      <div className="sub-categories-feed">
+        {filteredProducts.map((product) => (
+          <ProductCard key={product.product_id} product={product} />
+        ))}
+      </div>
     </div>
   );
 };
