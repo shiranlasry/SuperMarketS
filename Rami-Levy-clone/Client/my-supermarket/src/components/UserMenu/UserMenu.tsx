@@ -7,49 +7,41 @@ import { useEffect, useRef } from "react";
 
 interface UserMenuProps {
   loggedInUser: User | null;
+  onClose: () => void;
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser }) => {
+const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const userMenuRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         userMenuRef.current &&
         !userMenuRef.current.contains(event.target as Node)
       ) {
-        closeMenu();
+        onClose(); // Close the menu if click is outside the menu
       }
     };
+    document.addEventListener("mousedown", handleClickOutside);
 
-    const handleDocumentClick = () => {
-      document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-
-    const handleDocumentCleanup = () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-
-    handleDocumentClick();
-
-    return handleDocumentCleanup;
-  }, []);
-
-  const closeMenu = () => {
-    console.log("Closing menu...");
-  };
+  }, [onClose]);
 
   const handleLogOut = () => {
     dispatch(logOutUserApi());
+    onClose();
     navigate("/");
   };
 
   const handleNavigateToAdmin = () => {
+    onClose();
     navigate("/admin");
   };
   const handleNavigatePersonalProfil = () => {
+    onClose();
     navigate("/personal_profil");
   };
 

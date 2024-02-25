@@ -1,19 +1,18 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-import AddNewAddress from "./pages/PersonalProfil/UserAddress/AddNewAddress/AddNewAddress";
-import AddNewProduct from "./pages/Admin/ProductAdmin/AddNewProduct/AddNewProduct";
+import CategoryVisual from "./components/catagoryVisual/catagoryVisual";
+import ErrorPage from "./pages/404-page/ErrorPage";
 import AdminMainPage from "./pages/Admin/AdminMainPage";
+import AddNewFoodCategory from "./pages/Admin/ProductAdmin/AddNewFoodCategory/AddNewFoodCategory";
+import AddNewProduct from "./pages/Admin/ProductAdmin/AddNewProduct/AddNewProduct";
+import ProductsAdmin from "./pages/Admin/ProductAdmin/ProductAdmin";
+import UpdateUser from "./pages/Admin/UsesManage/tsx/UpdateUser";
+import UsersManage from "./pages/Admin/UsesManage/tsx/UsersManage";
 import Home from "./pages/Home/Home";
 import Login from "./pages/LogIn/Login";
-import Register from "./pages/Register/Register";
-import UsersManage from "./pages/Admin/UsesManage/tsx/UsersManage";
-import ProductsAdmin from "./pages/Admin/ProductAdmin/ProductAdmin";
-import ErrorPage from "./pages/404-page/ErrorPage";
-import UpdateUser from "./pages/Admin/UsesManage/tsx/UpdateUser";
-import CategoryVisual from "./components/catagoryVisual/catagoryVisual";
-import AddNewFoodCategory from "./pages/Admin/ProductAdmin/AddNewFoodCategory/AddNewFoodCategory";
-import Layout from "./views/layouts/Layout";
 import PersonalProfil from "./pages/PersonalProfil/PersonalProfil";
+import Register from "./pages/Register/Register";
+import Layout from "./views/layouts/Layout";
 function App() {
   const router = createBrowserRouter([
     {
@@ -26,7 +25,7 @@ function App() {
           path: "/login",
           element: <Login onClose={() => {}} RegisterPressed={() => {}} />,
         },
-        { path: "/add_user_addresses", element: <AddNewAddress /> },
+       
         { path: "/admin", element: <AdminMainPage /> },
         { path: "/add_new_product", element: <AddNewProduct /> },
         { path: "/manage_users", element: <UsersManage /> },

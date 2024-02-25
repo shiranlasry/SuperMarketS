@@ -211,7 +211,7 @@ const Header = () => {
       </Modal>
 
       {/* Render UserMenu conditionally */}
-      {loggedInUser && isMenuOpen && <UserMenu loggedInUser={loggedInUser} />}
+      {loggedInUser && isMenuOpen && <UserMenu loggedInUser={loggedInUser} onClose={toggleMenu} />}
     </div>
   );
 };
