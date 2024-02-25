@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { getAllProductsApi } from "../../features/products/productsAPI";
 import { productsSelector } from "../../features/products/productsSlice";
 import { Product } from "../../rami-types";
-import Layout from "../Layout/Layout";
 import ProductCard from "../ProductCard/ProductCard";
 import "./catagoryVisual.scss";
 

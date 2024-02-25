@@ -21,7 +21,7 @@
 }
 
 .sub-categories-feed {
-  display: flex;
-  flex-flow: row;
+  display: grid;
+
   justify-content: space-around;
 }
