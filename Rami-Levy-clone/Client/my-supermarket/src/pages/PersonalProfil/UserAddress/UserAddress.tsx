@@ -1,14 +1,19 @@
 import { useState } from "react";
 import AddNewAddress from "./AddNewAddress/AddNewAddress";
+import AddressCard from "./AddressCard/AddressCard";
 import "./UserAddress.scss";
+import { useSelector } from "react-redux";
+import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInUserSlice";
 
 const UserAddress = () => {
   const [addNewAddressPressed, setAddNewAddressPressed] = useState(false);
+  
   return (
     <div className="address-main">
       <div className="address-container">
         <h3 className="address-title">הכתובות שלי</h3>
         <img className="map-img" src="/src/assets/img/map.png" />
+        <AddressCard />
       </div>
       {/* Add the user address list here */}
       <button

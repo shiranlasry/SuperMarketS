@@ -36,7 +36,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
         dispatch(getFoodCategoriesApi());
         dispatch(get_SUB_FoodCategoriesApi());
         console.log("Product:", product);
-        debugger;
+        
       }, []);
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;

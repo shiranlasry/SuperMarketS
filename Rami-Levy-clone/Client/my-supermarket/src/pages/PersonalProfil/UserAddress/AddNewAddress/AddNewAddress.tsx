@@ -28,6 +28,7 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
     zip_code: "",
     phone_number: "",
     is_default: false,
+    address_name: "",
   };
 
   const [newAddress, setNewAddress] = useState<Address>(initialAddressState);
@@ -176,11 +177,11 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
                   {/* <label htmlFor="phone_number">Phone Number:</label> */}
                   <input
                     type="text"
-                    id="phone_number"
-                    name="phone_number"
+                    id="address_name"
+                    name="address_name"
                     placeholder="שם הכתובת"
                     className="addNew-add add-name"
-                    value={newAddress.phone_number || ""}
+                    value={newAddress.address_name || ""}
                     onChange={handleInputChange}
                   />
                 </div>
