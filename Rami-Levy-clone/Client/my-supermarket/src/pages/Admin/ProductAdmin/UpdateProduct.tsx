@@ -3,8 +3,9 @@ import { FoodCategories, Product, SubFoodCategories, updateProductFields } from 
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { updateProductDetailes } from "../../../features/api/productsAPI";
 import { foodCategoriesSelector, subFoodCategoriesSelector } from "../../../features/categories/categoriesSlice";
-import { getCategorybySubCategoryApi, getFoodCategoriesApi, get_SUB_FoodCategoriesApi } from "../../../features/categories/categoriesAPI";
+import { getFoodCategoriesApi, get_SUB_FoodCategoriesApi } from "../../../features/categories/categoriesAPI";
 import './updateProduct.scss';
+import { getAllProductsApi } from "../../../features/products/productsAPI";
 
 interface UpdateProductProps {
     product: Product;
@@ -13,7 +14,6 @@ interface UpdateProductProps {
 
 const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
     const dispatch = useAppDispatch();
-    const [foodCatagory, setFoodCatagory] = useState<number | null>(null);
     const foodCategories = useAppSelector(foodCategoriesSelector);
     const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
     const [updatedProduct, setUpdatedProduct] = useState<updateProductFields>({
@@ -35,9 +35,9 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
     useEffect(() => {
         dispatch(getFoodCategoriesApi());
         dispatch(get_SUB_FoodCategoriesApi());
+        console.log("Product:", product);
+        debugger;
       }, []);
-  
-   
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setUpdatedProduct(prevState => ({
@@ -52,14 +52,14 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
         const response = await dispatch(updateProductDetailes(updatedProduct));
         if (response.payload) {
             alert("Product updated successfully");
+            dispatch(getAllProductsApi());
+
         }
         onClose();
     };
-
-    
     return (
         <div id="update-product">
-            <h1>Update Product</h1>
+            <h1>עדכון פרטי מוצר</h1>
             <label>שם מוצר:</label>
             <input type="text" name="product_name" value={updatedProduct.product_name} onChange={handleInputChange} />
             <label>מחיר:</label>

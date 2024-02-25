@@ -29,11 +29,13 @@ export const addNewProductDetailes = async (req: express.Request, res: express.R
 
 export const getAllProductDetailes = async (req: express.Request, res: express.Response) => {   
     try {
-        const query = ` SELECT p.*, s.sub_food_category_name ,i.inventory_id,i.add,i.remove,i.units_stock
+        const query = ` SELECT p.*, s.sub_food_category_name,f.food_category_id ,i.inventory_id,i.add,i.remove,i.units_stock
         ,product_img_name_b,product_img_data_b,product_img_name_a,product_img_data_a,product_image_id
         FROM products p 
         INNER JOIN sub_food_categories s 
         ON p.sub_food_category_id = s.sub_food_category_id 
+         INNER JOIN food_categories f 
+        ON f.food_category_id = s.food_category_id 
         INNER JOIN inventories i
         ON p.product_id = i.product_id
         INNER JOIN products_images pi
