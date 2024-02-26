@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInUserSlice";
-import "./UserDetails.scss"; // Import the separate SCSS file for styling
-import { updateUserDetailsApi } from "../../../features/all_users_admin/allUsersAPI";
-import { useAppDispatch } from "../../../app/hook";
-import DeleteUser from "../DeleteUser/DeleteUserPersonal";
-import DeleteUserPersonal from "../DeleteUser/DeleteUserPersonal";
-import { getUserByIdApi } from "../../../features/logged_in_user/loggedInUserAPI";
-import UpdateUserPassword from "../UpdateUserPassword/UpdateUserPassword";
 import { Modal } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../../app/hook";
+import { updateUserDetailsApi } from "../../../features/all_users_admin/allUsersAPI";
+import { getUserByIdApi } from "../../../features/logged_in_user/loggedInUserAPI";
+import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInUserSlice";
+import DeleteUserPersonal from "../DeleteUser/DeleteUserPersonal";
+import UpdateUserPassword from "../UpdateUserPassword/UpdateUserPassword";
+import "./UserDetails.scss"; // Import the separate SCSS file for styling
 
 const UserDetails = () => {
   const loggedInUser = useSelector(loggedInUserSelector);
@@ -138,6 +137,7 @@ const UserDetails = () => {
             <div className="choose-gender">
               <div className="gender">
                 <input
+                  className="form-check-input"
                   type="radio"
                   id="male"
                   name="gender"
@@ -149,6 +149,7 @@ const UserDetails = () => {
               </div>
               <div className="gender">
                 <input
+                  className="form-check-input"
                   type="radio"
                   id="female"
                   name="gender"
@@ -161,6 +162,7 @@ const UserDetails = () => {
             </div>
             <div className="no-gender">
               <input
+                className="form-check-input"
                 type="radio"
                 id="female"
                 name="gender"
@@ -172,37 +174,34 @@ const UserDetails = () => {
             </div>
           </div>
           {isPopDelete && (
-                <Modal
-                id={"modal-Delete-user"}
-                show={isPopDelete}
-                onHide={() => setIsPopDelete(false)}
-                dialogClassName="custom-modal"
-                >
-                <Modal.Body>
-                  <DeleteUserPersonal
-                    user={loggedInUser}
-                    onClose={() => setIsPopDelete(false)}
-                  />
-                </Modal.Body>
-                </Modal>
-
-
-           
+            <Modal
+              id={"modal-Delete-user"}
+              show={isPopDelete}
+              onHide={() => setIsPopDelete(false)}
+              dialogClassName="custom-modal"
+            >
+              <Modal.Body>
+                <DeleteUserPersonal
+                  user={loggedInUser}
+                  onClose={() => setIsPopDelete(false)}
+                />
+              </Modal.Body>
+            </Modal>
           )}
           {isPopChangePassword && (
-               <Modal
-               id={"modal-update-password"}
-               show={isPopChangePassword}
-               onHide={() => setIsPopChangePassword(false)}
-               dialogClassName="custom-modal"
-             >
-               <Modal.Body>
-                  <UpdateUserPassword
-                    user={loggedInUser}
-                    onClose={() => setIsPopChangePassword(false)}
-                  />
-               </Modal.Body>
-             </Modal>
+            <Modal
+              id={"modal-update-password"}
+              show={isPopChangePassword}
+              onHide={() => setIsPopChangePassword(false)}
+              dialogClassName="custom-modal"
+            >
+              <Modal.Body>
+                <UpdateUserPassword
+                  user={loggedInUser}
+                  onClose={() => setIsPopChangePassword(false)}
+                />
+              </Modal.Body>
+            </Modal>
           )}
 
           <div className="uprofile-btns">
@@ -210,7 +209,7 @@ const UserDetails = () => {
               עדכן פרטים
             </button>
             <button className="update-details-btn" onClick={popChangePassword}>
-               שינוי סיסמא
+              שינוי סיסמא
             </button>
             <button className="remove-user-btn" onClick={popDeleteUser}>
               הסרת משתמש

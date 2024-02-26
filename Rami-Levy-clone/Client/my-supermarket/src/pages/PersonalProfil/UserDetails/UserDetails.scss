@@ -77,12 +77,17 @@
     }
   }
 
-  .choose-gender {
-    display: flex;
-    flex-flow: row;
+  .set-gender {
+    label {
+      margin-right: 0.4rem;
+    }
+    .choose-gender {
+      display: flex;
+      flex-flow: row;
 
-    .gender {
-      margin-left: 0.5rem;
+      .gender {
+        margin-left: 0.5rem;
+      }
     }
   }
 }
