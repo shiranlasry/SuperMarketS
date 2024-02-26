@@ -36,3 +36,18 @@ export const updateInventoryAPI = createAsyncThunk<number | null, { product_id: 
     }
 })
 
+export const getProductsByNavBarItemIdAPI = createAsyncThunk<Product[] | null, number>('get-products-by-navbar-item-id', async (navbar_item_id) => {
+    try {
+        const response = await axios.get(`/api/products-details/get-products-by-navbar-item-id/${navbar_item_id}`);
+        const { ok, results } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials getProductsByNavBarItemId()");
+        }
+        
+        return results;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+})
+

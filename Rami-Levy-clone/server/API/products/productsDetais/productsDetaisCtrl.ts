@@ -90,6 +90,63 @@ export const getAllProductDetailes = async (req: express.Request, res: express.R
     }
 }
 
+export const getProductsByNavBarItemId = async (req: express.Request, res: express.Response) => {
+    try {
+        const { navbar_item_id } = req.params
+        if (!navbar_item_id) {
+            res.status(400).send({ ok: false, error: 'missing required fields' })
+            return
+        }
+        const query = `SELECT 
+        p.product_id, 
+        p.product_name, 
+        p.product_price, 
+        p.product_description, 
+        p.export_country, 
+        p.brand, 
+        p.content, 
+        p.allergy_info, 
+        p.type, 
+        p.israel_milk, 
+        p.cosher,
+        s.sub_food_category_name,
+        f.food_category_id,
+        i.inventory_id,
+        i.add,
+        i.remove,
+        i.units_stock,
+        pi.product_img_name_b,
+        pi.product_img_data_b,
+        pi.product_img_name_a,
+        pi.product_img_data_a,
+        pi.product_image_id
+    FROM 
+        products p
+    INNER JOIN 
+        sub_food_categories s ON p.sub_food_category_id = s.sub_food_category_id
+    INNER JOIN 
+        food_categories f ON f.food_category_id = s.food_category_id
+    INNER JOIN 
+        inventories i ON p.product_id = i.product_id
+    INNER JOIN 
+        products_images pi ON p.product_id = pi.product_id
+    WHERE 
+        s.navbar_item_id =? ;`
+        connection.query(query, [navbar_item_id], (err, results, fields) => {
+            try {
+                if (err) throw err;
+                res.send({ ok: true, results })
+            } catch (error) {
+                console.error(error)
+                res.status(500).send({ ok: false, error })
+            }
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+    }
+}
+
 export const getProductDetailesBySubFoodCatagoryId = async (req: express.Request, res: express.Response) => {
     try {
         const { sub_food_category_id } = req.params

@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./NavBarItem.scss";
 import SubCategoryMenu from "../SubCategoryMenu/SubCategoryMenu";
+import { getProductsByNavBarItemIdAPI } from "../../features/products/productsAPI";
+import { useAppDispatch } from "../../app/hook";
 
 type NavbarItemProps = {
   item: any; // Adjust the type according to your item structure
@@ -22,7 +24,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ item }) => {
     number | null
   >(null);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 900);
-
+  const dispatch = useAppDispatch() 
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 950);
@@ -51,9 +53,11 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ item }) => {
       onMouseLeave={handleMouseLeave} // Add mouse leave event handler
     >
       <NavLink
-        to={to}
+      to={`/navbar_item_products/${navbar_item_id}`} 
         className={`nav-link${isActive ? " active" : ""}`}
-        onClick={() => setIsActive(!isActive)}
+        onClick={() =>{setIsActive(!isActive)
+          dispatch(getProductsByNavBarItemIdAPI(Number(navbar_item_id)))
+        } }
       >
         <div className="navbar-item-content">
           {/* Render SVG elements based on screen size */}
