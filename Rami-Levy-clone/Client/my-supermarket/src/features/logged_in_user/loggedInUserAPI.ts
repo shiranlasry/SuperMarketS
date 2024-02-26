@@ -35,7 +35,22 @@ export const getUserByIdApi = createAsyncThunk<User | null, number |null>('get-u
         return null;
     }
 })
+export const updateUserPasswordApi = createAsyncThunk<User | null, {user_id:number,old_password:string,new_password:string}>('update-user-password', async (args) => {
+    try {
+       
+        const response = await axios.patch("/api/users/update-personal-password", args);
+        const { ok, user } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials updateUserPasswordApi()");
+        }
+        alert(" סתמו הסיסמה עודכנה בהצלחה");
+        return user;
 
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
 export const logOutUserApi = createAsyncThunk('delete-token', async () => {
     try {
         const response = await axios.delete("/api/users/delete-token");
