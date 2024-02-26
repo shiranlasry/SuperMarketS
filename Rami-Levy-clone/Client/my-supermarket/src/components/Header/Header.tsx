@@ -35,6 +35,7 @@ const Header = () => {
   useEffect(() => {
     if (!loggedInUser) {
       dispatch(getUserFromTokenApi());
+      
     }
   }, []);
 

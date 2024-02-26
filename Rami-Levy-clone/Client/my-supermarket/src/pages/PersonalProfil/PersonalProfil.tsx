@@ -33,7 +33,6 @@ const PersonalProfil = () => {
         </button>
         <button>תשלום</button>
         <button>ההזמנות שלי</button>
-        <button>מרכז מידע</button>
         <button>מרכז המידע </button>
         <button>קופה</button>
         <button className="log-out-user">התנתקות</button>

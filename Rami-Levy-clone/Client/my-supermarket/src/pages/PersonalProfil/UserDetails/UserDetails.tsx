@@ -7,6 +7,8 @@ import { useAppDispatch } from "../../../app/hook";
 import DeleteUser from "../DeleteUser/DeleteUserPersonal";
 import DeleteUserPersonal from "../DeleteUser/DeleteUserPersonal";
 import { getUserByIdApi } from "../../../features/logged_in_user/loggedInUserAPI";
+import UpdateUserPassword from "../UpdateUserPassword/UpdateUserPassword";
+import { Modal } from "react-bootstrap";
 
 const UserDetails = () => {
   const loggedInUser = useSelector(loggedInUserSelector);
@@ -21,8 +23,12 @@ const UserDetails = () => {
 
   const [updatesFields, setUpdatesFields] = useState(initialUserDetails);
   const [isPopDelete, setIsPopDelete] = useState(false);
+  const [isPopChangePassword, setIsPopChangePassword] = useState(false);
   const popDeleteUser = () => {
     setIsPopDelete(true);
+  };
+  const popChangePassword = () => {
+    setIsPopChangePassword(true);
   };
   const dispatch = useAppDispatch();
   const handleChange = (
@@ -166,14 +172,45 @@ const UserDetails = () => {
             </div>
           </div>
           {isPopDelete && (
-            <DeleteUserPersonal
-              user={loggedInUser}
-              onClose={() => setIsPopDelete(false)}
-            />
+                <Modal
+                id={"modal-Delete-user"}
+                show={isPopDelete}
+                onHide={() => setIsPopDelete(false)}
+                dialogClassName="custom-modal"
+                >
+                <Modal.Body>
+                  <DeleteUserPersonal
+                    user={loggedInUser}
+                    onClose={() => setIsPopDelete(false)}
+                  />
+                </Modal.Body>
+                </Modal>
+
+
+           
           )}
+          {isPopChangePassword && (
+               <Modal
+               id={"modal-update-password"}
+               show={isPopChangePassword}
+               onHide={() => setIsPopChangePassword(false)}
+               dialogClassName="custom-modal"
+             >
+               <Modal.Body>
+                  <UpdateUserPassword
+                    user={loggedInUser}
+                    onClose={() => setIsPopChangePassword(false)}
+                  />
+               </Modal.Body>
+             </Modal>
+          )}
+
           <div className="uprofile-btns">
             <button className="update-details-btn" onClick={updateUserDetails}>
               עדכן פרטים
+            </button>
+            <button className="update-details-btn" onClick={popChangePassword}>
+               שינוי סיסמא
             </button>
             <button className="remove-user-btn" onClick={popDeleteUser}>
               הסרת משתמש
