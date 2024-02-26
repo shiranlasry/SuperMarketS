@@ -66,8 +66,16 @@ $button: #1579f2;
       border-radius: 7px;
       padding: 8px;
 
+      &::placeholder {
+        text-align: center;
+      }
+
       @media screen and (max-width: 670px) {
         max-width: 390px;
+      }
+
+      &:focus {
+        outline: none;
       }
     }
 

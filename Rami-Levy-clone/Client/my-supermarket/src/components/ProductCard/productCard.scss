@@ -49,10 +49,17 @@
       }
     }
 
+    .carousel-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
     .product-img {
-      width: 100%;
+      margin: 0.5rem auto;
+      height: 200px;
+      width: 80%;
       border-radius: 12px; /* Round corners of the image */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
     }
 
     .carousel-control-prev-icon,

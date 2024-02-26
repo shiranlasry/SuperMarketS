@@ -118,7 +118,26 @@ const UpdateUserPassword: React.FC<UserProps> = ({ user, onClose }) => {
           className="new-password-closeBtn"
           onClick={onClose}
         >
-          <span>&times;</span>
+          <svg
+            onClick={onClose}
+            data-v-2d7301cc=""
+            aria-label="סגור"
+            xmlns="http://www.w3.org/2000/svg"
+            width="30px"
+            height="30px"
+            fill="none"
+            viewBox="0 0 24 24"
+            className="exit-pass-svg"
+            stroke="currentColor"
+          >
+            <path
+              data-v-2d7301cc=""
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
         </button>
       </div>
 
@@ -129,6 +148,8 @@ const UpdateUserPassword: React.FC<UserProps> = ({ user, onClose }) => {
           name="oldPassword"
           className="new-password-input"
           onChange={handleInputChange}
+          dir="rtl"
+          style={{ textAlign: "right" }}
         />
         <input
           type="password"
@@ -136,6 +157,8 @@ const UpdateUserPassword: React.FC<UserProps> = ({ user, onClose }) => {
           name="password"
           className="new-password-input"
           onChange={handleInputChange}
+          dir="rtl"
+          style={{ textAlign: "right" }}
         />
         {passwordValidation && <span>{passwordValidation}</span>}
         <input
@@ -144,6 +167,8 @@ const UpdateUserPassword: React.FC<UserProps> = ({ user, onClose }) => {
           name="confirmPassword"
           className="new-password-input"
           onChange={handleInputChange}
+          dir="rtl"
+          style={{ textAlign: "right" }}
         />
         <div className="new-password-btns">
           {confirmPasswordValidation && (

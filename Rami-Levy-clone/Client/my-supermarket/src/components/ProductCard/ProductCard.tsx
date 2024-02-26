@@ -38,7 +38,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
             <div className="carousel-item active">
               <img
                 src={`data:image/jpeg;base64,${currentImage}`}
-                className="d-block w-100 product-img"
+                className="d-block product-img"
                 alt="Product Image"
               />
             </div>
