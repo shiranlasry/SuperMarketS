@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const addNewList = async (product_id: number, product_amount: number) => { 
+export const addNewList = async (product_id: number, product_amount: number, cart_id:number) => { 
     try {
-        const response = await axios.post("/api/lists/add-new-list", { product_id, product_amount });
+        const response = await axios.post("/api/lists/add-new-list", { product_id, product_amount, cart_id });
         const { ok, results } = response.data;
         if (!ok) {
             throw new Error("Invalid credentials addNewList()");
