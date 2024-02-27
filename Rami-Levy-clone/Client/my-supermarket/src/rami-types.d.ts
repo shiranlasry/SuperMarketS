@@ -1,4 +1,5 @@
 export interface FoodCategories {
+import { order, status } from './rami-types.d';
   food_category_id: number;
   food_category_name: string;
 }
@@ -117,3 +118,48 @@ export interface updateProductFields {
   cosher: string;
   israel_milk: string;
 }
+
+export interface list {
+  list_id: number;
+  product_id: number;
+  product_amount: number;
+}
+
+export interface cart {
+  cart_id: number;
+  list_id: number;
+  user_id: number;
+  status_id: number;
+}
+
+export interface order {
+  order_id: number;
+  cart_id: number;
+  user_id: number;
+  delivery_id: number;
+  order_creation_date: Date;
+  status_id: number;
+}
+
+export interface delivery {
+  delivery_id: number;
+  order_id: number;
+  status_id: number;
+  delivery_finish_date: Date;
+}
+
+export interface status {
+  status_id: number;
+  department_status_id: number;
+  department_status_name: string;
+}
+
+export interface departmentsStatus {
+  department_status_id: number;
+  status_name: string;
+}
+
+
+
+
+
