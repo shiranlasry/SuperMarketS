@@ -119,20 +119,20 @@ export interface updateProductFields {
   israel_milk: string;
 }
 
-export interface list {
+export interface BucketList {
   list_id: number;
+  cart_id: number;
   product_id: number;
   product_amount: number;
 }
 
-export interface cart {
+export interface Cart {
   cart_id: number;
-  list_id: number;
   user_id: number;
   status_id: number;
 }
 
-export interface order {
+export interface Order {
   order_id: number;
   cart_id: number;
   user_id: number;
@@ -141,20 +141,20 @@ export interface order {
   status_id: number;
 }
 
-export interface delivery {
+export interface Delivery {
   delivery_id: number;
   order_id: number;
   status_id: number;
   delivery_finish_date: Date;
 }
 
-export interface status {
+export interface Status {
   status_id: number;
   department_status_id: number;
   department_status_name: string;
 }
 
-export interface departmentsStatus {
+export interface DepartmentsStatus {
   department_status_id: number;
   status_name: string;
 }

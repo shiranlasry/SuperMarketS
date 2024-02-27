@@ -1,5 +1,6 @@
 import express from 'express';
 import connection from '../../../DB/database';
+import { getProductPrice } from './../../../../Client/my-supermarket/src/features/cart/cartAPI';
 
 
 
@@ -224,6 +225,29 @@ export const updateProductDetailes = async (req: express.Request, res: express.R
             cosher ? cosher : null,
             product_id
         ], (err, results, fields) => {
+            try {
+                if (err) throw err;
+                res.send({ ok: true, results })
+            } catch (error) {
+                console.error(error)
+                res.status(500).send({ ok: false, error })
+            }
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+    }
+}
+
+export const getProductPriceById = async (req: express.Request, res: express.Response) => {
+    try {
+        const { product_id } = req.params
+        if (!product_id) {
+            res.status(400).send({ ok: false, error: 'missing required fields' })
+            return
+        }
+        const query = `SELECT product_price FROM products WHERE product_id = ?;`
+        connection.query(query, [product_id], (err, results, fields) => {
             try {
                 if (err) throw err;
                 res.send({ ok: true, results })

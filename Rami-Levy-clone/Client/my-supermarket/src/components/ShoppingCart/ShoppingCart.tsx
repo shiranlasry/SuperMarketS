@@ -1,23 +1,60 @@
-import React, { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { addToCart, selectCartItems } from "../../features/cart/cartSlice";
+import React, { useEffect, useState } from "react";
+import {  useAppSelector } from "../../app/hook";
+import {  selectCartItems } from "../../features/cart/cartSlice";
 import "./shopping-cart.scss";
+import { User } from "../../rami-types";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 
 const ShoppingCart: React.FC = () => {
-  const dispatch = useAppDispatch();
   const cartItems = useAppSelector(selectCartItems);
   const [isOpen, setIsOpen] = useState(false);
+  const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
 
-  const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        id: 1,
-        name: "Product Name",
-        price: 10.99,
-        quantity: 1,
-      })
-    );
-  };
+  // const handleAddToCart = () => {
+  //   dispatch(
+  //     addToCart({
+  //       id: 1,
+  //       name: "Product Name",
+  //       price: 10.99,
+  //       quantity: 1,
+  //     })
+  //   );
+  // };
+  interface CartData {
+    items: any[]; // Define the type of items as per your application
+    status: string; // Define the type of status
+  }
+  
+  useEffect(() => {
+    // Generate a random unique key for the cart
+    console.log("loggedInUser", loggedInUser);
+    const cartKey = `cart_${loggedInUser?.user_id}}`;
+    
+    // Check if cart already exists in session storage
+    let cartDataString = sessionStorage.getItem(cartKey);
+    console.log("cartDataString", cartDataString);
+    let cartData = { items: cartItems, status: 'open' };
+    console.log("cartData", cartData);
+    if (cartDataString === null) {
+      // If cart doesn't exist, create an empty cart with status 'open'
+      cartData = { items:cartItems, status: 'open' };
+      cartDataString = JSON.stringify(cartData);
+      sessionStorage.setItem(cartKey, cartDataString);
+    } else {
+      // If cart exists, parse the JSON and update its status to 'open'
+      cartData.items = cartItems;
+      cartData.status = 'open';
+      sessionStorage.setItem(cartKey, JSON.stringify(cartData));
+      console.log("cartData", cartData);
+    }
+  
+    // Clean up function to set cart status to 'closed' when component unmounts
+    return () => {
+      cartData.status = 'closed';
+      sessionStorage.setItem(cartKey, JSON.stringify(cartData));
+    };
+  }, [loggedInUser, cartItems]);// Add loggedInUser as a dependency if you need to track changes in the user's login status
+  
 
   // Function to format the price with main and decimal parts
   const formatPrice = (price: number) => {
@@ -103,7 +140,7 @@ const ShoppingCart: React.FC = () => {
           </svg>
         </svg>
         {/* Use Bootstrap styling for price */}
-        <button className="cart-price" onClick={handleAddToCart}>
+        <button className="cart-price" >
           {formatPrice(0.0)} ₪
         </button>
       </div>
