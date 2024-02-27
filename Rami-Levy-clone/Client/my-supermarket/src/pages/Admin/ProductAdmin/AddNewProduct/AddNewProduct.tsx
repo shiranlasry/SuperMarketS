@@ -22,7 +22,12 @@ import { useNavigate } from "react-router";
 import "./AddNewProduct.scss";
 import { getAllProductsApi } from "../../../../features/products/productsAPI";
 
-const AddNewProduct = () => {
+interface AddNewProductProps {
+  onClose: () => void;
+
+}
+
+const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
   const initialProduct: Product = {
     product_id: null,
     sub_food_category_id: null,
@@ -314,7 +319,7 @@ const AddNewProduct = () => {
         </div>
         <button type="submit">שלח</button>
         <button type="reset"  onClick={handleReset}>נקה</button>
-        <button onClick={() => navigate("/manage_products")}>חזור</button>
+        <button onClick={onClose}>בטל</button>
       </form>
     </div>
   );

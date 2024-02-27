@@ -77,12 +77,39 @@ export const getSUBFoodCategories = async (req: Request, res: Response) => {
 export const addNewFoodCategory = async (req: Request, res: Response) => {
     try {
         const { food_category_name } = req.body;
-        const query = `INSERT INTO food_categories (food_category_name) VALUES ('${food_category_name}');`
-        connection.query(query, (err, results, fields) => {
+        if (!food_category_name) {
+            res.status(400).send({ ok: false, error: 'missing required fields' })
+            return
+        }
+        const query = "INSERT INTO food_categories (food_category_name) VALUES (?)"
+        connection.query(query, [food_category_name], (err, results, fields) => {
             try {
                 if (err) throw err;
                 res.send({ ok: true, results })
-                alert("Category added successfully")
+            } catch (error) {
+                console.error(error)
+                res.status(500).send({ ok: false, error })
+            }
+        })
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+    }
+}
+
+export const addNewSubFoodCategory = async (req: Request, res: Response) => {
+    try {
+        const { sub_category_name, food_category_id, navbar_item_id } = req.body;
+        if (!sub_category_name || !food_category_id || !navbar_item_id) {
+            res.status(400).send({ ok: false, error: 'missing required fields' })
+            return
+        }
+        const query = "INSERT INTO sub_food_categories (sub_food_category_name,food_category_id,navbar_item_id) VALUES (?,?,?)"
+        connection.query(query, [sub_category_name, food_category_id, navbar_item_id], (err, results, fields) => {
+            try {
+                if (err) throw err;
+                res.send({ ok: true, results })
             } catch (error) {
                 console.error(error)
                 res.status(500).send({ ok: false, error })
