@@ -20,6 +20,7 @@ const PersonalProfil = () => {
   const handelLogout = () => {
     dispatch(logOutUserApi());
     navigate("/");
+    
   }
   return (
     <div className="Personal-profil-container">

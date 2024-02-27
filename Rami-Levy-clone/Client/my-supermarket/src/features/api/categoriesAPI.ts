@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const addNewFoodCategoryApi = async (food_category_name:string) => {
     try {
-        debugger
+        
         const response = await axios.post("/api/categories/add-new-food-category", {food_category_name});
         const { ok, results } = response.data;
         if (!ok) {
@@ -19,7 +19,7 @@ export const addNewFoodCategoryApi = async (food_category_name:string) => {
 
 export const addNewSubFoodCategoryApi = async (sub_category_name:string,food_category_id:number,navbar_item_id:number) => {
     try {
-        debugger
+        
         const response = await axios.post("/api/categories/add-new-sub-food-category", {sub_category_name,food_category_id,navbar_item_id});
         const { ok, results } = response.data;
         if (!ok) {

@@ -12,7 +12,7 @@ const hendelAddNewFoodCategory = async (e: React.FormEvent<HTMLFormElement>) => 
     try { 
         e.preventDefault();
         const category_name = (e.target as HTMLFormElement).category_name.value;
-        debugger;
+        
         await addNewFoodCategoryApi(category_name);
         // Handle the action object here if needed
     } catch (error) {
