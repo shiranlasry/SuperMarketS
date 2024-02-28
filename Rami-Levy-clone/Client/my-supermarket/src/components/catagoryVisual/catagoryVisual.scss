@@ -1,7 +1,8 @@
 .category-visual-container {
   display: flex;
-  flex-direction: column;
-  justify-content: right;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1.5rem;
 }
 
 .product-sub-category {
@@ -20,8 +21,12 @@
   // width: 100%; /* Ensure the sub-category heading takes full width */
 }
 
+.sub-category-title {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
 .sub-categories-feed {
   display: grid;
-
   justify-content: space-around;
 }
