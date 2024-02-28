@@ -1,13 +1,17 @@
 .category-visual-container {
   display: flex;
-  flex-direction: column;
-  justify-content: right;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1.5rem;
 }
 
 .product-sub-category {
+  width: 400px;
   display: flex;
   flex-direction: column;
+  text-align: right;
   width: fit-content;
+  overflow: hidden;
 }
 
 .product-sub-category {
@@ -16,8 +20,10 @@
   color: #1579f2;
   font-size: 1.8rem;
   text-align: center;
-  margin-right: 1.5rem;
-  // width: 100%; /* Ensure the sub-category heading takes full width */
+}
+
+.sub-category-title {
+  text-align: right;
 }
 
 .sub-categories-feed {

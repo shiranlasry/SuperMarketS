@@ -12,10 +12,12 @@ const CategoryVisual = () => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
+
   if (!id) {
     return null;
   }
-  // make it number
+
+  // Convert id to number
   const selectedSubCategoryId = parseInt(id);
 
   // Fetch products by category ID
@@ -23,7 +25,7 @@ const CategoryVisual = () => {
     if (!allProducts) {
       dispatch(getAllProductsApi());
     }
-  }, []);
+  }, [dispatch, allProducts]);
 
   // Filter products based on selectedSubCategoryId
   useEffect(() => {
@@ -40,13 +42,20 @@ const CategoryVisual = () => {
       {filteredProducts.length > 0 && (
         <div className="product-sub-category">
           <h2>{filteredProducts[0].sub_food_category_name}</h2>
+          <div className="row no-gutters">
+            {filteredProducts.map((product) => (
+              <div
+                key={product.product_id}
+                className="col-lg-2 col-md-3 col-sm-4 col-6"
+              >
+                <div className="product-card-wrapper">
+                  <ProductCard product={product} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
-      <div className="sub-categories-feed">
-        {filteredProducts.map((product) => (
-          <ProductCard key={product.product_id} product={product} />
-        ))}
-      </div>
     </div>
   );
 };

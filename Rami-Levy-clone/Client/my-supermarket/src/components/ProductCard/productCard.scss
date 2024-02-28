@@ -1,17 +1,40 @@
 .cards-container {
-  width: 100vw;
+  width: 95vw;
 
   .product-card {
-    max-width: 330px;
-    max-height: 400px;
+    width: 280px;
+    height: 380px;
     margin: 0.5rem;
     padding: 8px;
     border: 1px solid #ddd; /* Add a border for separation */
     border-radius: 15px;
     cursor: pointer;
 
-    .product-img {
+    @media screen and (max-width: 1700px) {
+      width: 260px;
+      height: 330px;
+    }
+
+    @media screen and (max-width: 1650px) {
+      width: 230px;
+      height: 300px;
+    }
+    @media screen and (max-width: 1520px) {
+      width: 210px;
+      height: 280px;
+    }
+    @media screen and (max-width: 1320px) {
+      width: 180px;
       height: 270px;
+    }
+
+    @media screen and (max-width: 1150px) {
+      width: 165px;
+      height: 260px;
+    }
+    @media screen and (max-width: 990px) {
+      width: 180px;
+      height: 275px;
     }
 
     .card-body {
@@ -23,6 +46,20 @@
       color: #333; /* Darken the title color */
       font-weight: bold;
       margin-bottom: 8px;
+
+      @media screen and (max-width: 1520px) {
+        font-size: 25px;
+        margin-bottom: 2px;
+      }
+      @media screen and (max-width: 1320px) {
+        font-size: 20px;
+        margin-bottom: 2px;
+      }
+
+      @media screen and (max-width: 990px) {
+        font-size: 20px;
+        margin-bottom: 2px;
+      }
     }
 
     .card-desc {
@@ -60,6 +97,29 @@
       height: 200px;
       width: 80%;
       border-radius: 12px; /* Round corners of the image */
+      @media screen and (max-width: 1700px) {
+        height: 180px;
+        margin: 0;
+      }
+
+      @media screen and (max-width: 1650px) {
+        height: 150px;
+        margin: 0;
+      }
+
+      @media screen and (max-width: 1590px) {
+        height: 140px;
+      }
+      @media screen and (max-width: 1520px) {
+        height: 140px;
+      }
+
+      @media screen and (max-width: 1320px) {
+        height: 130px;
+      }
+      @media screen and (max-width: 990px) {
+        height: 150px;
+      }
     }
 
     .carousel-control-prev-icon,
