@@ -1,59 +1,67 @@
 import React, { useEffect, useState } from "react";
-import {  useAppSelector } from "../../app/hook";
+import {  useAppDispatch, useAppSelector } from "../../app/hook";
 import {  selectCartItems } from "../../features/cart/cartSlice";
 import "./shopping-cart.scss";
 import { User } from "../../rami-types";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import { CartItem } from "../../features/cart/cartSlice";
 
 const ShoppingCart: React.FC = () => {
-  const cartItems = useAppSelector(selectCartItems);
+  let cartItems = useAppSelector(selectCartItems);
   const [isOpen, setIsOpen] = useState(false);
+  const [isReload, setIsReload] = useState(true);
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
-
-  // const handleAddToCart = () => {
-  //   dispatch(
-  //     addToCart({
-  //       id: 1,
-  //       name: "Product Name",
-  //       price: 10.99,
-  //       quantity: 1,
-  //     })
-  //   );
-  // };
+  const dispatch = useAppDispatch();
   interface CartData {
     items: any[]; // Define the type of items as per your application
     status: string; // Define the type of status
   }
+  const cartKey = `cart_${loggedInUser?.user_id}`;
+
+
+  const setCartFromSession = (cartDataItems: CartItem[]) => {
+    dispatch({ type: 'cart/setCartItems', payload: cartDataItems });
+    console.log("cartItems after reload", cartItems);
+  }
   
+
   useEffect(() => {
-    // Generate a random unique key for the cart
-    console.log("loggedInUser", loggedInUser);
-    const cartKey = `cart_${loggedInUser?.user_id}}`;
-    
-    // Check if cart already exists in session storage
-    let cartDataString = sessionStorage.getItem(cartKey);
-    console.log("cartDataString", cartDataString);
-    let cartData = { items: cartItems, status: 'open' };
-    console.log("cartData", cartData);
-    if (cartDataString === null) {
-      // If cart doesn't exist, create an empty cart with status 'open'
-      cartData = { items:cartItems, status: 'open' };
-      cartDataString = JSON.stringify(cartData);
-      sessionStorage.setItem(cartKey, cartDataString);
-    } else {
-      // If cart exists, parse the JSON and update its status to 'open'
-      cartData.items = cartItems;
-      cartData.status = 'open';
-      sessionStorage.setItem(cartKey, JSON.stringify(cartData));
-      console.log("cartData", cartData);
+    if (loggedInUser) {
+      let cartDataString = sessionStorage.getItem(cartKey);
+      let cartData = cartDataString ? JSON.parse(cartDataString) : { items: [...cartItems], status: 'empty' };
+      if (isReload) {
+        setIsReload(false);
+        if (cartData && cartData.Status !== "empty") {
+          setCartFromSession(cartData.items);
+        }
+        else {
+          cartData = { items: cartItems, status: 'empty' };
+          cartDataString = JSON.stringify(cartData);
+          sessionStorage.setItem(cartKey, cartDataString);
+
+        }
+        
+      }
+      else {
+        if (cartItems.length > 0)
+        {
+          cartData.items = cartItems;
+          cartData.status = 'open';
+          cartDataString = JSON.stringify(cartData);
+          sessionStorage.setItem(cartKey, cartDataString);
+        }
+        else {
+          cartItems = cartData.items;
+          console.log("cartItems after reload", cartItems);
+        }
+
+      }
     }
+  }, [cartItems, loggedInUser]);
   
-    // Clean up function to set cart status to 'closed' when component unmounts
-    return () => {
-      cartData.status = 'closed';
-      sessionStorage.setItem(cartKey, JSON.stringify(cartData));
-    };
-  }, [loggedInUser, cartItems]);// Add loggedInUser as a dependency if you need to track changes in the user's login status
+  
+  
+  
   
 
   // Function to format the price with main and decimal parts
