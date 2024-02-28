@@ -1,7 +1,7 @@
 import connection from "../../DB/database";
 import express from 'express';
 
-//in DB: list_id, product_id, product_amount
+//in DB: list_id, product_id, product_amount, cart_id
 
 export const getAllLists = async (req: express.Request, res: express.Response) => {
     try {
@@ -46,13 +46,13 @@ export const getListById = async (req: express.Request, res: express.Response) =
 
 export const addNewList = async (req: express.Request, res: express.Response) => {
     try {
-        const { product_id, product_amount } = req.body
-        if (!product_id || !product_amount) {
+        const { product_id, product_amount, cart_id } = req.body
+        if (!product_id || !product_amount || !cart_id) {
             res.status(400).send({ ok: false, error: 'missing required fields' })
             return
         }
-        const query = "INSERT INTO rami_levy_db.lists (product_id, product_amount) VALUES (?, ?);"
-        connection.query(query, [product_id, product_amount], (err, results, fields) => {
+        const query = "INSERT INTO rami_levy_db.lists (product_id, product_amount, cart_id) VALUES (?, ?);"
+        connection.query(query, [product_id, product_amount, cart_id], (err, results, fields) => {
             try {
                 if (err) throw err;
                 res.send({ ok: true, results })

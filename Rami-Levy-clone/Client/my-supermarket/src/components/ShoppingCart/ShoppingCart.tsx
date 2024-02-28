@@ -1,23 +1,68 @@
-import React, { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { addToCart, selectCartItems } from "../../features/cart/cartSlice";
+import React, { useEffect, useState } from "react";
+import {  useAppDispatch, useAppSelector } from "../../app/hook";
+import {  selectCartItems } from "../../features/cart/cartSlice";
 import "./shopping-cart.scss";
+import { User } from "../../rami-types";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import { CartItem } from "../../features/cart/cartSlice";
 
 const ShoppingCart: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const cartItems = useAppSelector(selectCartItems);
+  let cartItems = useAppSelector(selectCartItems);
   const [isOpen, setIsOpen] = useState(false);
+  const [isReload, setIsReload] = useState(true);
+  const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
+  const dispatch = useAppDispatch();
+  interface CartData {
+    items: any[]; // Define the type of items as per your application
+    status: string; // Define the type of status
+  }
+  const cartKey = `cart_${loggedInUser?.user_id}`;
 
-  const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        id: 1,
-        name: "Product Name",
-        price: 10.99,
-        quantity: 1,
-      })
-    );
-  };
+
+  const setCartFromSession = (cartDataItems: CartItem[]) => {
+    dispatch({ type: 'cart/setCartItems', payload: cartDataItems });
+    console.log("cartItems after reload", cartItems);
+  }
+  
+
+  useEffect(() => {
+    if (loggedInUser) {
+      let cartDataString = sessionStorage.getItem(cartKey);
+      let cartData = cartDataString ? JSON.parse(cartDataString) : { items: [...cartItems], status: 'empty' };
+      if (isReload) {
+        setIsReload(false);
+        if (cartData && cartData.Status !== "empty") {
+          setCartFromSession(cartData.items);
+        }
+        else {
+          cartData = { items: cartItems, status: 'empty' };
+          cartDataString = JSON.stringify(cartData);
+          sessionStorage.setItem(cartKey, cartDataString);
+
+        }
+        
+      }
+      else {
+        if (cartItems.length > 0)
+        {
+          cartData.items = cartItems;
+          cartData.status = 'open';
+          cartDataString = JSON.stringify(cartData);
+          sessionStorage.setItem(cartKey, cartDataString);
+        }
+        else {
+          cartItems = cartData.items;
+          console.log("cartItems after reload", cartItems);
+        }
+
+      }
+    }
+  }, [cartItems, loggedInUser]);
+  
+  
+  
+  
+  
 
   // Function to format the price with main and decimal parts
   const formatPrice = (price: number) => {
@@ -103,7 +148,7 @@ const ShoppingCart: React.FC = () => {
           </svg>
         </svg>
         {/* Use Bootstrap styling for price */}
-        <button className="cart-price" onClick={handleAddToCart}>
+        <button className="cart-price" >
           {formatPrice(0.0)} ₪
         </button>
       </div>
