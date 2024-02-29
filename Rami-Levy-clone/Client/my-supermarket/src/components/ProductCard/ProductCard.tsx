@@ -136,7 +136,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
               />
             </div>
           </div>
-          {base64ImageB && (
+          {/* {base64ImageB && (
             <>
               <button
                 className="carousel-control-prev"
@@ -161,7 +161,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
                 <span className="visually-hidden">Next</span>
               </button>
             </>
-          )}
+          )} */}
         </div>
         <div className="card-body">
           <p className="card-title">{product.product_name}</p>
