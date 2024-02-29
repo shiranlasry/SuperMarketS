@@ -1,7 +1,20 @@
-export interface FoodCategories {
-import { order, status } from './rami-types.d';
+export interface FoodCategories 
+{
   food_category_id: number;
   food_category_name: string;
+}
+export interface CartItem{
+  cart_id: number;
+  user_id: number;
+  status_id: number;
+  cartList:ProductsList[] = []; 
+}
+export interface ProductsList {
+  product_list_id: number;
+  cart_id: number;
+  product_id: number;
+  product_amount: number=0;
+  
 }
 export interface SubFoodCategories {
   navbar_item_id: number;
@@ -64,6 +77,11 @@ export interface Product  {
     is_default:boolean;
     address_name: string;
   };
+  export interface CartItem{
+    cart__id: number;
+    user_id: number;
+    status_id: number;
+  }
 
   export interface City {
     city_id: number;

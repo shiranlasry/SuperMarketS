@@ -1,6 +1,6 @@
 import express from 'express';
 import connection from '../../../DB/database';
-import { getProductPrice } from './../../../../Client/my-supermarket/src/features/cart/cartAPI';
+
 
 
 

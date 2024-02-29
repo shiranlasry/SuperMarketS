@@ -1,53 +1,93 @@
 // cartSlice.ts
 
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from "../../rami-types";
-import { RootState } from '../../app/store'; // Assuming you have a RootState type defined
-import { CartItem } from './types'; // Assuming you have defined types for CartItem and CartState
+import {  createSlice } from '@reduxjs/toolkit';
 
+import { RootState } from '../../app/store'; // Assuming you have a RootState type defined
+import { CartItem } from '../../rami-types';
+import { addNewCartApi, getUserActiveCartApi, getUserActiveCartListApi } from './cartAPI';
+
+
+
+enum Status {
+  IDLE = "idle",
+  LOADING = "loading",
+  FAILED = "failed"
+}
 interface CartState {
-  items: CartItem[];
+  activeCart: CartItem | null;
+  status: Status;
 }
 
 const initialState: CartState = {
-  items: [],
+  activeCart: null,
+  status: Status.IDLE
 };
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<CartItem>) => {
-      const existingItem = state.items.find((item) => item.product_id === action.payload.product_id);
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        state.items.push({ ...action.payload, quantity: 1 });
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(addNewCartApi.pending, (state) => {
+        state.status = Status.LOADING;
+      })
+      .addCase(addNewCartApi.fulfilled, (state, action) => {
+        state.status = Status.IDLE;
+        state.activeCart = action.payload;
+      })
+      .addCase(addNewCartApi.rejected, (state) => {
+        state.status = Status.FAILED;
+      })
+      // .addCase(addNewCartProductApi.pending, (state) => {
+      //   state.status = Status.LOADING;
+      // })
+      // .addCase(addNewCartProductApi.fulfilled, (state, action) => {
+      //   state.status = Status.IDLE;
+      //   if (Array.isArray(action.payload)) {
+      //     // If payload is an array of cartList
+      //     if (state.activeCart !== null) {
+      //         state.activeCart.cartList = action.payload;
+      //     }
+      // }
+      // })
+      // .addCase(addNewCartProductApi.rejected, (state) => {
+      //   state.status = Status.FAILED;
+      // })
+      .addCase(getUserActiveCartApi.pending, (state) => {
+        state.status = Status.LOADING;
+      })
+      .addCase(getUserActiveCartApi.fulfilled, (state, action) => {
+        state.status = Status.IDLE;
+        state.activeCart = action.payload;
+      })
+      .addCase(getUserActiveCartApi.rejected, (state) => {
+        state.status = Status.FAILED;
+      })
+      .addCase(getUserActiveCartListApi.pending, (state) => {
+        state.status = Status.LOADING;
+      })
+      .addCase(getUserActiveCartListApi.fulfilled, (state, action) => {
+        state.status = Status.IDLE;
+        if (Array.isArray(action.payload)) {
+          // If payload is an array of cartList
+          if (state.activeCart !== null) {
+              state.activeCart.cartList = action.payload;
+          }
       }
-    },
-    removeItem: (state, action: PayloadAction<number>) => {
-      const index = state.items.findIndex((item) => item.product_id === action.payload);
-      if (index !== -1) {
-        state.items.splice(index, 1);
-      }
-    },
-    updateCart: (state, action: PayloadAction<CartItem[]>) => {
-      action.payload.forEach((item) => {
-        const existingItemIndex = state.items.findIndex((i) => i.product_id === item.product_id);
-        if (existingItemIndex !== -1) {
-          state.items[existingItemIndex] = item;
-        } else {
-          state.items.push(item);
-        }
-      });
-    },
+      })
+      .addCase(getUserActiveCartListApi.rejected, (state) => {
+        state.status = Status.FAILED;
+      })
+      
   },
 });
 
-export const { addToCart, removeItem, updateCart } = cartSlice.actions;
+
 
 // Selector to get cart items from the store
-export const selectCartItems = (state: RootState) => state.cart.items;
+export const activeCartSelector = (state: RootState) => state.cart.activeCart;
 
 
 export default cartSlice.reducer;

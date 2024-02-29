@@ -112,29 +112,6 @@ export const deleteProduct = createAsyncThunk<number | null, { product_id: numbe
     }
 });
 
-// export const updateProductImage = async (productId: number, productImage: File,field_name:string) => {
-//     try {
-//         const formData = new FormData();
-//         formData.append("product_id", productId.toString());
-//         formData.append("file", productImage);
-//         formData.append("field_name", field_name); 
-//         debugger;
-//         const response = await axios.post("/api/products-images/update-product-image", formData);
-        
-//         const { ok, message } = response.data;
-        
-//         if (!ok) {
-//             throw new Error(message || "Error saving product images");
-//         }
-//         alert("Product images saved successfully");
-        
-      
-//     } catch (error) {
-//         console.error("Error updateProductImage:", error);
-//         throw error;
-//     }
-// };
-
 export const updateProductImageAPi = createAsyncThunk<{ ok: boolean }, FormData>(
     'update-product-image',
     async (formData) => {

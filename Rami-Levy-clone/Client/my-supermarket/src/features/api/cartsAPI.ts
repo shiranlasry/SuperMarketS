@@ -1,19 +1,19 @@
 import axios from "axios";
 
-export const addNewCartAPI = async (list_id: number, user_id: number, status_id: number) => { 
-    try {
-        const response = await axios.post("/api/carts/add-new-cart", { list_id, user_id, status_id });
-        const { ok, results } = response.data;
-        if (!ok) {
-            throw new Error("Invalid credentials addNewCart()");
-        }
-        alert("הסל נוצר בהצלחה")
-        return results.insertId;
-    } catch (error) {
-        console.error("Error addNewCart:", error);
-        throw error;
-    }
-}
+// export const addNewCartAPI = async (list_id: number, user_id: number, status_id: number) => { 
+//     try {
+//         const response = await axios.post("/api/carts/add-new-cart", { list_id, user_id, status_id });
+//         const { ok, results } = response.data;
+//         if (!ok) {
+//             throw new Error("Invalid credentials addNewCart()");
+//         }
+//         alert("הסל נוצר בהצלחה")
+//         return results.insertId;
+//     } catch (error) {
+//         console.error("Error addNewCart:", error);
+//         throw error;
+//     }
+// }
 
 export const updateCartAPI = async (cart_id: number, status_id: number, user_id:number, list_id:number) => {
     try {

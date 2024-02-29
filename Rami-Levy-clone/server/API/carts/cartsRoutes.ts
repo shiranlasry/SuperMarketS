@@ -1,5 +1,5 @@
 import express from 'express';
-import { addNewCart, deleteCart, getAllCarts, getCartById, updateCart } from './cartsCtrl';
+import {getUserActiveCart,addProductToCartList,UpdateAmountProductCartList,getUserActiveCartList, addNewCart, deleteCart, getAllCarts, getCartById, updateCart } from './cartsCtrl';
 
 const router = express.Router()
 
@@ -9,5 +9,9 @@ router
     .post("/add-new-cart", addNewCart)
     .patch("/update-cart", updateCart)
     .delete("/delete-cart", deleteCart)
+    .get("/get-user-active-cart/:user_id", getUserActiveCart)
+    .get("/get-user-active-cart-list/:cart_id", getUserActiveCartList)
+    .post("/add-product-to-cart-list", addProductToCartList)
+    .post("/update-amount-product-cart-list", UpdateAmountProductCartList)
     
 export default router

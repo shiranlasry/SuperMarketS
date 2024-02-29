@@ -2,10 +2,41 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Product } from "../../rami-types";
 import "./productCard.scss";
-import { useAppDispatch } from "../../app/hook";
-import { addToCart, removeItem } from "../../features/cart/cartSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import { activeCartSelector } from "../../features/cart/cartSlice";
+import { Modal } from "react-bootstrap";
+import Login from "../../pages/LogIn/Login";
+import Register from "../../pages/Register/Register";
+import {
+  UpdateAmountProductCartListApi,
+  addNewCartApi,
+  addProductToCartListApi,
+  getUserActiveCartListApi,
+} from "../../features/cart/cartAPI";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+  const loggedInUser = useAppSelector(loggedInUserSelector);
+  const activeCart = useAppSelector(activeCartSelector);
+  const dispatch = useAppDispatch();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [quantity, setQuantity] = useState<number>(0);
+
+  useEffect(() => {
+    // set the quantity of the product in the cart from the active cart list
+    if (activeCart && activeCart.cartList) {
+      const productInCart = activeCart.cartList.find(
+        (p) => p.product_id === product.product_id
+      );
+      if (productInCart) {
+        setQuantity(productInCart.product_amount);
+      } else {
+        setQuantity(0);
+      }
+    }
+  }, [activeCart?.cartList]);
+
   // Convert LONGBLOB data to base64 for each image
   const base64ImageA = product.product_img_data_a
     ? btoa(
@@ -17,32 +48,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         String.fromCharCode(...new Uint8Array(product.product_img_data_b.data))
       )
     : "";
-  
-  // State to track which image is currently displayed
   const [currentImage, setCurrentImage] = useState(base64ImageA);
-  // State to track the quantity of the product
-  const [quantity, setQuantity] = useState(() => {
-    // Define the key for storing data in session storage
-    const sessionStorageKey = `product_${product.product_id}_quantity`;
-    console.log("sessionStorageKey", sessionStorageKey);
-
-    // Get the quantity from session storage
-    if (sessionStorage.getItem(sessionStorageKey) === null || sessionStorage.getItem(sessionStorageKey) === undefined) {
-      sessionStorage.setItem(sessionStorageKey, JSON.stringify(0));
-    }
-    const storedQuantity = JSON.parse(sessionStorage.getItem(sessionStorageKey) || "0");
-    return storedQuantity;
-  });
-  
-  const dispatch = useAppDispatch();
-
-  // useEffect to save product_id and quantity to session storage
-  useEffect(() => {
-    // Define the key for storing data in session storage
-    const sessionStorageKey = `product_${product.product_id}_quantity`;
-    // Save the quantity to session storage
-    sessionStorage.setItem(sessionStorageKey, JSON.stringify(quantity));
-  }, [quantity, product.product_id]);
 
   // Function to handle switching between images
   const handleImageSwitch = () => {
@@ -54,17 +60,53 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   };
 
   // Function to handle increasing the quantity
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
-    dispatch(addToCart({ product_id: product.product_id || -1, quantity: quantity || 0, price: product.product_price || 0 }));
-  };
-
-  // Function to handle decreasing the quantity
-  const decreaseQuantity = () => {
-    if (quantity > 0) {
-      setQuantity(quantity - 1);
-      dispatch(removeItem({ product_id: product.product_id || -1, quantity: quantity || 0, price: product.product_price || 0 }));
+  const increaseQuantity = async () => {
+    // if the user is not logged in, show the login modal
+    if (!loggedInUser || !loggedInUser.user_id) {
+      setShowLoginModal(true);
+      return;
     }
+    // if there is no active cart, create a new one
+    if (!activeCart) {
+      await dispatch(addNewCartApi(loggedInUser.user_id));
+    }
+    // if the product is already in the cart, update the amount
+    if (activeCart?.cart_id && activeCart.cartList) {
+      const productInCart = activeCart.cartList.find(
+        (p) => p.product_id === product.product_id
+      );
+      if (
+        productInCart &&
+        productInCart.product_amount > 0 &&
+        productInCart.product_id
+      ) {
+        const args: {
+          product_id: number;
+          cart_id: number;
+          product_amount: number;
+        } = {
+          product_id: productInCart.product_id,
+          cart_id: activeCart.cart_id,
+          product_amount: productInCart.product_amount + 1,
+        };
+        await dispatch(UpdateAmountProductCartListApi(args));
+        dispatch(getUserActiveCartListApi(args.cart_id));
+      } else {
+        // if the product is not in the cart, add it with amount 1
+        if (activeCart?.cart_id && product.product_id) {
+          const args: { product_id: number; cart_id: number } = {
+            product_id: product.product_id,
+            cart_id: activeCart.cart_id,
+          };
+          dispatch(addProductToCartListApi(args));
+          dispatch(getUserActiveCartListApi(args.cart_id));
+        }
+      }
+    }
+  };
+  const decreaseQuantity = async () => {
+    // need to handel the case when the user is not logged in
+    //need to decrease the quantity of the product in the cart
   };
 
   return (
@@ -76,7 +118,10 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           </button>
           <span>{quantity}</span>
           {quantity > 0 && (
-            <button className="btn btn-lg btn-primary" onClick={decreaseQuantity}>
+            <button
+              className="btn btn-lg btn-primary"
+              onClick={decreaseQuantity}
+            >
               -
             </button>
           )}
@@ -127,6 +172,31 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           </p>
         </div>
       </div>
+      {showLoginModal && (
+        <Modal
+          id={"modal-login"}
+          show={showLoginModal}
+          onHide={() => setShowLoginModal(false)}
+          dialogClassName="custom-modal"
+        >
+          <Modal.Body>
+            <Login
+              onClose={() => setShowLoginModal(false)}
+              RegisterPressed={() => setShowRegisterModal(true)}
+            />
+          </Modal.Body>
+        </Modal>
+      )}
+      <Modal
+        show={showRegisterModal}
+        onShow={() => setShowLoginModal(false)}
+        onHide={() => setShowRegisterModal(false)}
+        dialogClassName="custom-modal"
+      >
+        <Modal.Body>
+          <Register onClose={() => setShowRegisterModal(false)} />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

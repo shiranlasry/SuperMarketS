@@ -17,9 +17,13 @@ import "../Layout/layout.scss";
 import Logo from "../../assets/logos/rami-levy-online.png";
 import Shopping from "../../assets/logos/rami-levy-shopping.png";
 import { useNavigate } from "react-router-dom";
+// import {  getUserActiveCartApi, getUserActiveCartListApi } from "../../features/cart/cartAPI";
+import { activeCartSelector } from "../../features/cart/cartSlice";
+import { getUserActiveCartApi, getUserActiveCartListApi } from "../../features/cart/cartAPI";
 
 const Header = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
+  const activeCart = useAppSelector(activeCartSelector);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,9 +39,26 @@ const Header = () => {
   useEffect(() => {
     if (!loggedInUser) {
       dispatch(getUserFromTokenApi());
-      
     }
   }, []);
+//if there is a logged in user, get the active cart
+const handelGetUserActiveCart = async (user_id: number) => {
+  
+  const response = await dispatch(getUserActiveCartApi(user_id));
+  console.log("active cart", response.payload);
+  if (response.payload && response.payload.cart_id) {
+    dispatch(getUserActiveCartListApi(response.payload.cart_id));
+  }
+};
+
+  useEffect(() => {
+    
+    if (loggedInUser && loggedInUser.user_id) {
+      handelGetUserActiveCart(loggedInUser.user_id);
+    }
+  }, [loggedInUser]);
+//if there is an active cart, get the active cart list
+
 
   // Close the login modal when the register modal is shown
   useEffect(() => {
