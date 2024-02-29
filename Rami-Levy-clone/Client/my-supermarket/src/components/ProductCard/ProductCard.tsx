@@ -5,7 +5,7 @@ import "./productCard.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import { activeCartSelector } from "../../features/cart/cartSlice";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
 import {
@@ -22,6 +22,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [quantity, setQuantity] = useState<number>(0);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   useEffect(() => {
     // set the quantity of the product in the cart from the active cart list
@@ -110,22 +111,33 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   };
 
   return (
-    <div className="cards-container">
+    <div
+      className="cards-container"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="product-card card">
-        <div className="counter">
-          <button className="btn btn-lg btn-primary" onClick={increaseQuantity}>
-            +
-          </button>
-          <span>{quantity}</span>
-          {quantity > 0 && (
-            <button
-              className="btn btn-lg btn-primary"
-              onClick={decreaseQuantity}
+        {isHovered && (
+          <div className="counter">
+            <Button
+              className="counter-button"
+              variant="light"
+              onClick={increaseQuantity}
             >
-              -
-            </button>
-          )}
-        </div>
+              +
+            </Button>
+            <span className="counter-quantity">{quantity}</span>
+            {quantity > 0 && (
+              <Button
+                className="counter-button"
+                variant="light"
+                onClick={decreaseQuantity}
+              >
+                -
+              </Button>
+            )}
+          </div>
+        )}
         <div className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             <div className="carousel-item active">
@@ -136,7 +148,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
               />
             </div>
           </div>
-          {base64ImageB && (
+          {/* {base64ImageB && (
             <>
               <button
                 className="carousel-control-prev"
@@ -161,7 +173,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
                 <span className="visually-hidden">Next</span>
               </button>
             </>
-          )}
+          )} */}
         </div>
         <div className="card-body">
           <p className="card-title">{product.product_name}</p>
