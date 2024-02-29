@@ -22,6 +22,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [quantity, setQuantity] = useState<number>(0);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   useEffect(() => {
     // set the quantity of the product in the cart from the active cart list
@@ -110,27 +111,33 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   };
 
   return (
-    <div className="cards-container">
+    <div
+      className="cards-container"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="product-card card">
-        <div className="counter">
-          <Button
-            className="counter-button"
-            variant="light"
-            onClick={increaseQuantity}
-          >
-            +
-          </Button>
-          <span className="counter-quantity">{quantity}</span>
-          {quantity > 0 && (
+        {isHovered && (
+          <div className="counter">
             <Button
               className="counter-button"
               variant="light"
-              onClick={decreaseQuantity}
+              onClick={increaseQuantity}
             >
-              -
+              +
             </Button>
-          )}
-        </div>
+            <span className="counter-quantity">{quantity}</span>
+            {quantity > 0 && (
+              <Button
+                className="counter-button"
+                variant="light"
+                onClick={decreaseQuantity}
+              >
+                -
+              </Button>
+            )}
+          </div>
+        )}
         <div className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             <div className="carousel-item active">
