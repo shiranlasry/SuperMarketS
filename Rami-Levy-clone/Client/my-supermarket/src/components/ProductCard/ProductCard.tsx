@@ -5,7 +5,7 @@ import "./productCard.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import { activeCartSelector } from "../../features/cart/cartSlice";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
 import {
@@ -113,17 +113,22 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     <div className="cards-container">
       <div className="product-card card">
         <div className="counter">
-          <button className="btn btn-lg btn-primary" onClick={increaseQuantity}>
+          <Button
+            className="counter-button"
+            variant="light"
+            onClick={increaseQuantity}
+          >
             +
-          </button>
-          <span>{quantity}</span>
+          </Button>
+          <span className="counter-quantity">{quantity}</span>
           {quantity > 0 && (
-            <button
-              className="btn btn-lg btn-primary"
+            <Button
+              className="counter-button"
+              variant="light"
               onClick={decreaseQuantity}
             >
               -
-            </button>
+            </Button>
           )}
         </div>
         <div className="carousel slide" data-bs-ride="carousel">
