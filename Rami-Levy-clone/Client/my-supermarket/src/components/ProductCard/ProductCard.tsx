@@ -8,6 +8,7 @@ import { activeCartSelector } from "../../features/cart/cartSlice";
 import { Button, Modal } from "react-bootstrap";
 import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
+import ProductModal from "../ProductModal/ProductModal"; // Import the ProductModal component
 import {
   UpdateAmountProductCartListApi,
   addNewCartApi,
@@ -23,6 +24,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [quantity, setQuantity] = useState<number>(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [showProductModal, setShowProductModal] = useState(false); // State for showing ProductModal
 
   useEffect(() => {
     // set the quantity of the product in the cart from the active cart list
@@ -106,8 +108,13 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     }
   };
   const decreaseQuantity = async () => {
-    // need to handel the case when the user is not logged in
-    //need to decrease the quantity of the product in the cart
+    // need to handle the case when the user is not logged in
+    // need to decrease the quantity of the product in the cart
+  };
+
+  const handleCardClick = () => {
+    setShowProductModal(true);
+    console.log("Card clicked"); // Log a message indicating the card is clicked
   };
 
   return (
@@ -116,7 +123,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="product-card card">
+      <div className="product-card card" onClick={handleCardClick}>
         {isHovered && (
           <div className="counter">
             <Button
@@ -148,42 +155,22 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
               />
             </div>
           </div>
-          {/* {base64ImageB && (
-            <>
-              <button
-                className="carousel-control-prev"
-                type="button"
-                onClick={handleImageSwitch}
-              >
-                <span
-                  className="carousel-control-prev-icon"
-                  aria-hidden="true"
-                ></span>
-                <span className="visually-hidden">Previous</span>
-              </button>
-              <button
-                className="carousel-control-next"
-                type="button"
-                onClick={handleImageSwitch}
-              >
-                <span
-                  className="carousel-control-next-icon"
-                  aria-hidden="true"
-                ></span>
-                <span className="visually-hidden">Next</span>
-              </button>
-            </>
-          )} */}
         </div>
         <div className="card-body">
           <p className="card-title">{product.product_name}</p>
-          <p className="card-desc"> {product.product_description}</p>
+          <p className="card-desc">{product.product_description}</p>
           <p className="card-price">
             {product.product_price} <span className="card-shekel">₪</span>{" "}
             <span className="per-unit">ליח'</span>
           </p>
         </div>
       </div>
+      {/* Render ProductModal when showProductModal is true */}
+      <ProductModal
+        product={product}
+        onClose={() => setShowProductModal(false)}
+        show={showProductModal}
+      />
       {showLoginModal && (
         <Modal
           id={"modal-login"}
