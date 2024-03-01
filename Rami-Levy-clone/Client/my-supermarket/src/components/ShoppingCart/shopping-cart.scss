@@ -14,14 +14,14 @@ body {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
     padding-bottom: 7px;
 
-    @media screen and (min-width: 1900px) {
-      margin: -7rem 0 0 10rem;
+    @media screen and (max-width: 1940px) {
+      margin: -7rem 0 0 9.8rem;
       width: 130px;
     }
 
     @media screen and (max-width: 1900px) {
-      margin: -7rem 0 0 9.7rem;
-      width: 130px;
+      margin: -7rem 0 0 9.4rem;
+      width: 127px;
     }
 
     @media screen and (max-width: 1800px) {
@@ -29,7 +29,7 @@ body {
       width: 125px;
     }
     @media screen and (max-width: 1730px) {
-      margin: -7rem 0 0 8.7rem;
+      margin: -7rem 0 0 8.8rem;
       width: 118px;
     }
 
@@ -50,7 +50,7 @@ body {
       width: 100px;
     }
     @media screen and (max-width: 1390px) {
-      margin: -7rem 0 0 6.7rem;
+      margin: -7rem 0 0 6.8rem;
       width: 95px;
     }
     @media screen and (max-width: 1320px) {
