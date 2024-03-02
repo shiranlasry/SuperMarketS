@@ -1,17 +1,46 @@
 import React, { useEffect, useState } from "react";
 import {  useAppDispatch, useAppSelector } from "../../app/hook";
 import "./shopping-cart.scss";
-import { User } from "../../rami-types";
+import { Product, User } from "../../rami-types";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import { activeCartSelector } from "../../features/cart/cartSlice";
+import { getAllProductsApi } from "../../features/products/productsAPI";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
   const [isOpen, setIsOpen] = useState(false);
   const [isReload, setIsReload] = useState(true);
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
-  const dispatch = useAppDispatch();
+  const [products, setProducts] = useState<Product[]>([]);
 
+  const dispatch = useAppDispatch();
+  
+  useEffect(() => {
+    if (loggedInUser && activeCart && activeCart.cartList) {
+      console.log("activeCartttttt", activeCart);
+      const fetchProducts = async () => {
+        const response = await dispatch(getAllProductsApi());
+        const fetchedProducts: Product[] = response.payload;
+        console.log("products", fetchedProducts);
+        setProducts(fetchedProducts); // Store fetched products in state
+      };
+      fetchProducts();
+    }
+  }, [loggedInUser, activeCart, dispatch]);
+  
+  useEffect(() => {
+    if (products.length > 0 && activeCart && activeCart.cartList) {
+      console.log("activeCartttttt", activeCart.cartList.length);
+      activeCart.cartList.forEach((cartProduct) => {
+        const product = products.find(
+          (product: Product) => product.product_id === cartProduct.product_id
+        );
+        if (product) {
+          console.log("products", products);
+        }
+      });
+    }
+  }, [products, activeCart]);
 
   // Function to format the price with main and decimal parts
   const formatPrice = (price: number) => {
@@ -24,6 +53,11 @@ const ShoppingCart: React.FC = () => {
     );
   };
 
+  const convertToBase64 = (imageString: string) => {
+   return btoa(
+      String.fromCharCode(...new Uint8Array(imageString))
+    );
+  }
   return (
     <div className={`shopping-cart${isOpen ? " open" : ""}`}>
       <div className="cart-icon" onClick={() => setIsOpen(!isOpen)}>
@@ -104,28 +138,28 @@ const ShoppingCart: React.FC = () => {
 
       {/* Display Cart Items */}
       <ul>
-        { activeCart && activeCart.cartList &&
-          activeCart.cartList.map((cartProduct) => {
-            return (
-              <li key={cartProduct.cart_id}>
-                {/* <div className="product-image">
-                  <img src={cartProduct.image} alt={cartProduct.name} />
-                </div> */}
-                <div className="product-details">
-                  <h3>{cartProduct.product_amount}</h3>
-                  {/* <p>{cartProduct.quantity} x {formatPrice(cartProduct.price)}</p> */}
-                </div>
-                <div className="product-price">
-                  {/* {formatPrice(cartProduct.price * cartProduct.quantity)} */}
-                </div>
-              </li>
-            );
+  {activeCart &&
+    activeCart.cartList &&
+    activeCart.cartList.map((cartProduct) => {
+      // Find the product corresponding to the cart product
+      const product = products.find((product) => product.product_id === cartProduct.product_id);
+      if (product) {
+        return (
+          <li key={cartProduct.cart_id}>
+            <div className="product-details">
+              <h3>{cartProduct.product_amount} יחידות</h3>
+              {/* Render SVG image */}
+              <img src={`data:image/jpeg;base64,${convertToBase64(product.product_img_data_a.data)}`} alt={product.product_name} />
+              <h4>{product.product_name}</h4>
+              <p>: {formatPrice(product.product_price * cartProduct.product_amount)} ₪</p>
+            </div>
+          </li>
+        );
+      }
+      return null; // Skip rendering if product is not found
+    })}
+</ul>
 
-
-          })
-            }
-      
-      </ul>
 
       {/* Display Pay Now button */}
       <div className="pay-button">
