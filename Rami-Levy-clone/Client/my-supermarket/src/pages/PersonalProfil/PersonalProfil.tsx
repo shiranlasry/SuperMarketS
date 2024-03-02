@@ -10,15 +10,40 @@ import AddPaymentMethod from "./UserPayment/UserPayment";
 const PersonalProfil = () => {
   const [showUserDetails, setShowUserDetails] = useState(false);
   const [showUserAddress, setShowUserAddress] = useState(false);
-  const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false); // State variable for showing add payment method page
+  const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
+  const [activeButton, setActiveButton] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const setAllFalse = () => {
-    setShowUserDetails(false);
-    setShowUserAddress(false);
-    setShowAddPaymentMethod(false);
+  const handleButtonClick = (buttonName: string) => {
+    setActiveButton(buttonName); // Set the active button
+    switch (buttonName) {
+      case "userDetails":
+        setShowUserDetails(true);
+        setShowUserAddress(false);
+        setShowAddPaymentMethod(false);
+        break;
+      case "userAddress":
+        setShowUserDetails(false);
+        setShowUserAddress(true);
+        setShowAddPaymentMethod(false);
+        break;
+      case "addPaymentMethod":
+        setShowUserDetails(false);
+        setShowUserAddress(false);
+        setShowAddPaymentMethod(true);
+        break;
+      default:
+        // Handle default case if necessary
+        break;
+    }
   };
+
+  // const setAllFalse = () => {
+  //   setShowUserDetails(false);
+  //   setShowUserAddress(false);
+  //   setShowAddPaymentMethod(false);
+  // };
 
   const handelLogout = () => {
     dispatch(logOutUserApi());
@@ -29,11 +54,10 @@ const PersonalProfil = () => {
     <div className="Personal-profil-container">
       <div className="Personal-profil-menu">
         <button
-          className="personal-details-btn"
-          onClick={() => {
-            setAllFalse();
-            setShowUserDetails(true);
-          }}
+          className={`personal-details-btn ${
+            activeButton === "userDetails" ? "active" : ""
+          }`}
+          onClick={() => handleButtonClick("userDetails")}
         >
           <svg
             data-v-c9960dd8=""
@@ -81,11 +105,10 @@ const PersonalProfil = () => {
           <p>פרטים אישיים</p>
         </button>
         <button
-          className="personal-details-btn"
-          onClick={() => {
-            setAllFalse();
-            setShowUserAddress(true);
-          }}
+          className={`personal-details-btn ${
+            activeButton === "userAddress" ? "active" : ""
+          }`}
+          onClick={() => handleButtonClick("userAddress")}
         >
           {" "}
           <svg
@@ -126,11 +149,10 @@ const PersonalProfil = () => {
           <p>ניהול כתובות</p>
         </button>
         <button
-          className="personal-details-btn"
-          onClick={() => {
-            setAllFalse();
-            setShowAddPaymentMethod(true);
-          }}
+          className={`personal-details-btn ${
+            activeButton === "addPaymentMethod" ? "active" : ""
+          }`}
+          onClick={() => handleButtonClick("addPaymentMethod")}
         >
           <svg
             data-v-6f1b17ad=""
@@ -296,7 +318,10 @@ const PersonalProfil = () => {
           </svg>
           <p>קופה</p>
         </button>
-        <button className="personal-details-btn" onClick={handelLogout}>
+        <button
+          className="personal-details-btn log-out-user"
+          onClick={handelLogout}
+        >
           <svg
             data-v-6f1b17ad=""
             xmlns="http://www.w3.org/2000/svg"
