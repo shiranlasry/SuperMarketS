@@ -26,7 +26,7 @@ const ShoppingCart: React.FC = () => {
       };
       fetchProducts();
     }
-  }, [loggedInUser, activeCart, dispatch]);
+  }, []);
   
 
 
