@@ -2,6 +2,7 @@
   width: 95vw;
 
   .counter {
+    width: 50px;
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -9,13 +10,13 @@
     align-items: center;
     z-index: 2;
 
-    left: calc(50% - 50px);
+    left: calc(50% - 37px);
     top: calc(50% - 75px);
 
     .counter-button {
       background-color: transparent;
       border: none;
-      font-size: 5rem;
+      font-size: 3rem;
       color: white;
       text-shadow: 1px 1px 2px black;
       font-family: "Courier New", Courier, monospace;
