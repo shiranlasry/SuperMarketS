@@ -6,59 +6,13 @@ import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUser
 import { activeCartSelector } from "../../features/cart/cartSlice";
 
 const ShoppingCart: React.FC = () => {
-  let activeCart = useAppSelector(activeCartSelector);
+  const activeCart = useAppSelector(activeCartSelector);
   const [isOpen, setIsOpen] = useState(false);
   const [isReload, setIsReload] = useState(true);
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
   const dispatch = useAppDispatch();
-  interface CartData {
-    items: any[]; // Define the type of items as per your application
-    status: string; // Define the type of status
-  }
-  const cartKey = `cart_${loggedInUser?.user_id}`;
 
 
-  // const setCartFromSession = (cartDataItems: CartItem[]) => {
-  //   dispatch({ type: 'cart/setCartItems', payload: cartDataItems });
-  //   console.log("cartItems after reload", cartItems);
-  // }
-  
-
-  useEffect(() => {
-    if (loggedInUser) {
-      // let cartDataString = sessionStorage.getItem(cartKey);
-      // let cartData = cartDataString ? JSON.parse(cartDataString) : { items: [...cartItems], status: 'empty' };
-      // if (isReload) {
-      //   setIsReload(false);
-        // if (cartData && cartData.Status !== "empty") {
-        //   setCartFromSession(cartData.items);
-        // }
-        // else {
-        //   cartData = { items: cartItems, status: 'empty' };
-        //   cartDataString = JSON.stringify(cartData);
-        //   sessionStorage.setItem(cartKey, cartDataString);
-
-        // }
-        
-    //   }
-    //   else {
-    //     if (cartItems.length > 0)
-    //     {
-    //       cartData.items = cartItems;
-    //       cartData.status = 'open';
-    //       cartDataString = JSON.stringify(cartData);
-    //       sessionStorage.setItem(cartKey, cartDataString);
-    //     }
-    //     else {
-    //       cartItems = cartData.items;
-    //       console.log("cartItems after reload", cartItems);
-    //     }
-
-    //   }
-     }
-  }, [activeCart, loggedInUser]);
-  
-  
   // Function to format the price with main and decimal parts
   const formatPrice = (price: number) => {
     const [main, decimal] = price.toFixed(2).split(".");
@@ -150,12 +104,27 @@ const ShoppingCart: React.FC = () => {
 
       {/* Display Cart Items */}
       <ul>
-        {/* {cartItems.map((item) => (
-          <li key={item.id}>
-            {item.name} - Quantity: {item.quantity} - Price: $
-            {item.price * item.quantity}
-          </li>
-        ))} */}
+        { activeCart && activeCart.cartList &&
+          activeCart.cartList.map((cartProduct) => {
+            return (
+              <li key={cartProduct.cart_id}>
+                {/* <div className="product-image">
+                  <img src={cartProduct.image} alt={cartProduct.name} />
+                </div> */}
+                <div className="product-details">
+                  <h3>{cartProduct.product_amount}</h3>
+                  {/* <p>{cartProduct.quantity} x {formatPrice(cartProduct.price)}</p> */}
+                </div>
+                <div className="product-price">
+                  {/* {formatPrice(cartProduct.price * cartProduct.quantity)} */}
+                </div>
+              </li>
+            );
+
+
+          })
+            }
+      
       </ul>
 
       {/* Display Pay Now button */}

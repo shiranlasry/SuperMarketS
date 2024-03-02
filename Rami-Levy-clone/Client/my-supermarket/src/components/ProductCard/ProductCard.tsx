@@ -78,11 +78,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       const productInCart = activeCart.cartList.find(
         (p) => p.product_id === product.product_id
       );
-      if (
-        productInCart &&
-        productInCart.product_amount > 0 &&
-        productInCart.product_id
-      ) {
+      if ( productInCart && productInCart.product_amount > 0 && productInCart.product_id) {
         const args: {
           product_id: number;
           cart_id: number;
@@ -109,17 +105,46 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   };
   const decreaseQuantity = async () => {
     // need to handle the case when the user is not logged in
+    if (!loggedInUser || !loggedInUser.user_id) {
+      setShowLoginModal(true);
+      return;
+    }
     // need to decrease the quantity of the product in the cart
-  };
+    if (activeCart?.cart_id && activeCart.cartList) {
+      const productInCart = activeCart.cartList.find(
+        (p) => p.product_id === product.product_id
+      );
+      if (productInCart && productInCart.product_amount > 0 && productInCart.product_id) {
+        const args: {
+          product_id: number;
+          cart_id: number;
+          product_amount: number;
+        } = {
+          product_id: productInCart.product_id,
+          cart_id: activeCart.cart_id,
+          product_amount: productInCart.product_amount - 1,
+        };
+        
+        await dispatch(UpdateAmountProductCartListApi(args));
+        dispatch(getUserActiveCartListApi(args.cart_id));
 
-  const handleCardClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      }
+     
+  }};
+
+  const handleCardClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     // Check if the click occurred on the buttons inside the card
     const target = event.target as HTMLElement;
-    if (target.classList.contains('counter-button') || target.parentElement?.classList.contains('counter-button')) {
+    if (
+      target.classList.contains("counter-button") ||
+      target.parentElement?.classList.contains("counter-button")
+    ) {
       // Click occurred on the buttons, do not open the modal
       return;
     }
-    
+
     // Click occurred on the card, open the modal
     setShowProductModal(true);
   };
@@ -131,28 +156,26 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="product-card card" onClick={handleCardClick}>
-      
-          <div className="counter">
+        <div className="counter">
+          <Button
+            className="counter-button"
+            variant="light"
+            onClick={increaseQuantity}
+          >
+            +
+          </Button>
+          <span className="counter-quantity">{quantity}</span>
+          {quantity > 0 && (
             <Button
               className="counter-button"
               variant="light"
-              onClick={increaseQuantity}
+              onClick={decreaseQuantity}
             >
-              +
+              -
             </Button>
-            <span className="counter-quantity">{quantity}</span>
-            {quantity > 0 && (
-              <Button
-                className="counter-button"
-                variant="light"
-                onClick={decreaseQuantity}
-              >
-                -
-              </Button>
-            )}
-            
-          </div>
-        
+          )}
+        </div>
+
         <div className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             <div className="carousel-item active">

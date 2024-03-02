@@ -110,6 +110,8 @@ export const getProductsByNavBarItemId = async (req: express.Request, res: expre
         p.type, 
         p.israel_milk, 
         p.cosher,
+        p.product_components,
+        p.serving_suggestion,
         s.sub_food_category_name,
         f.food_category_id,
         i.inventory_id,

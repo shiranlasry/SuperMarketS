@@ -110,20 +110,38 @@ export const addProductToCartList = async (req: express.Request, res: express.Re
 export const UpdateAmountProductCartList = async (req: express.Request, res: express.Response) => {
     try {
         const { product_id, cart_id, product_amount } = req.body
-        if (!product_id || !cart_id || !product_amount) {
+        console.log(`UpdateAmountProductCartList product_id = ${product_id} cart_id = ${cart_id} product_amount = ${product_amount}`)
+        if (!product_id || !cart_id) {
             res.status(400).send({ ok: false, error: 'missing required fields' })
             return
         }
-        const query = "UPDATE rami_levy_db.lists SET product_amount = ? WHERE product_id = ? AND cart_id = ?;"
-        connection.query(query, [product_amount, product_id, cart_id], (err, results, fields) => {
-            try {
-                if (err) throw err;
-                res.send({ ok: true, results })
-            } catch (error) {
-                console.error(error)
-                res.status(500).send({ ok: false, error })
-            }
-        })
+        let query ;
+        if (product_amount == 0) {
+            query = "DELETE FROM rami_levy_db.lists WHERE product_id = ? AND cart_id = ?;"
+            connection.query(query, [product_id, cart_id], (err, results, fields) => {
+                try {
+                    if (err) throw err;
+                    res.send({ ok: true, results })
+                } catch (error) {
+                    console.error(error)
+                    res.status(500).send({ ok: false, error })
+                }
+            })
+        }
+        else{
+            query = "UPDATE rami_levy_db.lists SET product_amount = ? WHERE product_id = ? AND cart_id = ?;"
+            connection.query(query, [product_amount, product_id, cart_id], (err, results, fields) => {
+                try {
+                    console.log(query)
+                    if (err) throw err;
+                    res.send({ ok: true, results })
+                } catch (error) {
+                    console.error(error)
+                    res.status(500).send({ ok: false, error })
+                }
+            })
+        }
+      
     } catch (error) {
         console.error(error)
         res.status(500).send({ ok: false, error })
