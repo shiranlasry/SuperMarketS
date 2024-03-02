@@ -5,31 +5,47 @@
 }
 
 .Personal-profil-menu {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: right;
-  text-align: right;
-
-  margin-top: 5px;
-  margin-bottom: 20px;
-  width: 250px; /* Adjust width as needed */
-  // background-color: #f5f5f5;
+  justify-content: start;
+  top: 1rem;
+  margin: 1rem;
+  width: 250px;
   border-radius: 10px;
-  // box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  padding: 20px;
 }
 
-.Personal-profil-menu button {
-  text-align: right;
+.personal-details-btn {
+  display: flex;
+  justify-content: right;
+  text-align: center;
+  height: 44px;
+  width: 230px;
+  padding-top: 10px;
+  padding-right: 10px;
+
+  display: flex;
+  flex-direction: row;
+
   border-radius: 10px;
-  margin-bottom: 10px;
-  padding: 10px;
+
   width: 100%;
   background-color: transparent;
   border: none;
   font-size: 16px;
   color: #333; /* Adjust text color */
   cursor: pointer;
+
+  svg {
+    width: 30px;
+    margin-left: 1rem;
+    justify-content: center;
+  }
+
+  p {
+    width: 100px;
+    text-align: right;
+  }
 }
 .log-out-user {
   color: red !important;
