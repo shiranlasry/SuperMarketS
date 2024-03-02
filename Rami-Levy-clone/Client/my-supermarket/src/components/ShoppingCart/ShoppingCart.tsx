@@ -28,19 +28,7 @@ const ShoppingCart: React.FC = () => {
     }
   }, [loggedInUser, activeCart, dispatch]);
   
-  useEffect(() => {
-    if (products.length > 0 && activeCart && activeCart.cartList) {
-      console.log("activeCartttttt", activeCart.cartList.length);
-      activeCart.cartList.forEach((cartProduct) => {
-        const product = products.find(
-          (product: Product) => product.product_id === cartProduct.product_id
-        );
-        if (product) {
-          console.log("products", products);
-        }
-      });
-    }
-  }, [products, activeCart]);
+
 
   // Function to format the price with main and decimal parts
   const formatPrice = (price: number) => {
