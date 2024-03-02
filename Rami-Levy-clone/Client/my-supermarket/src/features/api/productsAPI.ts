@@ -83,6 +83,7 @@ export const getProductDetailesBySubFoodCatagoryId = async (food_category_id: nu
 // Create the payload creator function for createAsyncThunk
 export const updateProductDetailes = createAsyncThunk<updateProductFields, updateProductFields>('update-product-detailes', async (updatedProduct) => {
     try {
+        debugger
         console.log("updatedProduct", updatedProduct)
         const response = await axios.patch("/api/products-details/update-product-detailes", updatedProduct);
         const { ok, results } = response.data;

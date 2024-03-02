@@ -53,6 +53,8 @@ export interface Product  {
   type: string;
   israel_milk: string;
   cosher: string;
+  product_components: string;
+  serving_suggestion: string;
 
   };
   export interface Inventories {
@@ -135,6 +137,8 @@ export interface updateProductFields {
   type: string;
   cosher: string;
   israel_milk: string;
+  product_components: string;
+  serving_suggestion: string;
 }
 
 export interface BucketList {
