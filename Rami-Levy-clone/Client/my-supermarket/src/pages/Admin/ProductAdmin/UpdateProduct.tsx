@@ -29,7 +29,9 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
         sub_food_category_id: product.sub_food_category_id ? product.sub_food_category_id : undefined,
         food_category_id: product.food_category_id ? product.food_category_id : undefined,
         cosher: product.cosher,
-        israel_milk: product.israel_milk
+        israel_milk: product.israel_milk,
+        serving_suggestion: product.serving_suggestion,
+        product_components: product.product_components,
 
     });
     useEffect(() => {
@@ -39,6 +41,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
         
       }, []);
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      
         const { name, value } = e.target;
         setUpdatedProduct(prevState => ({
             ...prevState,
@@ -123,9 +126,13 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
                   </option>
                 ))}
             </select>
+            
           </>
         )}
-
+            <label>הצעת הגשה</label>
+            <input type="text" name="serving_suggestion" value={updatedProduct.serving_suggestion} onChange={handleInputChange} />
+            <label>רכיבי המוצר:</label>
+            <input type="text" name="product_components" value={updatedProduct.product_components} onChange={handleInputChange} />
             <label>כשרות:</label>
             <input type="text" name="cosher" value={updatedProduct.cosher} onChange={handleInputChange} />
             <label>חלב ישראלי:</label>

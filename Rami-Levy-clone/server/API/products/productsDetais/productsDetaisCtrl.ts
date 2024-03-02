@@ -6,14 +6,14 @@ import connection from '../../../DB/database';
 
 export const addNewProductDetailes = async (req: express.Request, res: express.Response) => {
     try {
-        const { sub_food_category_id, product_price, product_name, product_description, export_country, brand, content, allergy_info, type, israel_milk, cosher } = req.body
+        const { sub_food_category_id, product_price, product_name, product_description, export_country, brand, content, allergy_info, type, israel_milk, cosher,product_components,serving_suggestion } = req.body
         if (!sub_food_category_id || !product_price || !product_name || !product_description ) {
             res.status(400).send({ ok: false, error: 'missing required fields' })
             return
         }
-        const query = `INSERT INTO rami_levy_db.products (sub_food_category_id,product_price,product_name,product_description,export_country,brand,content,allergy_info,type,israel_milk,cosher)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?);`
-        connection.query(query, [sub_food_category_id, product_price, product_name, product_description, export_country, brand, content, allergy_info, type, israel_milk, cosher], (err, results, fields) => {
+        const query = `INSERT INTO rami_levy_db.products (sub_food_category_id,product_price,product_name,product_description,export_country,brand,content,allergy_info,type,israel_milk,cosher,product_components,serving_suggestion)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);`
+        connection.query(query, [sub_food_category_id, product_price, product_name, product_description, export_country, brand, content, allergy_info, type, israel_milk, cosher,product_components,serving_suggestion], (err, results, fields) => {
             try {
                 if (err) throw err;
                 res.send({ ok: true, results })
@@ -204,13 +204,12 @@ export const deleteProduct = async (req: express.Request, res: express.Response)
 
 export const updateProductDetailes = async (req: express.Request, res: express.Response) => {
     try {
-        const { product_id, sub_food_category_id, product_price, product_name, product_description, export_country, brand, content, allergy_info, type, israel_milk, cosher } = req.body
-        console.log(req.body)
+        const { product_id, sub_food_category_id, product_price, product_name, product_description, export_country, brand, content, allergy_info, type, israel_milk, cosher ,product_components,serving_suggestion} = req.body
         if (!product_id) {
             res.status(400).send({ ok: false, error: 'missing required fields' })
             return
         }
-        const query = `UPDATE products SET sub_food_category_id = ?, product_price = ?, product_name = ?, product_description = ?, export_country = ?, brand = ?, content = ?, allergy_info = ?, type = ?, israel_milk = ?, cosher = ? WHERE product_id = ?;`
+        const query = `UPDATE products SET sub_food_category_id = ?, product_price = ?, product_name = ?, product_description = ?, export_country = ?, brand = ?, content = ?, allergy_info = ?, type = ?, israel_milk = ?, cosher = ?,product_components = ?,serving_suggestion = ? WHERE product_id = ?;`
         connection.query(query, [
             sub_food_category_id ? sub_food_category_id : null,
             product_price ? product_price : null,
@@ -223,7 +222,9 @@ export const updateProductDetailes = async (req: express.Request, res: express.R
             type ? type : null,
             israel_milk ? israel_milk : null,
             cosher ? cosher : null,
-            product_id
+            product_components ? product_components : null,
+            serving_suggestion ? serving_suggestion : null,
+            product_id,
         ], (err, results, fields) => {
             try {
                 if (err) throw err;

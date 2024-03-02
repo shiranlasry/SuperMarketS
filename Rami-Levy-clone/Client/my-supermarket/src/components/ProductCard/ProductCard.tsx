@@ -112,9 +112,16 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     // need to decrease the quantity of the product in the cart
   };
 
-  const handleCardClick = () => {
+  const handleCardClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    // Check if the click occurred on the buttons inside the card
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('counter-button') || target.parentElement?.classList.contains('counter-button')) {
+      // Click occurred on the buttons, do not open the modal
+      return;
+    }
+    
+    // Click occurred on the card, open the modal
     setShowProductModal(true);
-    console.log("Card clicked"); // Log a message indicating the card is clicked
   };
 
   return (
@@ -124,7 +131,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="product-card card" onClick={handleCardClick}>
-        {isHovered && (
+      
           <div className="counter">
             <Button
               className="counter-button"
@@ -143,8 +150,9 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
                 -
               </Button>
             )}
+            
           </div>
-        )}
+        
         <div className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             <div className="carousel-item active">
@@ -166,11 +174,21 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         </div>
       </div>
       {/* Render ProductModal when showProductModal is true */}
-      <ProductModal
-        product={product}
-        onClose={() => setShowProductModal(false)}
+
+      <Modal
+        id={"modal-product"}
         show={showProductModal}
-      />
+        onHide={() => setShowProductModal(false)}
+        dialogClassName="custom-modal"
+      >
+        <Modal.Body>
+          <ProductModal
+            onClose={() => setShowProductModal(false)}
+            product={product}
+          />
+        </Modal.Body>
+      </Modal>
+
       {showLoginModal && (
         <Modal
           id={"modal-login"}

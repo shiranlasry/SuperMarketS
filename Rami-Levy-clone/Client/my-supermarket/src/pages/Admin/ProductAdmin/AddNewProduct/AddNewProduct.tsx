@@ -50,6 +50,8 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
     type: "",
     israel_milk: "",
     cosher: "",
+    product_components: "",
+    serving_suggestion: "",
   };
 
   const [imagesProductFiles, setImagesProductFiles] = useState<File[]>();
@@ -253,7 +255,25 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
           value={newProduct.allergy_info}
           onChange={handleInputChange}
         />
-
+        {/* Product Components */}
+        <label htmlFor="product_components">רכיבי המוצר:</label>
+        <input
+          type="text"
+          id="product_components"
+          name="product_components"
+          value={newProduct.product_components}
+          onChange={handleInputChange}
+        />
+          
+          {/* Serving Suggestion */}
+        <label htmlFor="serving_suggestion"> הצעת הגשה:</label>
+        <input
+          type="text"
+          id="serving_suggestion"
+          name="serving_suggestion"
+          value={newProduct.serving_suggestion}
+          onChange={handleInputChange}
+        />
         {/* Type */}
         <label htmlFor="type">סוג המוצר:</label>
         <input
