@@ -1,0 +1,67 @@
+.Personal-profil-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Personal-profil-menu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  top: 1rem;
+  margin: 1rem;
+  width: 250px;
+  border-radius: 10px;
+}
+
+.personal-details-btn {
+  display: flex;
+  justify-content: right;
+  text-align: center;
+  height: 44px;
+  width: 230px;
+  padding-top: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  color: #333; /* Adjust text color */
+  cursor: pointer;
+
+  svg {
+    width: 30px;
+    margin-left: 1rem;
+    justify-content: center;
+  }
+
+  p {
+    width: 100px;
+    text-align: right;
+  }
+}
+.log-out-user {
+  color: red !important;
+}
+
+.Personal-profil-menu button:hover {
+  background-color: #eaeaea;
+}
+
+.personal-details-btn.active {
+  background-color: #eaeaea; /* or any other style you want to apply */
+  /* Add any other styles for the active button */
+}
+
+.Personal-profil-details {
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.Personal-profil-lists {
+  flex-grow: 1;
+}
