@@ -1,0 +1,43 @@
+.shopping-cart-bar {
+  display: flex;
+  flex-direction: row;
+  width: 280px;
+  height: 55px;
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  color: white;
+  background-color: #1579f2;
+  transition: bottom 0.3s ease; // Updated transition property
+
+  &.open {
+    top: 7rem;
+  }
+
+  &.closed {
+    bottom: -60px;
+  }
+
+  .toggle-cart-button {
+    color: white;
+    border: 1px solid white;
+    width: 40px;
+    height: 40px;
+    margin-left: 3rem;
+    font-size: 1rem;
+    border-radius: 7px;
+    padding: 5px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .total-price-bar {
+    font-weight: bolder;
+    font-size: 1.6rem;
+  }
+
+  .shekel-bar {
+    font-size: 0.875em;
+    font-weight: 400;
+  }
+}

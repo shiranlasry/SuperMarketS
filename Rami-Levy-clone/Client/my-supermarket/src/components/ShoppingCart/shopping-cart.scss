@@ -4,7 +4,7 @@ body {
   color: $button;
 
   .shopping-cart {
-    margin: -7rem 0 0 10.3rem;
+    margin: -7rem 0 0 9rem;
     float: left;
     width: 140px;
     height: 86px;
@@ -84,17 +84,20 @@ body {
       }
     }
 
-    
-    .product-details {
+    .product-details-cart {
       display: flex;
       align-items: center;
-      justify-content: space-between; /* Add space between elements */
+      justify-content: right;
+      width: 290px;
+      height: 68px;
+
+      /* Add space between elements */
       width: 100%; /* Ensure the container takes up the full width */
       background-color: #fff;
-
     }
-    
+
     .product-details h3 {
+      font-size: 1rem;
       margin: 0;
       background-color: rgba(255, 255, 255, 0.8);
       padding: 5px;
@@ -102,13 +105,13 @@ body {
       z-index: 1;
       min-width: 30px; /* Set a minimum width to prevent it from shrinking too much */
     }
-    
-    .product-details img {
-      width: 50px;
-      height: auto;
-      margin-right: 10px;
-    }
-    
+
+    // .product-details img {
+    //   width: 50px;
+    //   height: auto;
+    //   margin-right: 2rem;
+    // }
+
     .product-details h4,
     .product-details p {
       margin: 0;
@@ -134,6 +137,54 @@ body {
         width: 40px;
         height: 32px;
       }
-    }    
+    }
+  }
+}
+
+.cart-content {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the right */
+  padding: 0;
+  height: 680px;
+  width: 400px;
+  list-style: none;
+  font-size: 10px;
+  overflow-y: scroll;
+}
+
+.cart-item {
+  width: 270px;
+
+  .product-details-cart {
+    width: 250px;
+    height: 55px;
+    margin-top: 0.5rem;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+
+    .prod-name-cart {
+      text-align: right;
+      width: 140px;
+      font-size: 0.9rem;
+      color: #212529;
+    }
+
+    img {
+      width: 40px;
+      height: 40px;
+      margin-left: 1.5rem;
+    }
+
+    .cart-items-price {
+      text-align: left;
+      width: 100px;
+      margin-right: 0.6rem;
+      margin-top: 2rem;
+      font-size: 1rem;
+      font-weight: 900;
+    }
   }
 }
