@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {  useAppDispatch, useAppSelector } from "../../app/hook";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
 import "./shopping-cart.scss";
 import { Product, User } from "../../rami-types";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import { activeCartSelector } from "../../features/cart/cartSlice";
 import { getAllProductsApi } from "../../features/products/productsAPI";
+import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -14,7 +15,7 @@ const ShoppingCart: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   const dispatch = useAppDispatch();
-  
+
   useEffect(() => {
     if (loggedInUser && activeCart && activeCart.cartList) {
       console.log("activeCartttttt", activeCart);
@@ -27,8 +28,11 @@ const ShoppingCart: React.FC = () => {
       fetchProducts();
     }
   }, []);
-  
 
+  // Function to toggle the shopping cart open/close state
+  const toggleCart = () => {
+    setIsOpen(!isOpen);
+  };
 
   // Function to format the price with main and decimal parts
   const formatPrice = (price: number) => {
@@ -42,14 +46,12 @@ const ShoppingCart: React.FC = () => {
   };
 
   const convertToBase64 = (imageString: string) => {
-   return btoa(
-      String.fromCharCode(...new Uint8Array(imageString))
-    );
-  }
+    return btoa(String.fromCharCode(...new Uint8Array(imageString)));
+  };
+
   return (
     <div className={`shopping-cart${isOpen ? " open" : ""}`}>
-      <div className="cart-icon" onClick={() => setIsOpen(!isOpen)}>
-        {/* Updated JSX for SVG */}
+      <div className="cart-icon" onClick={toggleCart}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="47.54"
@@ -119,40 +121,53 @@ const ShoppingCart: React.FC = () => {
           </svg>
         </svg>
         {/* Use Bootstrap styling for price */}
-        <button className="cart-price" >
-          {formatPrice(0.0)} ₪
-        </button>
+        <button className="cart-price">{formatPrice(0.0)} ₪</button>
       </div>
 
       {/* Display Cart Items */}
-      <ul>
-  {activeCart &&
-    activeCart.cartList &&
-    activeCart.cartList.map((cartProduct) => {
-      // Find the product corresponding to the cart product
-      const product = products.find((product) => product.product_id === cartProduct.product_id);
-      if (product) {
-        return (
-          <li key={cartProduct.cart_id}>
-            <div className="product-details">
-              <h3>{cartProduct.product_amount} יחידות</h3>
-              {/* Render SVG image */}
-              <img src={`data:image/jpeg;base64,${convertToBase64(product.product_img_data_a.data)}`} alt={product.product_name} />
-              <h4>{product.product_name}</h4>
-              <p>: {formatPrice(product.product_price * cartProduct.product_amount)} ₪</p>
-            </div>
-          </li>
-        );
-      }
-      return null; // Skip rendering if product is not found
-    })}
-</ul>
+      <ul className="cart-content">
+        {activeCart &&
+          activeCart.cartList &&
+          activeCart.cartList.map((cartProduct) => {
+            // Find the product corresponding to the cart product
+            const product = products.find(
+              (product) => product.product_id === cartProduct.product_id
+            );
+            if (product) {
+              return (
+                <li className="cart-item" key={cartProduct.cart_id}>
+                  <div className="product-details-cart">
+                    <img
+                      src={`data:image/jpeg;base64,${convertToBase64(
+                        product.product_img_data_a.data
+                      )}`}
+                      alt={product.product_name}
+                    />
+                    <h5 className="prod-name-cart">{product.product_name}</h5>
+                    {/* Render SVG image */}
 
+                    <p className="cart-items-price">
+                      {" "}
+                      {formatPrice(
+                        product.product_price * cartProduct.product_amount
+                      )}{" "}
+                      ₪
+                    </p>
+                  </div>
+                </li>
+              );
+            }
+            return null; // Skip rendering if product is not found
+          })}
+      </ul>
 
-      {/* Display Pay Now button */}
-      <div className="pay-button">
-        {/* Add your Pay Now button content here */}
-      </div>
+      <ShoppingCartBar
+        totalPrice={100}
+        isOpen={isOpen}
+        toggleCart={toggleCart}
+      />
+
+      <div className="pay-button"></div>
     </div>
   );
 };
