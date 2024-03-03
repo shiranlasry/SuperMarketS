@@ -27,7 +27,7 @@ const ShoppingCart: React.FC = () => {
       };
       fetchProducts();
     }
-  }, []);
+  }, [activeCart]);
 
   // Function to toggle the shopping cart open/close state
   const toggleCart = () => {
