@@ -1,45 +1,75 @@
-.shopping-cart {
+$rami-blue: #1579f2;
 
+.shopping-cart {
+  margin-left: 0.8rem;
+  height: 100%;
 
   .cart-content {
-    list-style-type: none; /* Remove default list styles */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
+    height: 100%;
+    width: 280px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    @media screen and (max-width: 990px) {
+      display: none;
+    }
 
     .cart-item {
-      margin-bottom: 20px; /* Add spacing between cart items */
+      background-color: white;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      margin-top: 0.3rem;
+      border-radius: 10px;
+
+      .prod-name-cart {
+        width: 200px;
+      }
     }
 
     .product-details-cart {
-      display: flex; /* Use flexbox for layout */
-      align-items: center; /* Center align items vertically */
-      padding: 10px; /* Add padding around product details */
-      border-bottom: 1px solid #ccc; /* Add bottom border to separate items */
+      display: flex;
+      align-items: center;
+      width: 280px;
+      color: black;
+      padding: 10px;
     }
 
     img {
-      width: 50px; /* Set image width */
-      height: 50px; /* Set image height */
-      margin-right: 10px; /* Add spacing between image and text */
+      width: 50px;
+      height: 50px;
+      margin-left: 1rem;
     }
 
     .prod-name-cart {
-      margin: 0; /* Remove default margin */
-      font-size: 16px; /* Set font size */
+      margin: 0;
+      font-size: 16px;
     }
 
     .cart-items-price {
-      margin: 0; /* Remove default margin */
-      font-size: 14px; /* Set font size */
-      color: #888; /* Set color for price */
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+      width: 150px;
+      text-align: left;
+      font-size: 14px;
+      color: $rami-blue;
     }
 
     .main-price {
-      font-weight: bold; /* Make main price bold */
+      font-weight: bold;
     }
 
     .decimal-price {
-      font-size: 80%; /* Reduce font size for decimal part */
+      font-size: 80%;
     }
   }
+  // .cart-bar {
+  //   display: flex;
+  //   flex-direction: column;
+
+  //   .shopping-cart-bar {
+  //     display: flex;
+  //     flex-direction: row;
+  //   }
+  // }
 }
