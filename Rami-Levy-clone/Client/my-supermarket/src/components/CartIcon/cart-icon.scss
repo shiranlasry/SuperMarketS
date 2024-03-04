@@ -1,8 +1,11 @@
+$button: #1579f2;
+
 .cart-icon {
-  margin: -3rem 0 0 7rem;
+  margin: -7rem 0 0 10rem;
   float: left;
   width: 130px;
   height: 86px;
+  padding-top: 10px;
   text-align: center;
   background-color: white;
   border-radius: 10px;
@@ -13,26 +16,33 @@
   }
 
   @media screen and (max-width: 1900px) {
-    width: 127px;
+    margin: -7rem 0 0 9.5rem;
+    width: 125px;
   }
 
   @media screen and (max-width: 1800px) {
-    width: 125px;
+    margin: -7rem 0 0 9.3rem;
+    width: 120px;
   }
   @media screen and (max-width: 1730px) {
-    width: 118px;
+    margin: -7rem 0 0 9.1rem;
+    width: 115px;
   }
   @media screen and (max-width: 1670px) {
-    width: 112px;
+    margin: -7rem 0 0 8.7rem;
+    width: 110px;
   }
   @media screen and (max-width: 1580px) {
     width: 105px;
+    margin: -7rem 0 0 8.5rem;
   }
   @media screen and (max-width: 1490px) {
     width: 100px;
+    margin: -7rem 0 0 8.2rem;
   }
   @media screen and (max-width: 1420px) {
-    width: 97px;
+    width: 95px;
+    margin: -7rem 0 0 7.8rem;
   }
   @media screen and (max-width: 1390px) {
     width: 95px;
@@ -42,5 +52,17 @@
   }
   @media screen and (max-width: 1292px) {
     display: none;
+  }
+
+  .cart-price {
+    border: none;
+    background-color: transparent;
+    font-size: 1.2rem;
+    color: $button;
+    font-weight: bold;
+
+    @media screen and (max-width: 1420px) {
+      font-size: 1rem;
+    }
   }
 }
