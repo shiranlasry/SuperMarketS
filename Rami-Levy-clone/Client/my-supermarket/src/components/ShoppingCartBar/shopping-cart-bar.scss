@@ -9,14 +9,18 @@
   font-size: 1.3rem;
   color: white;
   background-color: #1579f2;
-  transition: bottom 0.3s ease; // Updated transition property
+  transition: bottom 0.3s ease;
+
+  @media screen and (max-width: 1290px) {
+    display: 1000rem;
+  }
 
   &.open {
     top: 7rem;
   }
 
   &.closed {
-    bottom: -60px;
+    margin: -5rem auto auto 1rem;
   }
 
   .toggle-cart-button {
