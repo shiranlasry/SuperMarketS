@@ -15,13 +15,53 @@
     border-radius: 6px;
   }
 
-  @media screen and (max-width: 1620px) {
+  @media screen and (max-width: 1720px) {
     font-size: 15px;
+    width: 93px;
+    height: 95px;
+  }
+  @media screen and (max-width: 1690px) {
+    font-size: 15px;
+    width: 90px;
+    height: 95px;
+  }
+  @media screen and (max-width: 1640px) {
+    font-size: 15px;
+    width: 87px;
     height: 95px;
   }
 
-  @media screen and (max-width: 1290px) {
-    width: 65px;
+  @media screen and (max-width: 1590px) {
+    font-size: 15px;
+    width: 80px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1520px) {
+    width: 75px;
+    font-size: 13px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1480px) {
+    width: 70px;
+    font-size: 13px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1380px) {
+    width: 58px;
+    font-size: 13px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1140px) {
+    width: 53px;
+    font-size: 13px;
+    height: 95px;
+  }
+  @media screen and (max-width: 1060px) {
+    width: 48px;
     font-size: 13px;
     height: 95px;
   }

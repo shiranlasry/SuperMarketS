@@ -28,6 +28,7 @@ import {
 import "./Header.scss";
 import CartIcon from "../CartIcon/CartIcon";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
+import { ClosedCart } from "../ClosedCart/ClosedCart";
 
 const Header = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
@@ -227,6 +228,8 @@ const Header = () => {
         </div>
       )}
 
+      {!isOpenCart && <ClosedCart />}
+
       <NavBar />
       {!isOpenCart && (
         <ShoppingCartBar
@@ -238,6 +241,7 @@ const Header = () => {
 
       {isOpenCart && (
         <>
+          <ClosedCart />
           <CartIcon />
           <ShoppingBasket />
         </>

@@ -1,0 +1,32 @@
+$button: #1579f2;
+
+.closed-cart-main {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  left: 3rem;
+  margin-top: -0.4rem;
+  gap: 5rem;
+
+  @media screen and (max-width: 1800px) {
+    gap: 2.8rem;
+  }
+
+  .closed-cart,
+  .closed-basket {
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+
+    .price {
+      margin-right: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: $button;
+    }
+  }
+
+  @media screen and (max-width: 990px) {
+    display: none;
+  }
+}

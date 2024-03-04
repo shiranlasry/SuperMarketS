@@ -9,7 +9,7 @@ const NavBarItemProducts = () => {
 
   return (
     <div className="category-visual-container">
-      <h1>מוצרים לפי קטגורית אב</h1>
+      <h1 className="products-by-categories">מוצרים לפי קטגורית אב</h1>
       <div className="row no-gutters">
         {productsByNavbarItemID &&
           productsByNavbarItemID.map((product) => (

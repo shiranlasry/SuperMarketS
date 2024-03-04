@@ -11,8 +11,15 @@
   background-color: #1579f2;
   transition: bottom 0.3s ease;
 
-  @media screen and (max-width: 1290px) {
-    display: 1000rem;
+  @media screen and (max-width: 1940px) {
+    margin-left: 1rem;
+  }
+  @media screen and (max-width: 1800px) {
+    width: 250px;
+  }
+
+  @media screen and (max-width: 1490px) {
+    width: 250px;
   }
 
   &.open {
@@ -34,6 +41,10 @@
     padding: 5px;
     background: transparent;
     cursor: pointer;
+
+    @media screen and (max-width: 1580px) {
+      margin-left: 2rem;
+    }
   }
 
   .total-price-bar {
