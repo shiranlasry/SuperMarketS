@@ -212,7 +212,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         </Modal.Body>
       </Modal>
 
-      {showLoginModal && (
+      
         <Modal
           id={"modal-login"}
           show={showLoginModal}
@@ -226,7 +226,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
             />
           </Modal.Body>
         </Modal>
-      )}
+      
       <Modal
         show={showRegisterModal}
         onShow={() => setShowLoginModal(false)}
