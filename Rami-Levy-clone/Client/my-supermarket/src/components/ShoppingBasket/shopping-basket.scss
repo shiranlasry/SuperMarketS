@@ -1,10 +1,11 @@
 $button: #1579f2;
 
-body {
+.basket-main {
   color: $button;
+  margin-left: 1rem;
 
   .shopping-basket {
-    margin: -7rem 0 0 -3rem;
+    margin: -9rem 0 0 0;
     float: left;
     width: 130px;
     height: 86px;
