@@ -1,12 +1,13 @@
 $button: #1579f2;
 
-body {
+.basket-main {
   color: $button;
+  margin-left: 1rem;
 
   .shopping-basket {
-    margin: -7rem 0 0 0.5rem;
+    margin: -7rem 0 0 0;
     float: left;
-    width: 140px;
+    width: 130px;
     height: 86px;
     text-align: center;
     background-color: white;
@@ -18,31 +19,35 @@ body {
     }
 
     @media screen and (max-width: 1900px) {
-      width: 127px;
+      width: 125px;
     }
 
     @media screen and (max-width: 1800px) {
-      width: 125px;
+      width: 120px;
     }
     @media screen and (max-width: 1730px) {
-      width: 118px;
+      width: 115px;
     }
     @media screen and (max-width: 1670px) {
-      width: 112px;
+      width: 110px;
     }
-    @media screen and (max-width: 1580px) {
-      width: 105px;
-    }
-    @media screen and (max-width: 1490px) {
+    @media screen and (max-width: 1590px) {
       width: 100px;
     }
-    @media screen and (max-width: 1420px) {
-      width: 97px;
-    }
-    @media screen and (max-width: 1390px) {
+    @media screen and (max-width: 1490px) {
+      margin: -7rem 0 0 0.2rem;
       width: 95px;
     }
+    @media screen and (max-width: 1420px) {
+      margin: -7rem 0 0 0.3rem;
+      width: 95px;
+    }
+    @media screen and (max-width: 1390px) {
+      margin: -7rem 0 0 0.4rem;
+      width: 88px;
+    }
     @media screen and (max-width: 1320px) {
+      margin: -7rem 0 0 0.1rem;
       width: 88px;
     }
     @media screen and (max-width: 1292px) {
@@ -73,7 +78,7 @@ body {
     .basket-svg {
       width: 50px;
       height: 40px;
-      @media screen and (max-width: 1320px) {
+      @media screen and (max-width: 1390px) {
         width: 40px;
         height: 32px;
       }

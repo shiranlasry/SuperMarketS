@@ -3,17 +3,20 @@ import { useAppDispatch, useAppSelector } from "../../app/hook";
 import "./shopping-cart.scss";
 import { Product, ProductsList, User } from "../../rami-types";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
-import { activeCartSelector, isOpenCartSelector, setIsOpenCart } from "../../features/cart/cartSlice";
+import {
+  activeCartSelector,
+  isOpenCartSelector,
+  setIsOpenCart,
+} from "../../features/cart/cartSlice";
+import Logo from "../../assets/logos/rami-levy-online.png";
 import { getAllProductsApi } from "../../features/products/productsAPI";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import { productsSelector } from "../../features/products/productsSlice";
 
-
-
-const ShoppingCart : React.FC = () => {
+const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
-  const isOpenCart :boolean= useAppSelector(isOpenCartSelector);
+  const isOpenCart: boolean = useAppSelector(isOpenCartSelector);
   const allProducts = useAppSelector(productsSelector);
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useAppDispatch();
@@ -22,9 +25,9 @@ const ShoppingCart : React.FC = () => {
     if (activeCart && activeCart.cartList) {
       setTotalPrice(calaTotalPrice(activeCart.cartList));
     }
-  },[activeCart])
+  }, [activeCart]);
   const toggleCart = () => {
-    dispatch (setIsOpenCart());
+    dispatch(setIsOpenCart());
   };
 
   const calaTotalPrice = (cartList: ProductsList[]) => {
@@ -52,44 +55,43 @@ const ShoppingCart : React.FC = () => {
 
   return (
     <div className={`shopping-cart`}>
-     
+      <img className="rami-online-cart" src={Logo} alt="Rami Levy Online" />
       <ul className="cart-content">
         {activeCart &&
           activeCart.cartList &&
           activeCart.cartList.map((cartProduct) => {
             // Find the product corresponding to the cart product
             if (allProducts) {
-            
-            
-            const product = allProducts.find(
-              (product) => product.product_id === cartProduct.product_id
-            );
-            if (product) {
-              return (
-                <li className="cart-item" key={cartProduct.cart_id}>
-                  <div className="product-details-cart">
-                    <img
-                      src={`data:image/jpeg;base64,${convertToBase64(
-                        product.product_img_data_a.data
-                      )}`}
-                      alt={product.product_name}
-                    />
-                    <h5 className="prod-name-cart">{product.product_name}</h5>
-                    {/* Render SVG image */}
-
-                    <p className="cart-items-price">
-                      {" "}
-                      {formatPrice(
-                        product.product_price * cartProduct.product_amount
-                      )}{" "}
-                      ₪
-                    </p>
-                  </div>
-                </li>
+              const product = allProducts.find(
+                (product) => product.product_id === cartProduct.product_id
               );
+              if (product) {
+                return (
+                  <li className="cart-item" key={cartProduct.cart_id}>
+                    <div className="product-details-cart">
+                      <img
+                        src={`data:image/jpeg;base64,${convertToBase64(
+                          product.product_img_data_a.data
+                        )}`}
+                        alt={product.product_name}
+                      />
+                      <h5 className="prod-name-cart">{product.product_name}</h5>
+                      {/* Render SVG image */}
+
+                      <p className="cart-items-price">
+                        {" "}
+                        {formatPrice(
+                          product.product_price * cartProduct.product_amount
+                        )}{" "}
+                        ₪
+                      </p>
+                    </div>
+                  </li>
+                );
+              }
+              return null; // Skip rendering if product is not found
             }
-            return null; // Skip rendering if product is not found
-}})}
+          })}
       </ul>
       <ShoppingCartBar
         totalPrice={totalPrice}
