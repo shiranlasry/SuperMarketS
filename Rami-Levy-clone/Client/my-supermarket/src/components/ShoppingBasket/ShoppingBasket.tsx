@@ -2,20 +2,21 @@
 import React from "react";
 import "./shopping-basket.scss";
 
-const formatPrice = (price) => {
-  const [main, decimal] = price.toFixed(2).split(".");
-  return (
-    <span>
-      <span className="main-price">{main}.</span>
-      <sup className="decimal-price">{decimal}</sup>
-    </span>
-  );
-};
+
 
 const ShoppingBasket = () => {
   // Assume your basket price is 20.00, you can replace it with your actual logic
-  const basketPrice = 20.0;
-
+  const basketPrice = 0.0;
+  const formatPrice = (price: number) => 
+  {
+    const [main, decimal] = price.toFixed(2).split(".");
+    return (
+      <span>
+        <span className="main-price">{main}.</span>
+        <sup className="decimal-price">{decimal}</sup>
+      </span>
+    );
+  };
   return (
     <div className="shopping-basket">
       <div className="basket-icon">

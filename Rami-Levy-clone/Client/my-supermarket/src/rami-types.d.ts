@@ -14,6 +14,7 @@ export interface ProductsList {
   cart_id: number;
   product_id: number;
   product_amount: number=0;
+  product_price: number=0;
   
 }
 export interface SubFoodCategories {

@@ -15,18 +15,23 @@ enum Status {
 }
 interface CartState {
   activeCart: CartItem | null;
+  isOpenCart: boolean;
   status: Status;
 }
 
 const initialState: CartState = {
   activeCart: null,
+  isOpenCart: false,
   status: Status.IDLE
 };
 
-const cartSlice = createSlice({
+const CartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
+    setIsOpenCart: (state) => {
+      state.isOpenCart = !state.isOpenCart;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -40,21 +45,6 @@ const cartSlice = createSlice({
       .addCase(addNewCartApi.rejected, (state) => {
         state.status = Status.FAILED;
       })
-      // .addCase(addNewCartProductApi.pending, (state) => {
-      //   state.status = Status.LOADING;
-      // })
-      // .addCase(addNewCartProductApi.fulfilled, (state, action) => {
-      //   state.status = Status.IDLE;
-      //   if (Array.isArray(action.payload)) {
-      //     // If payload is an array of cartList
-      //     if (state.activeCart !== null) {
-      //         state.activeCart.cartList = action.payload;
-      //     }
-      // }
-      // })
-      // .addCase(addNewCartProductApi.rejected, (state) => {
-      //   state.status = Status.FAILED;
-      // })
       .addCase(getUserActiveCartApi.pending, (state) => {
         state.status = Status.LOADING;
       })
@@ -85,9 +75,10 @@ const cartSlice = createSlice({
 });
 
 
-
+export const { setIsOpenCart } = CartSlice.actions;
 // Selector to get cart items from the store
 export const activeCartSelector = (state: RootState) => state.cart.activeCart;
+export const isOpenCartSelector = (state: RootState) => state.cart.isOpenCart;
 
 
-export default cartSlice.reducer;
+export default CartSlice.reducer;

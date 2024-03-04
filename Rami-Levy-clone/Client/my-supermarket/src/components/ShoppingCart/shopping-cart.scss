@@ -1,190 +1,45 @@
-$button: #1579f2;
+.shopping-cart {
 
-body {
-  color: $button;
 
-  .shopping-cart {
-    margin: -7rem 0 0 9rem;
-    float: left;
-    width: 140px;
-    height: 86px;
-    text-align: center;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    padding-bottom: 7px;
+  .cart-content {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
 
-    @media screen and (max-width: 1940px) {
-      margin: -7rem 0 0 9.6rem;
-      width: 130px;
-    }
-
-    @media screen and (max-width: 1900px) {
-      margin: -7rem 0 0 9.2rem;
-      width: 127px;
-    }
-
-    @media screen and (max-width: 1800px) {
-      margin: -7rem 0 0 8.8rem;
-      width: 125px;
-    }
-
-    @media screen and (max-width: 1730px) {
-      margin: -7rem 0 0 8.6rem;
-      width: 118px;
-    }
-
-    @media screen and (max-width: 1670px) {
-      margin: -7rem 0 0 8.2rem;
-      width: 112px;
-    }
-
-    @media screen and (max-width: 1580px) {
-      margin: -7rem 0 0 7.7rem;
-      width: 105px;
-    }
-
-    @media screen and (max-width: 1490px) {
-      margin: -7rem 0 0 7.2rem;
-      width: 100px;
-    }
-
-    @media screen and (max-width: 1420px) {
-      margin: -7rem 0 0 7rem;
-      width: 97px;
-    }
-
-    @media screen and (max-width: 1390px) {
-      margin: -7rem 0 0 6.6rem;
-      width: 95px;
-    }
-
-    @media screen and (max-width: 1320px) {
-      margin: -7rem 0 0 6.3rem;
-      width: 88px;
-    }
-
-    @media screen and (max-width: 1292px) {
-      display: none;
-    }
-
-    .cart-price {
-      color: $button;
-      margin-top: 0;
-      background-color: rgba(255, 255, 255, 0);
-      border: none;
-      font-size: 1.3rem;
-      font-weight: bold;
-      padding: 0;
-      height: auto;
-      width: fit-content;
-
-      @media screen and (max-width: 1320px) {
-        font-size: 18px;
-      }
+    .cart-item {
+      margin-bottom: 20px; /* Add spacing between cart items */
     }
 
     .product-details-cart {
-      display: flex;
-      align-items: center;
-      justify-content: right;
-      width: 290px;
-      height: 68px;
-
-      /* Add space between elements */
-      width: 100%; /* Ensure the container takes up the full width */
-      background-color: #fff;
-    }
-
-    .product-details h3 {
-      font-size: 1rem;
-      margin: 0;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 5px;
-      border-radius: 5px;
-      z-index: 1;
-      min-width: 30px; /* Set a minimum width to prevent it from shrinking too much */
-    }
-
-    // .product-details img {
-    //   width: 50px;
-    //   height: auto;
-    //   margin-right: 2rem;
-    // }
-
-    .product-details h4,
-    .product-details p {
-      margin: 0;
-      flex-grow: 1; /* Allow these elements to grow to fill the available space */
-    }
-  }
-
-  .cart-icon {
-    display: flex;
-    flex-direction: column;
-    color: $button;
-    justify-content: center;
-    align-items: center;
-
-    .cart-svg {
-      width: 50px;
-      height: 42px;
-      margin-top: 0.5rem;
-      justify-content: center;
-      align-items: center;
-
-      @media screen and (max-width: 1320px) {
-        width: 40px;
-        height: 32px;
-      }
-    }
-  }
-}
-
-.cart-content {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align items to the right */
-  padding: 0;
-  height: 680px;
-  width: 400px;
-  list-style: none;
-  font-size: 10px;
-  overflow-y: scroll;
-}
-
-.cart-item {
-  width: 270px;
-
-  .product-details-cart {
-    width: 250px;
-    height: 55px;
-    margin-top: 0.5rem;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-
-    .prod-name-cart {
-      text-align: right;
-      width: 140px;
-      font-size: 0.9rem;
-      color: #212529;
+      display: flex; /* Use flexbox for layout */
+      align-items: center; /* Center align items vertically */
+      padding: 10px; /* Add padding around product details */
+      border-bottom: 1px solid #ccc; /* Add bottom border to separate items */
     }
 
     img {
-      width: 40px;
-      height: 40px;
-      margin-left: 1.5rem;
+      width: 50px; /* Set image width */
+      height: 50px; /* Set image height */
+      margin-right: 10px; /* Add spacing between image and text */
+    }
+
+    .prod-name-cart {
+      margin: 0; /* Remove default margin */
+      font-size: 16px; /* Set font size */
     }
 
     .cart-items-price {
-      text-align: left;
-      width: 100px;
-      margin-right: 0.6rem;
-      margin-top: 2rem;
-      font-size: 1rem;
-      font-weight: 900;
+      margin: 0; /* Remove default margin */
+      font-size: 14px; /* Set font size */
+      color: #888; /* Set color for price */
+    }
+
+    .main-price {
+      font-weight: bold; /* Make main price bold */
+    }
+
+    .decimal-price {
+      font-size: 80%; /* Reduce font size for decimal part */
     }
   }
 }
