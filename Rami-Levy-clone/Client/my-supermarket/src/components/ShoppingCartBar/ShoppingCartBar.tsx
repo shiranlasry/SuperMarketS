@@ -10,7 +10,6 @@ interface Props {
   sendOrder: () => void; // Function to send the order
 }
 
-
 const ShoppingCartBar: React.FC<Props> = ({
   totalPrice,
   isOpen,
@@ -30,7 +29,9 @@ const ShoppingCartBar: React.FC<Props> = ({
             className={`mr-2 ${isOpen ? "rotate" : ""}`}
           />
         </button>
-        <button className="toggle-text" onClick={sendOrder}>לתשלום</button>
+        <button className="toggle-pay-text" onClick={sendOrder}>
+          לתשלום
+        </button>
       </div>
       <div>
         <span className="total-price-bar">{totalPrice}</span>{" "}
