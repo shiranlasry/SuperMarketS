@@ -36,7 +36,7 @@ function App() {
         { path: "/*", element: <ErrorPage /> },
         { path: "/add_new_food_category", element: <AddNewFoodCategory /> },
         {path:"/personal_profil" , element :<PersonalProfil/>},
-        {path:"/navbar_item_products/:navbar_item_id" , element :<NavBarItemProducts/>}
+        {path:"/navbar_item_products/:navbar_item_id" , element :<NavBarItemProducts/>},
       ],
     },
   ]);
