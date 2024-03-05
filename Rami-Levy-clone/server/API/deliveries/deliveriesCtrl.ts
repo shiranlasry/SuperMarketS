@@ -47,36 +47,34 @@ export const getDeliveryById = async (req: express.Request, res: express.Respons
 
 export const addNewDelivery = async (req: express.Request, res: express.Response) => {
     try {
-        const { order_id, status_id, delivery_sinish_date } = req.body
-        if (!order_id || !status_id || !delivery_sinish_date) {
-            res.status(400).send({ ok: false, error: 'missing required fields' })
-            return
+        const { order_id, delivery_finish_date } = req.body;
+        if (!order_id || !delivery_finish_date) {
+            return res.status(400).send({ ok: false, error: 'Missing required fields' });
         }
-        const query = "INSERT INTO rami_levy_db.deliveries (order_id, status_id, delivery_sinish_date) VALUES (?, ?, ?);"
-        connection.query(query, [order_id, status_id, delivery_sinish_date], (err, results, fields) => {
-            try {
-                if (err) throw err;
-                res.send({ ok: true, results })
-            } catch (error) {
-                console.error(error)
-                res.status(500).send({ ok: false, error })
+        const query = "INSERT INTO rami_levy_db.deliveries (order_id, delivery_finish_date) VALUES (?, ?)";
+        connection.query(query, [order_id, delivery_finish_date], (err, results, fields) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send({ ok: false, error: 'Failed to add delivery' });
             }
-        })
+            res.send({ ok: true, results });
+        });
     } catch (error) {
-        console.error(error)
-        res.status(500).send({ ok: false, error })
+        console.error(error);
+        res.status(500).send({ ok: false, error: 'Internal server error' });
     }
-}
+};
+
 
 export const updateDelivery = async (req: express.Request, res: express.Response) => {
     try {
-        const { delivery_id, order_id, status_id, delivery_sinish_date } = req.body
-        if (!delivery_id || !order_id || !status_id || !delivery_sinish_date) {
+        const { delivery_id, delivery_finish_date } = req.body
+        if (!delivery_id  || !delivery_finish_date) {
             res.status(400).send({ ok: false, error: 'missing required fields' })
             return
         }
-        const query = "UPDATE rami_levy_db.deliveries SET order_id = ?, status_id = ?, delivery_sinish_date = ? WHERE delivery_id = ?;"
-        connection.query(query, [order_id, status_id, delivery_sinish_date, delivery_id], (err, results, fields) => {
+        const query = "UPDATE rami_levy_db.deliveries SET delivery_finish_date = ? WHERE delivery_id = ?;"
+        connection.query(query, [delivery_finish_date, delivery_id], (err, results, fields) => {
             try {
                 if (err) throw err;
                 res.send({ ok: true, results })

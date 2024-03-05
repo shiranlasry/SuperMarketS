@@ -29,9 +29,10 @@ export const getDeliveryByIdApi = async (delivery_id: number) => {
     }
 }
 
-export const addNewDeliveryApi = async (order_id: number, status_id: number, delivery_sinish_date: Date) => {
+export const addNewDeliveryApi = async (order_id:number, delivery_finish_date: Date) => {
     try {
-        const response = await axios.post('/api/deliveries/add-new-delivery', { order_id, status_id, delivery_sinish_date });
+        const delivery_finish_date_string = delivery_finish_date.toString();
+        const response = await axios.post('/api/deliveries/add-new-delivery', { order_id, delivery_finish_date:delivery_finish_date_string });
         const { ok, results } = response.data;
         if (!ok) {
             throw new Error('Invalid credentials addNewDelivery()');
@@ -44,9 +45,9 @@ export const addNewDeliveryApi = async (order_id: number, status_id: number, del
     }
 }
 
-export const updateDeliveryApi = async (delivery_id: number, order_id: number, status_id: number, delivery_sinish_date: Date) => {
+export const updateDeliveryApi = async (delivery_id: number, delivery_finish_date: Date) => {
     try {
-        const response = await axios.patch('/api/deliveries/update-delivery', { delivery_id, order_id, status_id, delivery_sinish_date });
+        const response = await axios.patch('/api/deliveries/update-delivery', { delivery_id, delivery_finish_date });
         const { ok, results } = response.data;
         if (!ok) {
             throw new Error('Invalid credentials updateDelivery()');

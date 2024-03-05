@@ -29,24 +29,39 @@ export const getOrderByIdApi = async (order_id: number) => {
     }
 }
 
-export const addNewOrderApi = async (cart_id: number, user_id: number, delivery_id: number, order_creation_date: string, status_id: number) => {
-    try {
-        const response = await axios.post("/api/orders/add-new-order", { cart_id, user_id, delivery_id, order_creation_date, status_id });
-        const { ok, results } = response.data;
-        if (!ok) {
-            throw new Error("Invalid credentials addNewOrder()");
-        }
-        alert("הזמנה נוצרה בהצלחה")
-        return results.insertId;
-    } catch (error) {
-        console.error("Error addNewOrder:", error);
-        throw error;
-    }
-}
+export const addNewOrderApi = async (
+  cart_id: number | null,
+  user_id: number | null,
+  order_creation_date: Date,
+) => {
+  try {
+    // Log input parameters for debugging
+    console.log("addNewOrderApi", cart_id, user_id, order_creation_date);
+    const order_date = order_creation_date.toISOString();
+    // Send a POST request to the server with the provided data
+    const response = await axios.post("/api/orders/add-new-order", { 
+      cart_id, 
+      user_id, 
+      order_creation_date:order_date
+    });
 
-export const updateOrderApi = async (order_id: number, cart_id: number, user_id: number, delivery_id: number, order_creation_date: string, status_id: number) => {
+    console.log("response", response);
+    const { ok, results } = response.data;
+    if (!ok) {
+      throw new Error("Invalid credentials addNewOrder()");
+    }
+    alert("הזמנה נוצרה בהצלחה");
+    return results.insertId;
+  } catch (error) {
+    console.error("Error addNewOrder:", error);
+    throw error;
+  }
+};
+
+
+export const updateOrderApi = async (order_id: number,  delivery_id: number | null, status_id: number) => {
     try {
-        const response = await axios.patch("/api/orders/update-order", { order_id, cart_id, user_id, delivery_id, order_creation_date, status_id });
+        const response = await axios.patch("/api/orders/update-order", { order_id, delivery_id, status_id});
         const { ok, results } = response.data;
         if (!ok) {
             throw new Error("Invalid credentials updateOrder()");

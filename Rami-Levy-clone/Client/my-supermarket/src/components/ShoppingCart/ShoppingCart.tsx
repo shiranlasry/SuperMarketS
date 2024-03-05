@@ -1,31 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import "./shopping-cart.scss";
-import { Product, ProductsList, User } from "../../rami-types";
-import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import {  ProductsList} from "../../rami-types";
 import {
   activeCartSelector,
   isOpenCartSelector,
   setIsOpenCart,
 } from "../../features/cart/cartSlice";
 import Logo from "../../assets/logos/rami-levy-online.png";
-import { getAllProductsApi } from "../../features/products/productsAPI";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import { productsSelector } from "../../features/products/productsSlice";
+import { addNewOrderApi, updateOrderApi } from "../../features/api/ordersAPI";
+import { addNewDeliveryApi } from "../../features/api/deliveriesAPI";
+import { Cart } from './../../rami-types.d';
+import { addNewCartApi } from "../../features/cart/cartAPI";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
-  const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
   const isOpenCart: boolean = useAppSelector(isOpenCartSelector);
   const allProducts = useAppSelector(productsSelector);
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (activeCart && activeCart.cartList) {
-      setTotalPrice(calaTotalPrice(activeCart.cartList));
+    // if (activeCart && activeCart.cartList) {
+    //   setTotalPrice(calaTotalPrice(activeCart.cartList));
+    // }
+    if (activeCart)
+    {
+      if (activeCart.cartList)
+      {
+        setTotalPrice(calaTotalPrice(activeCart.cartList));
+      }
+      else
+      {
+        setTotalPrice(0);
+      }
+  
     }
+
   }, [activeCart]);
+
+
   const toggleCart = () => {
     dispatch(setIsOpenCart());
   };
@@ -36,6 +52,20 @@ const ShoppingCart: React.FC = () => {
       totalPrice += cartItem.product_price * cartItem.product_amount;
     });
     return totalPrice;
+  };
+
+  const sendOrder = async () => {
+    console.log("Sending order");
+    if (activeCart !== null) {
+      const order_id = await (addNewOrderApi(activeCart.cart_id, activeCart.user_id,  new Date()));
+      console.log(order_id);
+      const delivery_id = await (addNewDeliveryApi(order_id, new Date()));
+      await updateOrderApi(order_id, delivery_id, 2);
+      //set active cart to null and add new cart  
+      dispatch(addNewCartApi(activeCart.user_id));
+      console.log("Order sent - new cart created", activeCart);
+    }
+    
   };
 
   // Function to format the price with main and decimal parts
@@ -97,6 +127,7 @@ const ShoppingCart: React.FC = () => {
         totalPrice={totalPrice}
         isOpen={isOpenCart}
         toggleCart={toggleCart}
+        sendOrder={sendOrder}
       />
     </div>
   );
