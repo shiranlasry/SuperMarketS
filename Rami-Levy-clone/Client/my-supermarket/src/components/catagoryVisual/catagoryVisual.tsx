@@ -42,7 +42,7 @@ const CategoryVisual = () => {
           <h2 className="sub-category-title">
             {filteredProducts[0].sub_food_category_name}
           </h2>
-          <div className="row no-gutters">
+          <div className="product-cards-row">
             {filteredProducts.map((product) => (
               <div
                 key={product.product_id}

@@ -1,8 +1,10 @@
 $rami-blue: #1579f2;
 
 .shopping-cart {
+  background-color: #f3f5f8;
   margin-left: 0.8rem;
   height: 100%;
+  z-index: 2;
 
   .cart-content {
     height: 100%;
