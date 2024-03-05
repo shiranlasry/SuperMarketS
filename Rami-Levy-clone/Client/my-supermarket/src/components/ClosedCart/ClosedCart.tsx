@@ -1,6 +1,27 @@
+import { useEffect, useState } from "react";
+import { useAppSelector } from "../../app/hook";
+import { activeCartSelector } from "../../features/cart/cartSlice";
 import "./closed-cart.scss";
+import { ProductsList } from "../../rami-types";
 
 export const ClosedCart = () => {
+  const activeCart = useAppSelector(activeCartSelector);
+
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const calaTotalPrice = (cartList: ProductsList[]) => {
+    let totalPrice = 0;
+    cartList.forEach((cartItem: ProductsList) => {
+      totalPrice += cartItem.product_price * cartItem.product_amount;
+    });
+    return totalPrice;
+  };
+
+  useEffect(() => {
+    if (activeCart && activeCart.cartList) {
+      setTotalPrice(calaTotalPrice(activeCart.cartList));
+    }
+  }, [activeCart]);
   const basketPrice = 0.0;
   const formatPrice = (price: number) => {
     const [main, decimal] = price.toFixed(2).split(".");
@@ -82,7 +103,7 @@ export const ClosedCart = () => {
             ></path>
           </svg>
         </svg>
-        <div className="price">{formatPrice(basketPrice)}</div>
+        <div className="price">{formatPrice(totalPrice)}</div>
       </div>
       <div className="closed-basket">
         <svg
