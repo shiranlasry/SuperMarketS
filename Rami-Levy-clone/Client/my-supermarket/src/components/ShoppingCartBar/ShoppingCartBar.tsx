@@ -7,12 +7,15 @@ interface Props {
   totalPrice: number;
   isOpen: boolean;
   toggleCart: () => void; // Function to toggle the cart
+  sendOrder: () => void; // Function to send the order
 }
+
 
 const ShoppingCartBar: React.FC<Props> = ({
   totalPrice,
   isOpen,
   toggleCart,
+  sendOrder,
 }) => {
   return (
     <div
@@ -27,7 +30,7 @@ const ShoppingCartBar: React.FC<Props> = ({
             className={`mr-2 ${isOpen ? "rotate" : ""}`}
           />
         </button>
-        <span className="toggle-text">לתשלום</span>
+        <button className="toggle-text" onClick={sendOrder}>לתשלום</button>
       </div>
       <div>
         <span className="total-price-bar">{totalPrice}</span>{" "}
