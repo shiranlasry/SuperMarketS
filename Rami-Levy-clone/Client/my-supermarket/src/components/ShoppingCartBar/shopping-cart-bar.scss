@@ -11,17 +11,6 @@
   background-color: #1579f2;
   transition: bottom 0.3s ease;
 
-  @media screen and (max-width: 1940px) {
-    margin-left: 1rem;
-  }
-  @media screen and (max-width: 1800px) {
-    width: 18vw;
-  }
-
-  @media screen and (max-width: 1490px) {
-    width: 250px;
-  }
-
   &.open {
     top: 7rem;
   }

@@ -1,9 +1,9 @@
 $button: #1579f2;
 
 .cart-icon {
-  margin: -7rem 0 0 10rem;
+  margin: -7rem 0 0 10.3rem;
   float: left;
-  width: 130px;
+  width: 135px;
   height: 86px;
   padding-top: 10px;
   text-align: center;
@@ -16,44 +16,49 @@ $button: #1579f2;
   }
 
   @media screen and (max-width: 1900px) {
-    margin: -7rem 0 0 9.5rem;
+    margin: -7rem 0 0 10.5rem;
     width: 125px;
   }
 
   @media screen and (max-width: 1800px) {
-    margin: -7rem 0 0 9.3rem;
+    margin: -7rem 0 0 10.7rem;
     width: 120px;
   }
   @media screen and (max-width: 1730px) {
-    margin: -7rem 0 0 8.9rem;
+    margin: -7rem 0 0 10.7rem;
     width: 115px;
   }
   @media screen and (max-width: 1670px) {
-    margin: -7rem 0 0 8.4rem;
-    width: 110px;
+    margin: -7rem 0 0 11rem;
+    width: 115px;
   }
   @media screen and (max-width: 1590px) {
-    margin: -7rem 0 0 8rem;
-    width: 100px;
+    margin: -7rem 0 0 11rem;
+    width: 115px;
   }
   @media screen and (max-width: 1490px) {
     padding-top: 8px;
-    margin: -7rem 0 0 7.5rem;
-    width: 95px;
+    margin: -7rem 0 0 11.3rem;
+    width: 115px;
   }
   @media screen and (max-width: 1420px) {
-    margin: -7rem 0 0 7.4rem;
-    width: 90px;
+    margin: -7rem 0 0 12rem;
+    width: 115px;
   }
   @media screen and (max-width: 1390px) {
-    margin: -7rem 0 0 7.2rem;
-    width: 88px;
+    margin: -7rem 0 0 12rem;
+    width: 115px;
   }
   @media screen and (max-width: 1320px) {
-    margin: -7rem 0 0 6.8rem;
-    width: 85px;
+    margin: -7rem 0 0 12rem;
+    width: 115px;
   }
   @media screen and (max-width: 1292px) {
+    margin: -7rem 0 0 12rem;
+    width: 115px;
+  }
+
+  @media screen and (max-width: 1000px) {
     display: none;
   }
 

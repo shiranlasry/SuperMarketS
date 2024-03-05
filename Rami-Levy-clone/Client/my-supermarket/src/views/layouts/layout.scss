@@ -1,4 +1,4 @@
-.layout{
+.layout {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -11,12 +11,11 @@
   align-items: center;
   justify-content: center;
 }
-.shopping-cart-container{
+.shopping-cart-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: absolute;
   top: 175px;
   left: 0;
- 
 }
