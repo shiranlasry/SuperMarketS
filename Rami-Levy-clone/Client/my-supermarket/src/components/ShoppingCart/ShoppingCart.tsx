@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
-import "./shopping-cart.scss";
-import {  ProductsList} from "../../rami-types";
+import Logo from "../../assets/logos/rami-levy-online.png";
+import { addNewDeliveryApi } from "../../features/api/deliveriesAPI";
+import { addNewOrderApi, updateOrderApi } from "../../features/api/ordersAPI";
+import { addNewCartApi } from "../../features/cart/cartAPI";
 import {
   activeCartSelector,
   isOpenCartSelector,
   setIsOpenCart,
 } from "../../features/cart/cartSlice";
-import Logo from "../../assets/logos/rami-levy-online.png";
-import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import { productsSelector } from "../../features/products/productsSlice";
-import { addNewOrderApi, updateOrderApi } from "../../features/api/ordersAPI";
-import { addNewDeliveryApi } from "../../features/api/deliveriesAPI";
-import { Cart } from './../../rami-types.d';
-import { addNewCartApi } from "../../features/cart/cartAPI";
+import { ProductsList } from "../../rami-types";
+import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
+import "./shopping-cart.scss";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -26,21 +25,14 @@ const ShoppingCart: React.FC = () => {
     // if (activeCart && activeCart.cartList) {
     //   setTotalPrice(calaTotalPrice(activeCart.cartList));
     // }
-    if (activeCart)
-    {
-      if (activeCart.cartList)
-      {
+    if (activeCart) {
+      if (activeCart.cartList) {
         setTotalPrice(calaTotalPrice(activeCart.cartList));
-      }
-      else
-      {
+      } else {
         setTotalPrice(0);
       }
-  
     }
-
   }, [activeCart]);
-
 
   const toggleCart = () => {
     dispatch(setIsOpenCart());
@@ -57,15 +49,18 @@ const ShoppingCart: React.FC = () => {
   const sendOrder = async () => {
     console.log("Sending order");
     if (activeCart !== null) {
-      const order_id = await (addNewOrderApi(activeCart.cart_id, activeCart.user_id,  new Date()));
+      const order_id = await addNewOrderApi(
+        activeCart.cart_id,
+        activeCart.user_id,
+        new Date()
+      );
       console.log(order_id);
-      const delivery_id = await (addNewDeliveryApi(order_id, new Date()));
+      const delivery_id = await addNewDeliveryApi(order_id, new Date());
       await updateOrderApi(order_id, delivery_id, 2);
-      //set active cart to null and add new cart  
+      //set active cart to null and add new cart
       dispatch(addNewCartApi(activeCart.user_id));
       console.log("Order sent - new cart created", activeCart);
     }
-    
   };
 
   // Function to format the price with main and decimal parts

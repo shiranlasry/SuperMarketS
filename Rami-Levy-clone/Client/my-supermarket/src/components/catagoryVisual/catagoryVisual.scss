@@ -1,7 +1,6 @@
 .category-visual-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  justify-content: space-around;
   padding: 1rem;
 }
 

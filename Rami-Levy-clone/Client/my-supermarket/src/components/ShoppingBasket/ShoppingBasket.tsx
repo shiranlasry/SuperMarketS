@@ -1,5 +1,4 @@
 // ShoppingBasket.tsx
-import React from "react";
 import "./shopping-basket.scss";
 
 const ShoppingBasket = () => {

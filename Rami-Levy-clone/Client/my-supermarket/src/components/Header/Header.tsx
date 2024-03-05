@@ -1,34 +1,34 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
-import UserMenu from "../../components/UserMenu/UserMenu";
-import { getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserAPI";
-import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
-import Login from "../../pages/LogIn/Login";
-import Register from "../../pages/Register/Register";
-import { ProductsList, User } from "../../rami-types";
-import NavBar from "../Navbar/NavBar";
-import NightMode from "../NightMode/NightMode";
-import SearchBar from "../SearchBar/SearchBar";
-import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
-import "../Layout/layout.scss";
 import Logo from "../../assets/logos/rami-levy-online.png";
 import Shopping from "../../assets/logos/rami-levy-shopping.png";
-import { useNavigate } from "react-router-dom";
+import UserMenu from "../../components/UserMenu/UserMenu";
+import {
+  getUserActiveCartApi,
+  getUserActiveCartListApi,
+} from "../../features/cart/cartAPI";
 import {
   activeCartSelector,
   isOpenCartSelector,
   setIsOpenCart,
 } from "../../features/cart/cartSlice";
-import {
-  getUserActiveCartApi,
-  getUserActiveCartListApi,
-} from "../../features/cart/cartAPI";
-import "./Header.scss";
+import { getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserAPI";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import Login from "../../pages/LogIn/Login";
+import Register from "../../pages/Register/Register";
+import { ProductsList, User } from "../../rami-types";
+import "../../views/layouts/layout.scss";
 import CartIcon from "../CartIcon/CartIcon";
-import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import { ClosedCart } from "../ClosedCart/ClosedCart";
+import NavBar from "../Navbar/NavBar";
+import NightMode from "../NightMode/NightMode";
+import SearchBar from "../SearchBar/SearchBar";
+import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
+import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
+import "./Header.scss";
 
 const Header = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
