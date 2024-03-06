@@ -241,7 +241,7 @@ const Header = () => {
 
       {isOpenCart && (
         <>
-          <ClosedCart />
+          {/* ClosedCart component is not rendered when isOpenCart is true */}
           <CartIcon />
           <ShoppingBasket />
         </>
