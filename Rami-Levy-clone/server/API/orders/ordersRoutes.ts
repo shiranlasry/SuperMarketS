@@ -1,5 +1,5 @@
 import express from 'express';
-import { addNewOrder, deleteOrder, getAllOrders, getOrderById, getUserOrdersList, updateOrder } from './ordersCtrl';
+import { addNewOrder, deleteOrder, getAllOrders, getOrderById, getUserOrders,getUserOrderCartDetails, updateOrder } from './ordersCtrl';
 
 const router = express.Router()
 
@@ -9,6 +9,7 @@ router
     .post("/add-new-order", addNewOrder)
     .patch("/update-order", updateOrder)
     .delete("/delete-order", deleteOrder)
-    .get("/get-user-orders-list/:user_id", getUserOrdersList)
+    .get("/get-user-orders/:user_id", getUserOrders)
+    .get("/get-user-order-cart-details/:cart_id", getUserOrderCartDetails)
 
 export default router

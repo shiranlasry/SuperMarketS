@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { OrderForList } from "../../rami-types";
-import { getUserOrdersListAPI } from "./ordersAPI";
+import { Order } from "../../rami-types";
+import { getUserOrdersAPI ,getUserOrderCartDetailsAPI} from "./ordersAPI";
 
 enum Status {
   IDLE = "idle",
@@ -10,7 +10,7 @@ enum Status {
 }
 
 interface OrdersState {
-  ordersList: OrderForList[] | null; // Ensure that ordersList is an array
+  ordersList: Order[] | null; // Ensure that ordersList is an array
   status: Status;
 }
 
@@ -27,16 +27,18 @@ const ordersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getUserOrdersListAPI.pending, (state) => {
+      .addCase(getUserOrdersAPI.pending, (state) => {
         state.status = Status.LOADING;
       })
-      .addCase(getUserOrdersListAPI.fulfilled, (state, action) => {
+      .addCase(getUserOrdersAPI.fulfilled, (state, action) => {
         state.status = Status.IDLE;
         state.ordersList = action.payload; 
       })
-      .addCase(getUserOrdersListAPI.rejected, (state) => {
+      .addCase(getUserOrdersAPI.rejected, (state) => {
         state.status = Status.FAILED;
-      });
+      })
+   
+      ;
   },
 });
 
