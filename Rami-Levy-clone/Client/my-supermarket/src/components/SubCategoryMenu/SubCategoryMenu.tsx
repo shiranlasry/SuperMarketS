@@ -5,6 +5,7 @@ import { get_SUB_FoodCategoriesApi } from "../../features/categories/categoriesA
 import { subFoodCategoriesSelector } from "../../features/categories/categoriesSlice";
 import SubCategoryItem from "../SubCategoryItem/SubCatagoryItem";
 import "./subCategoryMenu.scss";
+import { Link } from "react-router-dom";
 
 interface SubCategoryMenuProps {
   navbarItemId: number | null; // Change prop name to navbarItemId
@@ -67,7 +68,12 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => {
     map.get(category.food_category_id)?.subcategories.push(category);
     return map;
   }, new Map<number, { categoryName: string; subcategories: typeof filteredCategories }>());
+const ShowPruductsByFoodCategory = (categoryData: { categoryName: string; subcategories: typeof filteredCategories },categoryId: number) => {
+  console.log(categoryData);
+  console.log(categoryId);
+  debugger;
 
+}
   return (
     <div
       className="sub-category-menu"
@@ -75,10 +81,16 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => {
       onMouseLeave={handleMouseLeave}
     >
       {Array.from(categoriesMap.entries()).map(
-        ([categoryId, categoryData], index) => (
+        ([foodCategoryId, categoryData], index) => (
           <div key={index} className="category-container">
             <div className="sub-cat-container">
-              <div className="sub-cat-name" onClick={()=>alert("אני מזדיין!")}>{categoryData.categoryName}</div>
+              <div className="sub-cat-name">
+                <Link 
+                to={`/products_by_food_category/${foodCategoryId}/`}>
+                  {categoryData.categoryName}
+                </Link>
+                
+              </div>
               <ul className="sub-cat-items">
                 {categoryData.subcategories
                   .slice(0, 7)

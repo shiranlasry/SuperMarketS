@@ -14,6 +14,7 @@ import PersonalProfil from "./pages/PersonalProfil/PersonalProfil";
 import Register from "./pages/Register/Register";
 import Layout from "./views/layouts/Layout";
 import NavBarItemProducts from "./components/NavBarItem/NavBarItemProducts/NavBarItemProducts";
+import ProductsByFoodCategory from "./components/ProductsByFoodCategory/ProductsByFoodCategory";
 function App() {
   const router = createBrowserRouter([
     {
@@ -37,6 +38,7 @@ function App() {
         { path: "/add_new_food_category", element: <AddNewFoodCategory /> },
         {path:"/personal_profil" , element :<PersonalProfil/>},
         {path:"/navbar_item_products/:navbar_item_id/:title" , element :<NavBarItemProducts/>},
+        {path:"/products_by_food_category/:food_category_id/" , element :<ProductsByFoodCategory/>}
       ],
     },
   ]);
