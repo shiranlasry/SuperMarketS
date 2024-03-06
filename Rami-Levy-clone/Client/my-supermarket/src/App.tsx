@@ -14,6 +14,7 @@ import PersonalProfil from "./pages/PersonalProfil/PersonalProfil";
 import Register from "./pages/Register/Register";
 import Layout from "./views/layouts/Layout";
 import NavBarItemProducts from "./components/NavBarItem/NavBarItemProducts/NavBarItemProducts";
+import UserOrders from "./pages/PersonalProfil/UserOrders/UserOrders";
 function App() {
   const router = createBrowserRouter([
     {
@@ -36,7 +37,8 @@ function App() {
         { path: "/*", element: <ErrorPage /> },
         { path: "/add_new_food_category", element: <AddNewFoodCategory /> },
         {path:"/personal_profil" , element :<PersonalProfil/>},
-        {path:"/navbar_item_products/:navbar_item_id" , element :<NavBarItemProducts/>},
+        { path: "/navbar_item_products/:navbar_item_id", element: <NavBarItemProducts /> },
+        { path: "/user_orders", element: <UserOrders /> },
       ],
     },
   ]);
