@@ -33,6 +33,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         (p) => p.product_id === product.product_id
       );
       if (productInCart) {
+        console.log("in product card",productInCart.product_amount);
         setQuantity(productInCart.product_amount);
       } else {
         setQuantity(0);

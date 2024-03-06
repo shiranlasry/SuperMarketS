@@ -15,14 +15,14 @@ import axios from "axios";
 //     }
 // }
 
-export const updateCartAPI = async (cart_id: number, status_id: number, user_id:number, list_id:number) => {
+export const updateCartAPI = async (cart_id: number, status_id: number) => {
     try {
-        const response = await axios.patch("/api/carts/update-cart", { cart_id, status_id, user_id, list_id });
+        const response = await axios.patch("/api/carts/update-cart", { cart_id, status_id});
         const { ok, results } = response.data;
         if (!ok) {
             throw new Error("Invalid credentials updateCart()");
         }
-        alert("הסל עודכן בהצלחה")
+        console.log("הסטטוס עודכן בהצלחה")
         return { ok, results };
     } catch (error) {
         console.error("Error updateCart:", error);
