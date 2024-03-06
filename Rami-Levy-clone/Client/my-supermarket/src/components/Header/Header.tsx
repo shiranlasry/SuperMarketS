@@ -104,7 +104,7 @@ const Header = () => {
   };
 
   return (
-    <div className="sub-categories-main">
+    <div className="header-main">
       <button className="to-main-navBar" onClick={() => navigate("/")}>
         <img className="rami-online" src={Logo} alt="Rami Levy Online" />
       </button>
