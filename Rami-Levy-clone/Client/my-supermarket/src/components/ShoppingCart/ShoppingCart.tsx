@@ -14,6 +14,7 @@ import { ProductsList } from "../../rami-types";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./shopping-cart.scss";
 import { updateCartAPI } from "../../features/api/cartsAPI";
+import { get } from "http";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -81,6 +82,8 @@ const ShoppingCart: React.FC = () => {
   const convertToBase64 = (imageString: string) => {
     return btoa(String.fromCharCode(...new Uint8Array(imageString)));
   };
+
+  console.log("all products",  allProducts);
 
   return (
     <div className={`shopping-cart`}>
