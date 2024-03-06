@@ -78,7 +78,7 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => {
         ([categoryId, categoryData], index) => (
           <div key={index} className="category-container">
             <div className="sub-cat-container">
-              <div className="sub-cat-name">{categoryData.categoryName}</div>
+              <div className="sub-cat-name" onClick={()=>alert("אני מזדיין!")}>{categoryData.categoryName}</div>
               <ul className="sub-cat-items">
                 {categoryData.subcategories
                   .slice(0, 7)

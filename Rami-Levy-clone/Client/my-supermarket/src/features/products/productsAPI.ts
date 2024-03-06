@@ -42,7 +42,7 @@ export const getProductsByNavBarItemIdAPI = createAsyncThunk<Product[] | null, n
         if (!ok) {
             throw new Error("Invalid credentials getProductsByNavBarItemId()");
         }
-        
+        debugger;
         return results;
     } catch (error) {
         console.error(error);
