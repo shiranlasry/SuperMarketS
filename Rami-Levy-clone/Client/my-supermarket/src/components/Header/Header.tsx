@@ -236,6 +236,7 @@ const Header = () => {
           totalPrice={totalPrice}
           isOpen={isOpenCart}
           toggleCart={toggleCart}
+          // sendOrder={sendOrder}
         />
       )}
 

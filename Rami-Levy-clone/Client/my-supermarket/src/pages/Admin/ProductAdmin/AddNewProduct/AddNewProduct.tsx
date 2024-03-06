@@ -40,6 +40,8 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
     sub_food_category_name: "",
     food_category_id: null,
     food_category_name: "",
+    navbar_item_id: null,
+    navbar_item_name: "",
     product_price: null,
     product_name: "",
     product_description: "",
