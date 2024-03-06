@@ -15,6 +15,8 @@ import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./shopping-cart.scss";
 import { updateCartAPI } from "../../features/api/cartsAPI";
 import { get } from "http";
+import { all } from "axios";
+import { getAllProductsApi } from "../../features/products/productsAPI";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -23,10 +25,13 @@ const ShoppingCart: React.FC = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useAppDispatch();
 
+
+  useEffect(()=>{
+    if(!allProducts){
+      dispatch(getAllProductsApi())
+    }
+  },[])
   useEffect(() => {
-    // if (activeCart && activeCart.cartList) {
-    //   setTotalPrice(calaTotalPrice(activeCart.cartList));
-    // }
     if (activeCart) {
       if (activeCart.cartList) {
         setTotalPrice(calaTotalPrice(activeCart.cartList));
