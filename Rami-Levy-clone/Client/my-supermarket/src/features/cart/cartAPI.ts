@@ -1,23 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { CartItem, ProductsList } from "../../rami-types";
-import { Cart } from './../../rami-types.d';
 
-//   "addNewCartProductApi",
-//   async (cartProduct) => {
-//     try {
-//       const response = await axios.post("/api/carts/add-new-cart-product", cartProduct);
-//       const { ok, results } = response.data;
-//       if (!ok) {
-//         throw new Error("Invalid credentials addNewCartProductApi()");
-//       }
-//       return results;
-//     } catch (error) {
-//       console.error(error);
-//       return null;
-//     }
-//   }
-// );
+
+
 export const addNewCartApi = createAsyncThunk<CartItem | null ,number>(
   "addNewCartApi",
   async (user_id) => {

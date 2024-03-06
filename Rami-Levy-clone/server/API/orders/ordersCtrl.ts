@@ -152,3 +152,30 @@ export const deleteOrder = async (req: express.Request, res: express.Response) =
         res.status(500).send({ ok: false, error })
     }
 }
+
+export const getUserOrdersList = async (req: express.Request, res: express.Response) => {
+    try {
+        const { user_id } = req.params
+        if (!user_id) {
+            res.status(400).send({ ok: false, error: 'missing required fields' })
+            return
+        }
+        const query = `SELECT o.order_creation_date, l.product_id, l.product_amount, o.cart_id
+        FROM orders o
+        INNER JOIN lists l 
+        ON o.cart_id = l.cart_id
+        WHERE o.user_id = 23;`
+        connection.query(query, [user_id], (err, results, fields) => {
+            try {
+                if (err) throw err;
+                res.send({ ok: true, results })
+            } catch (error) {
+                console.error(error)
+                res.status(500).send({ ok: false, error })
+            }
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+    }
+}

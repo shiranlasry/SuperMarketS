@@ -82,11 +82,6 @@ export interface Product  {
     is_default:boolean;
     address_name: string;
   };
-  export interface CartItem{
-    cart__id: number;
-    user_id: number;
-    status_id: number;
-  }
 
   export interface City {
     city_id: number;
@@ -159,11 +154,18 @@ export interface Cart {
 
 export interface Order {
   order_id: number;
-  cart_id: number;
+  cart: CartItem;
   user_id: number;
   delivery_id: number;
   order_creation_date: Date;
   status_id: number;
+}
+
+export interface OrderForList{
+  order_creation_date: string;
+  cart_id: number | null;
+  product_amount: number | null;
+  product_id: number | null;
 }
 
 export interface Delivery {

@@ -6,11 +6,13 @@ import UserAddress from "./UserAddress/UserAddress";
 import UserDetails from "./UserDetails/UserDetails";
 import "./personal-profil.scss";
 import AddPaymentMethod from "./UserPayment/UserPayment";
+import UserOrders from "./UserOrders/UserOrders";
 
 const PersonalProfil = () => {
   const [showUserDetails, setShowUserDetails] = useState(false);
   const [showUserAddress, setShowUserAddress] = useState(false);
   const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
+  const [showOrders, setShowOrders] = useState(false);
   const [activeButton, setActiveButton] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -22,16 +24,25 @@ const PersonalProfil = () => {
         setShowUserDetails(true);
         setShowUserAddress(false);
         setShowAddPaymentMethod(false);
+        setShowOrders(false);
         break;
       case "userAddress":
         setShowUserDetails(false);
         setShowUserAddress(true);
         setShowAddPaymentMethod(false);
+        setShowOrders(false);
         break;
       case "addPaymentMethod":
         setShowUserDetails(false);
         setShowUserAddress(false);
         setShowAddPaymentMethod(true);
+        setShowOrders(false);
+        break;
+      case "orders":
+        setShowUserDetails(false);
+        setShowUserAddress(false);
+        setShowAddPaymentMethod(false);
+        setShowOrders(true);
         break;
       default:
         // Handle default case if necessary
@@ -185,7 +196,8 @@ const PersonalProfil = () => {
           </svg>
           <p>תשלום</p>
         </button>
-        <button className="personal-details-btn">
+        <button className="personal-details-btn"
+          onClick={() => handleButtonClick("orders")}>
           <svg
             data-v-6f1b17ad=""
             xmlns="http://www.w3.org/2000/svg"
@@ -375,6 +387,7 @@ const PersonalProfil = () => {
         {showUserDetails && <UserDetails />}
         {showUserAddress && <UserAddress />}
         {showAddPaymentMethod && <AddPaymentMethod />}
+        { showOrders && <UserOrders />}
       </div>
       <div className="Personal-profil-lists"></div>
     </div>
