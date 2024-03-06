@@ -13,6 +13,7 @@ import { productsSelector } from "../../features/products/productsSlice";
 import { ProductsList } from "../../rami-types";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./shopping-cart.scss";
+import { updateCartAPI } from "../../features/api/cartsAPI";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -46,24 +47,27 @@ const ShoppingCart: React.FC = () => {
     return totalPrice;
   };
 
+  const createNewCart = async () => {
+    if (activeCart !== null) {
+      dispatch(addNewCartApi(activeCart.user_id));
+      window.location.reload();
+    }
+  }
+
   const sendOrder = async () => {
-    console.log("Sending order");
     if (activeCart !== null) {
       const order_id = await addNewOrderApi(
         activeCart.cart_id,
         activeCart.user_id,
         new Date()
       );
-      console.log(order_id);
       const delivery_id = await addNewDeliveryApi(order_id, new Date());
       await updateOrderApi(order_id, delivery_id, 2);
-      //set active cart to null and add new cart
-      dispatch(addNewCartApi(activeCart.user_id));
-      console.log("Order sent - new cart created", activeCart);
+      await updateCartAPI(activeCart.cart_id, 2);
+      createNewCart();
     }
   };
 
-  // Function to format the price with main and decimal parts
   const formatPrice = (price: number) => {
     const [main, decimal] = price.toFixed(2).split(".");
     return (

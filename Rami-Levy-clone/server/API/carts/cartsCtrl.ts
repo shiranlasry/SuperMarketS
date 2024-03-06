@@ -12,6 +12,7 @@ export const getUserActiveCart = async (req: express.Request, res: express.Respo
             return
         }
         const query = "SELECT * FROM  rami_levy_db.carts WHERE user_id = ? AND status_id = 1;"
+    
         connection.query(query, [user_id], (err, results, fields) => {
             try {
                 if (err) throw err;
@@ -218,13 +219,13 @@ export const deleteCart = async (req: express.Request, res: express.Response) =>
 
 export const updateCart = async (req: express.Request, res: express.Response) => {
     try {
-        const { cart_id, list_id, user_id, status_id } = req.body
-        if (!cart_id || !list_id || !user_id || !status_id) {
+        const { cart_id, status_id } = req.body
+        if (!cart_id   || !status_id) {
             res.status(400).send({ ok: false, error: 'missing required fields' })
             return
         }
-        const query = "UPDATE rami_levy_db.carts SET list_id = ?, user_id = ?, status_id = ? WHERE cart_id = ?;"
-        connection.query(query, [list_id, user_id, status_id, cart_id], (err, results, fields) => {
+        const query = "UPDATE rami_levy_db.carts SET status_id = ? WHERE cart_id = ?;"
+        connection.query(query, [status_id, cart_id], (err, results, fields) => {
             try {
                 if (err) throw err;
                 res.send({ ok: true, results })
