@@ -7,6 +7,7 @@ import Logo from "../../assets/logos/rami-levy-online.png";
 import Shopping from "../../assets/logos/rami-levy-shopping.png";
 import UserMenu from "../../components/UserMenu/UserMenu";
 import {
+  addNewCartApi,
   getUserActiveCartApi,
   getUserActiveCartListApi,
 } from "../../features/cart/cartAPI";
@@ -29,6 +30,9 @@ import SearchBar from "../SearchBar/SearchBar";
 import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./Header.scss";
+import { addNewOrderApi, updateOrderApi } from "../../features/api/ordersAPI";
+import { addNewDeliveryApi } from "../../features/api/deliveriesAPI";
+import { updateCartAPI } from "../../features/api/cartsAPI";
 
 const Header = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
@@ -102,7 +106,25 @@ const Header = () => {
     setShowRegisterModal(false);
     setShowLoginModal(true);
   };
-
+  const sendOrder = async () => {
+    if (activeCart !== null) {
+      const order_id = await addNewOrderApi(
+        activeCart.cart_id,
+        activeCart.user_id,
+        new Date()
+      );
+      const delivery_id = await addNewDeliveryApi(order_id, new Date());
+      await updateOrderApi(order_id, delivery_id, 2);
+      await updateCartAPI(activeCart.cart_id, 2);
+      createNewCart();
+    }
+  };
+  const createNewCart = async () => {
+    if (activeCart !== null) {
+      dispatch(addNewCartApi(activeCart.user_id));
+      window.location.reload();
+    }
+  }
   return (
     <div className="header-main">
       <button className="to-main-navBar" onClick={() => navigate("/")}>
@@ -236,7 +258,7 @@ const Header = () => {
           totalPrice={totalPrice}
           isOpen={isOpenCart}
           toggleCart={toggleCart}
-          // sendOrder={sendOrder}
+           sendOrder={sendOrder}
         />
       )}
 
