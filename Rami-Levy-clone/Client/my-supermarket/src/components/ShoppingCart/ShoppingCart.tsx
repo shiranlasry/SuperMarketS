@@ -14,7 +14,8 @@ import { ProductsList } from "../../rami-types";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./shopping-cart.scss";
 import { updateCartAPI } from "../../features/api/cartsAPI";
-import { get } from "http";
+import { getAllProductsApi } from "../../features/products/productsAPI";
+
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -24,9 +25,13 @@ const ShoppingCart: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // if (activeCart && activeCart.cartList) {
-    //   setTotalPrice(calaTotalPrice(activeCart.cartList));
-    // }
+    if (!allProducts) {
+      // Fetch all products from the server
+       dispatch(getAllProductsApi());
+      
+    }
+  }, []);
+  useEffect(() => {
     if (activeCart) {
       if (activeCart.cartList) {
         setTotalPrice(calaTotalPrice(activeCart.cartList));
