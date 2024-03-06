@@ -44,6 +44,8 @@ export interface Product  {
   product_inventory: Inventories | null;
   food_category_id: number | null;
   food_category_name: string;
+  navbar_item_id: number | null;
+  navbar_item_name: string;
   product_price: number | null;
   product_name: string;
   product_description: string;

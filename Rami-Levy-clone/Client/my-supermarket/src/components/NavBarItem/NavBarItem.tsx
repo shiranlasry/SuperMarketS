@@ -17,7 +17,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ item }) => {
     icon_src: iconSrc,
     active_icon_src: activeIconSrc,
     navbar_item_id,
-    to,
+  
   } = item;
   const [isActive, setIsActive] = useState(false);
   const [selectedNavbarItemID, setSelectedNavbarItemID] = useState<
@@ -53,7 +53,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ item }) => {
       onMouseLeave={handleMouseLeave} // Add mouse leave event handler
     >
       <NavLink
-      to={`/navbar_item_products/${navbar_item_id}`} 
+      to={`/navbar_item_products/${navbar_item_id}/${label}`} 
         className={`nav-link${isActive ? " active" : ""}`}
         onClick={() =>{setIsActive(!isActive)
           dispatch(getProductsByNavBarItemIdAPI(Number(navbar_item_id)))
