@@ -25,14 +25,13 @@ const ShoppingCartBar: React.FC<Props> = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const toPayPressed = async () => {
-    debugger;
-     await dispatch(setIsToPayPressedTrue());
+    await dispatch(setIsToPayPressedTrue());
     navigate("/check_out_offers");
   };
-  const goToCheckoutOffers = () => {
+  const goToCheckout = () => {
     debugger;
   };
-  
+
   return (
     <div
       className={`shopping-cart-bar text-white d-flex justify-content-between align-items-center p-2 ${
@@ -60,12 +59,11 @@ const ShoppingCartBar: React.FC<Props> = ({
         </>
       )}
 
-      {
-        isToPayPressed && 
-        <button className={`toggle-pay-text `} onClick={goToCheckoutOffers}>
-        תשלום
-      </button>
-      }
+      {isToPayPressed && (
+        <button className={`toggle-pay-text `} onClick={goToCheckout}>
+          תשלום
+        </button>
+      )}
     </div>
   );
 };
