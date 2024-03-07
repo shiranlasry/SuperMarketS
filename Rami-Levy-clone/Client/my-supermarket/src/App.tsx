@@ -20,7 +20,11 @@ import ProductsByFoodCategory from "./components/ProductsByFoodCategory/Products
 
 =======
 import CheckOutOffers from "./components/CheckOutOffers/CheckOutOffers";
+<<<<<<< HEAD
 
+=======
+import SalesList from "./components/SalesList/SalesList";
+>>>>>>> 3f14898 (sales)
 function App() {
   const router = createBrowserRouter([
     {
@@ -62,6 +66,9 @@ function App() {
         {path:"/products_by_food_category/:food_category_id/" , element :<ProductsByFoodCategory/>},
         {path:"/check_out_offers" , element :<CheckOutOffers/>}
 
+        {path:"/check_out_offers" , element :<CheckOutOffers/>},
+        { path: "/products_by_food_category/:food_category_id/", element: <ProductsByFoodCategory /> },
+        {path:"/sales" , element :<SalesList/>},
       ],
     },
   ]);
