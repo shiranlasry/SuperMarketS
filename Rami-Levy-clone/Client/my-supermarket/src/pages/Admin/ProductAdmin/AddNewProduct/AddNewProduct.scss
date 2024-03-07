@@ -1,18 +1,24 @@
-.add-new-product-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+$button: #1579f2;
 
-  h1.add-new-product {
+.add-new-product-container {
+  margin: auto;
+  padding: 2rem;
+  justify-content: center;
+  text-align: center;
+  width: fit-content;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  .new-product-title {
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
+    color: $button;
   }
 
   form {
+    max-width: 3020px;
     label {
       display: block;
       margin-bottom: 5px;
@@ -23,12 +29,14 @@
     input[type="number"],
     textarea,
     select {
-      width: 100%;
-      padding: 7px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
+      width: 350px;
+      margin-bottom: 0.4rem;
+      background-color: #f3f5f8;
+      border: none;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 7px;
+      padding: 8px;
 
       &:focus {
         outline: none;
