@@ -9,6 +9,7 @@ import productsReducer from "../features/products/productsSlice"
 import navbarReducer from "../features/navbar_items/navbarItemsSlice"
 import roleRducer from "../features/roles/rolesSlice"
 import ordersReducer from "../features/orders/ordersSlice";
+import salesReducer from "../features/sales/salesSlice";
 export const store = configureStore({
   reducer: {
     loggedInUser: loggesInUserReducer,
@@ -21,6 +22,7 @@ export const store = configureStore({
     roles: roleRducer,
     orders: ordersReducer,
     cart: cartReducer, // Include the cart reducer here
+    sales: salesReducer,
   },
 });
 
