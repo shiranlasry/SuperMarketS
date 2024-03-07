@@ -27,7 +27,7 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
     apartment: null,
     zip_code: "",
     phone_number: "",
-    is_default: false,
+    is_default: true,
     address_name: "",
   };
 

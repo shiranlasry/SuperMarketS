@@ -1,6 +1,7 @@
 //users routes server side
 import express from "express";
 import { addNewUserAddress,getUserAddresses } from "./addressesCtrl";
+import { isAdminUserUpdate } from "../middlewares/authMiddleware";
 
 
 
@@ -8,8 +9,8 @@ import { addNewUserAddress,getUserAddresses } from "./addressesCtrl";
 const router = express.Router()
 
 router
-.post("/add-new-address", addNewUserAddress)
-.get("/get-user-addresses/:user_id", getUserAddresses)
+.post("/add-new-address",isAdminUserUpdate, addNewUserAddress)
+.get("/get-user-addresses/:user_id",isAdminUserUpdate, getUserAddresses)
 
 
 export default router
