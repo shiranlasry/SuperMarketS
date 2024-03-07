@@ -22,12 +22,13 @@ import { useNavigate } from "react-router";
 import "./AddNewProduct.scss";
 import { getAllProductsApi } from "../../../../features/products/productsAPI";
 
+import RamiBtn from "./../../../../components/RamiBtn/RamiBtn";
+
 interface AddNewProductProps {
   onClose: () => void;
-
 }
 
-const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
+const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
   const initialProduct: Product = {
     product_id: null,
     sub_food_category_id: null,
@@ -79,22 +80,21 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
     const { name, value } = e.target;
     setNewProduct({ ...newProduct, [name]: value });
   };
- const handleReset = () => {
+  const handleReset = () => {
     setNewProduct(initialProduct);
     setUploadedImages([]);
     setImagesProductFiles([]);
     setAdd(0);
- }
+  };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     setImagesProductFiles(files ? Array.from(files) : []);
     // Check if number of selected files exceeds 2
-  if (files && files.length > 2) {
-    setImgsValidation(true);
-  }
-  else {
-    setImgsValidation(false); 
-  }
+    if (files && files.length > 2) {
+      setImgsValidation(true);
+    } else {
+      setImgsValidation(false);
+    }
 
     // Display uploaded images
     if (files && files.length > 0) {
@@ -108,7 +108,6 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
   const handelAddNewProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      
       if (imgsValidation) {
         alert("אנא בחר עד 2 תמונות");
         return;
@@ -120,7 +119,6 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
       await addNewProductInventory(insertProductId, add);
       // need to save images to server
       if (imagesProductFiles && imagesProductFiles.length > 0) {
-
         await saveProductImages(insertProductId, imagesProductFiles);
       }
 
@@ -134,9 +132,8 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
 
   return (
     <div className="add-new-product-container">
-      <h1 className="add-new-product">הוספת מוצר חדש</h1>
-      <form onSubmit={handelAddNewProduct}>
-        <label htmlFor="food_category_id">קטגורית מזון ראשית:</label>
+      <h1 className="new-product-title">הוספת מוצר חדש</h1>
+      <form className="new-prod-form" onSubmit={handelAddNewProduct}>
         <select
           id="food_category_id"
           name="food_category_id"
@@ -187,121 +184,123 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
           </>
         )}
 
-        <label htmlFor="product_name">שם המוצר:</label>
         <input
           type="text"
           id="product_name"
           name="product_name"
+          placeholder="שם המוצר"
           value={newProduct.product_name}
           onChange={handleInputChange}
           required
         />
 
         {/* Product Description */}
-        <label htmlFor="product_description">תיאור המוצר:</label>
         <textarea
           id="product_description"
           name="product_description"
+          placeholder="תיאור המוצר"
           value={newProduct.product_description}
           onChange={handleInputChange}
           required
         ></textarea>
 
         {/* Product Price */}
-        <label htmlFor="product_price">מחיר המוצר:</label>
         <input
           type="number"
           id="product_price"
           name="product_price"
+          placeholder="מחיר מוצר"
           value={newProduct.product_price || ""}
           onChange={handleInputChange}
           required
         />
 
         {/* Export Country */}
-        <label htmlFor="export_country">מדינת ייצוא:</label>
         <input
           type="text"
           id="export_country"
           name="export_country"
+          placeholder="מדינת ייצוא"
           value={newProduct.export_country}
           onChange={handleInputChange}
         />
 
         {/* Brand */}
-        <label htmlFor="brand">מותג:</label>
         <input
           type="text"
           id="brand"
           name="brand"
+          placeholder="מותג"
           value={newProduct.brand}
           onChange={handleInputChange}
         />
 
         {/* Content */}
-        <label htmlFor="content">תכולה:</label>
         <input
           type="text"
           id="content"
           name="content"
+          placeholder="תכולה"
           value={newProduct.content}
           onChange={handleInputChange}
         />
 
         {/* Allergy Information */}
-        <label htmlFor="allergy_info">מידע על אלרגנים:</label>
         <input
           type="text"
           id="allergy_info"
           name="allergy_info"
+          placeholder="מידע על אלרגנים"
           value={newProduct.allergy_info}
           onChange={handleInputChange}
         />
         {/* Product Components */}
-        <label htmlFor="product_components">רכיבי המוצר:</label>
         <input
           type="text"
           id="product_components"
           name="product_components"
+          placeholder="רכיבי המוצר"
           value={newProduct.product_components}
           onChange={handleInputChange}
         />
-          
-          {/* Serving Suggestion */}
-        <label htmlFor="serving_suggestion"> הצעת הגשה:</label>
+
+        {/* Serving Suggestion */}
+
         <input
           type="text"
           id="serving_suggestion"
           name="serving_suggestion"
+          placeholder="הצעת הגשה"
           value={newProduct.serving_suggestion}
           onChange={handleInputChange}
         />
         {/* Type */}
-        <label htmlFor="type">סוג המוצר:</label>
+
         <input
           type="text"
           id="type"
           name="type"
+          placeholder="סוג מוצר"
           value={newProduct.type}
           onChange={handleInputChange}
         />
 
         {/* Israel Milk */}
-        <label htmlFor="israel_milk">חלב ישראלי:</label>
         <input
           type="text"
           id="israel_milk"
           name="israel_milk"
+          placeholder="חלב ישראלי"
           value={newProduct.israel_milk}
           onChange={handleInputChange}
         />
 
         {/* Kosher */}
-        <label htmlFor="cosher">כשרות:</label>
         <input
           type="text"
           id="cosher"
           name="cosher"
+          placeholder="כשרות"
           value={newProduct.cosher}
           onChange={handleInputChange}
         />
@@ -339,9 +338,9 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
             onChange={(e) => setAdd(+e.target.value)}
           />
         </div>
-        <button type="submit">שלח</button>
-        <button type="reset"  onClick={handleReset}>נקה</button>
-        <button onClick={onClose}>בטל</button>
+        <RamiBtn type="submit">שלח</RamiBtn>
+        <RamiBtn onClick={handleReset}>נקה</RamiBtn>
+        <RamiBtn onClick={onClose}>בטל</RamiBtn>
       </form>
     </div>
   );
