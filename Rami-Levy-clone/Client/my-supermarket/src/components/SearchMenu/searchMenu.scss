@@ -1,0 +1,93 @@
+.search-menu-container {
+    position: relative;
+    /* Ensure relative positioning */
+    top: 100%;
+    /* Position it below the search bar */
+    left: 45%;
+    width: 50vw;
+    /* Set the width to 50% of the viewport width */
+    background-color: white;
+    /* Set the background color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Add a box shadow for a nice effect */
+
+    .name-list {
+        ul {
+            font-weight: 600;
+            font-size: 1.2rem;
+            list-style-type: none;
+            /* Remove bullet points */
+            padding: 0;
+
+            li {
+                /* Styling for each name */
+                margin-bottom: 0.5rem;
+                /* Add some spacing between names */
+                padding: 0.5rem;
+                /* Add padding */
+                border-radius: 5px;
+                /* Add border radius for rounded corners */
+
+                &:hover {
+                    background-color: #c7c7c717;
+                    /* Darker background color on hover */
+                    cursor: pointer;
+                    /* Add a pointer on hover */
+                    border-radius: 10px
+                }
+            }
+        }
+    }
+
+
+    .search-menu {
+        position: absolute;
+        top: calc(100% + 10px);
+        /* Adjust the distance from the search bar */
+        max-width: 65vw;
+        height: 80vh;
+        /* Maximum height of 50vh */
+        /* Enable scrolling if the content exceeds 50vh */
+        background-color: white;
+        /* Example background color */
+        border: 1px solid #ccc;
+        /* Example border */
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        /* Example box shadow */
+        z-index: 1000;
+        /* Ensure it's above other elements */
+        display: flex;
+        flex-wrap: wrap;
+        overflow-y: scroll;
+
+        .product-list {
+            position: relative;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+
+            .product-card {
+               
+            }
+
+
+        }
+
+        .name-list {
+
+            /* Styling for the name list */
+            ul {
+                list-style-type: none;
+                /* Remove bullet points */
+                padding: 0;
+
+                li {
+                    /* Styling for each name */
+                    margin-bottom: 0.5rem;
+                    /* Add some spacing between names */
+                }
+            }
+        }
+    }
+}
