@@ -55,12 +55,20 @@ function App() {
           path: "/products_by_food_category/:food_category_id/",
           element: <ProductsByFoodCategory />,
         },
-
         {path:"/navbar_item_products/:navbar_item_id/:title" , element :<NavBarItemProducts/>},
         {path:"/products_by_food_category/:food_category_id/" , element :<ProductsByFoodCategory/>},
         {path:"/check_out_offers" , element :<CheckOutOffers/>},
         { path: "/products_by_food_category/:food_category_id/", element: <ProductsByFoodCategory /> },
         {path:"/sales" , element :<SalesList/>},
+        {
+          path: "/navbar_item_products/:navbar_item_id/:title",
+          element: <NavBarItemProducts />,
+        },
+        {
+          path: "/products_by_food_category/:food_category_id/",
+          element: <ProductsByFoodCategory />,
+        },
+        { path: "/check_out_offers", element: <CheckOutOffers /> },
       ],
     },
   ]);
