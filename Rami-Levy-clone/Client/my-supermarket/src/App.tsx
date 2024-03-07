@@ -16,19 +16,9 @@ import Layout from "./views/layouts/Layout";
 import NavBarItemProducts from "./components/NavBarItem/NavBarItemProducts/NavBarItemProducts";
 import UserOrders from "./pages/PersonalProfil/UserOrders/UserOrders";
 import ProductsByFoodCategory from "./components/ProductsByFoodCategory/ProductsByFoodCategory";
-<<<<<<< HEAD
-
-
-=======
 import CheckOutOffers from "./components/CheckOutOffers/CheckOutOffers";
-<<<<<<< HEAD
+import SalesList from "./components/SalesList/SalesList";
 
-=======
-import SalesList from "./components/SalesList/SalesList";
->>>>>>> 3f14898 (sales)
-=======
-import SalesList from "./components/SalesList/SalesList";
->>>>>>> d380f1a (sales)
 function App() {
   const router = createBrowserRouter([
     {
@@ -68,8 +58,6 @@ function App() {
 
         {path:"/navbar_item_products/:navbar_item_id/:title" , element :<NavBarItemProducts/>},
         {path:"/products_by_food_category/:food_category_id/" , element :<ProductsByFoodCategory/>},
-        {path:"/check_out_offers" , element :<CheckOutOffers/>}
-
         {path:"/check_out_offers" , element :<CheckOutOffers/>},
         { path: "/products_by_food_category/:food_category_id/", element: <ProductsByFoodCategory /> },
         {path:"/sales" , element :<SalesList/>},
