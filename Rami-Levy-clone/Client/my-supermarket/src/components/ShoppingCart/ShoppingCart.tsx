@@ -16,9 +16,11 @@ import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./shopping-cart.scss";
 import { updateCartAPI } from "../../features/api/cartsAPI";
 import { getAllProductsApi } from "../../features/products/productsAPI";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 
 
 const ShoppingCart: React.FC = () => {
+  const loggedInUser = useAppSelector(loggedInUserSelector);
   const activeCart = useAppSelector(activeCartSelector);
   const isOpenCart: boolean = useAppSelector(isOpenCartSelector);
   const isToPayPressed: boolean = useAppSelector(isToPayPressedSelector);
@@ -89,48 +91,67 @@ const ShoppingCart: React.FC = () => {
     return btoa(String.fromCharCode(...new Uint8Array(imageString)));
   };
 
-  console.log("all products",  allProducts);
-
   return (
     <div className={`shopping-cart`}>
       <img className="rami-online-cart" src={Logo} alt="Rami Levy Online" />
+      {!isToPayPressed &&
       <ul className="cart-content">
-        {activeCart &&
-          activeCart.cartList &&
-          activeCart.cartList.map((cartProduct) => {
-            // Find the product corresponding to the cart product
-            if (allProducts) {
-              const product = allProducts.find(
-                (product) => product.product_id === cartProduct.product_id
-              );
-              if (product) {
-                return (
-                  <li className="cart-item" key={cartProduct.cart_id}>
-                    <div className="product-details-cart">
-                      <img
-                        src={`data:image/jpeg;base64,${convertToBase64(
-                          product.product_img_data_a.data
-                        )}`}
-                        alt={product.product_name}
-                      />
-                      <h5 className="prod-name-cart">{product.product_name}</h5>
-                      {/* Render SVG image */}
+      {activeCart &&
+        activeCart.cartList &&
+        activeCart.cartList.map((cartProduct) => {
+          // Find the product corresponding to the cart product
+          if (allProducts) {
+            const product = allProducts.find(
+              (product) => product.product_id === cartProduct.product_id
+            );
+            if (product) {
+              return (
+                <li className="cart-item" key={cartProduct.cart_id}>
+                  <div className="product-details-cart">
+                    <img
+                      src={`data:image/jpeg;base64,${convertToBase64(
+                        product.product_img_data_a.data
+                      )}`}
+                      alt={product.product_name}
+                    />
+                    <h5 className="prod-name-cart">{product.product_name}</h5>
+                    {/* Render SVG image */}
 
-                      <p className="cart-items-price">
-                        {" "}
-                        {formatPrice(
-                          product.product_price * cartProduct.product_amount
-                        )}{" "}
-                        ₪
-                      </p>
-                    </div>
-                  </li>
-                );
-              }
-              return null; // Skip rendering if product is not found
+                    <p className="cart-items-price">
+                      {" "}
+                      {formatPrice(
+                        product.product_price * cartProduct.product_amount
+                      )}{" "}
+                      ₪
+                    </p>
+                  </div>
+                </li>
+              );
             }
-          })}
-      </ul>
+            return null; // Skip rendering if product is not found
+          }
+        })}
+    </ul>}
+    {isToPayPressed &&
+    <ul className="cart-content">
+     {isToPayPressed && (
+  <ul className="cart-content">
+    {loggedInUser && (
+      <div className="row align-items-center">
+        <div className="col">
+          <p>{loggedInUser.first_name} {loggedInUser.last_name}</p>
+        </div>
+        <div className="col">
+          <button className="btn btn-primary">שינוי</button>
+        </div>
+      </div>
+    )}
+  </ul>
+)}
+
+    </ul>
+    }
+      
       <ShoppingCartBar
         totalPrice={totalPrice}
         isOpen={isOpenCart}
