@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { loggedInUserSelector } from '../../../../features/logged_in_user/loggedInUserSlice';
 import './AddressCard.scss';
-import { useAppDispatch } from '../../../../app/hook';
+import { useAppDispatch, useAppSelector } from '../../../../app/hook';
 import { getUserAddressesApi } from '../../../../features/logged_in_user/loggedInUserAPI';
 const AddressCard = () => {
-    const loggedInUser = useSelector(loggedInUserSelector);
+    const loggedInUser = useAppSelector(loggedInUserSelector);
     const dispatch = useAppDispatch();
     useEffect(() => {
         if (loggedInUser && loggedInUser.user_id) {

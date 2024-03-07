@@ -17,6 +17,7 @@ import "./shopping-cart.scss";
 import { updateCartAPI } from "../../features/api/cartsAPI";
 import { getAllProductsApi } from "../../features/products/productsAPI";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import CartSummery from "./CartSummery/CartSummery";
 
 
 const ShoppingCart: React.FC = () => {
@@ -119,9 +120,9 @@ const ShoppingCart: React.FC = () => {
 
                     <p className="cart-items-price">
                       {" "}
-                      {formatPrice(
-                        product.product_price * cartProduct.product_amount
-                      )}{" "}
+                      {product && product.product_price && cartProduct.product_amount
+                        ? formatPrice(product.product_price * cartProduct.product_amount)
+                        : null}{" "}
                       ₪
                     </p>
                   </div>
@@ -136,16 +137,7 @@ const ShoppingCart: React.FC = () => {
     <ul className="cart-content">
      {isToPayPressed && (
   <ul className="cart-content">
-    {loggedInUser && (
-      <div className="row align-items-center">
-        <div className="col">
-          <p>{loggedInUser.first_name} {loggedInUser.last_name}</p>
-        </div>
-        <div className="col">
-          <button className="btn btn-primary">שינוי</button>
-        </div>
-      </div>
-    )}
+   <CartSummery />
   </ul>
 )}
 
