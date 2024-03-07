@@ -3,6 +3,15 @@ export interface FoodCategories
   food_category_id: number;
   food_category_name: string;
 }
+
+export interface Order {
+  order_id: number;
+  cart_id: number;
+  user_id: number;
+  delivery_id: number;
+  order_creation_date: Date;
+  status_id: number;
+}
 export interface CartItem{
   cart_id: number;
   user_id: number;
@@ -14,8 +23,13 @@ export interface ProductsList {
   cart_id: number;
   product_id: number;
   product_amount: number=0;
+  product_name: string;
+  product_description: string;
   product_price: number=0;
-  
+  product_img_name_a: string='';
+  product_img_name_b: string= '';
+  product_img_data_a: string= '';
+  product_img_data_b: string= '';
 }
 export interface SubFoodCategories {
   navbar_item_id: number;
@@ -146,20 +160,7 @@ export interface BucketList {
   product_amount: number;
 }
 
-export interface Cart {
-  cart_id: number;
-  user_id: number;
-  status_id: number;
-}
 
-export interface Order {
-  order_id: number;
-  cart: CartItem;
-  user_id: number;
-  delivery_id: number;
-  order_creation_date: Date;
-  status_id: number;
-}
 
 export interface OrderForList{
   order_creation_date: string;

@@ -16,7 +16,7 @@ useEffect(() => {
     }
 },[])
     useEffect(() => {
-        debugger
+        
         if(foodCategoryId && allProducts){
             const products = allProducts.filter((product) => product.food_category_id === +foodCategoryId)
             setProductsByFoodCategory(products)
