@@ -29,3 +29,9 @@
   display: grid;
   justify-content: space-around;
 }
+
+.product-cards-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
