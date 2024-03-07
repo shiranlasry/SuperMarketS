@@ -16,6 +16,7 @@ import Layout from "./views/layouts/Layout";
 import NavBarItemProducts from "./components/NavBarItem/NavBarItemProducts/NavBarItemProducts";
 import UserOrders from "./pages/PersonalProfil/UserOrders/UserOrders";
 import ProductsByFoodCategory from "./components/ProductsByFoodCategory/ProductsByFoodCategory";
+<<<<<<< HEAD
 
 
 =======
@@ -25,6 +26,9 @@ import CheckOutOffers from "./components/CheckOutOffers/CheckOutOffers";
 =======
 import SalesList from "./components/SalesList/SalesList";
 >>>>>>> 3f14898 (sales)
+=======
+import SalesList from "./components/SalesList/SalesList";
+>>>>>>> d380f1a (sales)
 function App() {
   const router = createBrowserRouter([
     {
