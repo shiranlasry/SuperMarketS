@@ -25,7 +25,7 @@ const CheckOutOffers = () => {
 
   const getRandomProducts = () => {
     if (allProducts) {
-      const random = [...allProducts].sort(() => Math.random() - 0.5).slice(0, 6);
+      const random = [...allProducts].sort(() => Math.random() - 0.5).slice(0, 3);
       setRandomProducts(random);
     }
   };
@@ -50,7 +50,7 @@ const CheckOutOffers = () => {
       <h1 className="mt-5 mb-4">אולי יעניין אותך</h1>
       <div className="row">
         {randomProducts.map((product) => (
-          <div key={product.product_id} className="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
+          <div key={product.product_id} className="col-12 col-md-4">
             <div className="product-card-wrapper">
               <ProductCard product={product} />
             </div>
