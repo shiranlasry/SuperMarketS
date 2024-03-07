@@ -38,7 +38,6 @@ const CartSlice = createSlice({
       state.isOpenCart = true;
     },
     setIsToPayPressedTrue: (state) => {
-      debugger;
       state.isToPayPressed = true;
     },
     setIsToPayPressedFalse: (state) => {
