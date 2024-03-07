@@ -14,6 +14,7 @@ import {
 import {
   activeCartSelector,
   isOpenCartSelector,
+  isToPayPressedSelector,
   setIsOpenCart,
 } from "../../features/cart/cartSlice";
 import { getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserAPI";
@@ -37,6 +38,7 @@ import { updateCartAPI } from "../../features/api/cartsAPI";
 const Header = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
   const isOpenCart: boolean = useAppSelector(isOpenCartSelector);
+  const isToPayPressed: boolean = useAppSelector(isToPayPressedSelector);
   const dispatch = useAppDispatch();
 
   const activeCart = useAppSelector(activeCartSelector);
@@ -106,19 +108,19 @@ const Header = () => {
     setShowRegisterModal(false);
     setShowLoginModal(true);
   };
-  const sendOrder = async () => {
-    if (activeCart !== null) {
-      const order_id = await addNewOrderApi(
-        activeCart.cart_id,
-        activeCart.user_id,
-        new Date()
-      );
-      const delivery_id = await addNewDeliveryApi(order_id, new Date());
-      await updateOrderApi(order_id, delivery_id, 2);
-      await updateCartAPI(activeCart.cart_id, 2);
-      createNewCart();
-    }
-  };
+  // const sendOrder = async () => {
+  //   if (activeCart !== null) {
+  //     const order_id = await addNewOrderApi(
+  //       activeCart.cart_id,
+  //       activeCart.user_id,
+  //       new Date()
+  //     );
+  //     const delivery_id = await addNewDeliveryApi(order_id, new Date());
+  //     await updateOrderApi(order_id, delivery_id, 2);
+  //     await updateCartAPI(activeCart.cart_id, 2);
+  //     createNewCart();
+  //   }
+  // };
   const createNewCart = async () => {
     if (activeCart !== null) {
       dispatch(addNewCartApi(activeCart.user_id));
@@ -258,7 +260,8 @@ const Header = () => {
           totalPrice={totalPrice}
           isOpen={isOpenCart}
           toggleCart={toggleCart}
-           sendOrder={sendOrder}
+           //sendOrder={sendOrder}
+          isToPayPressed={isToPayPressed}
         />
       )}
 

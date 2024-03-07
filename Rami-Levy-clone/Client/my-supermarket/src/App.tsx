@@ -17,6 +17,10 @@ import NavBarItemProducts from "./components/NavBarItem/NavBarItemProducts/NavBa
 import UserOrders from "./pages/PersonalProfil/UserOrders/UserOrders";
 import ProductsByFoodCategory from "./components/ProductsByFoodCategory/ProductsByFoodCategory";
 
+
+=======
+import CheckOutOffers from "./components/CheckOutOffers/CheckOutOffers";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -44,6 +48,7 @@ function App() {
           element: <NavBarItemProducts />,
         },
         { path: "/user_orders", element: <UserOrders /> },
+
         {
           path: "/navbar_item_products/:navbar_item_id/:title",
           element: <NavBarItemProducts />,
@@ -52,6 +57,11 @@ function App() {
           path: "/products_by_food_category/:food_category_id/",
           element: <ProductsByFoodCategory />,
         },
+
+        {path:"/navbar_item_products/:navbar_item_id/:title" , element :<NavBarItemProducts/>},
+        {path:"/products_by_food_category/:food_category_id/" , element :<ProductsByFoodCategory/>},
+        {path:"/check_out_offers" , element :<CheckOutOffers/>}
+
       ],
     },
   ]);

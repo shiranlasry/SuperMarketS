@@ -7,6 +7,7 @@ import { addNewCartApi } from "../../features/cart/cartAPI";
 import {
   activeCartSelector,
   isOpenCartSelector,
+  isToPayPressedSelector,
   setIsOpenCart,
 } from "../../features/cart/cartSlice";
 import { productsSelector } from "../../features/products/productsSlice";
@@ -20,6 +21,7 @@ import { getAllProductsApi } from "../../features/products/productsAPI";
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
   const isOpenCart: boolean = useAppSelector(isOpenCartSelector);
+  const isToPayPressed: boolean = useAppSelector(isToPayPressedSelector);
   const allProducts = useAppSelector(productsSelector);
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useAppDispatch();
@@ -53,26 +55,25 @@ const ShoppingCart: React.FC = () => {
     return totalPrice;
   };
 
-  const createNewCart = async () => {
-    if (activeCart !== null) {
-      dispatch(addNewCartApi(activeCart.user_id));
-      window.location.reload();
-    }
-  }
-
-  const sendOrder = async () => {
-    if (activeCart !== null) {
-      const order_id = await addNewOrderApi(
-        activeCart.cart_id,
-        activeCart.user_id,
-        new Date()
-      );
-      const delivery_id = await addNewDeliveryApi(order_id, new Date());
-      await updateOrderApi(order_id, delivery_id, 2);
-      await updateCartAPI(activeCart.cart_id, 2);
-      createNewCart();
-    }
-  };
+  // const createNewCart = async () => {
+  //   if (activeCart !== null) {
+  //     dispatch(addNewCartApi(activeCart.user_id));
+  //     window.location.reload();
+  //   }
+  // }
+  //  const sendOrder = async () => {
+  //   if (activeCart !== null) {
+  //     const order_id = await addNewOrderApi(
+  //       activeCart.cart_id,
+  //       activeCart.user_id,
+  //       new Date()
+  //     );
+  //     const delivery_id = await addNewDeliveryApi(order_id, new Date());
+  //     await updateOrderApi(order_id, delivery_id, 2);
+  //     await updateCartAPI(activeCart.cart_id, 2);
+  //     createNewCart();
+  //   }
+  // };
 
   const formatPrice = (price: number) => {
     const [main, decimal] = price.toFixed(2).split(".");
@@ -134,7 +135,8 @@ const ShoppingCart: React.FC = () => {
         totalPrice={totalPrice}
         isOpen={isOpenCart}
         toggleCart={toggleCart}
-        sendOrder={sendOrder}
+        // sendOrder={sendOrder}
+        isToPayPressed={isToPayPressed}
       />
     </div>
   );
