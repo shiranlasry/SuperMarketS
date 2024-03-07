@@ -113,13 +113,14 @@ const ProductsAdmin = () => {
         </div>
         {isProductsShown && (
           <>
-            <label htmlFor="search">חיפוש מוצרים</label>
             <input
               type="text"
               id="search"
               name="search"
               value={searchProducts}
               onChange={handleSearchChange}
+              placeholder="חיפוש מוצרים 🔍"
+              className="products-searchBar"
             />
           </>
         )}
