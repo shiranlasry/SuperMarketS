@@ -11,7 +11,6 @@ export interface Order {
   delivery_id: number;
   order_creation_date: Date;
   status_id: number;
-  productsList: ProductsList[]; // Include productsList in the Order interface
 }
 export interface CartItem{
   cart_id: number;

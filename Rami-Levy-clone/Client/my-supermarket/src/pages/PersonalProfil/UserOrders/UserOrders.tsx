@@ -1,54 +1,53 @@
 import React, { useEffect } from 'react'
 import { loggedInUserSelector } from '../../../features/logged_in_user/loggedInUserSlice';
 import { useSelector } from 'react-redux';
-import { ordersListSelector } from '../../../features/orders/ordersSlice';
+import { ordersListSelector, userOrdersListSelector } from '../../../features/orders/ordersSlice';
 import { useAppDispatch } from '../../../app/hook';
 import { getUserOrderCartDetailsAPI, getUserOrdersAPI } from '../../../features/orders/ordersAPI';
-import { getUserActiveCartListApi } from '../../../features/cart/cartAPI';
-import { Order, ProductsList } from '../../../rami-types';
+
+import { Order } from '../../../rami-types';
 
 
 const UserOrders = () => {
     const loggedInUser = useSelector(loggedInUserSelector);
-    const userOrders = useSelector(ordersListSelector);
+    const userOrdersList = useSelector(userOrdersListSelector);
     const dispatch = useAppDispatch();
     
     const getUserOrders = async (user_id: number) => {
-        
-        const response = await dispatch(getUserOrdersAPI(user_id));
-
-        debugger
-        if (response.payload ) {
-            const userOrders = response.payload as Order[];
-            
-            userOrders.forEach(async order => {
-            debugger
-            await dispatch(getUserOrderCartDetailsAPI(order.cart_id));
-        });
-
-     }}
-
-
+         dispatch(getUserOrdersAPI(user_id));
+      
+    }
     useEffect(() => {
-        debugger
         if (loggedInUser && loggedInUser.user_id){
          getUserOrders(loggedInUser.user_id);
           
     }
 
     }
-        , [loggedInUser]);
-    
-        useEffect(() => { 
-            if(userOrders)
-                console.log(userOrders)
-                debugger
-    
+        , []);
+
+    useEffect(() => {
+        if (userOrdersList && userOrdersList.length > 0) {
+           console.log("userOrders", userOrdersList);
         }
-            , [userOrders]);
+    },[userOrdersList])
+
+
   return (
       <div>
-        <h1>Order</h1>
+        <h1>ההזמנות שלי</h1>
+        {
+            userOrdersList && userOrdersList.map((order: Order) => {
+                return (
+                    <div key={order.order_id}>
+                        <h3>מספר הזמנה: {order.order_id}</h3>
+                        <h3>תאריך הזמנה: {order.order_creation_date.toString()}</h3>
+                        <h3>סטטוס הזמנה: {order.status_id}</h3>
+                        <button >פרטי הזמנה</button>
+                    </div>
+                )
+            })
+        }
     
     </div>
   )

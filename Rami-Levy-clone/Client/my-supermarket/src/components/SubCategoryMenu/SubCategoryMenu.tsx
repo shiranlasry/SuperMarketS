@@ -71,7 +71,7 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => {
 const ShowPruductsByFoodCategory = (categoryData: { categoryName: string; subcategories: typeof filteredCategories },categoryId: number) => {
   console.log(categoryData);
   console.log(categoryId);
-  debugger;
+
 
 }
   return (

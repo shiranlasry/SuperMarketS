@@ -28,7 +28,7 @@ const CategoryVisual = () => {
   // Filter products based on selectedSubCategoryId
   useEffect(() => {
     if (allProducts) {
-      debugger;
+     
       const filtered = allProducts.filter(
         (product) => product.sub_food_category_id === selectedSubCategoryId
       );
