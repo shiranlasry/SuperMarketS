@@ -22,12 +22,13 @@ import { useNavigate } from "react-router";
 import "./AddNewProduct.scss";
 import { getAllProductsApi } from "../../../../features/products/productsAPI";
 
+import RamiBtn from "./../../../../components/RamiBtn/RamiBtn";
+
 interface AddNewProductProps {
   onClose: () => void;
-
 }
 
-const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
+const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
   const initialProduct: Product = {
     product_id: null,
     sub_food_category_id: null,
@@ -79,22 +80,21 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
     const { name, value } = e.target;
     setNewProduct({ ...newProduct, [name]: value });
   };
- const handleReset = () => {
+  const handleReset = () => {
     setNewProduct(initialProduct);
     setUploadedImages([]);
     setImagesProductFiles([]);
     setAdd(0);
- }
+  };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     setImagesProductFiles(files ? Array.from(files) : []);
     // Check if number of selected files exceeds 2
-  if (files && files.length > 2) {
-    setImgsValidation(true);
-  }
-  else {
-    setImgsValidation(false); 
-  }
+    if (files && files.length > 2) {
+      setImgsValidation(true);
+    } else {
+      setImgsValidation(false);
+    }
 
     // Display uploaded images
     if (files && files.length > 0) {
@@ -108,7 +108,6 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
   const handelAddNewProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      
       if (imgsValidation) {
         alert("אנא בחר עד 2 תמונות");
         return;
@@ -120,7 +119,6 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
       await addNewProductInventory(insertProductId, add);
       // need to save images to server
       if (imagesProductFiles && imagesProductFiles.length > 0) {
-
         await saveProductImages(insertProductId, imagesProductFiles);
       }
 
@@ -266,8 +264,8 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
           value={newProduct.product_components}
           onChange={handleInputChange}
         />
-          
-          {/* Serving Suggestion */}
+
+        {/* Serving Suggestion */}
         <label htmlFor="serving_suggestion"> הצעת הגשה:</label>
         <input
           type="text"
@@ -339,9 +337,9 @@ const AddNewProduct : React.FC<AddNewProductProps> = ({onClose}) => {
             onChange={(e) => setAdd(+e.target.value)}
           />
         </div>
-        <button type="submit">שלח</button>
-        <button type="reset"  onClick={handleReset}>נקה</button>
-        <button onClick={onClose}>בטל</button>
+        <RamiBtn type="submit">שלח</RamiBtn>
+        <RamiBtn onClick={handleReset}>נקה</RamiBtn>
+        <RamiBtn onClick={onClose}>בטל</RamiBtn>
       </form>
     </div>
   );

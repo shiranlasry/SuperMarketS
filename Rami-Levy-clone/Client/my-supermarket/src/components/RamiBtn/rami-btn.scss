@@ -1,0 +1,14 @@
+.rami-btn {
+  border: none;
+  padding: 5px 20px;
+  color: white;
+  background-color: #1579f2;
+  margin: 10px;
+  height: 40px;
+  width: fit-content;
+  border-radius: 7px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
