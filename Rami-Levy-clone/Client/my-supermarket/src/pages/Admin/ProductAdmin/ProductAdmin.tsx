@@ -11,6 +11,7 @@ import AddNewSubFoodCategory from "./AddNewSubFoodCategory/AddNewSubFoodCategory
 import AddNewProduct from "./AddNewProduct/AddNewProduct";
 import AddNewFoodCategory from "./AddNewFoodCategory/AddNewFoodCategory";
 import RamiBtn from "../../../components/RamiBtn/RamiBtn";
+import "./product-admin.scss";
 
 const ProductsAdmin = () => {
   const AllProducts = useAppSelector(productsSelector);
@@ -101,7 +102,7 @@ const ProductsAdmin = () => {
               id={"modal-add-new-food-category"}
               show={addNewFoodCategoryPressed}
               onHide={() => setAddNewFoodCategoryPressed(false)}
-              dialogClassName="custom-modal"
+              dialogClassName="add-category-form custom-modal"
             >
               <Modal.Body>
                 <AddNewFoodCategory

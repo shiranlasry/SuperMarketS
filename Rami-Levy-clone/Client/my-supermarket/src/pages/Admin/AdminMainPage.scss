@@ -1,3 +1,5 @@
+$rami-blue: #1579f2;
+
 .admin-main-page-container {
   text-align: center;
   margin: 5rem auto;
@@ -8,11 +10,13 @@
 .admin-zone-title {
   font-size: 35px;
   margin-bottom: 20px;
+  color: $rami-blue;
 }
 
 .admin-greet {
   font-size: 25px;
   margin-bottom: 20px;
+  color: $rami-blue;
 }
 
 .manage-productsBtn,

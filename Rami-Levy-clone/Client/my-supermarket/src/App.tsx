@@ -16,6 +16,7 @@ import Layout from "./views/layouts/Layout";
 import NavBarItemProducts from "./components/NavBarItem/NavBarItemProducts/NavBarItemProducts";
 import UserOrders from "./pages/PersonalProfil/UserOrders/UserOrders";
 import ProductsByFoodCategory from "./components/ProductsByFoodCategory/ProductsByFoodCategory";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -28,7 +29,7 @@ function App() {
           path: "/login",
           element: <Login onClose={() => {}} RegisterPressed={() => {}} />,
         },
-       
+
         { path: "/admin", element: <AdminMainPage /> },
         { path: "/add_new_product", element: <AddNewProduct /> },
         { path: "/manage_users", element: <UsersManage /> },
@@ -37,11 +38,20 @@ function App() {
         { path: "/category-visual/:id", element: <CategoryVisual /> },
         { path: "/*", element: <ErrorPage /> },
         { path: "/add_new_food_category", element: <AddNewFoodCategory /> },
-        {path:"/personal_profil" , element :<PersonalProfil/>},
-        { path: "/navbar_item_products/:navbar_item_id", element: <NavBarItemProducts /> },
+        { path: "/personal_profil", element: <PersonalProfil /> },
+        {
+          path: "/navbar_item_products/:navbar_item_id",
+          element: <NavBarItemProducts />,
+        },
         { path: "/user_orders", element: <UserOrders /> },
-        {path:"/navbar_item_products/:navbar_item_id/:title" , element :<NavBarItemProducts/>},
-        {path:"/products_by_food_category/:food_category_id/" , element :<ProductsByFoodCategory/>}
+        {
+          path: "/navbar_item_products/:navbar_item_id/:title",
+          element: <NavBarItemProducts />,
+        },
+        {
+          path: "/products_by_food_category/:food_category_id/",
+          element: <ProductsByFoodCategory />,
+        },
       ],
     },
   ]);
