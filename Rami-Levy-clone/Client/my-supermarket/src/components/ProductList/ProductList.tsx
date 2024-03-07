@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProductCard from "../ProductCard/ProductCard";
-import Product from "../../types/productTypes";
+import { Product } from "../../rami-types";
 
 const ProductList: React.FC<{ products: Product[] }> = ({ products }) => {
   return (

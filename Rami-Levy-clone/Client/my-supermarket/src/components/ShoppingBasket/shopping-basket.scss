@@ -1,31 +1,65 @@
 $button: #1579f2;
 
-body {
+.basket-main {
   color: $button;
+  margin-left: 1.5rem;
 
   .shopping-basket {
-    margin: -7rem 0 0 0.5rem;
+    margin: -7rem 0 0 0;
     float: left;
-    width: 140px;
+    width: 135px;
     height: 86px;
     text-align: center;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 
-    @media screen and (max-width: 1800px) {
+    @media screen and (max-width: 1940px) {
       width: 130px;
     }
-    @media screen and (max-width: 1680px) {
+
+    @media screen and (max-width: 1900px) {
+      width: 125px;
+    }
+
+    @media screen and (max-width: 1800px) {
+      margin: -7rem 0 0 0.7rem;
       width: 120px;
     }
-    @media screen and (max-width: 1540px) {
-      width: 110px;
+    @media screen and (max-width: 1730px) {
+      margin: -7rem 0 0 0.7rem;
+      width: 115px;
+    }
+    @media screen and (max-width: 1670px) {
+      margin: -7rem 0 0 1.2rem;
+      width: 115px;
+    }
+    @media screen and (max-width: 1590px) {
+      margin: -7rem 0 0 1.2rem;
+      width: 115px;
+    }
+    @media screen and (max-width: 1490px) {
+      margin: -7rem 0 0 1.2rem;
+      width: 115px;
+    }
+    @media screen and (max-width: 1420px) {
+      margin: -7rem 0 0 1.2rem;
+      width: 115px;
     }
     @media screen and (max-width: 1390px) {
-      width: 100px;
+      margin: -7rem 0 0 1.2rem;
+      width: 115px;
+    }
+    @media screen and (max-width: 1320px) {
+      margin: -7rem 0 0 2rem;
+      width: 115px;
     }
     @media screen and (max-width: 1292px) {
+      margin: -7rem 0 0 2rem;
+      width: 115px;
+    }
+
+    @media screen and (max-width: 1000px) {
       display: none;
     }
 
@@ -37,14 +71,26 @@ body {
 
     .basket-price {
       color: $button;
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0);
       border: none;
       align-items: center;
       font-size: 1.3rem;
       font-weight: bold;
+      @media screen and (max-width: 1320px) {
+        font-size: 18px;
+      }
     }
   }
   .basket-icon {
     color: $button;
+
+    .basket-svg {
+      width: 50px;
+      height: 40px;
+      @media screen and (max-width: 1390px) {
+        width: 40px;
+        height: 32px;
+      }
+    }
   }
 }

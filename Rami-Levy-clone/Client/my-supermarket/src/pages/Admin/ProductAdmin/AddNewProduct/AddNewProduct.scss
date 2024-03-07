@@ -1,0 +1,55 @@
+$rami-blue: #1579f2;
+
+.add-new-product-container {
+  margin: auto;
+  padding: 2rem;
+  justify-content: center;
+  text-align: center;
+  width: fit-content;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  .new-product-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: $rami-blue;
+  }
+
+  form {
+    max-width: 3020px;
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 350px;
+      margin-bottom: 0.4rem;
+      background-color: #f3f5f8;
+      border: none;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 7px;
+      padding: 8px;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+      }
+    }
+
+    select {
+      height: 40px; // Adjust as needed
+    }
+
+    div {
+      margin-bottom: 15px;
+    }
+  }
+}

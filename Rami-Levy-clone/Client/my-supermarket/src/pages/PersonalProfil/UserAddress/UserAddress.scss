@@ -1,0 +1,59 @@
+$button: #1579f2;
+.address-main {
+  .address-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    width: 780px;
+    height: fit-content;
+    padding: 16px 0 16px 0;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    .address-title {
+      width: 95%;
+      padding-right: 1rem;
+      margin: 0 1rem 0 1rem;
+      border-bottom: 1px solid #f3f5f8;
+    }
+
+    .map-img {
+      display: flex;
+      flex-direction: row;
+      margin: 2rem auto;
+      width: 243px;
+      height: 135px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+  }
+}
+.new-address-btn {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f3f5f800;
+  border: none;
+  margin-top: 48px;
+
+  .add-new-address {
+    color: #1579f2;
+    font-size: 1rem;
+    margin: 1rem 0 1rem 0;
+  }
+  .new-address-icon {
+    svg {
+      background-color: white;
+      height: 66px;
+      width: 66px;
+      border-radius: 50px;
+      padding: 19px 23px 19px 23px;
+      fill: $button;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+}

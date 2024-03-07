@@ -1,0 +1,66 @@
+#update-product {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    width: 80%; /* Adjusted width for better fit */
+    max-width: 800px; /* Limit maximum width */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    z-index: 999;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Distribute items evenly along the main axis */
+    align-items: flex-start; /* Align items to the start of the cross axis */
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      width: 100%; /* Ensure the heading spans the full width */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      width: calc(50% - 10px); /* Calculate width to fit two fields per row with spacing */
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: calc(50% - 10px); /* Calculate width to fit two fields per row with spacing */
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .saveBtn {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .cancelBtn {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .button-group {
+      width: 100%; /* Ensure button group spans the full width */
+      display: flex;
+      justify-content: flex-end; /* Align buttons to the right */
+    }
+}

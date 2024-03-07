@@ -18,9 +18,11 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
     first_name: "",
     last_name: "",
     role_id: 2,
-    role_name:"user",
+    role_name: "user",
     addresses: [],
-    
+    phone_number: "",
+    gender: "",
+    birth_date: "",
   };
 
   const [newUser, setNewUser] = useState<User>(initialUserState);
@@ -232,6 +234,8 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
           value={newUser.first_name}
           onChange={handleInputChange}
           required
+          dir="rtl"
+          style={{ textAlign: "right" }}
         />
         <input
           type="text"
@@ -241,6 +245,8 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
           value={newUser.last_name}
           onChange={handleInputChange}
           required
+          dir="rtl"
+          style={{ textAlign: "right" }}
         />
         <input
           type="email"
@@ -251,6 +257,8 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
           onChange={handleInputChange}
           required
           title="הכנס כתובת מייל נכונה"
+          dir="rtl"
+          style={{ textAlign: "right" }}
         />
 
         {emailValidation && (
@@ -388,23 +396,151 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
             value={newUser.password}
             onChange={handleInputChange}
             required
+            dir="rtl"
+            style={{ textAlign: "right" }}
           />
           {passwordValidation && (
             <div className="error-message">{passwordValidation}</div>
           )}
         </div>
-        <input
-          type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
-          placeholder="אישור סיסמה*"
-          name="confirm_password"
-          id="confirm_password"
-          value={newUser.confirm_password}
-          onChange={handleInputChange}
-        />
-        {confirmPasswordValidation && (
-          <div className="error-message">{confirmPasswordValidation}</div>
-        )}
-
+        <div className="reg-confirm-wrapper">
+          <button
+            className="show-con-password-btn"
+            type="button"
+            onClick={toggleShowPassword}
+          >
+            {showPassword ? (
+              <svg
+                data-v-91686126=""
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="25.47"
+                height="8.57"
+                viewBox="0 0 25.47 8.57"
+                class="stroke-width-1"
+              >
+                <defs data-v-91686126="">
+                  <clipPath
+                    data-v-91686126=""
+                    id="a"
+                    transform="translate(-1.7 -10.15)"
+                  >
+                    <rect
+                      data-v-91686126=""
+                      width="28.87"
+                      height="28.87"
+                      fill="none"
+                    ></rect>
+                  </clipPath>
+                </defs>
+                <path
+                  data-v-91686126=""
+                  d="M2.2,17C9,8.52,19.91,8.52,26.67,17h0"
+                  transform="translate(-1.7 -10.15)"
+                  fill="none"
+                  stroke="#0079f2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <circle
+                  data-v-91686126=""
+                  cx="12.74"
+                  cy="4.29"
+                  r="3.79"
+                  fill="none"
+                  stroke="#0079f2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></circle>
+              </svg>
+            ) : (
+              <svg
+                data-v-91686126=""
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="25.47"
+                height="14.73"
+                viewBox="0 0 25.47 14.73"
+                class="stroke-width-1"
+              >
+                <defs data-v-91686126="">
+                  <clipPath
+                    data-v-91686126=""
+                    id="a"
+                    transform="translate(-1.7 -7.07)"
+                  >
+                    <rect
+                      data-v-91686126=""
+                      width="28.87"
+                      height="28.87"
+                      fill="none"
+                    ></rect>
+                  </clipPath>
+                </defs>
+                <path
+                  data-v-91686126=""
+                  d="M11.07,11.07A16.46,16.46,0,0,0,2.2,17"
+                  transform="translate(-1.7 -7.07)"
+                  fill="none"
+                  stroke="#0079f2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  data-v-91686126=""
+                  d="M11.77,11.77a3.73,3.73,0,0,0-1.12,2.67A3.77,3.77,0,0,0,17.1,17.1"
+                  transform="translate(-1.7 -7.07)"
+                  fill="none"
+                  stroke="#0079f2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <line
+                  data-v-91686126=""
+                  x1="19.6"
+                  y1="14.23"
+                  x2="5.87"
+                  y2="0.5"
+                  fill="none"
+                  stroke="#0079f2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></line>
+                <path
+                  data-v-91686126=""
+                  d="M18.07,15.41a3.45,3.45,0,0,0,.15-1,3.79,3.79,0,0,0-3.79-3.79,3.45,3.45,0,0,0-1,.15"
+                  transform="translate(-1.7 -7.07)"
+                  fill="none"
+                  stroke="#0079f2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  data-v-91686126=""
+                  d="M26.67,17c-3.65-4.59-8.52-6.69-13.3-6.32"
+                  transform="translate(-1.7 -7.07)"
+                  fill="none"
+                  stroke="#0079f2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </svg>
+            )}
+          </button>
+          <input
+            type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+            placeholder="אישור סיסמה*"
+            name="confirm_password"
+            id="confirm_password"
+            value={newUser.confirm_password}
+            onChange={handleInputChange}
+            dir="rtl"
+            style={{ textAlign: "right" }}
+          />
+          {confirmPasswordValidation && (
+            <div className="error-message">{confirmPasswordValidation}</div>
+          )}
+        </div>
         <input
           type="text"
           placeholder="תעודת זהות*"
@@ -413,6 +549,8 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
           value={newUser.id_number}
           onChange={handleInputChange}
           required
+          dir="rtl"
+          style={{ textAlign: "right" }}
         />
         {IDValidation && <div className="error-message">{IDValidation}</div>}
         <div className="reg-disclaimers">

@@ -1,67 +1,137 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router';
-import { productsSelector } from '../../../features/products/productsSlice';
-import { useAppDispatch, useAppSelector } from '../../../app/hook';
-import { getAllProductsApi } from '../../../features/products/productsAPI';
-import { Product } from '../../../rami-types';
-
+import { ChangeEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../../app/hook";
+import { getAllProductsApi } from "../../../features/products/productsAPI";
+import { productsSelector } from "../../../features/products/productsSlice";
+import { Product } from "../../../rami-types";
+import ProductCard from "./ProductCard";
+import "./ProductsAdmin.scss";
+import { Modal } from "react-bootstrap";
+import AddNewSubFoodCategory from "./AddNewSubFoodCategory/AddNewSubFoodCategory";
+import AddNewProduct from "./AddNewProduct/AddNewProduct";
+import AddNewFoodCategory from "./AddNewFoodCategory/AddNewFoodCategory";
+import RamiBtn from "../../../components/RamiBtn/RamiBtn";
 
 const ProductsAdmin = () => {
   const AllProducts = useAppSelector(productsSelector);
   const [isProductsShown, setIsProductsShown] = useState(false);
-  const [searchProducts, setsearchProducts] = useState('');
+  const [searchProducts, setsearchProducts] = useState("");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [addSubFoodCategoriesPressed, setAddSubFoodCategoriesPressed] =
+    useState(false);
+  const [addNewProductPressed, setAddNewProductPressed] = useState(false);
+  const [addNewFoodCategoryPressed, setAddNewFoodCategoryPressed] =
+    useState(false);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getAllProductsApi())
+    dispatch(getAllProductsApi());
   }, []);
   useEffect(() => {
-    const updatedFilteredProducts = AllProducts?.filter(product => product.product_name.includes(searchProducts));
-    if (updatedFilteredProducts)
+    if (AllProducts) {
+      const updatedFilteredProducts: Product[] = AllProducts.filter(
+        (product: Product) => product.product_name.includes(searchProducts)
+      );
       setFilteredProducts(updatedFilteredProducts);
+    }
   }, [AllProducts, searchProducts]);
   const showAllProducts = () => {
     setIsProductsShown(true);
-  }
+  };
+  const addNewSubFoodCategoryPressed = () => {
+    setAddSubFoodCategoriesPressed(true);
+  };
+  const hideAllProducts = () => {
+    setIsProductsShown(false);
+  };
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setsearchProducts(e.target.value);
-};
-  const addNewProductPressed = () => {
-    navigate('/add_new_product');
-  }
+  };
+  const NewProductPressed = () => {
+    setAddNewProductPressed(true);
+  };
+  const NewFoodCategoryPressed = () => {
+    setAddNewFoodCategoryPressed(true);
+  };
+  console.log(filteredProducts.map((product) => product.product_id));
   return (
     <>
-      <div>
-        <button onClick={addNewProductPressed}>הוסף מוצר חדש</button>
-        <button onClick={showAllProducts}>חפש מוצר</button>
+      <div className="products-admin-container">
+        <div className="btns-admin-header">
+          <RamiBtn onClick={NewProductPressed}>הוסף מוצר חדש</RamiBtn>
+          <RamiBtn onClick={NewFoodCategoryPressed}>הוסף קטגוריה</RamiBtn>
+          <RamiBtn onClick={addNewSubFoodCategoryPressed}>
+            הוסף תת קטגוריה
+          </RamiBtn>
 
+          {isProductsShown ? (
+            <RamiBtn onClick={hideAllProducts}>הסתר מוצרים</RamiBtn>
+          ) : (
+            <RamiBtn onClick={showAllProducts}>הצג מוצרים</RamiBtn>
+          )}
+          {addSubFoodCategoriesPressed && (
+            <Modal
+              id={"modal-add-sub-food-category"}
+              show={addSubFoodCategoriesPressed}
+              onHide={() => setAddSubFoodCategoriesPressed(false)}
+              dialogClassName="custom-modal"
+            >
+              <Modal.Body>
+                <AddNewSubFoodCategory
+                  onClose={() => setAddSubFoodCategoriesPressed(false)}
+                />
+              </Modal.Body>
+            </Modal>
+          )}
+          {addNewProductPressed && (
+            <Modal
+              id={"modal-add-new-product"}
+              show={addNewProductPressed}
+              onHide={() => setAddNewProductPressed(false)}
+              dialogClassName="custom-modal"
+            >
+              <Modal.Body>
+                <AddNewProduct onClose={() => setAddNewProductPressed(false)} />
+              </Modal.Body>
+            </Modal>
+          )}
+          {addNewFoodCategoryPressed && (
+            <Modal
+              id={"modal-add-new-food-category"}
+              show={addNewFoodCategoryPressed}
+              onHide={() => setAddNewFoodCategoryPressed(false)}
+              dialogClassName="add-category-form custom-modal"
+            >
+              <Modal.Body>
+                <AddNewFoodCategory
+                  onClose={() => setAddNewFoodCategoryPressed(false)}
+                />
+              </Modal.Body>
+            </Modal>
+          )}
+        </div>
+        {isProductsShown && (
+          <>
+            <input
+              type="text"
+              id="search"
+              name="search"
+              value={searchProducts}
+              onChange={handleSearchChange}
+              placeholder="חיפוש מוצרים 🔍"
+              className="products-searchBar"
+            />
+          </>
+        )}
         {isProductsShown &&
-                <input
-                    type="text"
-                    placeholder="Search by product name"
-                    value={searchProducts}
-                    onChange={handleSearchChange}
-                />}
-        {isProductsShown && filteredProducts.map((product) => {
-                return (
-                    <div key={product.product_id}>
-                        <h3>{product.product_id}</h3>
-                        <h3>{product.product_name}</h3>
-                        <h3>{product.product_price}</h3>
-                        <button>Update</button>
-                        <button>Delete</button>
-                        <button>Inventory Manage</button>
-                        <button>Update Images</button>
-                    </div>
-                )
-            })}
-
+          filteredProducts.map((product) => {
+            return <ProductCard product={product} key={product.product_id} />;
+          })}
+        <RamiBtn onClick={() => navigate("/admin")}>חזור</RamiBtn>
       </div>
-      <button onClick={() => navigate(-1)} >חזור</button>
     </>
+  );
+};
 
-  )
-}
-
-export default ProductsAdmin
+export default ProductsAdmin;

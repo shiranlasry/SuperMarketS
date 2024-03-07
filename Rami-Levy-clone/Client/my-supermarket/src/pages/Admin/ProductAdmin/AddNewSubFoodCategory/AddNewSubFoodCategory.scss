@@ -1,0 +1,66 @@
+$rami-blue: #1579f2;
+
+.add-new-sub-food-category-container {
+  margin: auto;
+  padding: 2rem;
+  justify-content: center;
+  text-align: center;
+  width: fit-content;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  .new-sub-cat-title {
+    margin-bottom: 1.5rem;
+    font-size: 30px;
+    color: $rami-blue;
+  }
+
+  .add-new-sub-food-category-form {
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    select {
+      width: 350px;
+      margin-bottom: 0.4rem;
+      background-color: #f3f5f8;
+      border: none;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 7px;
+      padding: 8px;
+    }
+
+    // button[type="submit"] {
+    //   padding: 10px 20px;
+    //   background-color: #007bff;
+    //   color: #fff;
+    //   border: none;
+    //   border-radius: 5px;
+    //   cursor: pointer;
+    //   font-size: 16px;
+
+    //   &:hover {
+    //     background-color: #0056b3;
+    //   }
+    // }
+  }
+
+  // button {
+  //   padding: 10px 20px;
+  //   margin-top: 20px;
+  //   background-color: #6c757d;
+  //   color: #fff;
+  //   border: none;
+  //   border-radius: 5px;
+  //   cursor: pointer;
+  //   font-size: 16px;
+
+  //   &:hover {
+  //     background-color: #5a6268;
+  //   }
+  // }
+}

@@ -2,7 +2,6 @@
   width: 120px;
   height: 92px;
   border: none;
-  padding-top: 5px;
   border-radius: 8px;
   text-align: center;
   display: flex;
@@ -16,13 +15,89 @@
     border-radius: 6px;
   }
 
-  @media screen and (max-width: 1600px) {
+  @media screen and (max-width: 1920px) {
     font-size: 15px;
+    width: 105px;
     height: 95px;
   }
 
-  @media screen and (max-width: 1290px) {
+  @media screen and (max-width: 1900px) {
+    font-size: 15px;
+    width: 100px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1830px) {
+    font-size: 15px;
+    width: 97px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1780px) {
+    font-size: 15px;
+    width: 93px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1720px) {
+    font-size: 15px;
+    width: 90px;
+    height: 95px;
+  }
+  @media screen and (max-width: 1670px) {
+    font-size: 15px;
+    width: 88px;
+    height: 95px;
+  }
+  @media screen and (max-width: 1640px) {
+    font-size: 15px;
+    width: 85px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1590px) {
+    font-size: 15px;
+    width: 82px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1540px) {
+    width: 79px;
+    font-size: 13px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1480px) {
+    width: 74px;
+    font-size: 13px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1420px) {
+    width: 70px;
+    font-size: 13px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1380px) {
     width: 65px;
+    font-size: 13px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1280px) {
+    width: 58px;
+    font-size: 13px;
+    height: 95px;
+  }
+
+  @media screen and (max-width: 1170px) {
+    width: 54px;
+    font-size: 13px;
+    height: 95px;
+  }
+  @media screen and (max-width: 1100px) {
+    width: 45px;
     font-size: 13px;
     height: 95px;
   }
@@ -56,7 +131,7 @@
     display: flex;
     flex-direction: row;
     width: 200px;
-    margin: 0;
+    margin-right: 1.5rem;
     padding: 0;
   }
 }

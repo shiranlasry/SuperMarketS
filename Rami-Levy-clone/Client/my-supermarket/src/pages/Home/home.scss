@@ -1,5 +1,13 @@
 $button: #1579f2;
 
+.home-container {
+  height: 100%;
+}
+
+.home-content {
+  padding: 1rem;
+}
+
 .to-main-navBar {
   background-image: linear-gradient(#b4cff1, white);
   border-bottom-left-radius: -20px;
@@ -22,8 +30,7 @@ $button: #1579f2;
   }
 }
 
-.hp-loginBtn,
-.access {
+.hp-loginBtn {
   margin: 1rem 0 0 0;
   float: left;
   color: $button;
@@ -54,16 +61,6 @@ $button: #1579f2;
     display: none;
   }
 }
-.access {
-  float: left;
-  text-decoration: underline;
-  margin: -3rem 0 0 2.2rem;
-  font-size: 0.9rem;
-
-  @media screen and (max-width: 950px) {
-    display: none;
-  }
-}
 
 .to-shoppin-navBar {
   float: inline;
@@ -77,20 +74,5 @@ $button: #1579f2;
 
   @media screen and (max-width: 950px) {
     box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
-  }
-
-  .rami-shopping {
-    height: 20px;
-    width: 170px;
-    margin-right: 1rem;
-
-    @media screen and (max-width: 950px) {
-      height: 17px;
-      width: 120px;
-    }
-
-    @media screen and (max-width: 320px) {
-      display: none;
-    }
   }
 }

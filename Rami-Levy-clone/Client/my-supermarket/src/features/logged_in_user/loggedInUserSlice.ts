@@ -3,7 +3,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../../app/store"
 import { User } from "../../rami-types"
-import { logInUserApi ,logOutUserApi, addNewUserAddressApi, getUserFromTokenApi} from "./loggedInUserAPI"
+import { logInUserApi ,getUserByIdApi,logOutUserApi, addNewUserAddressApi,getUserAddressesApi, getUserFromTokenApi} from "./loggedInUserAPI"
 
 
 enum Status {
@@ -76,7 +76,34 @@ export const LoggedInUserSlice = createSlice({
                     }
                 }
             })
+
             .addCase(addNewUserAddressApi.rejected, (state) => {
+                state.status = Status.FAILED
+            })
+            .addCase(getUserAddressesApi.pending, (state) => {
+                state.status = Status.LOADING
+            })
+            .addCase(getUserAddressesApi.fulfilled, (state, action) => {
+                state.status = Status.IDLE
+                if (Array.isArray(action.payload)) {
+                    // If payload is an array of Address
+                    if (state.value !== null) {
+                        state.value.addresses = action.payload;
+                    }
+                }
+            })
+            .addCase(getUserAddressesApi.rejected, (state) => {
+                state.status = Status.FAILED
+            })
+            .addCase(getUserByIdApi.pending, (state) => {
+                state.status = Status.LOADING
+            })
+            .addCase(getUserByIdApi.fulfilled, (state, action) => {
+                
+                state.status = Status.IDLE
+                state.value = action.payload
+            })
+            .addCase(getUserByIdApi.rejected, (state) => {
                 state.status = Status.FAILED
             })
         

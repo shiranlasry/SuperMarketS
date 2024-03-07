@@ -1,0 +1,37 @@
+.category-visual-container {
+  display: grid;
+  justify-content: space-around;
+  padding: 1rem;
+}
+
+.product-sub-category {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.product-sub-category {
+  margin: 20px 0;
+  padding: 8px;
+  color: #1579f2;
+  font-size: 1.8rem;
+  text-align: center;
+  margin-right: 1.5rem;
+  // width: 100%; /* Ensure the sub-category heading takes full width */
+}
+
+.sub-category-title {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.sub-categories-feed {
+  display: grid;
+  justify-content: space-around;
+}
+
+.product-cards-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

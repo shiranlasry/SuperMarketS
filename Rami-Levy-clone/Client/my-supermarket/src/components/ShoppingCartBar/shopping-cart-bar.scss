@@ -1,0 +1,59 @@
+.shopping-cart-bar {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  width: 282px;
+  height: 55px;
+  padding: 8px;
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  color: white;
+  background-color: #1579f2;
+  transition: bottom 0.3s ease;
+  z-index: 2;
+
+  &.open {
+    top: 90vh;
+  }
+
+  &.closed {
+    top: 6rem;
+    left: 1.7rem;
+  }
+  &.to-pay-pressed{
+    background-color: red !important;
+  }
+  .toggle-cart-button {
+    color: white;
+    border: 1px solid white;
+    width: 40px;
+    height: 40px;
+    margin-left: 3rem;
+    font-size: 1rem;
+    border-radius: 7px;
+    padding: 5px;
+    background: transparent;
+    cursor: pointer;
+
+    @media screen and (max-width: 1580px) {
+      margin-left: 2rem;
+    }
+  }
+
+  .total-price-bar {
+    font-weight: bolder;
+    font-size: 1.6rem;
+  }
+
+  .shekel-bar {
+    font-size: 0.875em;
+    font-weight: 400;
+  }
+
+  .toggle-pay-text {
+    background-color: transparent;
+    border: none;
+    color: white;
+  }
+}

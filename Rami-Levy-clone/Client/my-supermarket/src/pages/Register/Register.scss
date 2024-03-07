@@ -47,6 +47,14 @@ $button: #1579f2;
       font-size: 14px;
       border-radius: 7px;
       padding: 8px;
+
+      &::placeholder {
+        text-align: center;
+      }
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 
@@ -59,6 +67,10 @@ $button: #1579f2;
     font-size: 18px;
     border-radius: 5px;
     padding: 8px;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   .register-cancel {
@@ -66,6 +78,10 @@ $button: #1579f2;
     font-size: 18px;
     border: none;
     background-color: #fff;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   .reg-disclaimers {
@@ -81,10 +97,20 @@ $button: #1579f2;
 
   .show-password-btn {
     position: absolute;
-
     margin-top: 0.9rem;
     margin-right: 15.8rem;
-    background-color: #f3f5f800;
+    background-color: transparent;
+    border: none;
+  }
+}
+.reg-confirm-wrapper {
+  position: relative;
+
+  .show-con-password-btn {
+    position: absolute;
+    margin-top: 0.9rem;
+    margin-right: 15.8rem;
+    background-color: transparent;
     border: none;
   }
 }

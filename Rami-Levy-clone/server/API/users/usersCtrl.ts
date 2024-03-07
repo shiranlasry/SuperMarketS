@@ -58,6 +58,7 @@ export const registerUser = async (req: express.Request, res: express.Response) 
     res.status(500).send({ ok: false, error })
   }
 }
+
 export const loginUser = async (req: express.Request, res: express.Response) => {
   try {
     
@@ -107,6 +108,29 @@ export const loginUser = async (req: express.Request, res: express.Response) => 
     res.status(500).send({ ok: false, error });
   }
 };
+export const getUserById = async (req: express.Request, res: express.Response) => {
+  try {
+    const user_id = req.params.user_id;
+    if (!user_id) {
+      throw new Error("Missing fields");
+    }
+    const query = "SELECT * FROM users INNER JOIN roles ON users.role_id = roles.role_id WHERE user_id = ?;";
+    connection.query(query, [user_id], (err, results, fields) => {
+      try {
+        if (err) throw err;
+        const user = results[0];
+        res.send({ ok: true, user })
+      } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+      }
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send({ ok: false, error })
+  }
+
+}
 export const logOutUser = async (req: express.Request, res: express.Response) => {
   try {
     res.clearCookie('token');
@@ -168,3 +192,153 @@ export const updateUserRole = async (req: express.Request, res: express.Response
     res.status(500).send({ ok: false, error })
   }
 }
+
+export const deleteUser = async (req: express.Request, res: express.Response) => {
+  try {
+    const user_id = req.params.user_id;
+    if (!user_id) {
+      throw new Error("Missing fields");
+    }
+    // delete user address first
+    const queryDeleteAddress = "DELETE FROM addresses WHERE user_id = ?";
+    connection.query(queryDeleteAddress, [user_id], (err, results, fields) => {
+      try {
+        if (err) throw err;
+        const query = "DELETE FROM users WHERE user_id = ?";
+        connection.query(query, [user_id], (err, results, fields) => {
+          try {
+            if (err) throw err;
+            res.send({ ok: true, results })
+          } catch (error) {
+            console.error(error)
+            res.status(500).send({ ok: false, error })
+          }
+        })
+
+      } catch (error) {
+        console.error(error)
+        res.status(500).send({ ok: false, error })
+      }
+    })  
+
+   
+  } catch (error) {
+    console.error(error)
+    res.status(500).send({ ok: false, error })
+  }
+}
+
+export const updatePassword = async (req: Request, res: Response) => {
+  try {
+    const { user_id, password } = req.body;
+    if (!user_id || !password) {  
+      res.status(400).send({ ok: false, error: 'Missing user_id or password' });
+      return;
+    }
+    
+    // Hash the new password
+    const hash = await bcrypt.hash(password, saltRounds);
+    console.log('Updating password for user_id:', user_id);
+    console.log('Hashed password:', hash);
+
+    // Update the user's password in the database
+    const query = `
+      UPDATE users
+      SET password = ?
+      WHERE user_id = ?;
+    `;
+    connection.query(query, [hash, user_id], (err, results: any, fields) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send({ ok: false, error: 'Failed to update password' });
+        return;
+      }
+      
+      // if (results.affectedRows === 0) {
+      //   res.status(404).send({ ok: false, error: 'User not found or password unchanged' });
+      //   return;
+      // }
+
+      res.send({ ok: true, results });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ ok: false, error: 'Internal server error' });
+  }
+};
+export const updateUserPassword = async (req: Request, res: Response) => {
+  try {
+    const { user_id, old_password, new_password } = req.body;
+    if (!user_id || !old_password || !new_password) {
+      res.status(400).send({ ok: false, error: 'Missing fields' });
+      return;
+    }
+    const query = `
+      SELECT password
+      FROM users
+      WHERE user_id = ?;
+    `;
+    connection.query(query, [user_id], async (err, results: any, fields) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send({ ok: false, error: 'Failed to get user password' });
+        return;
+      }
+      const user = results[0];
+      if (!user) {
+        res.status(404).send({ ok: false, error: 'User not found' });
+        return;
+      }
+      const passwordMatch = await bcrypt.compare(old_password, user.password);
+      if (!passwordMatch) {
+        res.status(401).send({ ok: false, error: 'Invalid password' });
+        return;
+      }
+      const hash = await bcrypt.hash(new_password, saltRounds);
+      const query = `
+        UPDATE users
+        SET password = ?
+        WHERE user_id = ?;
+      `;
+      connection.query(query, [hash, user_id], (err, results: any, fields) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send({ ok: false, error: 'Failed to update password' });
+          return;
+        }
+        res.send({ ok: true, results });
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ ok: false, error: 'Internal server error' });
+  }
+
+}
+
+export const updateUserDetails = async (req: Request, res: Response) => {
+  try {
+    const { user_id, first_name, last_name, phone_number,gender,birth_date } = req.body;
+    if (!user_id || !first_name || !last_name || !phone_number || !gender || !birth_date ) {
+      res.status(400).send({ ok: false, error: 'Missing fields' });
+      return;
+    }
+    const query = `
+      UPDATE users
+      SET first_name = ?, last_name = ?, phone_number= ? , gender = ?, birth_date = ?
+      WHERE user_id = ?;
+      `;
+    connection.query(query, [first_name, last_name, phone_number,gender, birth_date,user_id], (err, results: any, fields) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send({ ok: false, error: 'Failed to update user details' });
+        return;
+      }
+      res.send({ ok: true, results });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ ok: false, error: 'Internal server error' });
+  }
+}
+

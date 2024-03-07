@@ -20,6 +20,37 @@ export const logInUserApi = createAsyncThunk<User | null, GetUserApiArgs>('get-u
         return null;
     }
 })
+export const getUserByIdApi = createAsyncThunk<User | null, number |null>('get-user-by-id', async (user_id) => {
+    try {
+        
+        const response = await axios.get(`/api/users/${user_id}`);
+        const { ok, user } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials getUserByIdApi()");
+        }
+        return user;
+
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
+export const updateUserPasswordApi = createAsyncThunk<User | null, {user_id:number,old_password:string,new_password:string}>('update-user-password', async (args) => {
+    try {
+       
+        const response = await axios.patch("/api/users/update-personal-password", args);
+        const { ok, user } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials updateUserPasswordApi()");
+        }
+        alert(" סתמו הסיסמה עודכנה בהצלחה");
+        return user;
+
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
 export const logOutUserApi = createAsyncThunk('delete-token', async () => {
     try {
         const response = await axios.delete("/api/users/delete-token");
@@ -58,16 +89,33 @@ interface AddNewUserAddresseArgs {
     apartment:number;
     zip_code:number;
     phone_number:string;
+    address_name:string;
    
 }
 export const addNewUserAddressApi = createAsyncThunk<Address[] |AddNewUserAddresseArgs,Address >('add-new-user-address', async (args) => {
     try {
+        
         const response = await axios.post("/api/addresses/add-new-address", args);
         const { ok, selectresult } = response.data;
         if (!ok) {
             throw new Error("Invalid credentials addNewUserAddressApi()");
         }
         return selectresult;
+
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
+export const getUserAddressesApi = createAsyncThunk<Address[] | null, number>('get-user-addresses', async (user_id) => {
+    try {
+            
+        const response = await axios.get(`/api/addresses/get-user-addresses/${user_id}`);
+        const { ok, result } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials getUserAddressesApi()");
+        }
+        return result;
 
     } catch (error) {
         console.error(error) // this is temporary

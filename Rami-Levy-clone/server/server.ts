@@ -28,6 +28,7 @@ app.use(express.json());
 // Multer middleware for handling file uploads
 app.use(upload.fields([{ name: 'imagesProduct', maxCount: 2 }]));
 
+
 import userRoutes from "./API/users/usersRoutes"
 app.use("/api/users", userRoutes)
 
@@ -49,6 +50,20 @@ import productsImagesRoutes from "./API/products/productsImages/productsImagesRo
 app.use("/api/products-images", productsImagesRoutes)
 import navbarRoutes from "./API/navbar/navbarRoutes"
 app.use("/api/navbar-items", navbarRoutes)
+import listsRoutes from "./API/lists/listsRoutes"
+app.use("/api/lists", listsRoutes)
+import cartsRoutes from "./API/carts/cartsRoutes"
+app.use("/api/carts", cartsRoutes)
+import ordersRoutes from "./API/orders/ordersRoutes"
+app.use("/api/orders", ordersRoutes)
+import deliveries from "./API/deliveries/deliveriesRoutes"
+app.use("/api/deliveries", deliveries)
+import status from "./API/status/statusRoutes"
+app.use("/api/status", status)
+import departmentsStatus from "./API/departmentsStatus/departmentsStatusRoutes"
+app.use("/api/departments-status", departmentsStatus)
+import sales from "./API/sales/salesRoutes"
+app.use("/api/sales", sales)
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });

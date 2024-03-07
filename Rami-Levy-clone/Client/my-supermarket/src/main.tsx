@@ -1,12 +1,13 @@
-import { createRoot } from 'react-dom/client';
-import React from 'react';
-import App from './App';
-import { Provider } from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import  {store}  from './app/store';
+import { createRoot } from "react-dom/client";
+import React from "react";
+import App from "./App";
+import { Provider } from "react-redux";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { store } from "./app/store";
+import Layout from "./views/layouts/Layout";
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 
 if (rootElement) {
   const root = createRoot(rootElement);

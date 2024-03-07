@@ -1,39 +1,97 @@
 // cartSlice.ts
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {  createSlice } from '@reduxjs/toolkit';
 
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
+import { RootState } from '../../app/store'; // Assuming you have a RootState type defined
+import { CartItem } from '../../rami-types';
+import { addNewCartApi, getUserActiveCartApi, getUserActiveCartListApi } from './cartAPI';
+
+
+
+enum Status {
+  IDLE = "idle",
+  LOADING = "loading",
+  FAILED = "failed"
 }
-
 interface CartState {
-  items: CartItem[];
+  activeCart: CartItem | null;
+  isOpenCart: boolean;
+  isToPayPressed: boolean;
+  status: Status;
 }
 
 const initialState: CartState = {
-  items: [],
+  activeCart: null,
+  isOpenCart: false,
+  isToPayPressed: false,
+  status: Status.IDLE
 };
 
-const cartSlice = createSlice({
+const CartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<CartItem>) => {
-      const existingItem = state.items.find((item) => item.id === action.payload.id);
-
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        state.items.push(action.payload);
-      }
+    setIsOpenCart: (state) => {
+      state.isOpenCart = !state.isOpenCart;
     },
-    // Add other cart-related actions (remove item, update quantity, etc.) if needed
+    setIsOpenCartTrue: (state) => {
+      state.isOpenCart = true;
+    },
+    setIsToPayPressedTrue: (state) => {
+      state.isToPayPressed = true;
+    },
+    setIsToPayPressedFalse: (state) => {
+      state.isToPayPressed = false;
+    }
+
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(addNewCartApi.pending, (state) => {
+        state.status = Status.LOADING;
+      })
+      .addCase(addNewCartApi.fulfilled, (state, action) => {
+        state.status = Status.IDLE;
+        state.activeCart = action.payload;
+      })
+      .addCase(addNewCartApi.rejected, (state) => {
+        state.status = Status.FAILED;
+      })
+      .addCase(getUserActiveCartApi.pending, (state) => {
+        state.status = Status.LOADING;
+      })
+      .addCase(getUserActiveCartApi.fulfilled, (state, action) => {
+        state.status = Status.IDLE;
+        state.activeCart = action.payload;
+      })
+      .addCase(getUserActiveCartApi.rejected, (state) => {
+        state.status = Status.FAILED;
+      })
+      .addCase(getUserActiveCartListApi.pending, (state) => {
+        state.status = Status.LOADING;
+      })
+      .addCase(getUserActiveCartListApi.fulfilled, (state, action) => {
+        state.status = Status.IDLE;
+        if (Array.isArray(action.payload)) {
+          // If payload is an array of cartList
+          if (state.activeCart !== null) {
+              state.activeCart.cartList = action.payload;
+          }
+      }
+      })
+      .addCase(getUserActiveCartListApi.rejected, (state) => {
+        state.status = Status.FAILED;
+      })
+      
   },
 });
 
-export const { addToCart } = cartSlice.actions;
-export const selectCartItems = (state: { cart: CartState }) => state.cart.items;
-export default cartSlice.reducer;
+
+export const {setIsOpenCartTrue, setIsOpenCart, setIsToPayPressedTrue, setIsToPayPressedFalse } = CartSlice.actions;
+// Selector to get cart items from the store
+export const activeCartSelector = (state: RootState) => state.cart.activeCart;
+export const isOpenCartSelector = (state: RootState) => state.cart.isOpenCart;
+export const isToPayPressedSelector = (state: RootState) => state.cart.isToPayPressed;
+
+
+export default CartSlice.reducer;

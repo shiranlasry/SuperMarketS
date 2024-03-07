@@ -37,3 +37,62 @@ export const updateUserRoleApi = createAsyncThunk<User[] | null,UserUpdateRole>(
         return null;
     }
 })
+
+export const deleteUserApi = createAsyncThunk<User[] | null,number |null>('delete-user', async (arg) => {
+    try {
+        
+        const response = await axios.delete(`/api/users/${arg}`);
+        const { ok, results } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials deleteUserApi()");
+        }
+       alert("שלום ולא להתראות")
+        return results;
+
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
+
+export const updatePasswordApi = createAsyncThunk<User | null, { user_id:number|null,password: string }>('update-password', async (arg) => {
+    try {
+        const response = await axios.put("/api/users/update-password", arg);
+        const { ok,results } = response.data;
+        console.log('results:'+results) 
+        
+
+        if (!ok) {
+            throw new Error("Invalid credentials updatePasswordApi()");
+        }
+        alert("Password updated successfully")
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
+interface UserUpdateDetails {
+    user_id: number |null;
+    first_name: string | null;
+    last_name: string | null;
+    phone_number: string | null;
+    gender: string | null;
+    birth_date: string | null;
+}
+export const updateUserDetailsApi = createAsyncThunk<any, UserUpdateDetails>('update-user-details', async (arg) => {
+    try {
+        
+        const response = await axios.put("/api/users/update-user-details", arg);
+        const { ok, results } = response.data;
+           
+        if (!ok) {
+            throw new Error("Invalid credentials updateUserDetailsApi()");
+        }
+        alert("User details updated successfully")
+        return results;
+
+    } catch (error) {
+        console.error(error) // this is temporary
+        return null;
+    }
+})
