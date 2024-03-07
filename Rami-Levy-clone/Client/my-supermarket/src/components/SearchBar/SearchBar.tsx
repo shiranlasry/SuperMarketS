@@ -1,9 +1,14 @@
+import { useState } from "react";
 import "./search-bar.scss";
+import SearchMenu from "../SearchMenu/SearchMenu"; // Import the SearchMenu component
 
 const SearchBar = () => {
+  const [searchInput, setSearchInput] = useState(""); // State to store the search input
+
   return (
     <div className="search-bar">
-      <div className="search-input-container">
+      <div className="search-input-container"> {/* Input field for search */}
+       
         <svg
           data-v-4582c4f4=""
           xmlns="http://www.w3.org/2000/svg"
@@ -44,8 +49,13 @@ const SearchBar = () => {
           type="search"
           className="search-input"
           placeholder="חיפוש מוצר או מותג"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)} // Update search input state
         />
+        {/* Filter text */}
         <div className="filter-text">סינון</div>
+        {/* Render SearchMenu component if search input is not empty */}
+        {searchInput && <SearchMenu string={searchInput} />}
         <svg
           data-v-dce8ddf8=""
           xmlns="http://www.w3.org/2000/svg"
