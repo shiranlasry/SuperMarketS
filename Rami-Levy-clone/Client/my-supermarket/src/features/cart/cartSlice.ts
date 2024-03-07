@@ -16,12 +16,14 @@ enum Status {
 interface CartState {
   activeCart: CartItem | null;
   isOpenCart: boolean;
+  isToPayPressed: boolean;
   status: Status;
 }
 
 const initialState: CartState = {
   activeCart: null,
   isOpenCart: false,
+  isToPayPressed: false,
   status: Status.IDLE
 };
 
@@ -31,7 +33,18 @@ const CartSlice = createSlice({
   reducers: {
     setIsOpenCart: (state) => {
       state.isOpenCart = !state.isOpenCart;
+    },
+    setIsOpenCartTrue: (state) => {
+      state.isOpenCart = true;
+    },
+    setIsToPayPressedTrue: (state) => {
+      debugger;
+      state.isToPayPressed = true;
+    },
+    setIsToPayPressedFalse: (state) => {
+      state.isToPayPressed = false;
     }
+
   },
   extraReducers: (builder) => {
     builder
@@ -75,10 +88,11 @@ const CartSlice = createSlice({
 });
 
 
-export const { setIsOpenCart } = CartSlice.actions;
+export const {setIsOpenCartTrue, setIsOpenCart, setIsToPayPressedTrue, setIsToPayPressedFalse } = CartSlice.actions;
 // Selector to get cart items from the store
 export const activeCartSelector = (state: RootState) => state.cart.activeCart;
 export const isOpenCartSelector = (state: RootState) => state.cart.isOpenCart;
+export const isToPayPressedSelector = (state: RootState) => state.cart.isToPayPressed;
 
 
 export default CartSlice.reducer;

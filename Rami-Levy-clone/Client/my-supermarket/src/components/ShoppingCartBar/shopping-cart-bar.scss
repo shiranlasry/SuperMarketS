@@ -21,7 +21,9 @@
     top: 6rem;
     left: 1.7rem;
   }
-
+  &.to-pay-pressed{
+    background-color: red !important;
+  }
   .toggle-cart-button {
     color: white;
     border: 1px solid white;
