@@ -62,6 +62,8 @@ import status from "./API/status/statusRoutes"
 app.use("/api/status", status)
 import departmentsStatus from "./API/departmentsStatus/departmentsStatusRoutes"
 app.use("/api/departments-status", departmentsStatus)
+import sales from "./API/sales/salesRoutes"
+app.use("/api/sales", sales)
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });

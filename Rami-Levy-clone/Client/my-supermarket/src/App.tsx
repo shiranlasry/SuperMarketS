@@ -16,6 +16,7 @@ import Layout from "./views/layouts/Layout";
 import NavBarItemProducts from "./components/NavBarItem/NavBarItemProducts/NavBarItemProducts";
 import UserOrders from "./pages/PersonalProfil/UserOrders/UserOrders";
 import ProductsByFoodCategory from "./components/ProductsByFoodCategory/ProductsByFoodCategory";
+import SalesList from "./components/SalesList/SalesList";
 function App() {
   const router = createBrowserRouter([
     {
@@ -41,7 +42,8 @@ function App() {
         { path: "/navbar_item_products/:navbar_item_id", element: <NavBarItemProducts /> },
         { path: "/user_orders", element: <UserOrders /> },
         {path:"/navbar_item_products/:navbar_item_id/:title" , element :<NavBarItemProducts/>},
-        {path:"/products_by_food_category/:food_category_id/" , element :<ProductsByFoodCategory/>}
+        { path: "/products_by_food_category/:food_category_id/", element: <ProductsByFoodCategory /> },
+        {path:"/sales" , element :<SalesList/>},
       ],
     },
   ]);
