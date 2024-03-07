@@ -11,7 +11,6 @@ import AddNewSubFoodCategory from "./AddNewSubFoodCategory/AddNewSubFoodCategory
 import AddNewProduct from "./AddNewProduct/AddNewProduct";
 import AddNewFoodCategory from "./AddNewFoodCategory/AddNewFoodCategory";
 import RamiBtn from "../../../components/RamiBtn/RamiBtn";
-import "./product-admin.scss";
 
 const ProductsAdmin = () => {
   const AllProducts = useAppSelector(productsSelector);
