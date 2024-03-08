@@ -7,7 +7,7 @@
   position: absolute;
   right: 0.2rem;
   top: 5.7rem;
-  max-width: 80vw;
+  width: fit-content;
   height: 380px;
   border-radius: 10px;
   font-size: 1rem;
@@ -19,7 +19,7 @@
 .category-container {
   display: block;
   height: 250px;
-  width: 250px;
+  min-width: 250px;
   margin-top: 0.8rem;
   margin-left: 2rem;
   position: relative; /* Add relative positioning */

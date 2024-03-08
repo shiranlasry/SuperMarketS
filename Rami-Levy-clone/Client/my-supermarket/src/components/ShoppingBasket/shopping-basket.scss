@@ -35,15 +35,15 @@ $button: #1579f2;
       width: 115px;
     }
     @media screen and (max-width: 1590px) {
-      margin: -7rem 0 0 1.2rem;
+      margin: -7rem 0 0 0.8rem;
       width: 115px;
     }
     @media screen and (max-width: 1490px) {
-      margin: -7rem 0 0 1.2rem;
-      width: 115px;
+      margin: -7rem 0 0 0.8rem;
+      width: 110px;
     }
     @media screen and (max-width: 1420px) {
-      margin: -7rem 0 0 1.2rem;
+      margin: -7rem 0 0 1rem;
       width: 115px;
     }
     @media screen and (max-width: 1390px) {
@@ -51,11 +51,11 @@ $button: #1579f2;
       width: 115px;
     }
     @media screen and (max-width: 1320px) {
-      margin: -7rem 0 0 2rem;
+      margin: -7rem 0 0 1rem;
       width: 115px;
     }
     @media screen and (max-width: 1292px) {
-      margin: -7rem 0 0 2rem;
+      margin: -7rem 0 0 0.3rem;
       width: 115px;
     }
 
@@ -76,9 +76,6 @@ $button: #1579f2;
       align-items: center;
       font-size: 1.3rem;
       font-weight: bold;
-      @media screen and (max-width: 1320px) {
-        font-size: 18px;
-      }
     }
   }
   .basket-icon {

@@ -1,6 +1,8 @@
 .shopping-cart-bar {
   position: fixed;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   flex-direction: row;
   width: 282px;
   height: 55px;
@@ -21,8 +23,12 @@
     top: 6rem;
     left: 1.7rem;
   }
-  &.to-pay-pressed{
-    background-color: red !important;
+  &.to-pay-pressed {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: #db1f26 !important;
   }
   .toggle-cart-button {
     color: white;
@@ -52,6 +58,7 @@
   }
 
   .toggle-pay-text {
+    padding-top: 5px;
     background-color: transparent;
     border: none;
     color: white;
