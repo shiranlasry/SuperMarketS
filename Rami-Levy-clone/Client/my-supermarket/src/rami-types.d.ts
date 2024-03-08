@@ -91,6 +91,7 @@ export interface Product  {
     street_name: string;
     floor: number|null;
     apartment: number |null;
+    house_number: number|null;
     zip_code: string;
     phone_number:string;
     is_default:boolean;

@@ -25,6 +25,7 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
     street_name: "",
     floor: null,
     apartment: null,
+    house_number: null,
     zip_code: "",
     phone_number: "",
     is_default: true,
@@ -73,9 +74,7 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="new-address-main">
-      {/* <img className="new-map-img" src="/src/assets/img/map.png" /> */}
-      <div className="addNew-content">
+   
         <Modal
           show={true}
           onHide={onClose}
@@ -126,14 +125,14 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
                 </div>
 
                 <div>
-                  {/* <label htmlFor="apartment">Apartment:</label> */}
+                  {/* <label htmlFor="apartment">house_number:</label> */}
                   <input
                     type="text"
-                    id="apartment"
-                    name="apartment"
+                    id="house_number"
+                    name="house_number"
                     placeholder="מספר בית*"
                     className="addNew-add"
-                    value={newAddress.apartment || ""}
+                    value={newAddress.house_number || ""}
                     onChange={handleInputChange}
                   />
                   <div>
@@ -157,6 +156,18 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
                       placeholder="קומה *"
                       className="addNew-add"
                       value={newAddress.floor || ""}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    {/* <label htmlFor="floor">apartment:</label> */}
+                    <input
+                      type="text"
+                      id="apartment"
+                      name="apartment"
+                      placeholder="דירה *"
+                      className="addNew-add"
+                      value={newAddress.apartment || ""}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -207,8 +218,7 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
             </form>
           </Modal.Body>
         </Modal>
-      </div>
-    </div>
+  
   );
 };
 

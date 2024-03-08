@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./ChengeContactModal.scss";
 
 interface Props {
   onClose: () => void;
