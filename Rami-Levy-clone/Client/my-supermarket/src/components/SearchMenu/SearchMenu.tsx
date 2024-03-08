@@ -26,7 +26,7 @@ const SearchMenu: React.FC<{ string: string }> = ({ string }) => {
 
     return (
         <div className="search-menu-container">
-            <div className="search-menu">
+            <div className="search-result">
                 {filteredProducts.length === 0 ? (
                     <p className="no-results">לא נמצאו תוצאות חיפוש עבור "{string}"</p>
                 ) : (

@@ -1,9 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./search-bar.scss";
 import SearchMenu from "../SearchMenu/SearchMenu"; // Import the SearchMenu component
 
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState(""); // State to store the search input
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to track if the menu is open or closed
+  const searchMenuRef = useRef(null);
+
+    // Function to handle clicks outside the search menu
+    const handleClickOutside = (event) => {
+      if (searchMenuRef.current && !searchMenuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+  };
+
+  useEffect(() => {
+    // Attach the event listener when the menu is open
+    if (isMenuOpen) {
+      document.body.addEventListener("mousedown", handleClickOutside);
+    }
+
+    // Cleanup function to remove the event listener
+    return () => {
+      document.body.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
+  
 
   return (
     <div className="search-bar">
@@ -51,11 +73,16 @@ const SearchBar = () => {
           placeholder="חיפוש מוצר או מותג"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)} // Update search input state
+          onFocus={() => setIsMenuOpen(true)} // Open the menu when input is focused
         />
         {/* Filter text */}
         <div className="filter-text">סינון</div>
-        {/* Render SearchMenu component if search input is not empty */}
-        {searchInput && <SearchMenu string={searchInput} />}
+         {/* Render SearchMenu component if search input is not empty */}
+         {isMenuOpen && searchInput && (
+          <div ref={searchMenuRef}>
+            <SearchMenu string={searchInput} />
+          </div>
+        )}
         <svg
           data-v-dce8ddf8=""
           xmlns="http://www.w3.org/2000/svg"
