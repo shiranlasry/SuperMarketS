@@ -14,6 +14,10 @@ const AdminMainPage = () => {
     navigate("/manage_products");
   };
 
+  const manageSalesPressed = () => {
+    navigate("/manage_sales");
+  };
+
   return (
     <div className="admin-main-page-container">
       <h1 className="admin-zone-title">איזור מנהלים</h1>
@@ -28,6 +32,9 @@ const AdminMainPage = () => {
       </button>
       <button className="manage-usersBtn" onClick={manageUsersPressed}>
         נהל משתמשים
+      </button>
+      <button className="manage-salesBtn" onClick={manageSalesPressed}>
+        נהל מבצעים  
       </button>
       <button className="admin-backBtn" onClick={() => navigate("/")}>
         חזור
