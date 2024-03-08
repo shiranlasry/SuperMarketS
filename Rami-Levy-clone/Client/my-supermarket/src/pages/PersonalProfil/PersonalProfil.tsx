@@ -8,7 +8,11 @@ import "./personal-profil.scss";
 import AddPaymentMethod from "./UserPayment/UserPayment";
 import UserOrders from "./UserOrders/UserOrders";
 
-const PersonalProfil = () => {
+interface PersonalProfilProps {
+  onMenuClick?: (buttonName: string) => void;
+}
+
+const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
   const [showUserDetails, setShowUserDetails] = useState(false);
   const [showUserAddress, setShowUserAddress] = useState(false);
   const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
@@ -19,6 +23,9 @@ const PersonalProfil = () => {
 
   const handleButtonClick = (buttonName: string) => {
     setActiveButton(buttonName); // Set the active button
+    if (onMenuClick) {
+      onMenuClick(buttonName); // Call the onMenuClick function with the button name if provided
+    }
     switch (buttonName) {
       case "userDetails":
         setShowUserDetails(true);
