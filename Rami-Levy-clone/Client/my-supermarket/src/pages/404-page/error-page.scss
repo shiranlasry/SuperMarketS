@@ -1,17 +1,20 @@
+$rami-blue: #1579f2;
+
 .error-page-wrap {
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  color: $rami-blue;
 
   .Err-to-hp {
-    background-color: #1579f2;
+    background-color: $rami-blue;
     color: white;
     border: none;
     margin-top: 8px;
     font-size: 1.1rem;
     border-radius: 8px;
-    padding: 16px 45px 16px 45px;
+    padding: 8px 45px 8px 45px;
   }
 
   .page-not-found {

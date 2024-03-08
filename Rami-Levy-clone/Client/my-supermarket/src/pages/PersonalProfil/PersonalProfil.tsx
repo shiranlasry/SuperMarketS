@@ -196,8 +196,10 @@ const PersonalProfil = () => {
           </svg>
           <p>תשלום</p>
         </button>
-        <button className="personal-details-btn"
-          onClick={() => handleButtonClick("orders")}>
+        <button
+          className="personal-details-btn"
+          onClick={() => handleButtonClick("orders")}
+        >
           <svg
             data-v-6f1b17ad=""
             xmlns="http://www.w3.org/2000/svg"
@@ -387,7 +389,7 @@ const PersonalProfil = () => {
         {showUserDetails && <UserDetails />}
         {showUserAddress && <UserAddress />}
         {showAddPaymentMethod && <AddPaymentMethod />}
-        { showOrders && <UserOrders />}
+        {showOrders && <UserOrders />}
       </div>
       <div className="Personal-profil-lists"></div>
     </div>

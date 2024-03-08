@@ -1,128 +1,123 @@
 $button: #1579f2;
 
 .layout {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
+  .main-container {
+    margin-top: 15vh;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: center;
+  }
+  .shopping-cart-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 175px;
+    left: 0;
+  }
 
-.main-container {
-  margin-top: 10rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.shopping-cart-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: absolute;
-  top: 175px;
-  left: 0;
-}
+  .custom-modal {
+    .modal-content {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+  }
+  .children-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f6f6f6;
+    letter-spacing: 1.3px;
+    font-size: 0.9rem;
+    z-index: 1;
+  }
+  .greet-user {
+    float: left;
+    margin: -3.2rem 0 0.8rem 12.5rem;
+    user-select: none;
+    font-size: 1rem;
+    border-radius: 9px;
+    color: $button;
+    padding: 4px 7px 2px 7px;
 
-.custom-modal {
-  .modal-content {
-    background: transparent;
+    @media screen and (max-width: 1800px) {
+      margin: -3.2rem 0 0.8rem 10rem;
+    }
+
+    @media screen and (max-width: 1120px) {
+      display: none;
+    }
+
+    &:hover {
+      background-color: rgba(211, 211, 211, 0.493);
+    }
+
+    &.menu-open {
+      background-color: rgba(211, 211, 211, 0.493);
+    }
+
+    .loggedin-Svg {
+      margin: 0 0 0.4rem 0.5rem;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .logout-btn {
     border: none;
-    box-shadow: none;
-  }
-}
-.children-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 400px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #f6f6f6;
-  letter-spacing: 1.3px;
-  font-size: 0.9rem;
-  z-index: 1;
-}
-.greet-user {
-  float: left;
-  margin: -3.2rem 0 0.8rem 12.5rem;
-  user-select: none;
-  font-size: 1rem;
-  border-radius: 9px;
-  color: $button;
-  padding: 4px 7px 2px 7px;
-
-  @media screen and (max-width: 1800px) {
-    margin: -3.2rem 0 0.8rem 10rem;
+    background-color: #f3f5f8;
   }
 
-  @media screen and (max-width: 1120px) {
-    display: none;
+  .go-to-adminBtn {
+    border: none;
+    color: $button;
+    background-color: #f3f5f8;
   }
 
-  &:hover {
-    background-color: rgba(211, 211, 211, 0.493);
+  button.to-shoppin-navBar {
+    margin-left: -5rem;
   }
 
-  &.menu-open {
-    background-color: rgba(211, 211, 211, 0.493);
+  .rami-shopping {
+    height: 20px;
+    width: 170px;
+    margin: 0;
+
+    @media screen and (max-width: 950px) {
+      height: 17px;
+      width: 120px;
+    }
+
+    @media screen and (max-width: 320px) {
+      display: none;
+    }
   }
 
-  .loggedin-Svg {
-    margin: 0 0 0.4rem 0.5rem;
-    width: 18px;
-    height: 18px;
-  }
-}
-
-.logout-btn {
-  border: none;
-  background-color: #f3f5f8;
-}
-
-.go-to-adminBtn {
-  border: none;
-  color: $button;
-  background-color: #f3f5f8;
-}
-
-button.to-shoppin-navBar {
-  margin-left: -5rem;
-}
-
-.rami-shopping {
-  height: 20px;
-  width: 170px;
-  margin: 0;
-
-  @media screen and (max-width: 950px) {
-    height: 17px;
-    width: 120px;
+  .access {
+    margin: 1rem 0 0 0;
+    float: left;
+    color: $button;
+    user-select: none;
+    font-size: 0.5;
+    background-color: #f3f5f8;
+    border: none;
   }
 
-  @media screen and (max-width: 320px) {
-    display: none;
-  }
-}
+  .access {
+    float: left;
+    text-decoration: underline;
+    margin: -3rem 0 0 2.2rem;
+    font-size: 0.9rem;
 
-.access {
-  margin: 1rem 0 0 0;
-  float: left;
-  color: $button;
-  user-select: none;
-  font-size: 0.5;
-  background-color: #f3f5f8;
-  border: none;
-}
-
-.access {
-  float: left;
-  text-decoration: underline;
-  margin: -3rem 0 0 2.2rem;
-  font-size: 0.9rem;
-
-  @media screen and (max-width: 970px) {
-    display: none;
+    @media screen and (max-width: 970px) {
+      display: none;
+    }
   }
 }
