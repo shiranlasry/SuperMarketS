@@ -1,14 +1,15 @@
-$button: #1579f2;
+$rami-blue: #1579f2;
 
 .payment-main {
   .payment-container {
     margin: auto;
     display: flex;
     flex-direction: column;
-    max-width: 780px;
+    max-width: 800px;
     height: 250px;
     padding: 16px 0 16px 0;
     background-color: #fff;
+    color: $rami-blue;
     border-radius: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
@@ -32,8 +33,7 @@ $button: #1579f2;
         align-items: center;
         background-color: #f3f5f800;
         border: none;
-
-        color: #1579f2;
+        color: $rami-blue;
         font-size: 1rem;
 
         svg {
@@ -42,7 +42,7 @@ $button: #1579f2;
           width: 66px;
           border-radius: 50px;
           padding: 19px 23px 19px 23px;
-          fill: $button;
+          fill: $rami-blue;
           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
       }

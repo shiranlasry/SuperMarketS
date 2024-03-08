@@ -1,4 +1,5 @@
-$button: #1579f2;
+$rami-blue: #1579f2;
+
 .address-main {
   .address-container {
     margin: auto;
@@ -14,8 +15,9 @@ $button: #1579f2;
 
     .address-title {
       width: 95%;
-      padding-right: 1rem;
+      padding: 0.1rem 0.5rem 0.8rem 0;
       margin: 0 1rem 0 1rem;
+      color: $rami-blue;
       border-bottom: 1px solid #f3f5f8;
     }
 
@@ -41,7 +43,7 @@ $button: #1579f2;
   margin-top: 48px;
 
   .add-new-address {
-    color: #1579f2;
+    color: $rami-blue;
     font-size: 1rem;
     margin: 1rem 0 1rem 0;
   }
@@ -52,7 +54,7 @@ $button: #1579f2;
       width: 66px;
       border-radius: 50px;
       padding: 19px 23px 19px 23px;
-      fill: $button;
+      fill: $rami-blue;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
   }

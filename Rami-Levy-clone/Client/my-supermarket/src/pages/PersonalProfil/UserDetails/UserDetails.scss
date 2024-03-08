@@ -1,3 +1,5 @@
+$rami-blue: #1579f2;
+
 .user-details-container {
   margin: auto;
   display: flex;
@@ -13,6 +15,7 @@
   .user-details-title {
     padding-right: 1rem;
     margin: 0 1rem 0 1rem;
+    color: $rami-blue;
     border-bottom: 1px solid #f3f5f8;
   }
 

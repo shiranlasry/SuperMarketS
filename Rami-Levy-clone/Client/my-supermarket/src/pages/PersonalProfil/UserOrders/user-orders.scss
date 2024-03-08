@@ -1,0 +1,33 @@
+$rami-blue: #1579f2;
+
+.user-orders-main {
+  color: $rami-blue;
+  display: flex;
+  flex-direction: column;
+
+  .my-orders-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    font-size: 1.2rem;
+    color: $rami-blue;
+  }
+
+  .no-orders-title {
+    margin: auto;
+    padding: 16px 0 16px 0;
+  }
+
+  .user-ordersBtn {
+    margin: auto;
+    border-radius: 40px;
+  }
+
+  .banana {
+    margin: 3rem auto 1rem auto;
+    width: 106.71px;
+    height: 149.34px;
+  }
+}

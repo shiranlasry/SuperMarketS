@@ -1,3 +1,4 @@
+import RamiBtn from "../../components/RamiBtn/RamiBtn";
 import "./error-page.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -16,9 +17,9 @@ export default function ErrorPage() {
         alt="404 page not found"
       ></img>
       <p className="page-not-found">העמוד המבוקש לא נמצא</p>
-      <button className="Err-to-hp" onClick={handleReturnHome}>
+      <RamiBtn className="Err-to-hp" onClick={handleReturnHome}>
         תחזירו אותי הביתה
-      </button>
+      </RamiBtn>
     </div>
   );
 }
