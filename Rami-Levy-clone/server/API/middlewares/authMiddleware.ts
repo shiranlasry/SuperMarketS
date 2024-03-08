@@ -47,7 +47,7 @@ export const isAdmin = async (req: Request, res: Response, next: NextFunction) =
 export const isAdminUserUpdate = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.cookies.token;
-    const userIdToUpdate = req.body.user_id;
+    const userIdToUpdate = req.body.user_id || req.params.user_id;
     if (!token) {
       // No token found, deny access
       return res.status(403).send({ ok: false, error: 'Access denied. Admin privileges required.' });

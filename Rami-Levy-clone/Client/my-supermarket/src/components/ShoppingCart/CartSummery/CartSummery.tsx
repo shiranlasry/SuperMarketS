@@ -32,6 +32,10 @@ const CartSummery = () => {
     if (!loggedInUser) {
       getUserToken();
     } else {
+        setOrderContact({
+            full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
+            phone_number: loggedInUser.phone_number,
+            });
       // Select the default address if available
       if (loggedInUser.addresses) {
         const defaultAddress = loggedInUser.addresses.find(
@@ -72,10 +76,12 @@ const CartSummery = () => {
               </button>
             </div>
           </div>
-          {selectedAddress && (
+          {selectedAddress ? 
             <div className="row align-items-center">
               <div className="col">
-                <p>{selectedAddress.address_name}</p>
+                <p>{selectedAddress.street_name} {selectedAddress.house_number} , {selectedAddress.city_name}</p>
+                <p>דירה {selectedAddress.apartment} </p>
+                <p>קומה {selectedAddress.floor} </p>
               </div>
               <div className="col">
                 <button
@@ -85,8 +91,16 @@ const CartSummery = () => {
                   שינוי
                 </button>
               </div>
+            </div> :<div>
+                <p>בחר כתובת למשלוח</p>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => toggleModal("changeAddress")}
+                >
+                    בחר
+                </button>
             </div>
-          )}
+          }
           <div className="row align-items-center">
             <div className="col">
               <p>פרטי משלוח</p>
@@ -126,7 +140,7 @@ const CartSummery = () => {
         dialogClassName="custom-modal"
       >
         <Modal.Body>
-          <ChengeAddressModal onClose={() => toggleModal("changeAddress")} />
+          <ChengeAddressModal setSelectedAddress={setSelectedAddress} selectedAddress={selectedAddress} onClose={() => toggleModal("changeAddress") } />
         </Modal.Body>
       </Modal>
         </>

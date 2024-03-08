@@ -110,7 +110,7 @@ export const addNewUserAddressApi = createAsyncThunk<Address[] |AddNewUserAddres
 export const getUserAddressesApi = createAsyncThunk<Address[] | null, number>('get-user-addresses', async (user_id) => {
     try {
             
-        const response = await axios.get(`/api/addresses/get-user-addresses/${user_id}`);
+        const response = await axios.get(`/api/addresses/get-user-addresses/${user_id}`,{params:{user_id}});
         const { ok, result } = response.data;
         if (!ok) {
             throw new Error("Invalid credentials getUserAddressesApi()");
