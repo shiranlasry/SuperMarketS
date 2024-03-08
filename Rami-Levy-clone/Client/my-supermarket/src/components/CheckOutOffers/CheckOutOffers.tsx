@@ -6,10 +6,12 @@ import { useSelector } from 'react-redux';
 import { getAllProductsApi } from '../../features/products/productsAPI';
 import { Product } from '../../rami-types';
 import ProductCard from '../ProductCard/ProductCard';
+import PersonalProfil from '../../pages/PersonalProfil/PersonalProfil';
 
 const CheckOutOffers = () => {
   const allProducts = useSelector(productsSelector);
   const [randomProducts, setRandomProducts] = useState<Product[]>([]);
+  const [showProducts, setShowProducts] = useState(true); // State to track whether to show products
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -31,12 +33,6 @@ const CheckOutOffers = () => {
   };
 
   useEffect(() => {
-    if (randomProducts.length > 0) {
-      console.log(randomProducts);
-    }
-  }, [randomProducts]);
-
-  useEffect(() => {
     dispatch(setIsOpenCartTrue());
     dispatch(setIsToPayPressedTrue());
     return () => {
@@ -45,17 +41,34 @@ const CheckOutOffers = () => {
     };
   }, [dispatch]);
 
+  // Function to handle button click in Personal Profile menu
+  const handleMenuClick = (buttonName: string) => {
+    setShowProducts(false); // Hide products when a menu item is clicked
+      dispatch(setIsToPayPressedFalse());
+  };
+
   return (
     <div className="container">
-      <h1 className="mt-5 mb-4">אולי יעניין אותך</h1>
       <div className="row">
-        {randomProducts.map((product) => (
-          <div key={product.product_id} className="col-12 col-md-4">
-            <div className="product-card-wrapper">
-              <ProductCard product={product} />
+        <div className="col-md-6">
+          <PersonalProfil onMenuClick={handleMenuClick} /> {/* Pass handleMenuClick as a prop to PersonalProfil */}
+        </div>
+        {showProducts && ( // Conditionally render products based on showProducts state
+          <div className="col-md-6">
+            <div className="row">
+              <div className="col-12">
+                <h1 className="mt-3 mb-3">אולי יעניין אותך</h1>
+              </div>
+              {randomProducts.map((product) => (
+                <div key={product.product_id} className="col-12 col-md-4 mb-3">
+                  <div className="product-card-wrapper">
+                    <ProductCard product={product} />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

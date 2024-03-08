@@ -12,6 +12,13 @@ import ChengeAddressModal from "./Modals/ChengeAddressModal";
 
 const CartSummery = () => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
+  const [orderContact, setOrderContact] = useState({
+    full_name: loggedInUser?.first_name + " " + loggedInUser?.last_name || "",
+    phone_number: loggedInUser?.phone_number || "",
+  });
+  const [selectedHowToReceive, setSelectedHowToReceive] = useState(" יש מישהו בבית");
+  const [selectedAlternativeProducts, setSelectedAlternativeProducts] = useState("צרו קשר לתיאום");
+  
   const [showModal, setShowModal] = useState({
     changeContact: false,
     changeAddress: false,
@@ -48,12 +55,12 @@ const CartSummery = () => {
 
   return (
     <div className="cart-summery-content">
-      {loggedInUser && (
+      {orderContact && (
         <>
           <div className="row align-items-center">
             <div className="col">
               <p>
-                {loggedInUser.first_name} {loggedInUser.last_name}
+                {orderContact.full_name}
               </p>
             </div>
             <div className="col">
@@ -65,7 +72,6 @@ const CartSummery = () => {
               </button>
             </div>
           </div>
-          {/* Display selected address */}
           {selectedAddress && (
             <div className="row align-items-center">
               <div className="col">
@@ -97,19 +103,24 @@ const CartSummery = () => {
               <button className="btn btn-primary">שינוי</button>
             </div>
           </div>
-        </>
-      )}
-
-      <Modal
-        show={showModal.changeContact}
-        onHide={() => toggleModal("changeContact")}
-        dialogClassName="custom-modal"
-      >
-        <Modal.Body>
-          <ChengeContactModal onClose={() => toggleModal("changeContact")} />
-        </Modal.Body>
-      </Modal>
-      <Modal
+          <Modal
+            show={showModal.changeContact}
+            onHide={() => toggleModal("changeContact")}
+            dialogClassName="custom-modal"
+          >
+            <Modal.Body>
+              <ChengeContactModal
+                onClose={() => toggleModal("changeContact")}
+                orderContact={orderContact}
+                setOrderContact={setOrderContact}
+                selectedHowToReceive={selectedHowToReceive}
+                setSelectedHowToReceive={setSelectedHowToReceive}
+                selectedAlternativeProducts={selectedAlternativeProducts}
+                setSelectedAlternativeProducts={setSelectedAlternativeProducts}
+              />
+            </Modal.Body>
+          </Modal>
+          <Modal
         show={showModal.changeAddress}
         onHide={() => toggleModal("changeAddress")}
         dialogClassName="custom-modal"
@@ -118,6 +129,10 @@ const CartSummery = () => {
           <ChengeAddressModal onClose={() => toggleModal("changeAddress")} />
         </Modal.Body>
       </Modal>
+        </>
+      )}
+
+    
     </div>
   );
 };
