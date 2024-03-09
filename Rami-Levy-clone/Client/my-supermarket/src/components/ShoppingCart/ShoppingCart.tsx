@@ -8,22 +8,37 @@ import {
   setIsOpenCart,
 } from "../../features/cart/cartSlice";
 import { productsSelector } from "../../features/products/productsSlice";
-import { Product, ProductsList, Sales } from "../../rami-types";
+import { Order, Product, ProductsList, Sales } from "../../rami-types";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./shopping-cart.scss";
 import { getAllProductsApi } from "../../features/products/productsAPI";
 import CartSummery from "./CartSummery/CartSummery";
 import { selectSales } from "../../features/sales/salesSlice";
 import { getSalesAPI } from "../../features/sales/salesAPI";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
   const isOpenCart: boolean = useAppSelector(isOpenCartSelector);
+  const loggedInUser = useAppSelector(loggedInUserSelector);
   const isToPayPressed: boolean = useAppSelector(isToPayPressedSelector);
   const allProducts = useAppSelector(productsSelector);
   const [totalPrice, setTotalPrice] = useState(0);
   const allSales = useAppSelector<Sales[]>(selectSales);
+  const  initialOrder: Order = {
+    order_id: null,
+    cart_id: null,
+    user_id: null,
+    user_contact_id: null,
+    delivery_id: null,
+    order_creation_date: null,
+    status: null,
+  };
+  const [newOrder, setNewOrder] = useState<Order>(initialOrder);
+  const hanelsetNewOrder = (field : string, value : string | number) => {
+    setNewOrder({...newOrder, [field]: value});
+  }
 
   const dispatch = useAppDispatch();
 
@@ -39,11 +54,18 @@ const ShoppingCart: React.FC = () => {
     if (activeCart) {
       if (activeCart.cartList) {
         setTotalPrice(calculateTotalPrice(activeCart.cartList));
+        hanelsetNewOrder('cart_id', activeCart.cart_id);
       } else {
         setTotalPrice(0);
       }
     }
   }, [activeCart]);
+useEffect(() => {
+    if (loggedInUser && loggedInUser.user_id) {
+      hanelsetNewOrder('user_id', loggedInUser.user_id);
+    }
+  }, [loggedInUser]);
+
 
   const toggleCart = () => {
     dispatch(setIsOpenCart());
@@ -65,26 +87,7 @@ const ShoppingCart: React.FC = () => {
     return totalPrice;
   };
 
-  // const createNewCart = async () => {
-  //   if (activeCart !== null) {
-  //     dispatch(addNewCartApi(activeCart.user_id));
-  //     window.location.reload();
-  //   }
-  // }
-  //  const sendOrder = async () => {
-  //   if (activeCart !== null) {
-  //     const order_id = await addNewOrderApi(
-  //       activeCart.cart_id,
-  //       activeCart.user_id,
-  //       new Date()
-  //     );
-  //     const delivery_id = await addNewDeliveryApi(order_id, new Date());
-  //     await updateOrderApi(order_id, delivery_id, 2);
-  //     await updateCartAPI(activeCart.cart_id, 2);
-  //     createNewCart();
-  //   }
-  // };
-
+ 
   const formatPrice = (price: number) => {
     const [main, decimal] = price.toFixed(2).split(".");
     return (
@@ -157,7 +160,7 @@ const ShoppingCart: React.FC = () => {
     <ul className="cart-content">
      {isToPayPressed && (
   <ul className="cart-content">
-   <CartSummery />
+   <CartSummery  hanelsetNewOrder={hanelsetNewOrder}/>
   </ul>
 )}
 

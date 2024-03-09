@@ -66,8 +66,7 @@ const ChengeAddressModal : React.FC<Props> = ({onClose, setSelectedAddress, sele
      {!isPicOtherAddress ? 
        <div>
        {
-        selectedAddress && selectedAddress.is_default? <p>אנחנו מציגים את כתובת ברירת המחדל שלך</p> : <p>כתובת נוכחית</p>
-       }
+        selectedAddress && selectedAddress.is_default? <p>אנחנו מציגים את כתובת ברירת המחדל שלך</p> :"" }
        {
          selectedAddress &&
          <>
@@ -83,6 +82,11 @@ const ChengeAddressModal : React.FC<Props> = ({onClose, setSelectedAddress, sele
          </div>
          </>
        }
+     {!selectedAddress
+        && <>
+          <p>לא נבחרה כתובת</p>
+         
+        </>     }
        <button onClick={() =>{setIsPicOtherAddress(true)}}>לא הכתובת שלך?</button>
  
        <button onClick={onClose}>סגור</button>

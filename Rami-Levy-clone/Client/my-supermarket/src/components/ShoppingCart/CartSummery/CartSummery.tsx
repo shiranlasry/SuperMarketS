@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInUserSlice";
-import { Address } from "../../../rami-types";
+import { Address, Delivery } from "../../../rami-types";
 import "./cartSummery.scss";
 import {
   getUserAddressesApi,
@@ -10,14 +10,20 @@ import {
 import { Modal } from "react-bootstrap";
 import ChengeContactModal from "./Modals/ChengeContactModal";
 import ChengeAddressModal from "./Modals/ChengeAddressModal";
-import UsersDeliveriesModal from "./Modals/AvailableDeliveriesModal";
+import AvailableDeliveriesModal from "./Modals/AvailableDeliveriesModal";
 
-const CartSummery = () => {
+interface CartSummeryProps {
+   
+}   
+
+const CartSummery : React.FC<CartSummeryProps> = ({}) => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
   const [orderContact, setOrderContact] = useState({
     full_name: loggedInUser?.first_name + " " + loggedInUser?.last_name || "",
     phone_number: loggedInUser?.phone_number || "",
   });
+  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
+  const [selectedDelivery, setSelectedDelivery] = useState<Delivery | null>(null);
   const [selectedHowToReceive, setSelectedHowToReceive] =
     useState(" יש מישהו בבית");
   const [selectedAlternativeProducts, setSelectedAlternativeProducts] =
@@ -29,7 +35,7 @@ const CartSummery = () => {
     changeDelivery: false,
     showProducts: false,
   });
-  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
+  
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -104,16 +110,23 @@ const CartSummery = () => {
                 className="btn btn-primary"
                 onClick={() => toggleModal("changeAddress")}
               >
-                בחר
+                שינוי
               </button>
             </div>
           )}
           <div className="row align-items-center">
             <div className="col">
-              <p>פרטי משלוח</p>
-            </div>
+                {selectedDelivery ? (
+                    <p>
+                        {selectedDelivery.delivery_finish_date}{" "}
+                        {selectedDelivery.delivery_start_time}
+                    </p>
+                ) : (
+                    <p>בחר מועד משלוח</p>
+                )}
+                        </div>
             <div className="col">
-              <button className="btn btn-primary">שינוי</button>
+              <button onClick={() => toggleModal("changeAddress")} className="btn btn-primary">שינוי</button>
             </div>
           </div>
           <div className="row align-items-center">
@@ -156,7 +169,11 @@ const CartSummery = () => {
                 />
               </div>
               <div className="deliveries-section">
-                <UsersDeliveriesModal />
+                <AvailableDeliveriesModal
+                setSelectedDelivery={setSelectedDelivery}
+                selectedDelivery={selectedDelivery}
+                onClose={() => toggleModal("changeAddress")}
+                />
               </div>
             </Modal.Body>
           </Modal>
