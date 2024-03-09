@@ -20,32 +20,78 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
   const dispatch = useAppDispatch();
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, valueAsNumber } = e.target;
+    switch (name) {
+        case "sale_discount":
+            if (valueAsNumber < 0 || valueAsNumber > 100) {
+                return alert("הנחה חייבת להיות בין 0 ל-100");
+            }
+            setNewSale((prevSale) => ({
+                ...prevSale,
+                [name]: valueAsNumber,
+            }));
+            return;
+        case "sale_expiration_date":
+            if (new Date(value) < new Date()) {
+                return alert("תאריך תפוגה חייב להיות גדול מהיום");
+            }
+            break;
+        case "product_id":
+            const strToInt = parseInt(value);
+            if (isNaN(strToInt)) {
+                return alert("נא לבחור מוצר");
+            }
+            setNewSale((prevSale) => ({
+                ...prevSale,
+                [name]: strToInt,
+            }));
+            return; // Add break statement here
+        default:
+            break;
+    }
     setNewSale((prevSale) => ({
       ...prevSale,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const checkNewSale = () => {
+    if (
+      newSale.sale_description === "" ||
+      newSale.sale_discount === undefined ||
+      newSale.sale_expiration_date === "" ||
+      newSale.product_id === undefined
+    ) {
+      console.log(newSale);
+      return alert("נא למלא את כל השדות");
+    }
+    return true;
+  };
+
+  const isExist = () => {
     const newSaleItem = sales.findIndex(
       (sale) => sale.product_id === newSale.product_id
     );
-    console.log("newwwwwwwwwwww", newSale.product_id);
-    if (newSaleItem) {
-      console.log(newSaleItem);
-      return alert("מוצר זה כבר במבצע");
+    if (newSaleItem === -1) {
+      return true;
     } else {
-      dispatch(addSaleAPI(newSale));
-      // window.location.reload();
+        alert("מוצר זה כבר במבצע");
+      return false;
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!checkNewSale()) return console.error("שדות חסרים");
+    if (!isExist()) return console.error("מוצר זה כבר במבצע");
+    dispatch(addSaleAPI(newSale));
     setNewSale({
       sale_description: "",
       sale_discount: undefined,
       sale_expiration_date: "",
       product_id: undefined,
     });
+      window.location.reload();
   };
 
   return (
@@ -81,7 +127,10 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
           {/* Render options for product selection */}
           {products &&
             products.map((product) => (
-              <option key={product.product_id} value={product.product_id}>
+              <option
+                key={product.product_id}
+                value={product.product_id?.toString()}
+              >
                 {product.product_name}
               </option>
             ))}

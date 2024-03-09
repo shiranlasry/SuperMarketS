@@ -4,7 +4,6 @@ import connection from '../../DB/database';
 
 export const getAllSales = async (req: express.Request, res: express.Response) => {
     try {
-        console.log("getAllSales");
         const query = `SELECT * FROM rami_levy_db.sales;`;
         connection.query(query, (err, results, fields) => {
             try {
