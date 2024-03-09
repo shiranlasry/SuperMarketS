@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hook";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import "./AdminMainPage.scss";
+import RamiBtn from "../../components/RamiBtn/RamiBtn";
 
 const AdminMainPage = () => {
   const navigate = useNavigate();
@@ -27,18 +28,18 @@ const AdminMainPage = () => {
         </h2>
       )}
 
-      <button className="manage-productsBtn" onClick={manageProductsPressed}>
+      <RamiBtn className="manage-productsBtn" onClick={manageProductsPressed}>
         נהל מוצרים
-      </button>
-      <button className="manage-usersBtn" onClick={manageUsersPressed}>
+      </RamiBtn>
+      <RamiBtn className="manage-usersBtn" onClick={manageUsersPressed}>
         נהל משתמשים
-      </button>
-      <button className="manage-salesBtn" onClick={manageSalesPressed}>
-        נהל מבצעים  
-      </button>
-      <button className="admin-backBtn" onClick={() => navigate("/")}>
+      </RamiBtn>
+      <RamiBtn className="manage-salesBtn" onClick={manageSalesPressed}>
+        נהל מבצעים
+      </RamiBtn>
+      <RamiBtn className="admin-backBtn" onClick={() => navigate("/")}>
         חזור
-      </button>
+      </RamiBtn>
     </div>
   );
 };
