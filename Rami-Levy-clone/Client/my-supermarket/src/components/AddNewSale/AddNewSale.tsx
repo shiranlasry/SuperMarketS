@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./addNewSale.scss";
 import { Product, Sales } from "../../rami-types";
+import { useAppDispatch } from "../../app/hook";
+import { addSaleAPI } from "../../features/sales/salesAPI";
 
 
 interface AddNewSalePrps {
@@ -11,10 +13,11 @@ interface AddNewSalePrps {
 const AddNewSale:React.FC<AddNewSalePrps> = ({ sales, products }) => {
     const [newSale, setNewSale] = useState({
         sale_description: "",
-        sale_discount: 0,
+        sale_discount: undefined,
         sale_expiration_date: "",
-        product_id: 0,
+        product_id: undefined,
     });
+    const dispatch = useAppDispatch();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -26,12 +29,21 @@ const AddNewSale:React.FC<AddNewSalePrps> = ({ sales, products }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(sales && sales.find(sale => sale.product_id === newSale.product_id) )
+        const newSaleItem = sales.findIndex(sale => sale.product_id === newSale.product_id)
+        console.log("newwwwwwwwwwww",newSale.product_id);
+        if (newSaleItem) {
+            console.log(newSaleItem);
+            return alert("מוצר זה כבר במבצע");
+        }
+        else {
+            dispatch(addSaleAPI(newSale));
+            // window.location.reload();
+        }
         setNewSale({
             sale_description: "",
-            sale_discount: 0,
+            sale_discount: undefined,
             sale_expiration_date: "",
-            product_id: 0,
+            product_id: undefined,
         });
     };
 
@@ -43,22 +55,22 @@ const AddNewSale:React.FC<AddNewSalePrps> = ({ sales, products }) => {
                     type="text"
                     name="sale_description"
                     value={newSale.sale_description}
-                    placeholder="Sale Description"
+                    placeholder="סוג הנחה"
                     onChange={handleInputChange}
                 />
                 <input
                     type="number"
                     name="sale_discount"
                     value={newSale.sale_discount}
-                    placeholder="Sale Discount"
+                    placeholder=" %הנחה"
                     onChange={handleInputChange}
                 />
                 <input
-                    type="date"
-                    name="sale_expiration_date"
-                    value={newSale.sale_expiration_date}
-                    onChange={handleInputChange}
-                />
+                        type="date"
+                        name="sale_expiration_date"
+                        value={newSale.sale_expiration_date}
+                        onChange={handleInputChange}
+                    />
                 <select
                     name="product_id"
                     value={newSale.product_id}
@@ -72,10 +84,12 @@ const AddNewSale:React.FC<AddNewSalePrps> = ({ sales, products }) => {
                             </option>
                         ))}
                 </select>
-                <button type="submit">Add Sale</button>
+                <button type="submit">הוסף מבצע</button>
             </form>
         </div>
     );
 };
 
 export default AddNewSale;
+
+

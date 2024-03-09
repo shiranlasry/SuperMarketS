@@ -14,12 +14,6 @@ import AddNewSale from "../../../components/AddNewSale/AddNewSale";
 const ManageSales = () => {
     const allProducts = useAppSelector(productsSelector);
     const allSales = useAppSelector<Sales[]>(selectSales);
-    const [newSale, setNewSale] = useState({
-            sale_description: "",
-            sale_discount: "",
-            sale_expiration_date: "",
-            product_id: "",
-    });
     const dispatch = useAppDispatch();
     
     useEffect(() => {
@@ -30,28 +24,7 @@ const ManageSales = () => {
         if (!allProducts) {
             dispatch(getAllProductsApi());
         }
-    }, [newSale]);
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setNewSale((prevSale) => ({
-            ...prevSale,
-            [name]: value,
-        }));
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        dispatch(addSaleAPI(newSale)); // Pass newSale as an argument
-        // Reset the form fields after submission
-        setNewSale({
-            sale_description: "",
-            sale_discount: "",
-            sale_expiration_date: "",
-            product_id: "",
-        });
-    };
-
+    }, []);
 
     return (
         <div className="manage-sales">
