@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInUserSlice";
 import { Address } from "../../../rami-types";
+import "./cartSummery.scss";
 import {
   getUserAddressesApi,
   getUserFromTokenApi,
@@ -9,6 +10,7 @@ import {
 import { Modal } from "react-bootstrap";
 import ChengeContactModal from "./Modals/ChengeContactModal";
 import ChengeAddressModal from "./Modals/ChengeAddressModal";
+import UsersDeliveriesModal from "./Modals/AvailableDeliveriesModal";
 
 const CartSummery = () => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
@@ -16,9 +18,11 @@ const CartSummery = () => {
     full_name: loggedInUser?.first_name + " " + loggedInUser?.last_name || "",
     phone_number: loggedInUser?.phone_number || "",
   });
-  const [selectedHowToReceive, setSelectedHowToReceive] = useState(" יש מישהו בבית");
-  const [selectedAlternativeProducts, setSelectedAlternativeProducts] = useState("צרו קשר לתיאום");
-  
+  const [selectedHowToReceive, setSelectedHowToReceive] =
+    useState(" יש מישהו בבית");
+  const [selectedAlternativeProducts, setSelectedAlternativeProducts] =
+    useState("צרו קשר לתיאום");
+
   const [showModal, setShowModal] = useState({
     changeContact: false,
     changeAddress: false,
@@ -32,10 +36,10 @@ const CartSummery = () => {
     if (!loggedInUser) {
       getUserToken();
     } else {
-        setOrderContact({
-            full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
-            phone_number: loggedInUser.phone_number,
-            });
+      setOrderContact({
+        full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
+        phone_number: loggedInUser.phone_number,
+      });
       // Select the default address if available
       if (loggedInUser.addresses) {
         const defaultAddress = loggedInUser.addresses.find(
@@ -63,9 +67,7 @@ const CartSummery = () => {
         <>
           <div className="row align-items-center">
             <div className="col">
-              <p>
-                {orderContact.full_name}
-              </p>
+              <p>{orderContact.full_name}</p>
             </div>
             <div className="col">
               <button
@@ -76,10 +78,13 @@ const CartSummery = () => {
               </button>
             </div>
           </div>
-          {selectedAddress ? 
+          {selectedAddress ? (
             <div className="row align-items-center">
               <div className="col">
-                <p>{selectedAddress.street_name} {selectedAddress.house_number} , {selectedAddress.city_name}</p>
+                <p>
+                  {selectedAddress.street_name} {selectedAddress.house_number} ,{" "}
+                  {selectedAddress.city_name}
+                </p>
                 <p>דירה {selectedAddress.apartment} </p>
                 <p>קומה {selectedAddress.floor} </p>
               </div>
@@ -91,16 +96,18 @@ const CartSummery = () => {
                   שינוי
                 </button>
               </div>
-            </div> :<div>
-                <p>בחר כתובת למשלוח</p>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => toggleModal("changeAddress")}
-                >
-                    בחר
-                </button>
             </div>
-          }
+          ) : (
+            <div>
+              <p>בחר כתובת למשלוח</p>
+              <button
+                className="btn btn-primary"
+                onClick={() => toggleModal("changeAddress")}
+              >
+                בחר
+              </button>
+            </div>
+          )}
           <div className="row align-items-center">
             <div className="col">
               <p>פרטי משלוח</p>
@@ -135,18 +142,26 @@ const CartSummery = () => {
             </Modal.Body>
           </Modal>
           <Modal
-        show={showModal.changeAddress}
-        onHide={() => toggleModal("changeAddress")}
-        dialogClassName="custom-modal"
-      >
-        <Modal.Body>
-          <ChengeAddressModal setSelectedAddress={setSelectedAddress} selectedAddress={selectedAddress} onClose={() => toggleModal("changeAddress") } />
-        </Modal.Body>
-      </Modal>
+            show={showModal.changeAddress}
+            onHide={() => toggleModal("changeAddress")}
+            dialogClassName="two-in-one-modal"
+           
+          >
+            <Modal.Body className="two-in-one-modal-body">
+              <div className="address-section">
+                <ChengeAddressModal
+                  setSelectedAddress={setSelectedAddress}
+                  selectedAddress={selectedAddress}
+                  onClose={() => toggleModal("changeAddress")}
+                />
+              </div>
+              <div className="deliveries-section">
+                <UsersDeliveriesModal />
+              </div>
+            </Modal.Body>
+          </Modal>
         </>
       )}
-
-    
     </div>
   );
 };

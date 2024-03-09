@@ -1,5 +1,6 @@
 
-import { useAppSelector } from "../../../../app/hook";
+import { useAppDispatch, useAppSelector } from "../../../../app/hook";
+import { deleteUserAddressApi, getUserAddressesApi, updateDefaultAddressApi } from "../../../../features/logged_in_user/loggedInUserAPI";
 import { loggedInUserSelector } from "../../../../features/logged_in_user/loggedInUserSlice";
 import AddNewAddress from "../../../../pages/PersonalProfil/UserAddress/AddNewAddress/AddNewAddress";
 import { Address } from "../../../../rami-types"
@@ -16,15 +17,46 @@ const ChengeAddressModal : React.FC<Props> = ({onClose, setSelectedAddress, sele
   const [userAddresses, setUserAddresses] = useState<Address[]>([]);
   const [isPicOtherAddress, setIsPicOtherAddress] = useState(false);
   const [showAddNewAddressModal, setShowAddNewAddressModal] = useState(false);
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (loggedInUser && loggedInUser.addresses) {
       setUserAddresses(loggedInUser.addresses)
     }
   }, [loggedInUser]);
   
- 
+ const hendalDeleteAddress = async () => {
+    if (loggedInUser && selectedAddress && selectedAddress.address_id && loggedInUser.user_id) {
+       await dispatch(deleteUserAddressApi({ address_id: selectedAddress.address_id, user_id: loggedInUser.user_id }) );
+      if (loggedInUser && loggedInUser.user_id) {
+        const res =await dispatch(getUserAddressesApi(loggedInUser.user_id));
+          if (res.payload) {
+            const defaultAddress  = (res.payload as Address[]).find(
+              (address) => address.is_default
+            );
+            
+            setSelectedAddress(defaultAddress || null);
+          }
+      }
+    }
+    }
+    const hendalSetDefaultAddress = async () => {
+      if (loggedInUser && selectedAddress && selectedAddress.address_id && loggedInUser.user_id) {
+        
+        await dispatch(updateDefaultAddressApi({ address_id: selectedAddress.address_id, user_id: loggedInUser.user_id }) );
+        if (loggedInUser && loggedInUser.user_id) {
+          
+          const res =await dispatch(getUserAddressesApi(loggedInUser.user_id));
+          if (res.payload) {
+            const defaultAddress  = (res.payload as Address[]).find(
+              (address) => address.is_default
+            );
+            
+            setSelectedAddress(defaultAddress || null);
+          }
+        }
+      }
 
+    }
   return (
     <>
      <div>
@@ -33,7 +65,6 @@ const ChengeAddressModal : React.FC<Props> = ({onClose, setSelectedAddress, sele
        </div>
      {!isPicOtherAddress ? 
        <div>
-      
        {
         selectedAddress && selectedAddress.is_default? <p>אנחנו מציגים את כתובת ברירת המחדל שלך</p> : <p>כתובת נוכחית</p>
        }
@@ -43,10 +74,10 @@ const ChengeAddressModal : React.FC<Props> = ({onClose, setSelectedAddress, sele
          <div className="address-maodal-card">
            <p>{selectedAddress.street_name} {selectedAddress.house_number}, {selectedAddress.city_name}</p>
            {
-             !selectedAddress.is_default && <button onClick={() =>{}}>  הגדר כברירת מחדל</button>
+             !selectedAddress.is_default && <button onClick={hendalSetDefaultAddress}>  הגדר כברירת מחדל</button>
  
            }
-           <button onClick={() =>{}}>  מחק  </button>
+           <button onClick={hendalDeleteAddress}>  מחק  </button>
            <button onClick={() =>{}}>  עדכן  </button>
 
          </div>

@@ -173,7 +173,8 @@ export interface OrderForList{
 export interface Delivery {
   delivery_id: number;
   order_id: number;
-  status_id: number;
+  status: number |null;
+  city_id: number |null;
   delivery_finish_date: Date;
 }
 
