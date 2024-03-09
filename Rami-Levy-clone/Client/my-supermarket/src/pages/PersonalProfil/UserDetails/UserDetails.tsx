@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../../app/hook";
+import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { updateUserDetailsApi } from "../../../features/all_users_admin/allUsersAPI";
 import { getUserByIdApi } from "../../../features/logged_in_user/loggedInUserAPI";
 import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInUserSlice";
@@ -10,7 +10,7 @@ import UpdateUserPassword from "../UpdateUserPassword/UpdateUserPassword";
 import "./UserDetails.scss"; // Import the separate SCSS file for styling
 
 const UserDetails = () => {
-  const loggedInUser = useSelector(loggedInUserSelector);
+  const loggedInUser = useAppSelector(loggedInUserSelector);
   const initialUserDetails = {
     user_id: loggedInUser ? loggedInUser.user_id : null,
     first_name: loggedInUser ? loggedInUser.first_name : "",

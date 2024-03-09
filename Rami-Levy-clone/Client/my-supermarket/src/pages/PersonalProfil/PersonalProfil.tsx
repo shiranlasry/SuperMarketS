@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useAppDispatch } from "../../app/hook";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { logOutUserApi } from "../../features/logged_in_user/loggedInUserAPI";
 import UserAddress from "./UserAddress/UserAddress";
 import UserDetails from "./UserDetails/UserDetails";
 import "./personal-profil.scss";
 import AddPaymentMethod from "./UserPayment/UserPayment";
 import UserOrders from "./UserOrders/UserOrders";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 
 interface PersonalProfilProps {
   onMenuClick?: (buttonName: string) => void;
@@ -18,6 +19,8 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
   const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
   const [showOrders, setShowOrders] = useState(false);
   const [activeButton, setActiveButton] = useState<string | null>(null);
+  const loggedInUser = useAppSelector(loggedInUserSelector);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -120,7 +123,9 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
               stroke-linejoin="round"
             ></path>
           </svg>
-          <p>פרטים אישיים</p>
+          {
+            loggedInUser ? <p>{loggedInUser.first_name} {loggedInUser.last_name}</p> : <p>פרטים אישיים</p>
+          }
         </button>
         <button
           className={`personal-details-btn ${

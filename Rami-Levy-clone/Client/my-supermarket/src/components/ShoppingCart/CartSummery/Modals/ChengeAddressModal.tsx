@@ -1,4 +1,4 @@
-import { Modal } from "react-bootstrap";
+
 import { useAppSelector } from "../../../../app/hook";
 import { loggedInUserSelector } from "../../../../features/logged_in_user/loggedInUserSlice";
 import AddNewAddress from "../../../../pages/PersonalProfil/UserAddress/AddNewAddress/AddNewAddress";
@@ -23,9 +23,7 @@ const ChengeAddressModal : React.FC<Props> = ({onClose, setSelectedAddress, sele
     }
   }, [loggedInUser]);
   
-  const showUserAdresses = () => {
-
-   }
+ 
 
   return (
     <>
