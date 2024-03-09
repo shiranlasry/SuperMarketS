@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useAppDispatch } from "../../app/hook";
-import { useNavigate } from "react-router-dom";
+import React, {  useState } from "react";
 import "./Register.scss";
 import { User } from "../../rami-types";
 import registerAPI from "../../features/api/usersAPI";
@@ -35,9 +33,6 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
   const [IDValidation, setIDValidation] = useState<string | null>(null);
   const [emailValidation, setEmailValidation] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false); // Add state for showing password
-
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -91,10 +86,6 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
   };
 
   const validateEmail = (email: string) => {
-    // Add your email validation logic here
-    // For example, you can use a regex or other validation rules
-    // Return null if email is valid, otherwise return an error message
-    // Sample regex for basic email validation:
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email) ? null : "כתובת הדואר האלקטרוני אינה תקינה";
   };
@@ -128,6 +119,24 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
       const resultAction: any = await registerAPI(newUser);
       if (resultAction.ok) {
         alert("ההרשמה בוצעה בהצלחה");
+        // Call the sendEmail endpoint
+        const response = await fetch("/api/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            to: newUser.email,
+            subject: "הרשמה לאתר רמי לוי",
+            text: "תודה על הרשמתך לאתר רמי לוי",
+          }),
+        });
+
+        if (response.ok) {
+          console.log("Email sent successfully");
+        } else {
+          console.error("Failed to send email:", response.statusText);
+        }
         onClose();
       }
     } catch (error) {
