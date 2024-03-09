@@ -84,7 +84,6 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!checkNewSale()) return console.error("שדות חסרים");
-    const saleIndex = isExist();
     if (!isExist()) return alert("מוצר זה כבר במבצע");;
     const productInSale = products.findIndex(
       (product) => product.product_id === newSale.product_id

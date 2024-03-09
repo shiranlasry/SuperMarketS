@@ -64,13 +64,13 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(base64ImageA);
 
   // Function to handle switching between images
-  const handleImageSwitch = () => {
-    if (base64ImageB) {
-      setCurrentImage(
-        currentImage === base64ImageA ? base64ImageB : base64ImageA
-      );
-    }
-  };
+  // const handleImageSwitch = () => {
+  //   if (base64ImageB) {
+  //     setCurrentImage(
+  //       currentImage === base64ImageA ? base64ImageB : base64ImageA
+  //     );
+  //   }
+  // };
 
   // Function to handle increasing the quantity
   const increaseQuantity = async () => {

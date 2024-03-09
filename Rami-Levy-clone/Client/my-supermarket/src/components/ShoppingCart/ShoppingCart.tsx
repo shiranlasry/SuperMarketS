@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import Logo from "../../assets/logos/rami-levy-online.png";
-import { addNewDeliveryApi } from "../../features/api/deliveriesAPI";
-import { addNewOrderApi, updateOrderApi } from "../../features/api/ordersAPI";
-import { addNewCartApi } from "../../features/cart/cartAPI";
 import {
   activeCartSelector,
   isOpenCartSelector,
@@ -14,16 +11,13 @@ import { productsSelector } from "../../features/products/productsSlice";
 import { Product, ProductsList, Sales } from "../../rami-types";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./shopping-cart.scss";
-import { updateCartAPI } from "../../features/api/cartsAPI";
 import { getAllProductsApi } from "../../features/products/productsAPI";
-import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import CartSummery from "./CartSummery/CartSummery";
 import { selectSales } from "../../features/sales/salesSlice";
 import { getSalesAPI } from "../../features/sales/salesAPI";
 
 
 const ShoppingCart: React.FC = () => {
-  const loggedInUser = useAppSelector(loggedInUserSelector);
   const activeCart = useAppSelector(activeCartSelector);
   const isOpenCart: boolean = useAppSelector(isOpenCartSelector);
   const isToPayPressed: boolean = useAppSelector(isToPayPressedSelector);
