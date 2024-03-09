@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-import CategoryVisual from "./components/catagoryVisual/CatagoryVisual";
+import CategoryVisual from "./components/catagoryVisual/catagoryVisual";
 import ErrorPage from "./pages/404-page/ErrorPage";
 import AdminMainPage from "./pages/Admin/AdminMainPage";
 import AddNewFoodCategory from "./pages/Admin/ProductAdmin/AddNewFoodCategory/AddNewFoodCategory";
@@ -18,7 +18,7 @@ import UserOrders from "./pages/PersonalProfil/UserOrders/UserOrders";
 import ProductsByFoodCategory from "./components/ProductsByFoodCategory/ProductsByFoodCategory";
 import CheckOutOffers from "./components/CheckOutOffers/CheckOutOffers";
 import SalesList from "./components/SalesList/SalesList";
-
+import ManageSales from "./pages/Admin/ManageSales/ManageSales";
 function App() {
   const router = createBrowserRouter([
     {
@@ -69,6 +69,7 @@ function App() {
           element: <ProductsByFoodCategory />,
         },
         { path: "/check_out_offers", element: <CheckOutOffers /> },
+        { path: "/manage_sales", element: <ManageSales />}
       ],
     },
   ]);
