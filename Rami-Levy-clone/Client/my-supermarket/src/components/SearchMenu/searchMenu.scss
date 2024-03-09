@@ -1,84 +1,81 @@
 .search-menu-container {
-    position: relative;
-    top: 100%;
-    left: 45%;
-    width: 50vw;
+  position: relative;
+  top: 100%;
+  left: 45%;
+  width: 50vw;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  .search-result {
+    position: absolute;
+    top: calc(100% + 10px);
+    width: 65vw;
+    max-height: 85vh;
+    /* Changed to max-height to enable scrolling */
+    overflow-y: auto;
+    /* Enable scrolling */
     background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-wrap: wrap;
 
-
-    .search-result {
-        position: absolute;
-        top: calc(100% + 10px);
-        width: 65vw;
-        max-height: 85vh;
-        /* Changed to max-height to enable scrolling */
-        overflow-y: auto;
-        /* Enable scrolling */
-        background-color: white;
-        border: 1px solid #ccc;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        display: flex;
-        flex-wrap: wrap;
-
-        
     .no-results {
-        padding: 10px;
-            width: 60%;
-            display: flex;
-            flex-wrap: wrap;          
-            font-size: 1.2rem;
-            font-weight: 600;
-            padding-top: 20px;
-            padding-right: 20px;
+      padding: 10px;
+      width: 60%;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding-top: 20px;
+      padding-right: 20px;
     }
 
-        .product-list {
-            padding: 10px;
-            width: 60%;
-            display: flex;
-            flex-wrap: wrap;
-            overflow-y:scroll;
-            
+    .product-list {
+      padding: 10px;
+      width: 60%;
+      display: flex;
+      flex-wrap: wrap;
+      overflow-y: scroll;
 
-            .product-card {
-                /* Add styles for ProductCard component */
-                /* Adjust width */
-                margin-bottom: 1rem;
-                /* Add margin */
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                /* Add box shadow */
-                border-radius: 5px;
-                /* Add border radius */
-                overflow: hidden;
-                /* Hide overflow */
-            }
-        }
-
-        .name-list {
-            flex: 1;
-            /* Take remaining space */
-            padding: 10px;
-
-            ul {
-                list-style-type: none;
-                padding: 0;
-                font-weight: 600;
-                font-size: 1.2rem;
-
-                li {
-                    margin-bottom: 0.5rem;
-                    padding: 0.5rem;
-                    border-radius: 5px;
-                    cursor: pointer;
-
-                    &:hover {
-                        background-color: #c7c7c717;
-                        border-radius: 10px;
-                    }
-                }
-            }
-        }
+      .product-card {
+        /* Add styles for ProductCard component */
+        /* Adjust width */
+        margin-bottom: 1rem;
+        /* Add margin */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Add box shadow */
+        border-radius: 5px;
+        /* Add border radius */
+        overflow: hidden;
+        /* Hide overflow */
+      }
     }
+
+    .name-list {
+      flex: 1;
+      /* Take remaining space */
+      padding: 10px;
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        font-weight: 600;
+        font-size: 1.2rem;
+
+        li {
+          margin-bottom: 0.5rem;
+          padding: 0.5rem;
+          border-radius: 5px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #c7c7c717;
+            border-radius: 10px;
+          }
+        }
+      }
+    }
+  }
 }

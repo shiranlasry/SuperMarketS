@@ -2,7 +2,7 @@ $button: #1579f2;
 
 .basket-main {
   color: $button;
-  margin-left: 1.5rem;
+  margin-left: 1.2rem;
 
   .shopping-basket {
     margin: -7rem 0 0 0;
@@ -30,7 +30,6 @@ $button: #1579f2;
       margin: -7rem 0 0 -0.2rem;
       width: 120px;
     }
-
     @media screen and (max-width: 990px) {
       display: none;
     }
@@ -56,10 +55,6 @@ $button: #1579f2;
     .basket-svg {
       width: 50px;
       height: 40px;
-      // @media screen and (max-width: 1390px) {
-      //   width: 40px;
-      //   height: 32px;
-      // }
     }
   }
 }
