@@ -21,7 +21,7 @@ import { getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserA
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
-import { ProductsList, User } from "../../rami-types";
+import { ProductsList, Sales, User } from "../../rami-types";
 import "../../views/layouts/layout.scss";
 import CartIcon from "../CartIcon/CartIcon";
 import { ClosedCart } from "../ClosedCart/ClosedCart";
@@ -31,9 +31,9 @@ import SearchBar from "../SearchBar/SearchBar";
 import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./Header.scss";
-import { addNewOrderApi, updateOrderApi } from "../../features/api/ordersAPI";
-import { addNewDeliveryApi } from "../../features/api/deliveriesAPI";
-import { updateCartAPI } from "../../features/api/cartsAPI";
+
+import { selectSales } from "../../features/sales/salesSlice";
+import { getSalesAPI } from "../../features/sales/salesAPI";
 
 const Header = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
@@ -47,18 +47,27 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [totalPrice, setTotalPrice] = useState(0);
+  const allSales = useAppSelector<Sales[]>(selectSales);
 
-  const calaTotalPrice = (cartList: ProductsList[]) => {
+  const calculateTotalPrice = (cartList: ProductsList[]) => {
     let totalPrice = 0;
     cartList.forEach((cartItem: ProductsList) => {
+      const discount = allSales.find(
+        (sale) => sale.product_id === cartItem.product_id
+      );
+      if (discount) {
+        totalPrice +=
+          (discount.sale_price *  cartItem.product_amount);
+      } else
       totalPrice += cartItem.product_price * cartItem.product_amount;
     });
+    setTotalPrice(totalPrice);
     return totalPrice;
   };
 
   useEffect(() => {
     if (activeCart && activeCart.cartList) {
-      setTotalPrice(calaTotalPrice(activeCart.cartList));
+      setTotalPrice(calculateTotalPrice(activeCart.cartList));
     }
   }, [activeCart]);
   // Toggle the menu state
@@ -73,6 +82,9 @@ const Header = () => {
   useEffect(() => {
     if (!loggedInUser) {
       dispatch(getUserFromTokenApi());
+    }
+    if (allSales.length === 0) {
+      dispatch(getSalesAPI());
     }
   }, []);
   //if there is a logged in user, get the active cart
