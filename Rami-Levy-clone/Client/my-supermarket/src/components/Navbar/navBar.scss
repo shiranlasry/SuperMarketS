@@ -6,9 +6,26 @@ body {
 
   #main-menu {
     padding: 0;
+    margin-bottom: 0;
     margin-top: -0.8rem;
-    max-width: 83vw;
+    max-width: 82vw;
     transition: height 0.8s ease-in-out;
+
+    @media screen and (max-width: 1910px) {
+      max-width: 78vw;
+    }
+
+    @media screen and (max-width: 1550px) {
+      max-width: 72vw;
+    }
+
+    @media screen and (max-width: 1220px) {
+      max-width: 68vw;
+    }
+
+    @media screen and (max-width: 1060px) {
+      max-width: 64vw;
+    }
   }
 
   .container-fluid {
