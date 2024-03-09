@@ -24,7 +24,7 @@
   }
 
   &.closed {
-    top: 6rem;
+    top: 5.7rem;
     left: 1.7rem;
   }
   &.to-pay-pressed {
@@ -37,18 +37,14 @@
   .toggle-cart-button {
     color: white;
     border: 1px solid white;
-    width: 40px;
-    height: 40px;
-    margin-left: 3rem;
+    width: 45px;
+    height: 35px;
+    margin-left: 2.2rem;
     font-size: 1rem;
     border-radius: 7px;
     padding: 5px;
     background: transparent;
     cursor: pointer;
-
-    @media screen and (max-width: 1580px) {
-      margin-left: 2rem;
-    }
   }
 
   .total-price-bar {
@@ -62,7 +58,7 @@
   }
 
   .toggle-pay-text {
-    padding-top: 5px;
+    padding: 0;
     background-color: transparent;
     border: none;
     color: white;
