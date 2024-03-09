@@ -27,9 +27,7 @@ const ShoppingCartBar: React.FC<Props> = ({
     await dispatch(setIsToPayPressedTrue());
     navigate("/check_out_offers");
   };
-  const goToCheckout = () => {
-    debugger;
-  };
+  const goToCheckout = () => {};
 
   return (
     <div
