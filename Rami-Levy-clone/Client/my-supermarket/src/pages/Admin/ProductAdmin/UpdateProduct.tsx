@@ -17,6 +17,7 @@ import {
 } from "../../../features/categories/categoriesAPI";
 import "./updateProduct.scss";
 import { getAllProductsApi } from "../../../features/products/productsAPI";
+import { productsSelector } from "../../../features/products/productsSlice";
 
 interface UpdateProductProps {
   product: Product;
@@ -27,6 +28,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
   const dispatch = useAppDispatch();
   const foodCategories = useAppSelector(foodCategoriesSelector);
   const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
+  const allProducts = useAppSelector(productsSelector);
   const [updatedProduct, setUpdatedProduct] = useState<updateProductFields>({
     product_id: product.product_id ? product.product_id : undefined,
     product_name: product.product_name,
@@ -51,6 +53,9 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
   useEffect(() => {
     dispatch(getFoodCategoriesApi());
     dispatch(get_SUB_FoodCategoriesApi());
+    if (!allProducts) {
+      dispatch(getAllProductsApi());
+    }
     console.log("Product:", product);
   }, []);
   const handleInputChange = (
@@ -77,9 +82,20 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
     }
   };
 
+  const validateName = (name: string) => {
+    const productFromDB = allProducts?.find(
+      (product: Product) => product.product_name === name
+    );
+    if (productFromDB !== undefined) {
+      alert("שם המוצר כבר קיים במערכת");
+      return true;
+    }
+    return false;
+  }
+
   // Function to handle updating the product
   const handleUpdateProduct = async () => {
-    console.log("Updated Product:", updatedProduct);
+    if(validateName(updatedProduct.product_name)) return;
     const response = await dispatch(updateProductDetailes(updatedProduct));
     if (response.payload) {
       alert("Product updated successfully");
