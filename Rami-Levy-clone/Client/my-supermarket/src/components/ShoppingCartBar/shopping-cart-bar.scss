@@ -15,6 +15,10 @@
   transition: bottom 0.3s ease;
   z-index: 2;
 
+  @media screen and (max-width: 990px) {
+    margin-left: 100rem;
+  }
+
   &.open {
     top: 90vh;
   }

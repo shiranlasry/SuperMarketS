@@ -21,50 +21,24 @@ $rami-blue: #1579f2;
   border-radius: 10px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 
-  @media screen and (max-width: 1940px) {
-    width: 130px;
-  }
-
-  @media screen and (max-width: 1900px) {
-    margin: -7rem 0 0 10.5rem;
-    width: 125px;
-  }
-
-  @media screen and (max-width: 1800px) {
-    margin: -7rem 0 0 10.7rem;
+  @media screen and (max-width: 1910px) {
+    margin: -7rem 0 0 9.7rem;
     width: 120px;
   }
-  @media screen and (max-width: 1730px) {
-    margin: -7rem 0 0 10.7rem;
-    width: 115px;
+  @media screen and (max-width: 1550px) {
+    margin: -7rem 0 0 9.7rem;
+    width: 120px;
   }
-  @media screen and (max-width: 1670px) {
-    margin: -7rem 0 0 11rem;
-    width: 115px;
+  @media screen and (max-width: 1220px) {
+    margin: -7rem 0 0 9.7rem;
+    width: 120px;
   }
-  @media screen and (max-width: 1590px) {
-    margin: -7rem 0 0 10rem;
-    width: 115px;
-  }
-  @media screen and (max-width: 1490px) {
-    padding-top: 8px;
-    margin: -7rem 0 0 10rem;
-    width: 110px;
-  }
-  @media screen and (max-width: 1420px) {
-    margin: -7rem 0 0 11rem;
-  }
-  @media screen and (max-width: 1390px) {
-    margin: -7rem 0 0 11rem;
-  }
-  @media screen and (max-width: 1320px) {
-    margin: -7rem 0 0 10.3rem;
-  }
-  @media screen and (max-width: 1292px) {
-    margin: -7rem 0 0 9.5rem;
+  @media screen and (max-width: 1060px) {
+    margin: -7rem 0 0 9.7rem;
+    width: 120px;
   }
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 990px) {
     display: none;
   }
 
