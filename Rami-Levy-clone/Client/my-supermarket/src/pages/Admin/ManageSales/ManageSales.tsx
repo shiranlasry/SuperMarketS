@@ -9,6 +9,7 @@ import SalesList from "../../../components/SalesList/SalesList";
 import "./manageSales.scss";
 import SaleCard from "../../../components/SaleCard/SaleCard";
 import UpdateSale from "../../../components/UpdateSale/UpdateSale";
+import AddNewSale from "../../../components/AddNewSale/AddNewSale";
 
 const ManageSales = () => {
     const allProducts = useAppSelector(productsSelector);
@@ -54,45 +55,7 @@ const ManageSales = () => {
 
     return (
         <div className="manage-sales">
-            <div className="add-sale-form">
-                <h2>הוספת מצבע חדש</h2>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        name="sale_description"
-                        value={newSale.sale_description}
-                        placeholder="Sale Description"
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="number"
-                        name="sale_discount"
-                        value={newSale.sale_discount}
-                        placeholder="Sale Discount"
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="date"
-                        name="sale_expiration_date"
-                        value={newSale.sale_expiration_date}
-                        onChange={handleInputChange}
-                    />
-                    <select
-                        name="product_id"
-                        value={newSale.product_id}
-                        onChange={handleInputChange}
-                    >
-                        {/* Render options for product selection */}
-                        {allProducts &&
-                            allProducts.map((product) => (
-                                <option key={product.product_id} value={product.product_id}>
-                                    {product.product_name}
-                                </option>
-                            ))}
-                    </select>
-                    <button type="submit">Add Sale</button>
-                </form>
-            </div>
+            <AddNewSale sales={allSales} products={allProducts ? allProducts : []} />
                 <UpdateSale sales={allSales} products={allProducts ? allProducts : []} />
             <div className="sales-list">
                 <h2>כל המבצעים</h2>
