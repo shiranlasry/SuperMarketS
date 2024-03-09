@@ -16,6 +16,7 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
     sale_discount: undefined,
     sale_expiration_date: "",
     product_id: undefined,
+    sale_price: 0,
   });
   const dispatch = useAppDispatch();
 
@@ -28,7 +29,7 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
             }
             setNewSale((prevSale) => ({
                 ...prevSale,
-                [name]: valueAsNumber,
+              [name]: valueAsNumber,
             }));
             return;
         case "sale_expiration_date":
@@ -75,7 +76,7 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
     if (newSaleItem === -1) {
       return true;
     } else {
-        alert("מוצר זה כבר במבצע");
+        
       return false;
     }
   };
@@ -83,13 +84,22 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!checkNewSale()) return console.error("שדות חסרים");
-    if (!isExist()) return console.error("מוצר זה כבר במבצע");
+    const saleIndex = isExist();
+    if (!isExist()) return alert("מוצר זה כבר במבצע");;
+    const productInSale = products.findIndex(
+      (product) => product.product_id === newSale.product_id
+    );
+    if (productInSale  && products && newSale.sale_discount !== undefined) {
+      const  price = products[productInSale].product_price;
+      newSale.sale_price = price ? price * (1 - newSale.sale_discount / 100): 0;
+    }
     dispatch(addSaleAPI(newSale));
     setNewSale({
       sale_description: "",
       sale_discount: undefined,
       sale_expiration_date: "",
       product_id: undefined,
+      sale_price: 0,
     });
       window.location.reload();
   };
