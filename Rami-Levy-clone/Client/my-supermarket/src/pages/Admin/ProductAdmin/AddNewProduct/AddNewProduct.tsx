@@ -20,7 +20,6 @@ import {
 } from "../../../../features/api/productsAPI";
 import { useNavigate } from "react-router";
 import "./AddNewProduct.scss";
-import { getAllProductsApi } from "../../../../features/products/productsAPI";
 
 import RamiBtn from "./../../../../components/RamiBtn/RamiBtn";
 

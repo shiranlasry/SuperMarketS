@@ -55,7 +55,7 @@ const UserDetails = () => {
   };
 
   const validatePhoneNumber = (phone: string) => {
-    const phoneRegex = /^([0|1]\d{1,3}[-])?\d{7,10}$/;
+    const phoneRegex = /^0([2-4689]|5\d|6\d)(-?\d{7})$/;
     if (!phoneRegex.test(phone)) {
       alert("מספר טלפון לא תקין");
       return false;
