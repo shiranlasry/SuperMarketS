@@ -58,8 +58,9 @@ const UpdateSale: React.FC<UpdateSaleProps> = ({ sales, products }) => {
 
   return (
     <div className="update-sale">
-      <h2>עדכון מבצע קיים</h2>
-      <select className="product-select"
+      <h2 className="update-sale-title">עדכון מבצע קיים</h2>
+      <select
+        className="product-select"
         value={selectedProduct?.product_id || ""}
         onChange={(e) => handleProductChange(Number(e.target.value))}
       >
@@ -99,10 +100,18 @@ const UpdateSale: React.FC<UpdateSaleProps> = ({ sales, products }) => {
             value={updatedSale.sale_expiration_date}
             onChange={handleInputChange}
           />
-          <button className="update-button" type="button" onClick={handleUpdateSale}>
+          <button
+            className="update-button"
+            type="button"
+            onClick={handleUpdateSale}
+          >
             עדכן מבצע
           </button>
-          <button className="delete-button" type="button" onClick={handleDeleteSale}>
+          <button
+            className="delete-button"
+            type="button"
+            onClick={handleDeleteSale}
+          >
             מחק מבצע
           </button>
         </form>

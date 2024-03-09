@@ -1,0 +1,38 @@
+$rami-blue: #1579f2;
+
+.manage-sales {
+  max-width: 550px;
+  padding: 2rem;
+  background-color: rgb(251, 250, 250);
+  border-radius: 15px;
+  border: 1px solid rgba(211, 211, 211, 0.73);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+
+  .all-sales-title {
+    color: $rami-blue;
+    text-align: right;
+  }
+}
+
+.add-sale-form {
+  margin: auto;
+  text-align: center;
+
+  input {
+    height: 40px;
+    margin: 0.5rem;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid rgb(231, 231, 231);
+  }
+
+  .all-sales {
+    margin: auto;
+    margin: 16px 10px;
+    color: $rami-blue;
+    font-size: 2rem;
+  }
+}
