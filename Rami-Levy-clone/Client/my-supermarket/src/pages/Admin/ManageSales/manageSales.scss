@@ -12,6 +12,8 @@ $rami-blue: #1579f2;
   align-items: right;
 
   .all-sales-title {
+    display: flex;
+    flex-direction: column;
     color: $rami-blue;
     text-align: right;
   }
