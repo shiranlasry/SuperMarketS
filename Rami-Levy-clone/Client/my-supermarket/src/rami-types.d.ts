@@ -194,5 +194,6 @@ export interface Sales {
   sale_discount: number;
   sale_expiration_date: string;
   product_id: number;
+  sale_price: number;
 }
 

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import Logo from "../../assets/logos/rami-levy-online.png";
-import { addNewDeliveryApi } from "../../features/api/deliveriesAPI";
-import { addNewOrderApi, updateOrderApi } from "../../features/api/ordersAPI";
-import { addNewCartApi } from "../../features/cart/cartAPI";
 import {
   activeCartSelector,
   isOpenCartSelector,
@@ -11,35 +8,37 @@ import {
   setIsOpenCart,
 } from "../../features/cart/cartSlice";
 import { productsSelector } from "../../features/products/productsSlice";
-import { ProductsList } from "../../rami-types";
+import { Product, ProductsList, Sales } from "../../rami-types";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./shopping-cart.scss";
-import { updateCartAPI } from "../../features/api/cartsAPI";
 import { getAllProductsApi } from "../../features/products/productsAPI";
-import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import CartSummery from "./CartSummery/CartSummery";
+import { selectSales } from "../../features/sales/salesSlice";
+import { getSalesAPI } from "../../features/sales/salesAPI";
 
 
 const ShoppingCart: React.FC = () => {
-  const loggedInUser = useAppSelector(loggedInUserSelector);
   const activeCart = useAppSelector(activeCartSelector);
   const isOpenCart: boolean = useAppSelector(isOpenCartSelector);
   const isToPayPressed: boolean = useAppSelector(isToPayPressedSelector);
   const allProducts = useAppSelector(productsSelector);
   const [totalPrice, setTotalPrice] = useState(0);
+  const allSales = useAppSelector<Sales[]>(selectSales);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!allProducts) {
-      // Fetch all products from the server
        dispatch(getAllProductsApi());
-      
+    }
+    if (allSales.length === 0) {
+      dispatch(getSalesAPI());
     }
   }, []);
   useEffect(() => {
     if (activeCart) {
       if (activeCart.cartList) {
-        setTotalPrice(calaTotalPrice(activeCart.cartList));
+        setTotalPrice(calculateTotalPrice(activeCart.cartList));
       } else {
         setTotalPrice(0);
       }
@@ -50,11 +49,19 @@ const ShoppingCart: React.FC = () => {
     dispatch(setIsOpenCart());
   };
 
-  const calaTotalPrice = (cartList: ProductsList[]) => {
+  const calculateTotalPrice = (cartList: ProductsList[]) => {
     let totalPrice = 0;
     cartList.forEach((cartItem: ProductsList) => {
+      const discount = allSales.find(
+        (sale) => sale.product_id === cartItem.product_id
+      );
+      if (discount) {
+        totalPrice +=
+          (discount.sale_price *  cartItem.product_amount);
+      } else
       totalPrice += cartItem.product_price * cartItem.product_amount;
     });
+    setTotalPrice(totalPrice);
     return totalPrice;
   };
 
@@ -92,6 +99,18 @@ const ShoppingCart: React.FC = () => {
     return btoa(String.fromCharCode(...new Uint8Array(imageString)));
   };
 
+  const checkDiscount = (product: Product | null): number => {
+    console.log("in checkDiscount", product);
+    if (product && allSales.length > 0 && product.product_price) {
+      const sale = allSales.find((s) => s.product_id === product.product_id);
+      if (sale) {
+        return sale.sale_price;
+      }
+    }
+    return 0; // Return undefined if product or sale is not found
+  };
+  
+
   return (
     <div className={`shopping-cart`}>
       <img className="rami-online-cart" src={Logo} alt="Rami Levy Online" />
@@ -106,6 +125,7 @@ const ShoppingCart: React.FC = () => {
               (product) => product.product_id === cartProduct.product_id
             );
             if (product) {
+
               return (
                 <li className="cart-item" key={cartProduct.cart_id}>
                   <div className="product-details-cart">
@@ -121,7 +141,7 @@ const ShoppingCart: React.FC = () => {
                     <p className="cart-items-price">
                       {" "}
                       {product && product.product_price && cartProduct.product_amount
-                        ? formatPrice(product.product_price * cartProduct.product_amount)
+                        ? formatPrice(checkDiscount(product) * cartProduct.product_amount)
                         : null}{" "}
                       ₪
                     </p>

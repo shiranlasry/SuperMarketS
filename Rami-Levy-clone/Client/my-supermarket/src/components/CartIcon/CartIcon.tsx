@@ -1,26 +1,42 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../app/hook";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { activeCartSelector } from "../../features/cart/cartSlice";
 import "../ShoppingCart/shopping-cart.scss";
-import { ProductsList } from "../../rami-types";
+import { ProductsList, Sales } from "../../rami-types";
 import "./cart-icon.scss";
+import { selectSales } from "../../features/sales/salesSlice";
+import { getSalesAPI } from "../../features/sales/salesAPI";
 
 const CartIcon = () => {
   const activeCart = useAppSelector(activeCartSelector);
-
+  const allSales = useAppSelector<Sales[]>(selectSales);
   const [totalPrice, setTotalPrice] = useState(0);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (allSales.length === 0) {
+      dispatch(getSalesAPI());
+    }
+  }, []);
 
-  const calaTotalPrice = (cartList: ProductsList[]) => {
+  const calculateTotalPrice = (cartList: ProductsList[]) => {
     let totalPrice = 0;
     cartList.forEach((cartItem: ProductsList) => {
+      const discount = allSales.find(
+        (sale) => sale.product_id === cartItem.product_id
+      );
+      if (discount) {
+        totalPrice +=
+          (discount.sale_price *  cartItem.product_amount);
+      } else
       totalPrice += cartItem.product_price * cartItem.product_amount;
     });
+    setTotalPrice(totalPrice);
     return totalPrice;
   };
 
   useEffect(() => {
     if (activeCart && activeCart.cartList) {
-      setTotalPrice(calaTotalPrice(activeCart.cartList));
+      setTotalPrice(calculateTotalPrice(activeCart.cartList));
     }
   }, [activeCart]);
   const formatPrice = (price: number) => {
