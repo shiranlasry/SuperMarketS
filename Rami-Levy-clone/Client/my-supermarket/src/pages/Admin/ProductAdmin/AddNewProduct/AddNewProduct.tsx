@@ -78,7 +78,15 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
     >
   ) => {
     const { name, value } = e.target;
-    setNewProduct({ ...newProduct, [name]: value });
+    if (name === "product_price") {
+      const price = parseFloat(value);
+      if (price < 0) {
+        return alert("המחיר חייב להיות מספר חיובי");
+      }
+      setNewProduct({ ...newProduct, [name]: price });
+    } else {
+      setNewProduct({ ...newProduct, [name]: value });
+    }
   };
   const handleReset = () => {
     setNewProduct(initialProduct);
