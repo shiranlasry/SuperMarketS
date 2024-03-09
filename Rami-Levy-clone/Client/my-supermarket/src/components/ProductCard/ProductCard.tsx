@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Product } from "../../rami-types";
+import { Product, Sales } from "../../rami-types";
 import "./productCard.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
@@ -15,6 +15,8 @@ import {
   addProductToCartListApi,
   getUserActiveCartListApi,
 } from "../../features/cart/cartAPI";
+import { selectSales } from "../../features/sales/salesSlice";
+import { getSalesAPI } from "../../features/sales/salesAPI";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
@@ -25,6 +27,13 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const [quantity, setQuantity] = useState<number>(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [showProductModal, setShowProductModal] = useState(false); // State for showing ProductModal
+  const allSales = useAppSelector<Sales[]>(selectSales);
+
+  useEffect(() => {
+    if (allSales.length === 0) {
+      dispatch(getSalesAPI());
+    }
+  }, []);
 
   useEffect(() => {
     // set the quantity of the product in the cart from the active cart list
@@ -55,13 +64,13 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(base64ImageA);
 
   // Function to handle switching between images
-  const handleImageSwitch = () => {
-    if (base64ImageB) {
-      setCurrentImage(
-        currentImage === base64ImageA ? base64ImageB : base64ImageA
-      );
-    }
-  };
+  // const handleImageSwitch = () => {
+  //   if (base64ImageB) {
+  //     setCurrentImage(
+  //       currentImage === base64ImageA ? base64ImageB : base64ImageA
+  //     );
+  //   }
+  // };
 
   // Function to handle increasing the quantity
   const increaseQuantity = async () => {
@@ -150,6 +159,30 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     setShowProductModal(true);
   };
 
+  const checkDiscount = () => { 
+    if (allSales.length > 0 && product.product_price) {
+      const sale = allSales.find((s) => s.product_id === product.product_id);
+      if (sale) {
+        return (
+          <p className="card-price">
+            <span className="card-price-discount">מחיר מבצע: </span>{""}
+            {sale.sale_price}
+            <span className="card-original_price">מחיר מקור</span>{" "}
+            {product.product_price}
+            <span className="card-shekel">₪</span>{" "}
+            <span className="per-unit">ליח'</span>
+          </p>
+        );
+      }
+    }
+    return (
+      <p className="card-price">
+        {product.product_price} <span className="card-shekel">₪</span>{" "}
+        <span className="per-unit">ליח'</span>
+      </p>
+    );
+  }
+
   return (
     <div
       className="cards-container"
@@ -191,10 +224,11 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <div className="card-body">
           <p className="card-title">{product.product_name}</p>
           <p className="card-desc">{product.product_description}</p>
-          <p className="card-price">
+          {/* <p className="card-price">
             {product.product_price} <span className="card-shekel">₪</span>{" "}
             <span className="per-unit">ליח'</span>
-          </p>
+          </p> */}
+          {checkDiscount()}
         </div>
       </div>
       {/* Render ProductModal when showProductModal is true */}
