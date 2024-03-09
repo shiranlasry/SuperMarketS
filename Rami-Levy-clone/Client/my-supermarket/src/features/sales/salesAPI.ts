@@ -21,7 +21,7 @@ export const getSalesAPI = createAsyncThunk<Sales[], void>(
   }
 );
 
-export const addSaleAPI = createAsyncThunk<Sales, void>(
+export const addSaleAPI = createAsyncThunk<Sales, Sales>(
   "addSaleAPI",
   async (newSale) => {
     try {
@@ -57,9 +57,9 @@ export const updateSaleAPI = createAsyncThunk<Sales, Sales>(
   }
 );
 
-export const deleteSaleAPI = createAsyncThunk<Sales, string>(
-  "deleteSaleAPI",
-  async (sale_id) => {
+export const deleteSaleAPI = createAsyncThunk<Sales, number>(
+  "sales/deleteSaleAPI",
+  async (sale_id: number) => {
     try {
       console.log("deleteSaleAPI", sale_id);
       const response = await axios.delete(`/api/sales/delete-sale/${sale_id}`);
@@ -70,8 +70,7 @@ export const deleteSaleAPI = createAsyncThunk<Sales, string>(
       return results as Sales;
     } catch (error) {
       console.error(error);
-      return {} as Sales;
+      throw error; // Re-throw the error to be caught by the caller
     }
   }
 );
-  
