@@ -74,7 +74,8 @@ export const addNewUserAddress = async (req: Request, res: Response) => {
 
   export const deleteUserAddress = async (req: Request, res: Response) => {
     try {
-      const { address_id } = req.params;
+      const { user_id } = req.params;
+      const { address_id } = req.body;
       if (!address_id) {
         return res.status(400).send({ ok: false, error: 'missing some fields' })
       }
@@ -84,7 +85,6 @@ export const addNewUserAddress = async (req: Request, res: Response) => {
           console.error(err)
           return res.status(500).send({ ok: false, error: err })
         }
-        
         res.send({ ok: true, result })
       })
     } catch (error) {
@@ -95,8 +95,8 @@ export const addNewUserAddress = async (req: Request, res: Response) => {
 
   export const updateDefaultAddress = async (req: Request, res: Response) => {
     try {
-      const { address_id ,user_id} = req.params;
-   
+      const { user_id } = req.params;
+      const { address_id } = req.body;
       if (!address_id || !user_id) {
         return res.status(400).send({ ok: false, error: 'missing some fields' })
       }

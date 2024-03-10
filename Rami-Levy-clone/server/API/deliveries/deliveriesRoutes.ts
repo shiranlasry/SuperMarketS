@@ -1,12 +1,12 @@
 import express from 'express';
-import { updateDeliveryStatus, getAllDeliveries, getDeliveryById, updateDelivery, deleteDelivery } from './deliveriesCtrl';
+import { addNewDelivery, getAllDeliveries, getDeliveryById, updateDelivery, deleteDelivery } from './deliveriesCtrl';
 
 const router = express.Router()
 
 router
     .get("/", getAllDeliveries)
     .get("/:delivery_id", getDeliveryById)
-    .post("/update-delivery-status", updateDeliveryStatus)
+    .post("/add-new-delivery", addNewDelivery)
     .patch("/update-delivery", updateDelivery)
     .delete("/delete-delivery", deleteDelivery)
 export default router

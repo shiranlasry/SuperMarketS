@@ -110,7 +110,7 @@ export const addNewUserAddressApi = createAsyncThunk<Address[] |AddNewUserAddres
 export const getUserAddressesApi = createAsyncThunk<Address[] | null, number>('get-user-addresses', async (user_id) => {
     try {
             
-        const response = await axios.get(`/api/addresses/get-user-addresses/${user_id}`);
+        const response = await axios.get(`/api/addresses/get-user-addresses/${user_id}`,{params:{user_id}});
         const { ok, result } = response.data;
         if (!ok) {
             throw new Error("Invalid credentials getUserAddressesApi()");
@@ -122,39 +122,3 @@ export const getUserAddressesApi = createAsyncThunk<Address[] | null, number>('g
         return null;
     }
 })
-
-export const deleteUserAddressApi = createAsyncThunk<void, { address_id: number, user_id: number }>(
-    'delete-user-address',
-    async ({ address_id, user_id }) => {
-      try {
-      
-        const response = await axios.delete(`/api/addresses/delete-user-address/${user_id}/${address_id}`);
-        const { ok } = response.data;
-        if (!ok) {
-          throw new Error("Invalid credentials deleteUserAddressApi()");
-        }
-        alert("הכתובת נמחקה בהצלחה");
-  
-      } catch (error) {
-        console.error(error) // this is temporary
-      }
-    }
-  )
-
-  export const updateDefaultAddressApi = createAsyncThunk<void, { address_id: number, user_id: number }>(
-    'update-default-address',
-    async ({ address_id, user_id }) => {
-      try {
-     
-        const response = await axios.put(`/api/addresses/update-default-address/${user_id}/${address_id}`);
-        const { ok } = response.data;
-        if (!ok) {
-          throw new Error("Invalid credentials updateDefaultAddressApi()");
-        }
-        alert("הכתובת נקבעה כברירת מחדל בהצלחה");
-
-        } catch (error) {
-        console.error(error) // this is temporary
-        }
-    } )
-  
