@@ -1,6 +1,6 @@
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
 
   .counter {
     width: 50px;
@@ -33,15 +33,16 @@
 
   .product-card {
     width: 100%;
-    height: auto;
+    height: 380px;
     margin: 0.2rem;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 15px;
     cursor: pointer;
 
-    .card-body {
-      padding: 12px;
+    @media screen and (max-width: 1700px) {
+      min-width: 210px;
+      height: 350px;
     }
 
     .card-title {
@@ -83,32 +84,14 @@
 
     .product-img {
       margin: 1rem;
-      height: 210px;
+      height: 200px;
       width: 190px;
+      padding-top: 0.5rem;
       border-radius: 12px; /* Round corners of the image */
 
       @media screen and (max-width: 1700px) {
         height: 180px;
         margin: 0;
-      }
-
-      @media screen and (max-width: 1650px) {
-        height: 150px;
-        margin: 0;
-      }
-
-      @media screen and (max-width: 1590px) {
-        height: 140px;
-      }
-      @media screen and (max-width: 1520px) {
-        height: 140px;
-      }
-
-      @media screen and (max-width: 1320px) {
-        height: 130px;
-      }
-      @media screen and (max-width: 990px) {
-        height: 140px;
       }
     }
 

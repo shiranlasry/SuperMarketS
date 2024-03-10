@@ -1,10 +1,33 @@
+$rami-blue: #1579f2;
+
 .cart-summery-content {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  gap: 1rem;
   background-color: #ffffff;
   border-radius: 12px;
   margin-top: 3rem;
-  padding: 1.5rem;
+  padding: 1rem 1rem 0 0;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
+
+.choose-address-summary {
+  display: flex;
+  flex-direction: row;
+  width: 240px;
+  gap: 3.5rem;
+}
+
+.summary-btn {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  background-color: transparent;
+  color: $rami-blue;
+}
+
 .two-in-one-modal-body {
   padding: 20px;
   background-color: black;

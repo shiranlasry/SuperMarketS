@@ -11,31 +11,34 @@ import { Modal } from "react-bootstrap";
 import ChengeContactModal from "./Modals/ChengeContactModal";
 import ChengeAddressModal from "./Modals/ChengeAddressModal";
 import AvailableDeliveriesModal from "./Modals/AvailableDeliveriesModal";
+import RamiBtn from "../../RamiBtn/RamiBtn";
 
 interface CartSummeryProps {
-    orderContact: {
-        full_name: string;
-        phone_number: string;
-    };
-    setOrderContact: (contact: { full_name: string; phone_number: string }) => void;
-    selectedAddress: Address | null;
-    setSelectedAddress: (address: Address | null) => void;
-    selectedDelivery: Delivery | null;
-    setSelectedDelivery: (delivery: Delivery | null) => void;
-    newOrder: Order;
-    setNewOrder: (field: string, value: string | number) => void;
-   
-}   
+  orderContact: {
+    full_name: string;
+    phone_number: string;
+  };
+  setOrderContact: (contact: {
+    full_name: string;
+    phone_number: string;
+  }) => void;
+  selectedAddress: Address | null;
+  setSelectedAddress: (address: Address | null) => void;
+  selectedDelivery: Delivery | null;
+  setSelectedDelivery: (delivery: Delivery | null) => void;
+  newOrder: Order;
+  setNewOrder: (field: string, value: string | number) => void;
+}
 
-const CartSummery : React.FC<CartSummeryProps> = ({
-    orderContact,
-    setOrderContact,
-    selectedAddress,
-    setSelectedAddress,
-    selectedDelivery,
-    setSelectedDelivery,
-    newOrder,   
-    setNewOrder
+const CartSummery: React.FC<CartSummeryProps> = ({
+  orderContact,
+  setOrderContact,
+  selectedAddress,
+  setSelectedAddress,
+  selectedDelivery,
+  setSelectedDelivery,
+  newOrder,
+  setNewOrder,
 }) => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
   const [showModal, setShowModal] = useState({
@@ -44,12 +47,11 @@ const CartSummery : React.FC<CartSummeryProps> = ({
     changeDelivery: false,
     showProducts: false,
   });
-  
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (loggedInUser) {
-
       setOrderContact({
         full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
         phone_number: loggedInUser.phone_number,
@@ -60,12 +62,9 @@ const CartSummery : React.FC<CartSummeryProps> = ({
           (address) => address.is_default
         );
         setSelectedAddress(defaultAddress || null);
-        
       }
     }
   }, [loggedInUser]);
-
- 
 
   const toggleModal = (modalType) => {
     setShowModal({ ...showModal, [modalType]: !showModal[modalType] });
@@ -80,12 +79,12 @@ const CartSummery : React.FC<CartSummeryProps> = ({
               <p>{orderContact.full_name}</p>
             </div>
             <div className="col">
-              <button
-                className="btn btn-primary"
+              <RamiBtn
+                className="summary-btn"
                 onClick={() => toggleModal("changeContact")}
               >
                 שינוי
-              </button>
+              </RamiBtn>
             </div>
           </div>
           {selectedAddress ? (
@@ -108,29 +107,34 @@ const CartSummery : React.FC<CartSummeryProps> = ({
               </div>
             </div>
           ) : (
-            <div>
+            <div className="choose-address-summary">
               <p>בחר כתובת למשלוח</p>
-              <button
-                className="btn btn-primary"
+              <RamiBtn
+                className="summary-btn"
                 onClick={() => toggleModal("changeAddress")}
               >
                 שינוי
-              </button>
+              </RamiBtn>
             </div>
           )}
           <div className="row align-items-center">
             <div className="col">
-                {selectedDelivery ? (
-                    <p>
-                        {selectedDelivery.delivery_finish_date}{" "}
-                        {selectedDelivery.delivery_start_time}
-                    </p>
-                ) : (
-                    <p>בחר מועד משלוח</p>
-                )}
-                        </div>
+              {selectedDelivery ? (
+                <p>
+                  {selectedDelivery.delivery_finish_date}{" "}
+                  {selectedDelivery.delivery_start_time}
+                </p>
+              ) : (
+                <p>בחר מועד משלוח</p>
+              )}
+            </div>
             <div className="col">
-              <button onClick={() => toggleModal("changeAddress")} className="btn btn-primary">שינוי</button>
+              <RamiBtn
+                onClick={() => toggleModal("changeAddress")}
+                className="summary-btn"
+              >
+                שינוי
+              </RamiBtn>
             </div>
           </div>
           <div className="row align-items-center">
@@ -138,7 +142,7 @@ const CartSummery : React.FC<CartSummeryProps> = ({
               <p>מודאל להצגת המוצרים של העגלה </p>
             </div>
             <div className="col">
-              <button className="btn btn-primary">שינוי</button>
+              <RamiBtn className="summary-btn">שינוי</RamiBtn>
             </div>
           </div>
           <Modal
@@ -160,7 +164,6 @@ const CartSummery : React.FC<CartSummeryProps> = ({
             show={showModal.changeAddress}
             onHide={() => toggleModal("changeAddress")}
             dialogClassName="two-in-one-modal"
-           
           >
             <Modal.Body className="two-in-one-modal-body">
               <div className="address-section">
@@ -173,10 +176,10 @@ const CartSummery : React.FC<CartSummeryProps> = ({
               </div>
               <div className="deliveries-section">
                 <AvailableDeliveriesModal
-                setSelectedDelivery={setSelectedDelivery}
-                selectedDelivery={selectedDelivery}
-                setNewOrder={setNewOrder}
-                onClose={() => toggleModal("changeAddress")}
+                  setSelectedDelivery={setSelectedDelivery}
+                  selectedDelivery={selectedDelivery}
+                  setNewOrder={setNewOrder}
+                  onClose={() => toggleModal("changeAddress")}
                 />
               </div>
             </Modal.Body>

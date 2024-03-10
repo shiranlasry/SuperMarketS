@@ -11,12 +11,16 @@ $rami-blue: #1579f2;
     display: flex;
     flex-direction: column;
     align-items: right;
-    width: 780px;
+    min-width: 780px;
     height: fit-content;
     padding: 16px 0 16px 0;
     background-color: #fff;
     border-radius: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    @media screen and (max-width: 1120px) {
+      min-width: 430px;
+    }
 
     .address-title {
       width: 95%;

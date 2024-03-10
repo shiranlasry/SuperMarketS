@@ -2,6 +2,7 @@ $rami-blue: #1579f2;
 
 .payment-main {
   margin-right: 7rem;
+
   .payment-container {
     margin: auto;
     display: flex;
@@ -13,6 +14,10 @@ $rami-blue: #1579f2;
     color: $rami-blue;
     border-radius: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    @media screen and (max-width: 1140px) {
+      min-width: 430px;
+    }
 
     .payment-title {
       width: 95%;
