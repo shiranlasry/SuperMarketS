@@ -45,18 +45,24 @@ export const getDeliveryById = async (req: express.Request, res: express.Respons
     }
 }
 
-export const addNewDelivery = async (req: express.Request, res: express.Response) => {
+export const updateDeliveryStatus = async (req: express.Request, res: express.Response) => {
     try {
-        const { order_id, delivery_finish_date } = req.body;
-        if (!order_id || !delivery_finish_date) {
+        const { delivery_id } = req.body;
+        console.log('delivery_id', delivery_id);
+        if (!delivery_id) {
             return res.status(400).send({ ok: false, error: 'Missing required fields' });
         }
-        const query = "INSERT INTO rami_levy_db.deliveries (order_id, delivery_finish_date) VALUES (?, ?)";
-        connection.query(query, [order_id, delivery_finish_date], (err, results, fields) => {
+        const query = `
+                UPDATE rami_levy_db.deliveries 
+                SET status = '0'
+                WHERE delivery_id = ?;
+        `
+        connection.query(query, [delivery_id], (err, results, fields) => {
             if (err) {
                 console.error(err);
                 return res.status(500).send({ ok: false, error: 'Failed to add delivery' });
             }
+            console.log('results', results);
             res.send({ ok: true, results });
         });
     } catch (error) {

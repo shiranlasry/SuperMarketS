@@ -82,27 +82,31 @@ useEffect(() => {
     dispatch(setIsOpenCart());
   };
 const sendOrder = async () => {
+  if (!selectedDelivery) {
+    alert('יש לבחור אזור משלוח');
+    return;
+  }
+  if (!orderContact.full_name || !orderContact.phone_number) {
+    alert('יש למלא פרטי קשר');
+    return;
+  }
   // update delivery status
  
-  if (selectedDelivery) {
+  if (selectedDelivery) 
+  {
     await updateDeliveryStatusApi(selectedDelivery.delivery_id);
-   if (selectedDelivery.delivery_id) {
-    hanelsetNewOrder('delivery_id', selectedDelivery.delivery_id);
+    if (selectedDelivery.delivery_id) {
+      hanelsetNewOrder('delivery_id', selectedDelivery.delivery_id);
    }
-  
   }
   // add user_contact_id to database and get the id
   if (orderContact)
   {
     const response = await addNewUserContactAPI(orderContact.full_name, orderContact.phone_number);
-    debugger;
-    if (response.payload) {
-      hanelsetNewOrder('user_contact_id', response.payload);
+    if (response) {
+      hanelsetNewOrder('user_contact_id', response);
     }
   }
-
-
-
 }
   const calculateTotalPrice = (cartList: ProductsList[]) => {
     let totalPrice = 0;
@@ -217,7 +221,7 @@ const sendOrder = async () => {
         totalPrice={totalPrice}
         isOpen={isOpenCart}
         toggleCart={toggleCart}
-         sendOrder={sendOrder}
+        sendOrder={sendOrder}
         isToPayPressed={isToPayPressed}
       />
     </div>
