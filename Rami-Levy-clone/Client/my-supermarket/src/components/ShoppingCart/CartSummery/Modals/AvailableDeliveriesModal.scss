@@ -1,0 +1,17 @@
+.selected{
+    background-color: #046f16;
+    color: #000;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .selected:hover{
+    background-color: #51f36c;
+  }
+  .selected.active{
+    background-color: #51f36c;
+}
+  
