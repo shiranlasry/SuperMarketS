@@ -4,7 +4,6 @@ import express from "express";
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
 import session from 'express-session';
-import nodemailer from 'nodemailer';
 
 const multer = require('multer');
 
@@ -25,39 +24,6 @@ app.use(session
 const port = process.env.PORT;
 app.use(cookieParser());
 app.use(express.json());
-
-// Create a transporter object for sending emails
-const transporter = nodemailer.createTransport({
-  service: 'Gmail',
-  auth: {
-    user: 'fakeRamiLevy@gmail.com',
-    pass: 'zwcq hgxu sads fyts',
-  },
-});
-
-// Endpoint to handle sending email
-app.post('/api/send-email', async (req, res) => {
-  const { to, subject, text } = req.body;
-
-  try {
-    // Create email options
-    const mailOptions = {
-      from: 'fakeRamiLevy@gmail.com',
-      to,
-      subject,
-      text,
-    };
-
-    // Send email
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent:', info.response);
-    res.status(200).json({ success: true });
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({ error: 'Error sending email' });
-  }
-});
-
 
 // Multer middleware for handling file uploads
 app.use(upload.fields([{ name: 'imagesProduct', maxCount: 2 }]));

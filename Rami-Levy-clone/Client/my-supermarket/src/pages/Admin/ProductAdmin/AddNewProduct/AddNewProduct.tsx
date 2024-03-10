@@ -20,32 +20,15 @@ import {
 } from "../../../../features/api/productsAPI";
 import { useNavigate } from "react-router";
 import "./AddNewProduct.scss";
+import { getAllProductsApi } from "../../../../features/products/productsAPI";
 
 import RamiBtn from "./../../../../components/RamiBtn/RamiBtn";
-import { productsSelector } from "../../../../features/products/productsSlice";
-import { getAllProductsApi } from "../../../../features/products/productsAPI";
 
 interface AddNewProductProps {
   onClose: () => void;
 }
 
 const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
-  const allProducts = useAppSelector(productsSelector);
-  useEffect(() => {
-    if (!allProducts) {
-      dispatch(getAllProductsApi());
-    }
-  }, []);
-
-  const nameValidation = (name:string) => {
-    const productName = allProducts?.find((product) => product.product_name === name);
-    if (productName !== undefined) {
-      return true;
-    }
-    return false;
-  }
-
-
   const initialProduct: Product = {
     product_id: null,
     sub_food_category_id: null,
@@ -95,15 +78,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
     >
   ) => {
     const { name, value } = e.target;
-    if (name === "product_price") {
-      const price = parseFloat(value);
-      if (price < 0) {
-        return alert("המחיר חייב להיות מספר חיובי");
-      }
-      setNewProduct({ ...newProduct, [name]: price });
-    } else {
-      setNewProduct({ ...newProduct, [name]: value });
-    }
+    setNewProduct({ ...newProduct, [name]: value });
   };
   const handleReset = () => {
     setNewProduct(initialProduct);
@@ -135,10 +110,6 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
     try {
       if (imgsValidation) {
         alert("אנא בחר עד 2 תמונות");
-        return;
-      }
-      if (nameValidation(newProduct.product_name)) {
-        alert("שם קיים במערכת, אנא בחר שם חדש");
         return;
       }
       const insertProductId = await addNewProductDetailes(newProduct);

@@ -34,7 +34,6 @@ import "./Header.scss";
 
 import { selectSales } from "../../features/sales/salesSlice";
 import { getSalesAPI } from "../../features/sales/salesAPI";
-import UpperBar from "../UpperBar/UpperBar";
 
 const Header = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
@@ -57,8 +56,10 @@ const Header = () => {
         (sale) => sale.product_id === cartItem.product_id
       );
       if (discount) {
-        totalPrice += discount.sale_price * cartItem.product_amount;
-      } else totalPrice += cartItem.product_price * cartItem.product_amount;
+        totalPrice +=
+          (discount.sale_price *  cartItem.product_amount);
+      } else
+      totalPrice += cartItem.product_price * cartItem.product_amount;
     });
     setTotalPrice(totalPrice);
     return totalPrice;
@@ -89,7 +90,7 @@ const Header = () => {
   //if there is a logged in user, get the active cart
   const handelGetUserActiveCart = async (user_id: number) => {
     const response = await dispatch(getUserActiveCartApi(user_id));
-
+   
     if (response.payload && response.payload.cart_id) {
       dispatch(getUserActiveCartListApi(response.payload.cart_id));
     }
@@ -137,7 +138,7 @@ const Header = () => {
       dispatch(addNewCartApi(activeCart.user_id));
       window.location.reload();
     }
-  };
+  }
   return (
     <div className="header-main">
       <button className="to-main-navBar" onClick={() => navigate("/")}>
@@ -151,7 +152,6 @@ const Header = () => {
         />
       </button>
       <SearchBar />
-      <UpperBar />
       <NightMode />
       <button className="access">הצהרת נגישות</button>
       {!loggedInUser && (
@@ -272,7 +272,7 @@ const Header = () => {
           totalPrice={totalPrice}
           isOpen={isOpenCart}
           toggleCart={toggleCart}
-          //sendOrder={sendOrder}
+           //sendOrder={sendOrder}
           isToPayPressed={isToPayPressed}
         />
       )}
@@ -292,7 +292,7 @@ const Header = () => {
           onHide={handleCloseLogin}
           dialogClassName="custom-modal"
         >
-          <Modal.Body className="login-modal custom-modal-body">
+          <Modal.Body>
             <Login
               onClose={handleCloseLogin}
               RegisterPressed={() => setShowRegisterModal(true)}

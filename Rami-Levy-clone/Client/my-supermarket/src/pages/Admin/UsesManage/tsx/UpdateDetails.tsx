@@ -36,7 +36,7 @@ const UpdateDetails: React.FC<UserProps> = ({ user, onClose }) => {
     };
     const validatePhoneNumber = (phoneNumber: string) => {
         // Use a regular expression to validate the phone number format
-        const regex = /^0([2-4689]|5\d|6\d)(-?\d{7})$/;
+        const regex = /^\d{10}$/;
         if (regex.test(phoneNumber)) {
             return null; // Return null if the phone number is valid
         } else {
