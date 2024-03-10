@@ -9,10 +9,6 @@ $button: #1579f2;
   margin-top: -0.4rem;
   gap: 5rem;
 
-  @media screen and (max-width: 1800px) {
-    gap: 2.8rem;
-  }
-
   .closed-cart,
   .closed-basket {
     height: 30px;
