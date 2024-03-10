@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../app/hook";
 import {
   setIsOpenCartTrue,
@@ -11,6 +11,7 @@ import { getAllProductsApi } from "../../features/products/productsAPI";
 import { Product } from "../../rami-types";
 import ProductCard from "../ProductCard/ProductCard";
 import PersonalProfil from "../../pages/PersonalProfil/PersonalProfil";
+import "./check-out-offers.scss";
 
 const CheckOutOffers = () => {
   const allProducts = useSelector(productsSelector);
@@ -56,7 +57,7 @@ const CheckOutOffers = () => {
   return (
     <div className="checkout-container">
       <div className="row">
-        <div className="col-md-6">
+        <div className="suggestions-content col-md-6">
           <PersonalProfil onMenuClick={handleMenuClick} />{" "}
           {/* Pass handleMenuClick as a prop to PersonalProfil */}
         </div>
@@ -64,7 +65,9 @@ const CheckOutOffers = () => {
           <div className="col-md-6">
             <div className="row">
               <div className="col-12">
-                <h1 className="mt-3 mb-3">אולי יעניין אותך</h1>
+                <h1 className="suggestions-title mt-3 mb-3">
+                  אולי יעניין אותך
+                </h1>
               </div>
               {randomProducts.map((product) => (
                 <div key={product.product_id} className="col-12 col-md-4 mb-3">
