@@ -10,7 +10,7 @@ interface Props {
   totalPrice: number;
   isOpen: boolean;
   toggleCart: () => void; // Function to toggle the cart
-  // sendOrder: () => void; // Function to send the order
+   sendOrder?: () => void; // Function to send the order
   isToPayPressed: boolean;
 }
 
@@ -18,7 +18,7 @@ const ShoppingCartBar: React.FC<Props> = ({
   totalPrice,
   isOpen,
   toggleCart,
-  // sendOrder,
+   sendOrder,
   isToPayPressed,
 }) => {
   const dispatch = useAppDispatch();
@@ -27,7 +27,7 @@ const ShoppingCartBar: React.FC<Props> = ({
     await dispatch(setIsToPayPressedTrue());
     navigate("/check_out_offers");
   };
-  const goToCheckout = () => {};
+
 
   return (
     <div
@@ -57,7 +57,7 @@ const ShoppingCartBar: React.FC<Props> = ({
       )}
 
       {isToPayPressed && (
-        <button className={`toggle-pay-text `} onClick={goToCheckout}>
+        <button className={`toggle-pay-text `} onClick={sendOrder}>
           תשלום
         </button>
       )}

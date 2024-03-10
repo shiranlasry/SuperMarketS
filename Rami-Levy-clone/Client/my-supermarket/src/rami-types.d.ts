@@ -5,12 +5,13 @@ export interface FoodCategories
 }
 
 export interface Order {
-  order_id: number;
-  cart_id: number;
-  user_id: number;
-  delivery_id: number;
-  order_creation_date: Date;
-  status_id: number;
+  order_id: number |null;
+  cart_id: number |null;
+  user_id: number |null;
+  user_contact_id: number |null;
+  delivery_id: number |null;
+  order_creation_date: string |null;
+  status: number |null;
 }
 export interface CartItem{
   cart_id: number;
@@ -172,9 +173,10 @@ export interface OrderForList{
 
 export interface Delivery {
   delivery_id: number;
-  order_id: number;
-  status_id: number;
-  delivery_finish_date: Date;
+  status: number |null;
+  city_id: number |null;
+  delivery_finish_date: string;
+  delivery_start_time: string;
 }
 
 export interface Status {
