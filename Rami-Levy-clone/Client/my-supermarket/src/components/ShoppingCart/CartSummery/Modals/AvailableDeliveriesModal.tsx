@@ -8,10 +8,11 @@ interface AvailableDeliveriesModalProps {
   setSelectedDelivery: (delivery: Delivery) => void;
   selectedDelivery: Delivery | null;
   onClose: () => void;
+  setNewOrder: (field: string, value: string | number) => void;
 
 }
 
-const AvailableDeliveriesModal : React.FC<AvailableDeliveriesModalProps> = ({ onClose,setSelectedDelivery, selectedDelivery }) => {
+const AvailableDeliveriesModal : React.FC<AvailableDeliveriesModalProps> = ({ onClose,setSelectedDelivery, selectedDelivery ,setNewOrder}) => {
   const allDeliveries = useAppSelector(deliveriesSelector);
   const [availableDeliveries, setAvailableDeliveries] = useState<Delivery[]>([]);
   const dispatch = useAppDispatch();
@@ -31,10 +32,12 @@ const AvailableDeliveriesModal : React.FC<AvailableDeliveriesModalProps> = ({ on
   }, [allDeliveries]);
 
   const handleDeliverySelect = (delivery: Delivery) => {
+    if (delivery && delivery.delivery_id ) {
     setSelectedDelivery(delivery);
+    setNewOrder("delivery_id", delivery.delivery_id);
     onClose();
+  }
   };
-
   return (
     <div className="available-deliveries-container">
       <h1>בחירת מועד משלוח</h1>
