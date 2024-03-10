@@ -8,7 +8,7 @@ import {
   setIsOpenCart,
 } from "../../features/cart/cartSlice";
 import { productsSelector } from "../../features/products/productsSlice";
-import { Order, Product, ProductsList, Sales } from "../../rami-types";
+import { Address, Delivery, Order, Product, ProductsList, Sales } from "../../rami-types";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./shopping-cart.scss";
 import { getAllProductsApi } from "../../features/products/productsAPI";
@@ -16,6 +16,8 @@ import CartSummery from "./CartSummery/CartSummery";
 import { selectSales } from "../../features/sales/salesSlice";
 import { getSalesAPI } from "../../features/sales/salesAPI";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import { updateDeliveryStatusApi } from "../../features/api/deliveriesAPI";
+import { addNewUserContactAPI } from "../../features/api/usersContactsAPI";
 
 
 const ShoppingCart: React.FC = () => {
@@ -26,14 +28,24 @@ const ShoppingCart: React.FC = () => {
   const allProducts = useAppSelector(productsSelector);
   const [totalPrice, setTotalPrice] = useState(0);
   const allSales = useAppSelector<Sales[]>(selectSales);
+  const [orderContact, setOrderContact] = useState({
+    full_name: loggedInUser?.first_name + " " + loggedInUser?.last_name || "",
+    phone_number: loggedInUser?.phone_number || "",
+  });
+  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
+  const [selectedDelivery, setSelectedDelivery] = useState<Delivery | null>(null);
+  const [selectedHowToReceive, setSelectedHowToReceive] =
+    useState(" יש מישהו בבית");
+  const [selectedAlternativeProducts, setSelectedAlternativeProducts] =
+    useState("צרו קשר לתיאום");
   const  initialOrder: Order = {
     order_id: null,
     cart_id: null,
     user_id: null,
     user_contact_id: null,
     delivery_id: null,
-    order_creation_date: null,
-    status: null,
+    order_creation_date: Date.now().toString(),
+    status: 1,
   };
   const [newOrder, setNewOrder] = useState<Order>(initialOrder);
   const hanelsetNewOrder = (field : string, value : string | number) => {
@@ -66,11 +78,32 @@ useEffect(() => {
     }
   }, [loggedInUser]);
 
-
   const toggleCart = () => {
     dispatch(setIsOpenCart());
   };
+const sendOrder = async () => {
+  // update delivery status
+ 
+  if (selectedDelivery) {
+    await updateDeliveryStatusApi(selectedDelivery.delivery_id);
+   if (selectedDelivery.delivery_id) {
+    hanelsetNewOrder('delivery_id', selectedDelivery.delivery_id);
+   }
+  
+  }
+  // add user_contact_id to database and get the id
+  if (orderContact)
+  {
+    const response = await addNewUserContactAPI(orderContact.full_name, orderContact.phone_number);
+    debugger;
+    if (response.payload) {
+      hanelsetNewOrder('user_contact_id', response.payload);
+    }
+  }
 
+
+
+}
   const calculateTotalPrice = (cartList: ProductsList[]) => {
     let totalPrice = 0;
     cartList.forEach((cartItem: ProductsList) => {
@@ -160,7 +193,20 @@ useEffect(() => {
     <ul className="cart-content">
      {isToPayPressed && (
   <ul className="cart-content">
-   <CartSummery  hanelsetNewOrder={hanelsetNewOrder}/>
+   <CartSummery 
+    orderContact={orderContact}
+    setOrderContact={setOrderContact}
+    selectedAddress={selectedAddress}
+    setSelectedAddress={setSelectedAddress}
+    selectedDelivery={selectedDelivery}
+    setSelectedDelivery={setSelectedDelivery}
+    selectedHowToReceive={selectedHowToReceive}
+    setSelectedHowToReceive={setSelectedHowToReceive}
+    selectedAlternativeProducts={selectedAlternativeProducts}
+    setSelectedAlternativeProducts={setSelectedAlternativeProducts}
+
+
+    />
   </ul>
 )}
 
@@ -171,7 +217,7 @@ useEffect(() => {
         totalPrice={totalPrice}
         isOpen={isOpenCart}
         toggleCart={toggleCart}
-        // sendOrder={sendOrder}
+         sendOrder={sendOrder}
         isToPayPressed={isToPayPressed}
       />
     </div>

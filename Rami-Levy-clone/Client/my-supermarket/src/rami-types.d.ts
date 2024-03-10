@@ -10,7 +10,7 @@ export interface Order {
   user_id: number |null;
   user_contact_id: number |null;
   delivery_id: number |null;
-  order_creation_date: Date |null;
+  order_creation_date: string |null;
   status: number |null;
 }
 export interface CartItem{

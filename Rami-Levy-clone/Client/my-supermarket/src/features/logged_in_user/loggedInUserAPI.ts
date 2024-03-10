@@ -127,7 +127,7 @@ export const deleteUserAddressApi = createAsyncThunk<void, { address_id: number,
     'delete-user-address',
     async ({ address_id, user_id }) => {
       try {
-        debugger;
+      
         const response = await axios.delete(`/api/addresses/delete-user-address/${user_id}/${address_id}`);
         const { ok } = response.data;
         if (!ok) {
@@ -145,7 +145,7 @@ export const deleteUserAddressApi = createAsyncThunk<void, { address_id: number,
     'update-default-address',
     async ({ address_id, user_id }) => {
       try {
-        debugger;
+     
         const response = await axios.put(`/api/addresses/update-default-address/${user_id}/${address_id}`);
         const { ok } = response.data;
         if (!ok) {

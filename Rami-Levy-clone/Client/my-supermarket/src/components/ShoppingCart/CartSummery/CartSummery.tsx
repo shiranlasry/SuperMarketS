@@ -13,22 +13,35 @@ import ChengeAddressModal from "./Modals/ChengeAddressModal";
 import AvailableDeliveriesModal from "./Modals/AvailableDeliveriesModal";
 
 interface CartSummeryProps {
+    orderContact: {
+        full_name: string;
+        phone_number: string;
+    };
+    setOrderContact: (contact: { full_name: string; phone_number: string }) => void;
+    selectedAddress: Address | null;
+    setSelectedAddress: (address: Address | null) => void;
+    selectedDelivery: Delivery | null;
+    setSelectedDelivery: (delivery: Delivery | null) => void;
+    selectedHowToReceive: string;
+    setSelectedHowToReceive: (howToReceive: string) => void;
+    selectedAlternativeProducts: string;
+    setSelectedAlternativeProducts: (alternativeProducts: string) => void;
    
 }   
 
-const CartSummery : React.FC<CartSummeryProps> = ({}) => {
+const CartSummery : React.FC<CartSummeryProps> = ({
+    orderContact,
+    setOrderContact,
+    selectedAddress,
+    setSelectedAddress,
+    selectedDelivery,
+    setSelectedDelivery,
+    selectedHowToReceive,
+    setSelectedHowToReceive,
+    selectedAlternativeProducts,
+    setSelectedAlternativeProducts,
+}) => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
-  const [orderContact, setOrderContact] = useState({
-    full_name: loggedInUser?.first_name + " " + loggedInUser?.last_name || "",
-    phone_number: loggedInUser?.phone_number || "",
-  });
-  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
-  const [selectedDelivery, setSelectedDelivery] = useState<Delivery | null>(null);
-  const [selectedHowToReceive, setSelectedHowToReceive] =
-    useState(" יש מישהו בבית");
-  const [selectedAlternativeProducts, setSelectedAlternativeProducts] =
-    useState("צרו קשר לתיאום");
-
   const [showModal, setShowModal] = useState({
     changeContact: false,
     changeAddress: false,
