@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./ChengeContactModal.scss";
 import { Order } from "../../../../rami-types";
+import RamiBtn from "../../../RamiBtn/RamiBtn";
 
 interface Props {
   onClose: () => void;
@@ -23,7 +24,6 @@ const ChengeContactModal: React.FC<Props> = ({
   newOrder,
   setNewOrder,
 }) => {
-  
   const [errors, setErrors] = useState<{ [key: string]: string }>({
     full_name: "",
 
@@ -35,32 +35,22 @@ const ChengeContactModal: React.FC<Props> = ({
   };
 
   const handleUpdate = () => {
-
     if (orderContact.full_name.trim() === "") {
-
       setErrors((prevState) => ({
-
         ...prevState,
 
         full_name: "שם מלא הוא שדה חובה",
-
       }));
-
     } else if (!validatePhoneNumber(orderContact.phone_number)) {
-
       setErrors((prevState) => ({
-
         ...prevState,
 
         phone_number: "מספר הטלפון חייב להיות בעל 10 ספרות",
-
       }));
-
     } else {
-      setOrderContact(orderContact)
+      setOrderContact(orderContact);
       onClose();
     }
-
   };
   const handleHowToReceiveChange = (
     e: React.ChangeEvent<HTMLSelectElement>
@@ -74,26 +64,27 @@ const ChengeContactModal: React.FC<Props> = ({
     setNewOrder("alternative_products", e.target.value);
   };
   return (
-    <div className="modal-order">
+    <div className="modal-order custome">
       <div className="modal-order-contact">
-        <h2>איש קשר למשלוח</h2>
-      <div className="full_name">
-          <label>שם מלא</label>
+        <h2 className="contact-title">איש קשר למשלוח</h2>
+        <div className="full_name">
+          <label className="full-contact-name">שם מלא*</label>
           <input
+            className="contact-name"
             type="text"
             value={orderContact.full_name}
             onChange={(e) =>
               setOrderContact({ ...orderContact, full_name: e.target.value })
             }
-
           />
           {errors.full_name && (
             <span style={{ color: "red" }}>{errors.full_name}</span>
           )}
         </div>
         <div className="phone_number">
-          <label>טלפון</label>
+          <label className="contact-phone-label">טלפון*</label>
           <input
+            className="contact-phone"
             type="text"
             value={orderContact.phone_number}
             onChange={(e) =>
@@ -105,8 +96,8 @@ const ChengeContactModal: React.FC<Props> = ({
           )}
         </div>
       </div>
-        <div className="modal-order-highlights">
-            <h2>דגשים להזמנה </h2>
+      <div className="modal-order-highlights">
+        <h2 className="order-requests-title">דגשים להזמנה </h2>
         <div className="modal-order-receive">
           <label>קבלת המשלוח*</label>
           <select
@@ -117,7 +108,7 @@ const ChengeContactModal: React.FC<Props> = ({
             <option value=" נא להשאיר ליד הדלת"> נא להשאיר ליד הדלת</option>
           </select>
         </div>
-        
+
         <div className="modal-order-alternative">
           <label>מוצרים חלופיים*</label>
           <select
@@ -129,11 +120,14 @@ const ChengeContactModal: React.FC<Props> = ({
             <option value="ללא מוצרים חלופיים ">ללא מוצרים חלופיים </option>
           </select>
         </div>
-        </div>
-       
-      
-      <button onClick={handleUpdate}>שמירה</button>
-      <button onClick={onClose}>ביטול</button>
+      </div>
+
+      <div className="contact-btns">
+        <RamiBtn onClick={handleUpdate}>שמירה</RamiBtn>
+        <RamiBtn className="contact-cancel-btn" onClick={onClose}>
+          ביטול
+        </RamiBtn>
+      </div>
     </div>
   );
 };

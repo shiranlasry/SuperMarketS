@@ -1,31 +1,41 @@
-import React from 'react'
+import React from "react";
+import "./BeforePayModal.scss";
+import RamiBtn from "../../../RamiBtn/RamiBtn";
 
 interface Props {
-    onPay: () => void;
-    onCancle: () => void;
+  onPay: () => void;
+  onCancle: () => void;
 }
 
-const BeforePayModal: React.FC<Props> = ({onPay,onCancle}) => {
+const BeforePayModal: React.FC<Props> = ({ onPay, onCancle }) => {
   return (
-    <div>
-        <h1>מילוי פרטי אשראי</h1>
-     <form>
-        <label>שם בעל הכרטיס</label>
-        <input type="text" />
-        <label>מספר כרטיס אשראי</label>
-        <input type="text" />
-        <label>תוקף</label>
-        <input type="text" />
-        <label>CVV</label>
-        <input type="text" />
-        <label>תשלום בתשלומים</label>
-        <input type="text" />
-     </form>
-        <button onClick={onPay}>שלם</button>
-        <button onClick={onCancle}>ביטול</button>
-      
+    <div className="credit-info-main">
+      <h1 className="credit-info-title">מילוי פרטי אשראי</h1>
+      <form className="credit-info-form">
+        <input
+          className="credit-input"
+          type="text"
+          placeholder="שם בעל הכרטיס"
+        />
+        <input
+          className="credit-input"
+          type="text"
+          placeholder="מספר כרטיס אשראי"
+        />
+        <input className="credit-input" type="text" placeholder="תוקף" />
+        <input className="credit-input" type="text" placeholder="CVV" />
+        <input
+          className="credit-input"
+          type="text"
+          placeholder="מספר תשלומים"
+        />
+      </form>
+      <div className="credit-btns">
+        <RamiBtn onClick={onPay}>שלם</RamiBtn>
+        <RamiBtn onClick={onCancle}>ביטול</RamiBtn>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default BeforePayModal
+export default BeforePayModal;

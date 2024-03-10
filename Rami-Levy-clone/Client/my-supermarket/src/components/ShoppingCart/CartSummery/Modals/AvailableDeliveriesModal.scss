@@ -1,17 +1,25 @@
-.selected{
-    background-color: #046f16;
-    color: #000;
-    font-weight: bold;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .selected:hover{
-    background-color: #51f36c;
-  }
-  .selected.active{
-    background-color: #51f36c;
+$rami-blue: #1579f2;
+
+.selected {
+  background-color: $rami-blue;
+  color: #000;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
 }
-  
+.selected:hover {
+  background-color: $rami-blue;
+}
+.selected.active,
+.selected {
+  color: white;
+  background-color: $rami-blue;
+}
+
+.available-deliveries-title {
+  color: $rami-blue;
+  font-size: 1.7rem;
+}
