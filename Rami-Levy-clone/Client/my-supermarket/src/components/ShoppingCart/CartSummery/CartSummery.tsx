@@ -13,6 +13,31 @@ import ChengeAddressModal from "./Modals/ChengeAddressModal";
 import AvailableDeliveriesModal from "./Modals/AvailableDeliveriesModal";
 
 interface CartSummeryProps {
+ add-new-order
+    orderContact: {
+        full_name: string;
+        phone_number: string;
+    };
+    setOrderContact: (contact: { full_name: string; phone_number: string }) => void;
+    selectedAddress: Address | null;
+    setSelectedAddress: (address: Address | null) => void;
+    selectedDelivery: Delivery | null;
+    setSelectedDelivery: (delivery: Delivery | null) => void;
+    newOrder: Order;
+    setNewOrder: (field: string, value: string | number) => void;
+   
+}   
+
+const CartSummery : React.FC<CartSummeryProps> = ({
+    orderContact,
+    setOrderContact,
+    selectedAddress,
+    setSelectedAddress,
+    selectedDelivery,
+    setSelectedDelivery,
+    newOrder,   
+    setNewOrder
+
   orderContact: {
     full_name: string;
     phone_number: string;
@@ -42,6 +67,7 @@ const CartSummery: React.FC<CartSummeryProps> = ({
   setSelectedHowToReceive,
   selectedAlternativeProducts,
   setSelectedAlternativeProducts,
+ 
 }) => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
   const [showModal, setShowModal] = useState({
@@ -54,9 +80,14 @@ const CartSummery: React.FC<CartSummeryProps> = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+
+    if (loggedInUser) {
+
+
     if (!loggedInUser) {
       getUserToken();
     } else {
+
       setOrderContact({
         full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
         phone_number: loggedInUser.phone_number,
@@ -71,12 +102,7 @@ const CartSummery: React.FC<CartSummeryProps> = ({
     }
   }, [loggedInUser]);
 
-  const getUserToken = async () => {
-    const response = await dispatch(getUserFromTokenApi());
-    if (response.payload) {
-      dispatch(getUserAddressesApi(response.payload.user_id));
-    }
-  };
+ 
 
   const toggleModal = (modalType) => {
     setShowModal({ ...showModal, [modalType]: !showModal[modalType] });
@@ -140,6 +166,50 @@ const CartSummery: React.FC<CartSummeryProps> = ({
                 ) : (
                   <p>בחר מועד משלוח</p>
                 )}
+
+                        </div>
+            <div className="col">
+              <button onClick={() => toggleModal("changeAddress")} className="btn btn-primary">שינוי</button>
+            </div>
+          </div>
+          <div className="row align-items-center">
+            <div className="col">
+              <p>מודאל להצגת המוצרים של העגלה </p>
+            </div>
+            <div className="col">
+              <button className="btn btn-primary">שינוי</button>
+            </div>
+          </div>
+          <Modal
+            show={showModal.changeContact}
+            onHide={() => toggleModal("changeContact")}
+            dialogClassName="custom-modal"
+          >
+            <Modal.Body>
+              <ChengeContactModal
+                onClose={() => toggleModal("changeContact")}
+                orderContact={orderContact}
+                setOrderContact={setOrderContact}
+                newOrder={newOrder}
+                setNewOrder={setNewOrder}
+              />
+            </Modal.Body>
+          </Modal>
+          <Modal
+            show={showModal.changeAddress}
+            onHide={() => toggleModal("changeAddress")}
+            dialogClassName="two-in-one-modal"
+           
+          >
+            <Modal.Body className="two-in-one-modal-body">
+              <div className="address-section">
+                <ChengeAddressModal
+                  setSelectedAddress={setSelectedAddress}
+                  selectedAddress={selectedAddress}
+                  setNewOrder={setNewOrder}
+                  onClose={() => toggleModal("changeAddress")}
+                />
+
               </div>
               <div className="col">
                 <button

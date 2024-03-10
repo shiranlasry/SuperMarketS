@@ -28,6 +28,7 @@ import { addNewUserContactAPI } from "../../features/api/usersContactsAPI";
 import BeforePayModal from "./CartSummery/Modals/BeforePayModal";
 import { Modal } from "react-bootstrap";
 import { addNewOrderAPI } from "../../features/orders/ordersAPI";
+import { getUserAddressesApi, getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserAPI";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -45,11 +46,7 @@ const ShoppingCart: React.FC = () => {
   const [selectedDelivery, setSelectedDelivery] = useState<Delivery | null>(
     null
   );
-  const [selectedHowToReceive, setSelectedHowToReceive] = useState(
-    " יש מישהו בבית"
-  );
-  const [selectedAlternativeProducts, setSelectedAlternativeProducts] =
-    useState("צרו קשר לתיאום");
+ 
   const initialOrder: Order = {
     order_id: null,
     cart_id: null,
@@ -58,6 +55,8 @@ const ShoppingCart: React.FC = () => {
     delivery_id: null,
     order_creation_date: Date.now().toString(),
     status: 1,
+    alternative_products:"צרו קשר לתיאום" ,
+    how_receive_shipment:"יש מישהו בבית" ,
   };
   const [newOrder, setNewOrder] = useState<Order>(initialOrder);
   const [showBeforePayModal, setShowBeforePayModal] = useState(false);
@@ -89,13 +88,22 @@ const ShoppingCart: React.FC = () => {
   }, [activeCart]);
 
   useEffect(() => {
+
+    if (!loggedInUser) {
+      getUserToken();
+    }
     if (loggedInUser && loggedInUser.user_id) {
       hanelsetNewOrder("user_id", loggedInUser.user_id);
-      hanelsetNewOrder("user_contact_id", loggedInUser.user_id);
     }
   }, [loggedInUser]);
+
+  const getUserToken = async () => {
+    const response = await dispatch(getUserFromTokenApi());
+    if (response.payload) {
+      dispatch(getUserAddressesApi((response.payload as any).user_id));
+    }
+  };
   const updateContactId = async () => {
-    debugger
    const insertId= await addNewUserContactAPI(orderContact.full_name, orderContact.phone_number);
 if (insertId) {
   hanelsetNewOrder("user_contact_id", insertId);
@@ -103,7 +111,7 @@ if (insertId) {
 }
   }
 useEffect(() => {
-  if (orderContact) {
+  if (orderContact.full_name && orderContact.phone_number) {
     debugger
     updateContactId();
   }
@@ -239,11 +247,8 @@ useEffect(() => {
                 setSelectedAddress={setSelectedAddress}
                 selectedDelivery={selectedDelivery}
                 setSelectedDelivery={setSelectedDelivery}
-                selectedHowToReceive={selectedHowToReceive}
-                setSelectedHowToReceive={setSelectedHowToReceive}
-                selectedAlternativeProducts={selectedAlternativeProducts}
-                setSelectedAlternativeProducts={setSelectedAlternativeProducts}
                 setNewOrder={hanelsetNewOrder}
+                newOrder={newOrder}
               />
             </ul>
           )}
