@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInUserSlice";
-import { Address, Delivery, Order } from "../../../rami-types";
+import { Address, Delivery } from "../../../rami-types";
 import "./cartSummery.scss";
 import {
   getUserAddressesApi,
@@ -13,7 +13,6 @@ import ChengeAddressModal from "./Modals/ChengeAddressModal";
 import AvailableDeliveriesModal from "./Modals/AvailableDeliveriesModal";
 
 interface CartSummeryProps {
-
   orderContact: {
     full_name: string;
     phone_number: string;
@@ -43,37 +42,6 @@ const CartSummery: React.FC<CartSummeryProps> = ({
   setSelectedHowToReceive,
   selectedAlternativeProducts,
   setSelectedAlternativeProducts,
-
-    orderContact: {
-        full_name: string;
-        phone_number: string;
-    };
-    setOrderContact: (contact: { full_name: string; phone_number: string }) => void;
-    selectedAddress: Address | null;
-    setSelectedAddress: (address: Address | null) => void;
-    selectedDelivery: Delivery | null;
-    setSelectedDelivery: (delivery: Delivery | null) => void;
-    selectedHowToReceive: string;
-    setSelectedHowToReceive: (howToReceive: string) => void;
-    selectedAlternativeProducts: string;
-    setSelectedAlternativeProducts: (alternativeProducts: string) => void;
-    setNewOrder: (field: string, value: string | number) => void;
-   
-}   
-
-const CartSummery : React.FC<CartSummeryProps> = ({
-    orderContact,
-    setOrderContact,
-    selectedAddress,
-    setSelectedAddress,
-    selectedDelivery,
-    setSelectedDelivery,
-    selectedHowToReceive,
-    setSelectedHowToReceive,
-    selectedAlternativeProducts,
-    setSelectedAlternativeProducts,
-    setNewOrder
-
 }) => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
   const [showModal, setShowModal] = useState({
@@ -89,7 +57,6 @@ const CartSummery : React.FC<CartSummeryProps> = ({
     if (!loggedInUser) {
       getUserToken();
     } else {
-
       setOrderContact({
         full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
         phone_number: loggedInUser.phone_number,
@@ -100,7 +67,6 @@ const CartSummery : React.FC<CartSummeryProps> = ({
           (address) => address.is_default
         );
         setSelectedAddress(defaultAddress || null);
-        
       }
     }
   }, [loggedInUser]);
@@ -184,98 +150,6 @@ const CartSummery : React.FC<CartSummeryProps> = ({
                 </button>
               </div>
             </div>
-
-            <div className="row align-items-center">
-              <div className="col">
-                <p>מודאל להצגת המוצרים של העגלה </p>
-              </div>
-              <div className="col">
-                <button className="btn btn-primary">שינוי</button>
-
-          </div>
-          <Modal
-            show={showModal.changeContact}
-            onHide={() => toggleModal("changeContact")}
-            dialogClassName="custom-modal"
-          >
-            <Modal.Body>
-              <ChengeContactModal
-                onClose={() => toggleModal("changeContact")}
-                orderContact={orderContact}
-                setOrderContact={setOrderContact}
-                selectedHowToReceive={selectedHowToReceive}
-                setSelectedHowToReceive={setSelectedHowToReceive}
-                selectedAlternativeProducts={selectedAlternativeProducts}
-                setSelectedAlternativeProducts={setSelectedAlternativeProducts}
-              />
-            </Modal.Body>
-          </Modal>
-          <Modal
-            show={showModal.changeAddress}
-            onHide={() => toggleModal("changeAddress")}
-            dialogClassName="two-in-one-modal"
-           
-          >
-            <Modal.Body className="two-in-one-modal-body">
-              <div className="address-section">
-                <ChengeAddressModal
-                  setSelectedAddress={setSelectedAddress}
-                  selectedAddress={selectedAddress}
-                  setNewOrder={setNewOrder}
-                  onClose={() => toggleModal("changeAddress")}
-                />
-              </div>
-              <div className="deliveries-section">
-                <AvailableDeliveriesModal
-                setSelectedDelivery={setSelectedDelivery}
-                selectedDelivery={selectedDelivery}
-                setNewOrder={setNewOrder}
-                onClose={() => toggleModal("changeAddress")}
-                />
-
-              </div>
-            </div>
-            <Modal
-              show={showModal.changeContact}
-              onHide={() => toggleModal("changeContact")}
-              dialogClassName="custom-modal"
-            >
-              <Modal.Body>
-                <ChengeContactModal
-                  onClose={() => toggleModal("changeContact")}
-                  orderContact={orderContact}
-                  setOrderContact={setOrderContact}
-                  selectedHowToReceive={selectedHowToReceive}
-                  setSelectedHowToReceive={setSelectedHowToReceive}
-                  selectedAlternativeProducts={selectedAlternativeProducts}
-                  setSelectedAlternativeProducts={
-                    setSelectedAlternativeProducts
-                  }
-                />
-              </Modal.Body>
-            </Modal>
-            <Modal
-              show={showModal.changeAddress}
-              onHide={() => toggleModal("changeAddress")}
-              dialogClassName="two-in-one-modal"
-            >
-              <Modal.Body className="two-in-one-modal-body">
-                <div className="address-section">
-                  <ChengeAddressModal
-                    setSelectedAddress={setSelectedAddress}
-                    selectedAddress={selectedAddress}
-                    onClose={() => toggleModal("changeAddress")}
-                  />
-                </div>
-                <div className="deliveries-section">
-                  <AvailableDeliveriesModal
-                    setSelectedDelivery={setSelectedDelivery}
-                    selectedDelivery={selectedDelivery}
-                    onClose={() => toggleModal("changeAddress")}
-                  />
-                </div>
-              </Modal.Body>
-            </Modal>
           </>
         )}
       </div>
