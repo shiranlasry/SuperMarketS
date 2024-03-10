@@ -29,16 +29,6 @@ const ShoppingCartBar: React.FC<Props> = ({
   };
   
 
-  const formatPrice = (price: number) => {
-    const parts = price.toFixed(2).split(".");
-    return (
-      <span>
-        <span className="big-digits">{parts[0]}</span>.
-        <span className="small-digits">{parts[1]}</span>
-      </span>
-    );
-  };
-
   return (
     <div
       className={`shopping-cart-bar text-white d-flex justify-content-between align-items-center p-2 ${
@@ -60,7 +50,7 @@ const ShoppingCartBar: React.FC<Props> = ({
             </button>
           </div>
           <div>
-            <span className="total-price-bar">{formatPrice(totalPrice)}</span>{" "}
+            <span className="total-price-bar">{totalPrice}</span>{" "}
             <span className="shekel-bar">₪</span>
           </div>
         </>
