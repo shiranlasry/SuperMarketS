@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/hook';
-import { getAllDeliveriesApi } from '../../../../features/deliveries/allDeliveriesAPI';
+import { getAllDeliveriesApi } from "../../../../features/deliveries/allDeliveriesAPI";
 import { deliveriesSelector } from '../../../../features/deliveries/allDeliveriesSlice';
 import './AvailableDeliveriesModal.scss';
 import { Delivery } from '../../../../rami-types';
