@@ -22,10 +22,7 @@ interface CartSummeryProps {
     setSelectedAddress: (address: Address | null) => void;
     selectedDelivery: Delivery | null;
     setSelectedDelivery: (delivery: Delivery | null) => void;
-    selectedHowToReceive: string;
-    setSelectedHowToReceive: (howToReceive: string) => void;
-    selectedAlternativeProducts: string;
-    setSelectedAlternativeProducts: (alternativeProducts: string) => void;
+    newOrder: Order;
     setNewOrder: (field: string, value: string | number) => void;
    
 }   
@@ -37,10 +34,7 @@ const CartSummery : React.FC<CartSummeryProps> = ({
     setSelectedAddress,
     selectedDelivery,
     setSelectedDelivery,
-    selectedHowToReceive,
-    setSelectedHowToReceive,
-    selectedAlternativeProducts,
-    setSelectedAlternativeProducts,
+    newOrder,   
     setNewOrder
 }) => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
@@ -54,9 +48,7 @@ const CartSummery : React.FC<CartSummeryProps> = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!loggedInUser) {
-      getUserToken();
-    } else {
+    if (loggedInUser) {
 
       setOrderContact({
         full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
@@ -73,12 +65,7 @@ const CartSummery : React.FC<CartSummeryProps> = ({
     }
   }, [loggedInUser]);
 
-  const getUserToken = async () => {
-    const response = await dispatch(getUserFromTokenApi());
-    if (response.payload) {
-      dispatch(getUserAddressesApi(response.payload.user_id));
-    }
-  };
+ 
 
   const toggleModal = (modalType) => {
     setShowModal({ ...showModal, [modalType]: !showModal[modalType] });
@@ -164,10 +151,8 @@ const CartSummery : React.FC<CartSummeryProps> = ({
                 onClose={() => toggleModal("changeContact")}
                 orderContact={orderContact}
                 setOrderContact={setOrderContact}
-                selectedHowToReceive={selectedHowToReceive}
-                setSelectedHowToReceive={setSelectedHowToReceive}
-                selectedAlternativeProducts={selectedAlternativeProducts}
-                setSelectedAlternativeProducts={setSelectedAlternativeProducts}
+                newOrder={newOrder}
+                setNewOrder={setNewOrder}
               />
             </Modal.Body>
           </Modal>

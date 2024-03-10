@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./ChengeContactModal.scss";
+import { Order } from "../../../../rami-types";
 
 interface Props {
   onClose: () => void;
@@ -11,22 +12,18 @@ interface Props {
     full_name: string;
     phone_number: string;
   }) => void;
-  selectedHowToReceive: string;
-  setSelectedHowToReceive: (value: string) => void;
-  selectedAlternativeProducts: string;
-  setSelectedAlternativeProducts: (value: string) => void;
+  newOrder: Order;
+  setNewOrder: (field: string, value: string | number) => void;
 }
 
 const ChengeContactModal: React.FC<Props> = ({
   onClose,
   orderContact,
   setOrderContact,
-  selectedHowToReceive,
-  setSelectedHowToReceive,
-  selectedAlternativeProducts,
-  setSelectedAlternativeProducts,
+  newOrder,
+  setNewOrder,
 }) => {
-  const [updatedContact, setUpdatedContact] = useState({ ...orderContact });
+  
   const [errors, setErrors] = useState<{ [key: string]: string }>({
     full_name: "",
 
@@ -38,41 +35,43 @@ const ChengeContactModal: React.FC<Props> = ({
   };
 
   const handleUpdate = () => {
-    if (updatedContact.full_name.trim() === "") {
+
+    if (orderContact.full_name.trim() === "") {
+
       setErrors((prevState) => ({
+
         ...prevState,
+
         full_name: "שם מלא הוא שדה חובה",
+
       }));
-    } else if (!validatePhoneNumber(updatedContact.phone_number)) {
+
+    } else if (!validatePhoneNumber(orderContact.phone_number)) {
+
       setErrors((prevState) => ({
+
         ...prevState,
+
         phone_number: "מספר הטלפון חייב להיות בעל 10 ספרות",
+
       }));
+
     } else {
-      setOrderContact(updatedContact);
+      setOrderContact(orderContact)
       onClose();
     }
-  };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    field: string
-  ) => {
-    setUpdatedContact({ ...updatedContact, [field]: e.target.value });
-    if (errors[field]) {
-      setErrors((prevState) => ({ ...prevState, [field]: "" }));
-    }
   };
   const handleHowToReceiveChange = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setSelectedHowToReceive(e.target.value);
+    setNewOrder("how_receive_shipment", e.target.value);
   };
 
   const handleAlternativeProductsChange = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setSelectedAlternativeProducts(e.target.value);
+    setNewOrder("alternative_products", e.target.value);
   };
   return (
     <div className="modal-order">
@@ -82,8 +81,11 @@ const ChengeContactModal: React.FC<Props> = ({
           <label>שם מלא</label>
           <input
             type="text"
-            value={updatedContact.full_name}
-            onChange={(e) => handleChange(e, "full_name")}
+            value={orderContact.full_name}
+            onChange={(e) =>
+              setOrderContact({ ...orderContact, full_name: e.target.value })
+            }
+
           />
           {errors.full_name && (
             <span style={{ color: "red" }}>{errors.full_name}</span>
@@ -93,8 +95,10 @@ const ChengeContactModal: React.FC<Props> = ({
           <label>טלפון</label>
           <input
             type="text"
-            value={updatedContact.phone_number}
-            onChange={(e) => handleChange(e, "phone_number")}
+            value={orderContact.phone_number}
+            onChange={(e) =>
+              setOrderContact({ ...orderContact, phone_number: e.target.value })
+            }
           />
           {errors.phone_number && (
             <span style={{ color: "red" }}>{errors.phone_number}</span>
@@ -106,7 +110,7 @@ const ChengeContactModal: React.FC<Props> = ({
         <div className="modal-order-receive">
           <label>קבלת המשלוח*</label>
           <select
-            value={selectedHowToReceive}
+            value={newOrder.how_receive_shipment}
             onChange={handleHowToReceiveChange}
           >
             <option value=" יש מישהו בבית"> יש מישהו בבית</option>
@@ -117,7 +121,7 @@ const ChengeContactModal: React.FC<Props> = ({
         <div className="modal-order-alternative">
           <label>מוצרים חלופיים*</label>
           <select
-            value={selectedAlternativeProducts}
+            value={newOrder.alternative_products}
             onChange={handleAlternativeProductsChange}
           >
             <option value="צרו קשר לתיאום"> צרו קשר לתיאום</option>

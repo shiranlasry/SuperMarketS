@@ -12,6 +12,8 @@ export interface Order {
   delivery_id: number |null;
   order_creation_date: string |null;
   status: number |null;
+  alternative_products: string;
+  how_receive_shipment: string;
 }
 export interface CartItem{
   cart_id: number;
