@@ -95,7 +95,7 @@ const sendOrder = async () => {
   if (orderContact)
   {
     const response = await addNewUserContactAPI(orderContact.full_name, orderContact.phone_number);
-   
+    debugger;
     if (response.payload) {
       hanelsetNewOrder('user_contact_id', response.payload);
     }
