@@ -12,7 +12,7 @@
   justify-content: start;
   gap: 0.3rem;
   top: 1rem;
-  margin: 1rem;
+  margin-left: 10rem;
   width: 250px;
   border-radius: 10px;
 }
@@ -22,13 +22,13 @@
   justify-content: right;
   text-align: center;
   height: 44px;
-  width: 230px;
+  width: 100%;
   padding-top: 10px;
-  padding-right: 10px;
+  padding-right: 15px;
   display: flex;
   flex-direction: row;
   border-radius: 10px;
-  width: 100%;
+  width: 250px;
   background-color: transparent;
   border: none;
   font-size: 16px;
@@ -52,11 +52,12 @@
 
 .Personal-profil-menu button:hover {
   background-color: #eaeaea;
+  height: fit-content;
 }
 
 .personal-details-btn.active {
-  background-color: #eaeaea; /* or any other style you want to apply */
-  /* Add any other styles for the active button */
+  background-color: #eaeaea;
+  height: fit-content;
 }
 
 .Personal-profil-details {

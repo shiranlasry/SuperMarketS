@@ -123,9 +123,13 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
               stroke-linejoin="round"
             ></path>
           </svg>
-          {
-            loggedInUser ? <p>{loggedInUser.first_name} {loggedInUser.last_name}</p> : <p>פרטים אישיים</p>
-          }
+          {loggedInUser ? (
+            <p>
+              {loggedInUser.first_name} {loggedInUser.last_name}
+            </p>
+          ) : (
+            <p>פרטים אישיים</p>
+          )}
         </button>
         <button
           className={`personal-details-btn ${
@@ -209,7 +213,9 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
           <p>תשלום</p>
         </button>
         <button
-          className="personal-details-btn"
+          className={`personal-details-btn ${
+            activeButton === "orders" ? "active" : ""
+          }`}
           onClick={() => handleButtonClick("orders")}
         >
           <svg
