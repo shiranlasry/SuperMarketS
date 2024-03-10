@@ -88,10 +88,14 @@ const Header = () => {
   }, []);
   //if there is a logged in user, get the active cart
   const handelGetUserActiveCart = async (user_id: number) => {
-    const response = await dispatch(getUserActiveCartApi(user_id));
+    try {
+      const response = await dispatch(getUserActiveCartApi(user_id));
 
-    if (response.payload && response.payload.cart_id) {
-      dispatch(getUserActiveCartListApi(response.payload.cart_id));
+      if (response.payload && response.payload.cart_id) {
+        dispatch(getUserActiveCartListApi(response.payload.cart_id));
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 

@@ -7,7 +7,7 @@ import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInU
 
 const UserAddress = () => {
   const [addNewAddressPressed, setAddNewAddressPressed] = useState(false);
-  
+
   return (
     <div className="address-main">
       <div className="address-container">

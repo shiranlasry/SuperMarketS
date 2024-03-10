@@ -57,7 +57,7 @@ const CheckOutOffers = () => {
   return (
     <div className="checkout-container">
       <div className="row">
-        <div className="suggestions-content col-md-6">
+        <div className="suggestions-content col-md-2">
           <PersonalProfil onMenuClick={handleMenuClick} />{" "}
           {/* Pass handleMenuClick as a prop to PersonalProfil */}
         </div>

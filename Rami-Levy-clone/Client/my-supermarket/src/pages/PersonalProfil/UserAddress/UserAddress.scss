@@ -1,8 +1,13 @@
 $rami-blue: #1579f2;
 
 .address-main {
+  min-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+
   .address-container {
-    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: right;
@@ -35,9 +40,10 @@ $rami-blue: #1579f2;
 }
 .new-address-btn {
   margin: auto;
-  display: flex;
+
   flex-direction: column;
-  align-items: center;
+  ali: center;
+
   background-color: #f3f5f800;
   border: none;
   margin-top: 48px;

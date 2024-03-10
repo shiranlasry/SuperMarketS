@@ -1,12 +1,13 @@
 $rami-blue: #1579f2;
 
 .payment-main {
+  margin-right: 7rem;
   .payment-container {
     margin: auto;
     display: flex;
     flex-direction: column;
-    max-width: 800px;
-    height: 250px;
+    min-width: 800px;
+    min-height: 250px;
     padding: 16px 0 16px 0;
     background-color: #fff;
     color: $rami-blue;

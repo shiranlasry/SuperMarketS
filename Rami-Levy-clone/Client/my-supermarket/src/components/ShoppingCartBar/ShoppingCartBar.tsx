@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 interface Props {
   totalPrice: number;
   isOpen: boolean;
-  toggleCart: () => void; // Function to toggle the cart
-  sendOrder?: () => void; // Function to send the order
+  toggleCart: () => void;
+  sendOrder?: () => void;
   isToPayPressed: boolean;
 }
 
