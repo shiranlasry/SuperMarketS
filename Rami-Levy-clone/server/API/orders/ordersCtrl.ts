@@ -55,17 +55,16 @@ export const addNewOrder = async (
   res: express.Response
 ) => {
   try {
-    const { cart_id, user_id, order_creation_date } = req.body;
-    console.log("addNewOrder Server", cart_id, user_id, order_creation_date);
-    if (!cart_id || !user_id || !order_creation_date) {
+    const { cart_id, user_id, order_creation_date ,status,delivery_id,how_receive_shipment,alternative_products} = req.body;
+    if (!cart_id || !user_id || !order_creation_date || !status || !delivery_id || !how_receive_shipment || !alternative_products) {
       res.status(400).send({ ok: false, error: "missing required fields" });
       return;
     }
-    const query =
-      "INSERT INTO rami_levy_db.orders (cart_id, user_id, delivery_id, order_creation_date, status_id) VALUES (?, ?, ?, ?, ?);";
+    const query = `INSERT INTO rami_levy_db.orders (cart_id, user_id, order_creation_date, status_id, delivery_id, how_receive_shipment, alternative_products)
+    VALUES (?, ?, ?, ?, ?, ?, ?);`;
     connection.query(
       query,
-      [cart_id, user_id, null, order_creation_date, 2],
+      [cart_id, user_id, order_creation_date, status, delivery_id, how_receive_shipment, alternative_products],
       (err, results, fields) => {
         try {
           if (err) throw err;
@@ -76,6 +75,7 @@ export const addNewOrder = async (
         }
       }
     );
+    
   } catch (error) {
     console.error(error);
     res.status(500).send({ ok: false, error });

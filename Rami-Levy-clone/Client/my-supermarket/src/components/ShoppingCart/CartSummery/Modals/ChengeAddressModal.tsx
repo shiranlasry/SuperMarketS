@@ -10,9 +10,10 @@ interface Props {
     onClose: () => void;
     setSelectedAddress: (address: Address |null) => void;
     selectedAddress: Address |null ;
+    setNewOrder: (field: string, value: string | number) => void;
 }
 
-const ChengeAddressModal : React.FC<Props> = ({onClose, setSelectedAddress, selectedAddress}) => {
+const ChengeAddressModal : React.FC<Props> = ({onClose, setSelectedAddress, selectedAddress,setNewOrder}) => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
   const [userAddresses, setUserAddresses] = useState<Address[]>([]);
   const [isPicOtherAddress, setIsPicOtherAddress] = useState(false);
@@ -35,6 +36,8 @@ const ChengeAddressModal : React.FC<Props> = ({onClose, setSelectedAddress, sele
             );
             
             setSelectedAddress(defaultAddress || null);
+            debugger
+            setNewOrder("address_id", defaultAddress?.address_id || -1);
           }
       }
     }

@@ -37,3 +37,18 @@ export const getUserOrderCartDetailsAPI = createAsyncThunk<ProductsList[] | null
         return null;
     }
 });
+
+export const addNewOrderAPI = createAsyncThunk<number | null, Order>("addNewOrderAPI", async (newOrder: Order) => {
+    try {debugger
+        const response = await axios.post("/api/orders/add-new-order", newOrder);
+        const { ok, results } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials addNewOrderAPI()");
+        }
+        alert("Big son of a bitch! הצלחתי");
+        return results.insertId;
+    } catch (error) {
+        console.error("Error addNewOrder:", error);
+        return null;
+    }
+});
