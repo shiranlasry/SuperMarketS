@@ -18,7 +18,7 @@ const ShoppingCartBar: React.FC<Props> = ({
   totalPrice,
   isOpen,
   toggleCart,
-   sendOrder,
+  sendOrder,
   isToPayPressed,
 }) => {
   const dispatch = useAppDispatch();
@@ -27,7 +27,16 @@ const ShoppingCartBar: React.FC<Props> = ({
     await dispatch(setIsToPayPressedTrue());
     navigate("/check_out_offers");
   };
-  
+
+  const formatPrice = (price: number) => {
+    const parts = price.toFixed(2).split(".");
+    return (
+      <span>
+        <span className="big-digits">{parts[0]}</span>.
+        <span className="small-digits">{parts[1]}</span>
+      </span>
+    );
+  };
 
   return (
     <div
@@ -50,7 +59,7 @@ const ShoppingCartBar: React.FC<Props> = ({
             </button>
           </div>
           <div>
-            <span className="total-price-bar">{totalPrice}</span>{" "}
+            <span className="total-price-bar">{formatPrice(totalPrice)}</span>{" "}
             <span className="shekel-bar">₪</span>
           </div>
         </>

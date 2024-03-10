@@ -42,7 +42,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         (p) => p.product_id === product.product_id
       );
       if (productInCart) {
-        console.log("in product card",productInCart.product_amount);
+        console.log("in product card", productInCart.product_amount);
         setQuantity(productInCart.product_amount);
       } else {
         setQuantity(0);
@@ -88,7 +88,11 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       const productInCart = activeCart.cartList.find(
         (p) => p.product_id === product.product_id
       );
-      if ( productInCart && productInCart.product_amount > 0 && productInCart.product_id) {
+      if (
+        productInCart &&
+        productInCart.product_amount > 0 &&
+        productInCart.product_id
+      ) {
         const args: {
           product_id: number;
           cart_id: number;
@@ -124,7 +128,11 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       const productInCart = activeCart.cartList.find(
         (p) => p.product_id === product.product_id
       );
-      if (productInCart && productInCart.product_amount > 0 && productInCart.product_id) {
+      if (
+        productInCart &&
+        productInCart.product_amount > 0 &&
+        productInCart.product_id
+      ) {
         const args: {
           product_id: number;
           cart_id: number;
@@ -134,13 +142,12 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           cart_id: activeCart.cart_id,
           product_amount: productInCart.product_amount - 1,
         };
-        
+
         await dispatch(UpdateAmountProductCartListApi(args));
         dispatch(getUserActiveCartListApi(args.cart_id));
-
       }
-     
-  }};
+    }
+  };
 
   const handleCardClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -159,13 +166,14 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     setShowProductModal(true);
   };
 
-  const checkDiscount = () => { 
+  const checkDiscount = () => {
     if (allSales.length > 0 && product.product_price) {
       const sale = allSales.find((s) => s.product_id === product.product_id);
       if (sale) {
         return (
           <p className="card-price">
-            <span className="card-price-discount">מחיר מבצע: </span>{""}
+            <span className="card-price-discount">מחיר מבצע: </span>
+            {""}
             {sale.sale_price}
             <span className="card-original_price">מחיר מקור</span>{" "}
             {product.product_price}
@@ -181,7 +189,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <span className="per-unit">ליח'</span>
       </p>
     );
-  }
+  };
 
   return (
     <div
@@ -247,21 +255,20 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         </Modal.Body>
       </Modal>
 
-      
-        <Modal
-          id={"modal-login"}
-          show={showLoginModal}
-          onHide={() => setShowLoginModal(false)}
-          dialogClassName="custom-modal"
-        >
-          <Modal.Body>
-            <Login
-              onClose={() => setShowLoginModal(false)}
-              RegisterPressed={() => setShowRegisterModal(true)}
-            />
-          </Modal.Body>
-        </Modal>
-      
+      <Modal
+        id={"modal-login"}
+        show={showLoginModal}
+        onHide={() => setShowLoginModal(false)}
+        dialogClassName="custom-modal"
+      >
+        <Modal.Body>
+          <Login
+            onClose={() => setShowLoginModal(false)}
+            RegisterPressed={() => setShowRegisterModal(true)}
+          />
+        </Modal.Body>
+      </Modal>
+
       <Modal
         show={showRegisterModal}
         onShow={() => setShowLoginModal(false)}

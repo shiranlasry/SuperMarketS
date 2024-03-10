@@ -1,22 +1,26 @@
+.cart-summery-content {
+  background-color: #ffffff;
+  border-radius: 12px;
+  margin-top: 3rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+.two-in-one-modal-body {
+  padding: 20px;
+  background-color: black;
+}
+.address-section,
+.deliveries-section {
+  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+}
 
-  
-  .two-in-one-modal-body {
-    padding: 20px;
-    background-color: black;
-  }
-  .address-section,
-  .deliveries-section {
-    border-radius: 10px;
-    background-color: #ffffff;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .address-section {
-    border: 1px solid #cccccc;
-  }
-  
-  .deliveries-section {
-    border: 1px solid #cccccc;
-  }
-  
+.address-section {
+  border: 1px solid #cccccc;
+}
+
+.deliveries-section {
+  border: 1px solid #cccccc;
+}
