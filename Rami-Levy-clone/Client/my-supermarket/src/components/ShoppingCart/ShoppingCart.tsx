@@ -48,6 +48,27 @@ const ShoppingCart: React.FC = () => {
   const toggleCart = () => {
     dispatch(setIsOpenCart());
   };
+const sendOrder = async () => {
+  // update delivery status
+ 
+  if (selectedDelivery) {
+    await updateDeliveryStatusApi(selectedDelivery.delivery_id);
+   if (selectedDelivery.delivery_id) {
+    hanelsetNewOrder('delivery_id', selectedDelivery.delivery_id);
+   }
+  
+  }
+  // add user_contact_id to database and get the id
+  if (orderContact)
+  {
+    const response = await addNewUserContactAPI(orderContact.full_name, orderContact.phone_number);
+    debugger;
+    if (response) {
+      hanelsetNewOrder('user_contact_id', response);
+    }
+  }
+}
+
 
   const calculateTotalPrice = (cartList: ProductsList[]) => {
     let totalPrice = 0;
