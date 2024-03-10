@@ -28,7 +28,12 @@ import { addNewUserContactAPI } from "../../features/api/usersContactsAPI";
 import BeforePayModal from "./CartSummery/Modals/BeforePayModal";
 import { Modal } from "react-bootstrap";
 import { addNewOrderAPI } from "../../features/orders/ordersAPI";
-import { getUserAddressesApi, getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserAPI";
+import {
+  getUserAddressesApi,
+  getUserFromTokenApi,
+} from "../../features/logged_in_user/loggedInUserAPI";
+import { debug } from "console";
+import { sale } from "../../assets/icons/active";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -46,7 +51,7 @@ const ShoppingCart: React.FC = () => {
   const [selectedDelivery, setSelectedDelivery] = useState<Delivery | null>(
     null
   );
- 
+
   const initialOrder: Order = {
     order_id: null,
     cart_id: null,
@@ -55,8 +60,8 @@ const ShoppingCart: React.FC = () => {
     delivery_id: null,
     order_creation_date: Date.now().toString(),
     status: 1,
-    alternative_products:"צרו קשר לתיאום" ,
-    how_receive_shipment:"יש מישהו בבית" ,
+    alternative_products: "צרו קשר לתיאום",
+    how_receive_shipment: "יש מישהו בבית",
   };
   const [newOrder, setNewOrder] = useState<Order>(initialOrder);
   const [showBeforePayModal, setShowBeforePayModal] = useState(false);
@@ -80,6 +85,7 @@ const ShoppingCart: React.FC = () => {
     if (activeCart) {
       if (activeCart.cartList) {
         setTotalPrice(calculateTotalPrice(activeCart.cartList));
+        debugger;
         hanelsetNewOrder("cart_id", activeCart.cart_id);
       } else {
         setTotalPrice(0);
@@ -88,7 +94,6 @@ const ShoppingCart: React.FC = () => {
   }, [activeCart]);
 
   useEffect(() => {
-
     if (!loggedInUser) {
       getUserToken();
     }
@@ -104,18 +109,20 @@ const ShoppingCart: React.FC = () => {
     }
   };
   const updateContactId = async () => {
-   const insertId= await addNewUserContactAPI(orderContact.full_name, orderContact.phone_number);
-if (insertId) {
-  hanelsetNewOrder("user_contact_id", insertId);
-
-}
-  }
-useEffect(() => {
-  if (orderContact.full_name && orderContact.phone_number) {
-    debugger
-    updateContactId();
-  }
-},[orderContact])
+    const insertId = await addNewUserContactAPI(
+      orderContact.full_name,
+      orderContact.phone_number
+    );
+    if (insertId) {
+      hanelsetNewOrder("user_contact_id", insertId);
+    }
+  };
+  useEffect(() => {
+    if (orderContact.full_name && orderContact.phone_number) {
+      debugger;
+      updateContactId();
+    }
+  }, [orderContact]);
   const calculateTotalPrice = (cartList: ProductsList[]) => {
     let totalPrice = 0;
     cartList.forEach((cartItem: ProductsList) => {
@@ -130,6 +137,7 @@ useEffect(() => {
   };
 
   const formatPrice = (price: number) => {
+    debugger;
     const [main, decimal] = price.toFixed(2).split(".");
     return (
       <span>
@@ -140,13 +148,24 @@ useEffect(() => {
   };
 
   const checkDiscount = (product: Product | null): number => {
-    if (product && allSales.length > 0 && product.product_price) {
-      const sale = allSales.find((s) => s.product_id === product.product_id);
-      if (sale) {
-        return sale.sale_price;
+    debugger;
+    if (product) {
+      if (allSales.length > 0 && product.product_price) {
+        const sale = allSales.find((s) => s.product_id === product.product_id);
+        if (sale) {
+          return sale.sale_price;
+        }
+        else {
+          
+          return product.product_price;
+        }
+      }
+      if (product.product_price) {
+        
+        return product?.product_price;
       }
     }
-    return 0; // Return 0 if product or sale is not found
+      return 0
   };
 
   const toggleCart = () => {
@@ -168,20 +187,28 @@ useEffect(() => {
       await updateDeliveryStatusApi(selectedDelivery.delivery_id);
     }
     // add user_contact_id to database and get the id
-    
-    debugger
-    if (newOrder.user_contact_id && newOrder.delivery_id && newOrder.cart_id && newOrder.user_id) {
+
+    debugger;
+    if (
+      newOrder.user_contact_id &&
+      newOrder.delivery_id &&
+      newOrder.cart_id &&
+      newOrder.user_id
+    ) {
       setShowBeforePayModal(true);
     }
   };
 
   const addNewUserOrder = async () => {
-    if (newOrder.user_contact_id && newOrder.delivery_id && newOrder.cart_id && newOrder.user_id) {
+    if (
+      newOrder.user_contact_id &&
+      newOrder.delivery_id &&
+      newOrder.cart_id &&
+      newOrder.user_id
+    ) {
       const response = await dispatch(addNewOrderAPI(newOrder));
-     
     }
-
-  }
+  };
 
   const convertToBase64 = (imageString: string) => {
     return btoa(String.fromCharCode(...new Uint8Array(imageString)));
