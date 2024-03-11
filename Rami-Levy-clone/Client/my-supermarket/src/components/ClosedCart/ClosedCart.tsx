@@ -1,6 +1,16 @@
 import CartToatlPrice from "../CartToatlPrice/CartToatlPrice";
 import "./closed-cart.scss";
 
+const formatPrice = (price: number) => {
+  const [main, decimal] = price.toFixed(2).split(".");
+  return (
+    <span>
+      <span className="main-price">{main}.</span>
+      <sup className="decimal-price">{decimal}</sup>
+    </span>
+  );
+};
+
 export const ClosedCart = () => {
   return (
     <div className="closed-cart-main">
@@ -121,7 +131,9 @@ export const ClosedCart = () => {
             fill="#0079c0"
           ></path>
         </svg>
-        <div className="price">0.00</div>
+        <div className="basket-price">
+          {formatPrice(0.0)} <span className="basket-shekel">₪</span>
+        </div>
       </div>
     </div>
   );

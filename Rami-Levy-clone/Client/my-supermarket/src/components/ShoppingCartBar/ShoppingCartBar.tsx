@@ -50,8 +50,8 @@ const ShoppingCartBar: React.FC<Props> = ({
           <div>
             <span className="total-price-bar">
               <CartToatlPrice />
-              </span>{" "}
-            <span className="shekel-bar">₪</span>
+            </span>{" "}
+            {/* <span className="shekel-bar">₪</span> */}
           </div>
         </>
       )}

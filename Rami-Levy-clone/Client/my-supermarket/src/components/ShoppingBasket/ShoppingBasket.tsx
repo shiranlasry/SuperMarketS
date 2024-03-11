@@ -75,7 +75,9 @@ const ShoppingBasket = () => {
         </div>
 
         {/* Display Basket Price */}
-        <div className="basket-price">{formatPrice(basketPrice)} ₪</div>
+        <div className="basket-price">
+          {formatPrice(basketPrice)} <span className="basket-shekel">₪</span>
+        </div>
       </div>
     </div>
   );
