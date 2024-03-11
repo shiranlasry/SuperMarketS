@@ -4,12 +4,12 @@
   flex-direction: column;
   justify-content: center;
   flex-direction: row;
-  width: 282px;
+  width: 285px;
   height: 55px;
   padding: 8px;
   margin-top: 0.5rem;
   border-radius: 10px;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: white;
   background-color: #1579f2;
   transition: bottom 0.3s ease;
@@ -20,7 +20,8 @@
   }
 
   &.open {
-    top: 90vh;
+    top: 90%;
+    left: 0.7rem;
   }
 
   &.closed {

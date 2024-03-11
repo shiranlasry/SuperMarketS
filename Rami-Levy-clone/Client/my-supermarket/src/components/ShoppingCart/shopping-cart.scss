@@ -6,8 +6,7 @@ $rami-blue: #1579f2;
   width: 300px;
 
   .cart-content {
-    width: 285px;
-    margin-top: 4rem;
+    width: 295px;
     position: fixed;
     height: 100%;
     background-color: #f3f5f8;
@@ -15,11 +14,32 @@ $rami-blue: #1579f2;
     padding: 0;
     margin: 0;
     z-index: 2;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: $rami-blue #f1f1f1;
+    border-radius: 15px;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      border-radius: 15px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $rami-blue; /* Color of the handle */
+      border-radius: 15px; /* Roundness of the handle */
+      height: 30px; /* Adjust the height of the scrollbar thumb */
+    }
 
     .cart-item {
+      position: relative;
       background-color: white;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
       margin-top: 0.3rem;
+      margin-left: 0.3rem;
       border-radius: 10px;
 
       .prod-name-cart {
@@ -36,8 +56,9 @@ $rami-blue: #1579f2;
     }
 
     img {
-      width: 50px;
+      width: 60px;
       height: 50px;
+      padding: 0 5px;
       margin-left: 1rem;
     }
 
@@ -50,6 +71,7 @@ $rami-blue: #1579f2;
       display: flex;
       flex-direction: row;
       justify-content: end;
+      padding-top: 10px;
       width: 150px;
       text-align: left;
       font-size: 14px;
@@ -66,5 +88,19 @@ $rami-blue: #1579f2;
   }
   .rami-online-cart {
     position: fixed;
+    width: 20px;
+  }
+
+  .cart-counter {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
