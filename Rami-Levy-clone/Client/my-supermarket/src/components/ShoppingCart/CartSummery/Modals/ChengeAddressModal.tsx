@@ -56,7 +56,7 @@ const ChengeAddressModal: React.FC<Props> = ({
           );
 
           setSelectedAddress(defaultAddress || null);
-          debugger;
+    
           setNewOrder("address_id", defaultAddress?.address_id || -1);
         }
       }

@@ -13,6 +13,7 @@ import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUser
 import { Button, Modal } from "react-bootstrap";
 import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
+import ProductCounter from "../ProductCounter/ProductCounter";
 
 interface ProductModalProps {
   product: Product;
@@ -26,97 +27,10 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
       )
     : "";
   const [currentImage, setCurrentImage] = useState(base64ImageA);
-  const activeCart = useAppSelector(activeCartSelector);
-  const loggedInUser = useAppSelector(loggedInUserSelector);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [quantity, setQuantity] = useState<number>(0);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    // set the quantity of the product in the cart from the active cart list
-    if (activeCart && activeCart.cartList) {
-      const productInCart = activeCart.cartList.find(
-        (p) => p.product_id === product.product_id
-      );
-      if (productInCart) {
-        setQuantity(productInCart.product_amount);
-      } else {
-        setQuantity(0);
-      }
-    }
-  }, [activeCart?.cartList]);
-  const increaseQuantity = async () => {
-    // if the user is not logged in, show the login modal
-    if (!loggedInUser || !loggedInUser.user_id) {
-      setShowLoginModal(true);
-      return;
-    }
-    // if there is no active cart, create a new one
-    if (!activeCart) {
-      await dispatch(addNewCartApi(loggedInUser.user_id));
-    }
-    // if the product is already in the cart, update the amount
-    if (activeCart?.cart_id && activeCart.cartList) {
-      const productInCart = activeCart.cartList.find(
-        (p) => p.product_id === product.product_id
-      );
-      if (
-        productInCart &&
-        productInCart.product_amount > 0 &&
-        productInCart.product_id
-      ) {
-        const args: {
-          product_id: number;
-          cart_id: number;
-          product_amount: number;
-        } = {
-          product_id: productInCart.product_id,
-          cart_id: activeCart.cart_id,
-          product_amount: productInCart.product_amount + 1,
-        };
-        await dispatch(UpdateAmountProductCartListApi(args));
-        dispatch(getUserActiveCartListApi(args.cart_id));
-      } else {
-        // if the product is not in the cart, add it with amount 1
-        if (activeCart?.cart_id && product.product_id) {
-          const args: { product_id: number; cart_id: number } = {
-            product_id: product.product_id,
-            cart_id: activeCart.cart_id,
-          };
-          dispatch(addProductToCartListApi(args));
-          dispatch(getUserActiveCartListApi(args.cart_id));
-        }
-      }
-    }
-  };
-  const decreaseQuantity = async () => {
-    // need to handle the case when the user is not logged in
-    if (!loggedInUser || !loggedInUser.user_id) {
-      setShowLoginModal(true);
-      return;
-    }
-    // need to decrease the quantity of the product in the cart
-    if (activeCart?.cart_id && activeCart.cartList) {
-      const productInCart = activeCart.cartList.find(
-        (p) => p.product_id === product.product_id
-      );
-      if (productInCart && productInCart.product_amount > 0 && productInCart.product_id) {
-        const args: {
-          product_id: number;
-          cart_id: number;
-          product_amount: number;
-        } = {
-          product_id: productInCart.product_id,
-          cart_id: activeCart.cart_id,
-          product_amount: productInCart.product_amount - 1,
-        };
-        
-        await dispatch(UpdateAmountProductCartListApi(args));
-        dispatch(getUserActiveCartListApi(args.cart_id));
+  
 
-      }
-     
-  }};
   return (
     <div className="modal-container">
       <div className="product-modal">
@@ -131,31 +45,14 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
           <p>הצעת הגשה: {product.serving_suggestion}</p>
           <p>רכיבים: {product.product_components}</p>
         </div>
+        <ProductCounter product={product} />
         <div className="carousel-item active">
           <img
             src={`data:image/jpeg;base64,${currentImage}`}
             className="d-block product-img"
             alt="Product Image"
           />
-          <div className="counter">
-            <Button
-              className="counter-button"
-              variant="light"
-              onClick={increaseQuantity}
-            >
-              +
-            </Button>
-            <span className="counter-quantity">{quantity}</span>
-            {quantity > 0 && (
-              <Button
-                className="counter-button"
-                variant="light"
-                onClick={decreaseQuantity}
-              >
-                -
-              </Button>
-            )}
-          </div>
+         
         </div>
         <div className="product-buttons">
           <button onClick={onClose}>סגור</button>

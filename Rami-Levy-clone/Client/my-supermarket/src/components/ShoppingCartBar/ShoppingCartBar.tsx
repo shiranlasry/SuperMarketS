@@ -5,9 +5,9 @@ import "./shopping-cart-bar.scss";
 import { setIsToPayPressedTrue } from "../../features/cart/cartSlice";
 import { useAppDispatch } from "../../app/hook";
 import { useNavigate } from "react-router-dom";
+import CartToatlPrice from "../CartToatlPrice/CartToatlPrice";
 
 interface Props {
-  totalPrice: number;
   isOpen: boolean;
   toggleCart: () => void;
   sendOrder?: () => void;
@@ -15,7 +15,6 @@ interface Props {
 }
 
 const ShoppingCartBar: React.FC<Props> = ({
-  totalPrice,
   isOpen,
   toggleCart,
   sendOrder,
@@ -26,16 +25,6 @@ const ShoppingCartBar: React.FC<Props> = ({
   const toPayPressed = async () => {
     await dispatch(setIsToPayPressedTrue());
     navigate("/check_out_offers");
-  };
-
-  const formatPrice = (price: number) => {
-    const parts = price.toFixed(2).split(".");
-    return (
-      <span>
-        <span className="big-digits">{parts[0]}</span>.
-        <span className="small-digits">{parts[1]}</span>
-      </span>
-    );
   };
 
   return (
@@ -59,7 +48,9 @@ const ShoppingCartBar: React.FC<Props> = ({
             </button>
           </div>
           <div>
-            <span className="total-price-bar">{formatPrice(totalPrice)}</span>{" "}
+            <span className="total-price-bar">
+              <CartToatlPrice />
+              </span>{" "}
             <span className="shekel-bar">₪</span>
           </div>
         </>

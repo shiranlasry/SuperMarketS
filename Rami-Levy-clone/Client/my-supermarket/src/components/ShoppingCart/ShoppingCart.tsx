@@ -32,8 +32,8 @@ import {
   getUserAddressesApi,
   getUserFromTokenApi,
 } from "../../features/logged_in_user/loggedInUserAPI";
-import { debug } from "console";
-import { sale } from "../../assets/icons/active";
+import ProductCounter from "../ProductCounter/ProductCounter";
+import ProductPrice from "../ProductPrice/ProductPrice";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -41,8 +41,6 @@ const ShoppingCart: React.FC = () => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
   const isToPayPressed: boolean = useAppSelector(isToPayPressedSelector);
   const allProducts = useAppSelector(productsSelector);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const allSales = useAppSelector<Sales[]>(selectSales);
   const [orderContact, setOrderContact] = useState({
     full_name: loggedInUser?.first_name + " " + loggedInUser?.last_name || "",
     phone_number: loggedInUser?.phone_number || "",
@@ -76,20 +74,11 @@ const ShoppingCart: React.FC = () => {
     if (!allProducts) {
       dispatch(getAllProductsApi());
     }
-    if (allSales.length === 0) {
-      dispatch(getSalesAPI());
-    }
   }, []);
 
   useEffect(() => {
     if (activeCart) {
-      if (activeCart.cartList) {
-        setTotalPrice(calculateTotalPrice(activeCart.cartList));
-        debugger;
         hanelsetNewOrder("cart_id", activeCart.cart_id);
-      } else {
-        setTotalPrice(0);
-      }
     }
   }, [activeCart]);
 
@@ -119,54 +108,12 @@ const ShoppingCart: React.FC = () => {
   };
   useEffect(() => {
     if (orderContact.full_name && orderContact.phone_number) {
-      debugger;
       updateContactId();
     }
   }, [orderContact]);
-  const calculateTotalPrice = (cartList: ProductsList[]) => {
-    let totalPrice = 0;
-    cartList.forEach((cartItem: ProductsList) => {
-      const discount = allSales.find(
-        (sale) => sale.product_id === cartItem.product_id
-      );
-      if (discount) {
-        totalPrice += discount.sale_price * cartItem.product_amount;
-      } else totalPrice += cartItem.product_price * cartItem.product_amount;
-    });
-    return totalPrice;
-  };
+ 
 
-  const formatPrice = (price: number) => {
-    debugger;
-    const [main, decimal] = price.toFixed(2).split(".");
-    return (
-      <span>
-        <span className="main-price">{main}.</span>
-        <sup className="decimal-price">{decimal}</sup>
-      </span>
-    );
-  };
-
-  const checkDiscount = (product: Product | null): number => {
-    debugger;
-    if (product) {
-      if (allSales.length > 0 && product.product_price) {
-        const sale = allSales.find((s) => s.product_id === product.product_id);
-        if (sale) {
-          return sale.sale_price;
-        }
-        else {
-          
-          return product.product_price;
-        }
-      }
-      if (product.product_price) {
-        
-        return product?.product_price;
-      }
-    }
-      return 0
-  };
+  
 
   const toggleCart = () => {
     dispatch(setIsOpenCart());
@@ -188,7 +135,6 @@ const ShoppingCart: React.FC = () => {
     }
     // add user_contact_id to database and get the id
 
-    debugger;
     if (
       newOrder.user_contact_id &&
       newOrder.delivery_id &&
@@ -240,18 +186,14 @@ const ShoppingCart: React.FC = () => {
                         <h5 className="prod-name-cart">
                           {product.product_name}
                         </h5>
+                        <h5 className="prod-counter">
+                          <ProductCounter product={product} />
+                        </h5>
                         {/* Render SVG image */}
 
                         <p className="cart-items-price">
-                          {" "}
-                          {product &&
-                          product.product_price &&
-                          cartProduct.product_amount
-                            ? formatPrice(
-                                checkDiscount(product) *
-                                  cartProduct.product_amount
-                              )
-                            : null}{" "}
+                        
+                         <ProductPrice product={cartProduct} />
                           ₪
                         </p>
                       </div>
@@ -294,7 +236,6 @@ const ShoppingCart: React.FC = () => {
         </ul>
       )}
       <ShoppingCartBar
-        totalPrice={totalPrice}
         isOpen={isOpenCart}
         toggleCart={toggleCart}
         sendOrder={sendOrder}

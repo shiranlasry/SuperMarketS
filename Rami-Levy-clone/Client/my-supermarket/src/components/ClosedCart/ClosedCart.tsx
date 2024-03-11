@@ -1,53 +1,7 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { activeCartSelector } from "../../features/cart/cartSlice";
+import CartToatlPrice from "../CartToatlPrice/CartToatlPrice";
 import "./closed-cart.scss";
-import { ProductsList, Sales } from "../../rami-types";
-import { selectSales } from "../../features/sales/salesSlice";
-import { getSalesAPI } from "../../features/sales/salesAPI";
 
 export const ClosedCart = () => {
-  const activeCart = useAppSelector(activeCartSelector);
-  const allSales = useAppSelector<Sales[]>(selectSales);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const dispatch = useAppDispatch();
-
-  const calculateTotalPrice = (cartList: ProductsList[]) => {
-    let totalPrice = 0;
-    cartList.forEach((cartItem: ProductsList) => {
-      const discount = allSales.find(
-        (sale) => sale.product_id === cartItem.product_id
-      );
-      if (discount) {
-        totalPrice +=
-          (discount.sale_price *  cartItem.product_amount);
-      } else
-      totalPrice += cartItem.product_price * cartItem.product_amount;
-    });
-    setTotalPrice(totalPrice);
-    return totalPrice;
-  };
-  useEffect(() => {
-    if (allSales.length === 0) {
-      dispatch(getSalesAPI());
-    }
-  }, []);
-
-  useEffect(() => {
-    if (activeCart && activeCart.cartList) {
-      setTotalPrice(calculateTotalPrice(activeCart.cartList));
-    }
-  }, [activeCart]);
-  const basketPrice = 0.0;
-  const formatPrice = (price: number) => {
-    const [main, decimal] = price.toFixed(2).split(".");
-    return (
-      <span>
-        <span className="main-price">{main}.</span>
-        <sup className="decimal-price">{decimal}</sup>
-      </span>
-    );
-  };
   return (
     <div className="closed-cart-main">
       <div className="closed-cart">
@@ -119,7 +73,9 @@ export const ClosedCart = () => {
             ></path>
           </svg>
         </svg>
-        <div className="price">{formatPrice(totalPrice)}</div>
+        <div className="price">
+          <CartToatlPrice />
+        </div>
       </div>
       <div className="closed-basket">
         <svg
@@ -165,7 +121,7 @@ export const ClosedCart = () => {
             fill="#0079c0"
           ></path>
         </svg>
-        <div className="price">{formatPrice(basketPrice)}</div>
+        <div className="price">0.00</div>
       </div>
     </div>
   );

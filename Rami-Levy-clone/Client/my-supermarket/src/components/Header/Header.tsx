@@ -21,7 +21,7 @@ import { getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserA
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
-import { ProductsList, Sales, User } from "../../rami-types";
+import { CartItem, ProductsList, Sales, User } from "../../rami-types";
 import "../../views/layouts/layout.scss";
 import CartIcon from "../CartIcon/CartIcon";
 import { ClosedCart } from "../ClosedCart/ClosedCart";
@@ -42,33 +42,13 @@ const Header = () => {
   const isToPayPressed: boolean = useAppSelector(isToPayPressedSelector);
   const dispatch = useAppDispatch();
 
-  const activeCart = useAppSelector(activeCartSelector);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const [totalPrice, setTotalPrice] = useState(0);
-  const allSales = useAppSelector<Sales[]>(selectSales);
 
-  const calculateTotalPrice = (cartList: ProductsList[]) => {
-    let totalPrice = 0;
-    cartList.forEach((cartItem: ProductsList) => {
-      const discount = allSales.find(
-        (sale) => sale.product_id === cartItem.product_id
-      );
-      if (discount) {
-        totalPrice += discount.sale_price * cartItem.product_amount;
-      } else totalPrice += cartItem.product_price * cartItem.product_amount;
-    });
-    setTotalPrice(totalPrice);
-    return totalPrice;
-  };
 
-  useEffect(() => {
-    if (activeCart && activeCart.cartList) {
-      setTotalPrice(calculateTotalPrice(activeCart.cartList));
-    }
-  }, [activeCart]);
+
   // Toggle the menu state
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
@@ -82,29 +62,26 @@ const Header = () => {
     if (!loggedInUser) {
       dispatch(getUserFromTokenApi());
     }
-    if (allSales.length === 0) {
-      dispatch(getSalesAPI());
-    }
   }, []);
-  //if there is a logged in user, get the active cart
+  // get the active cart
   const handelGetUserActiveCart = async (user_id: number) => {
     try {
       const response = await dispatch(getUserActiveCartApi(user_id));
 
-      if (response.payload && response.payload.cart_id) {
-        dispatch(getUserActiveCartListApi(response.payload.cart_id));
+      if (response.payload && (response.payload as CartItem).cart_id) {
+        dispatch(getUserActiveCartListApi((response.payload as CartItem).cart_id));
       }
     } catch (error) {
       console.error(error);
     }
   };
-
+//if there is ,get active cart  every time the user changes
   useEffect(() => {
     if (loggedInUser && loggedInUser.user_id) {
       handelGetUserActiveCart(loggedInUser.user_id);
     }
   }, [loggedInUser]);
-  //if there is an active cart, get the active cart list
+  
 
   // Close the login modal when the register modal is shown
   useEffect(() => {
@@ -123,25 +100,8 @@ const Header = () => {
     setShowRegisterModal(false);
     setShowLoginModal(true);
   };
-  // const sendOrder = async () => {
-  //   if (activeCart !== null) {
-  //     const order_id = await addNewOrderApi(
-  //       activeCart.cart_id,
-  //       activeCart.user_id,
-  //       new Date()
-  //     );
-  //     const delivery_id = await addNewDeliveryApi(order_id, new Date());
-  //     await updateOrderApi(order_id, delivery_id, 2);
-  //     await updateCartAPI(activeCart.cart_id, 2);
-  //     createNewCart();
-  //   }
-  // };
-  const createNewCart = async () => {
-    if (activeCart !== null) {
-      dispatch(addNewCartApi(activeCart.user_id));
-      window.location.reload();
-    }
-  };
+
+
   return (
     <div className="header-main">
       <button className="to-main-navBar" onClick={() => navigate("/")}>
@@ -273,10 +233,8 @@ const Header = () => {
       <NavBar />
       {!isOpenCart && (
         <ShoppingCartBar
-          totalPrice={totalPrice}
           isOpen={isOpenCart}
           toggleCart={toggleCart}
-          //sendOrder={sendOrder}
           isToPayPressed={isToPayPressed}
         />
       )}

@@ -39,7 +39,7 @@ export const getUserOrderCartDetailsAPI = createAsyncThunk<ProductsList[] | null
 });
 
 export const addNewOrderAPI = createAsyncThunk<number | null, Order>("addNewOrderAPI", async (newOrder: Order) => {
-    try {debugger
+    try {
         const response = await axios.post("/api/orders/add-new-order", newOrder);
         const { ok, results } = response.data;
         if (!ok) {
