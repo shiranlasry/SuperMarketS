@@ -9,6 +9,13 @@
   left: calc(50% - 20px);
   top: calc(50% - 70px);
 
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+
   .counter-button {
     background-color: transparent;
     border: none;
