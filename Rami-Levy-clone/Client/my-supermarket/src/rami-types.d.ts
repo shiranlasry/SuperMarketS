@@ -139,7 +139,7 @@ export interface Product  {
     to : string;
   }
   
-export interface updateProductFields {
+export interface UpdateProductFields {
   product_id: number | undefined;
   sub_food_category_id: number | undefined;
   food_category_id: number | undefined;

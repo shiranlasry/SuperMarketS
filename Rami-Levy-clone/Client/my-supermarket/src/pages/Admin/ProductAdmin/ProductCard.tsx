@@ -57,7 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     alert("Inventory updated successfully");
   };
 
-  const UpdateProductFields = () => {
+  const updateProductFields = () => {
     setIsUpdateProduct(true);
   };
 
@@ -78,7 +78,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <h3 className="product-desc">מספר מוצר: {product.product_id}</h3>
       <h3 className="product-desc">מוצר: {product.product_name}</h3>
       <h3 className="product-desc">{product.product_price} ₪</h3>
-      <RamiBtn onClick={UpdateProductFields}>עדכן פרטי מוצר</RamiBtn>
+      <RamiBtn onClick={updateProductFields}>עדכן פרטי מוצר</RamiBtn>
       <RamiBtn
         onClick={() => {
           setIsDeleteProduct(true);

@@ -3,7 +3,7 @@ import {
   FoodCategories,
   Product,
   SubFoodCategories,
-  updateProductFields,
+  UpdateProductFields,
 } from "../../../rami-types";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { updateProductDetailes } from "../../../features/api/productsAPI";
@@ -29,7 +29,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
   const foodCategories = useAppSelector(foodCategoriesSelector);
   const subFoodCategories = useAppSelector(subFoodCategoriesSelector);
   const allProducts = useAppSelector(productsSelector);
-  const [updatedProduct, setUpdatedProduct] = useState<updateProductFields>({
+  const [updatedProduct, setUpdatedProduct] = useState<UpdateProductFields>({
     product_id: product.product_id ? product.product_id : undefined,
     product_name: product.product_name,
     product_price: product.product_price ? product.product_price : undefined,

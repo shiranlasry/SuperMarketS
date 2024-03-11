@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Product,  updateProductFields } from "../../rami-types";
+import { Product,  UpdateProductFields } from "../../rami-types";
 import axios from "axios";
 
 
@@ -81,7 +81,7 @@ export const getProductDetailesBySubFoodCatagoryId = async (food_category_id: nu
 
 //update product detailes asyncthunk
 // Create the payload creator function for createAsyncThunk
-export const updateProductDetailes = createAsyncThunk<updateProductFields, updateProductFields>('update-product-detailes', async (updatedProduct) => {
+export const updateProductDetailes = createAsyncThunk<UpdateProductFields, UpdateProductFields>('update-product-detailes', async (updatedProduct) => {
     try {
         
         console.log("updatedProduct", updatedProduct)
