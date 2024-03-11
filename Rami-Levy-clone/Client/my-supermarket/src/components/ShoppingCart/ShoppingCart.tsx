@@ -78,7 +78,7 @@ const ShoppingCart: React.FC = () => {
 
   useEffect(() => {
     if (activeCart) {
-        hanelsetNewOrder("cart_id", activeCart.cart_id);
+      hanelsetNewOrder("cart_id", activeCart.cart_id);
     }
   }, [activeCart]);
 
@@ -111,9 +111,6 @@ const ShoppingCart: React.FC = () => {
       updateContactId();
     }
   }, [orderContact]);
- 
-
-  
 
   const toggleCart = () => {
     dispatch(setIsOpenCart());
@@ -187,14 +184,12 @@ const ShoppingCart: React.FC = () => {
                           {product.product_name}
                         </h5>
                         <h5 className="prod-counter">
-                          <ProductCounter product={product} />
+                          <ProductCounter product={product} location={"cart"} />
                         </h5>
                         {/* Render SVG image */}
 
                         <p className="cart-items-price">
-                        
-                         <ProductPrice product={cartProduct} />
-                          ₪
+                          <ProductPrice product={cartProduct} />₪
                         </p>
                       </div>
                     </li>

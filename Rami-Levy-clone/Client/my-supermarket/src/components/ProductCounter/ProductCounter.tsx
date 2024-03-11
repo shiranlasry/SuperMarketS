@@ -1,38 +1,46 @@
-import React, { useEffect, useState } from 'react'
-import { loggedInUserSelector } from '../../features/logged_in_user/loggedInUserSlice';
-import { activeCartSelector } from '../../features/cart/cartSlice';
-import { useAppDispatch, useAppSelector } from '../../app/hook';
-import { Product } from '../../rami-types';
-import { UpdateAmountProductCartListApi, addNewCartApi, addProductToCartListApi, getUserActiveCartListApi } from '../../features/cart/cartAPI';
-import { Button, Modal } from 'react-bootstrap';
-import Login from '../../pages/LogIn/Login';
-import Register from '../../pages/Register/Register';
+import React, { useEffect, useState } from "react";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import { activeCartSelector } from "../../features/cart/cartSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { Product } from "../../rami-types";
+import {
+  UpdateAmountProductCartListApi,
+  addNewCartApi,
+  addProductToCartListApi,
+  getUserActiveCartListApi,
+} from "../../features/cart/cartAPI";
+import { Button, Modal } from "react-bootstrap";
+import Login from "../../pages/LogIn/Login";
+import Register from "../../pages/Register/Register";
+import "./product-counter.scss";
 
-const ProductCounter : React.FC<{ product: Product }> = ({ product }) => {
-    const loggedInUser = useAppSelector(loggedInUserSelector);
-    const activeCart = useAppSelector(activeCartSelector);
-    const [quantity, setQuantity] = useState<number>(0);
-    const [showLoginModal, setShowLoginModal] = useState(false);
-    const [showRegisterModal, setShowRegisterModal] = useState(false);
-  
+const ProductCounter: React.FC<{ product: Product; location: string }> = ({
+  product,
+  location,
+}) => {
+  const loggedInUser = useAppSelector(loggedInUserSelector);
+  const activeCart = useAppSelector(activeCartSelector);
+  const [quantity, setQuantity] = useState<number>(0);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
 
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        // set the quantity of the product in the cart from the active cart list
-        if (activeCart && activeCart.cartList) {
-          const productInCart = activeCart.cartList.find(
-            (p) => p.product_id === product.product_id
-          );
-          if (productInCart) {
-            setQuantity(productInCart.product_amount);
-          } else {
-            setQuantity(0);
-          }
-        }
-      }, [activeCart?.cartList]);
- // Function to handle increasing the quantity
- const increaseQuantity = async () => {
+  useEffect(() => {
+    // set the quantity of the product in the cart from the active cart list
+    if (activeCart && activeCart.cartList) {
+      const productInCart = activeCart.cartList.find(
+        (p) => p.product_id === product.product_id
+      );
+      if (productInCart) {
+        setQuantity(productInCart.product_amount);
+      } else {
+        setQuantity(0);
+      }
+    }
+  }, [activeCart?.cartList]);
+  // Function to handle increasing the quantity
+  const increaseQuantity = async () => {
     // if the user is not logged in, show the login modal
     if (!loggedInUser || !loggedInUser.user_id) {
       setShowLoginModal(true);
@@ -110,26 +118,26 @@ const ProductCounter : React.FC<{ product: Product }> = ({ product }) => {
 
   return (
     <div>
-           <div className="counter">
+      <div className={`counter ${location === "cart" ? "cart-counter" : ""}`}>
+        <Button
+          className="counter-button"
+          variant="light"
+          onClick={increaseQuantity}
+        >
+          +
+        </Button>
+        <span className="counter-quantity">{quantity}</span>
+        {quantity > 0 && (
           <Button
             className="counter-button"
             variant="light"
-            onClick={increaseQuantity}
+            onClick={decreaseQuantity}
           >
-            +
+            -
           </Button>
-          <span className="counter-quantity">{quantity}</span>
-          {quantity > 0 && (
-            <Button
-              className="counter-button"
-              variant="light"
-              onClick={decreaseQuantity}
-            >
-              -
-            </Button>
-          )}
-        </div>
-       <Modal
+        )}
+      </div>
+      <Modal
         id={"modal-login"}
         show={showLoginModal}
         onHide={() => setShowLoginModal(false)}
@@ -154,7 +162,7 @@ const ProductCounter : React.FC<{ product: Product }> = ({ product }) => {
         </Modal.Body>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default ProductCounter
+export default ProductCounter;

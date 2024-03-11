@@ -20,7 +20,6 @@ import { getSalesAPI } from "../../features/sales/salesAPI";
 import ProductCounter from "../ProductCounter/ProductCounter";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  
   const dispatch = useAppDispatch();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -32,7 +31,6 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       dispatch(getSalesAPI());
     }
   }, []);
-
 
   // Convert LONGBLOB data to base64 for each image
   const base64ImageA = product.product_img_data_a
@@ -46,8 +44,6 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       )
     : "";
   const [currentImage, setCurrentImage] = useState(base64ImageA);
-
- 
 
   const handleCardClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -101,8 +97,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="product-card card" onClick={handleCardClick}>
-     
-        <ProductCounter product={product} />
+        <ProductCounter product={product} location={"card"} />
 
         <div className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
@@ -140,8 +135,6 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           />
         </Modal.Body>
       </Modal>
-
-     
     </div>
   );
 };
