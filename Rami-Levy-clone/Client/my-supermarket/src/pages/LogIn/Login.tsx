@@ -6,6 +6,8 @@ import {
   logInUserApi,
 } from "../../features/logged_in_user/loggedInUserAPI";
 import "./login.scss";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface LoginProps {
   onClose: () => void;
@@ -45,12 +47,12 @@ const Login: React.FC<LoginProps> = ({ onClose, RegisterPressed }) => {
       }
       const resultAction: any = await dispatch(logInUserApi(arg));
       if (!resultAction.payload) {
-        alert("שם משתמש או סיסמא לא נכונים");
+        toast.error("שם משתמש או סיסמא לא נכונים");
         console.log("Invalid credentials");
         return;
       }
       dispatch(getUserAddressesApi(resultAction.payload.user_id));
-      alert("  זה איום ונורא גילי תהרוג אותנו!!  גילי תהרוג אותנו! ");
+      toast.success("You have successfully logged in");
       onClose();
     } catch (error) {
       console.error(error);

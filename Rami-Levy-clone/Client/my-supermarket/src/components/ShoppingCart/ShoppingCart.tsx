@@ -19,17 +19,15 @@ import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUser
 import { addNewOrderAPI } from "../../features/orders/ordersAPI";
 import { getAllProductsApi } from "../../features/products/productsAPI";
 import { productsSelector } from "../../features/products/productsSlice";
-import {
-  Address,
-  Delivery,
-  Order,
-} from "../../rami-types";
+import { Address, Delivery, Order } from "../../rami-types";
 import ProductCounter from "../ProductCounter/ProductCounter";
 import ProductPrice from "../ProductPrice/ProductPrice";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import CartSummery from "./CartSummery/CartSummery";
 import BeforePayModal from "./CartSummery/Modals/BeforePayModal";
 import "./shopping-cart.scss";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -79,19 +77,15 @@ const ShoppingCart: React.FC = () => {
   }, [activeCart]);
 
   useEffect(() => {
-    
     if (!loggedInUser) {
       getUserToken();
     }
     if (loggedInUser && loggedInUser.user_id) {
       handleSetNewOrder("user_id", loggedInUser.user_id);
-      setOrderContact(
-        {
-          full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
-          phone_number: loggedInUser.phone_number,
-        }
-      )
-      
+      setOrderContact({
+        full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
+        phone_number: loggedInUser.phone_number,
+      });
     }
   }, [loggedInUser]);
 
@@ -122,17 +116,15 @@ const ShoppingCart: React.FC = () => {
   };
 
   const sendOrder = async () => {
-   
     if (!selectedDelivery) {
-      alert("לי תחליפי אותי לטוסטים גילי תכעס יש לבחור אזור משלוח");
+      toast.error("לי תחליפי אותי לטוסטים גילי תכעס יש לבחור אזור משלוח");
       return;
     }
     if (!orderContact.full_name || !orderContact.phone_number) {
-      alert("לי תחליפי אותי לטוסטים גילי תכעס יש למלא פרטי קשר");
+      toast.error("לי תחליפי אותי לטוסטים גילי תכעס יש למלא פרטי קשר");
       return;
-    }
-    else {
-      updateContactId()
+    } else {
+      updateContactId();
     }
     // update delivery status
 
@@ -165,10 +157,12 @@ const ShoppingCart: React.FC = () => {
       const response = await dispatch(addNewOrderAPI(newOrder));
       if (response.payload) {
         if (activeCart) {
-          dispatch(updateCartStatusApi({cart_id:activeCart?.cart_id,status_id:2}));
+          dispatch(
+            updateCartStatusApi({ cart_id: activeCart?.cart_id, status_id: 2 })
+          );
         }
         setIsOpenCart();
-       //reload the page
+        //reload the page
         window.location.reload();
       }
     }
@@ -193,7 +187,8 @@ const ShoppingCart: React.FC = () => {
                 );
                 if (product) {
                   const imageData =
-                    product.product_img_data_a && product.product_img_data_a.data
+                    product.product_img_data_a &&
+                    product.product_img_data_a.data
                       ? `data:image/jpeg;base64,${convertToBase64(
                           product.product_img_data_a.data
                         )}`
@@ -208,10 +203,7 @@ const ShoppingCart: React.FC = () => {
                           {product.product_name}
                         </h5>
                         <h5 className="prod-counter">
-                          <ProductCounter
-                            product={product}
-                            location={"cart"}
-                          />
+                          <ProductCounter product={product} location={"cart"} />
                         </h5>
                         <p className="cart-items-price">
                           <ProductPrice product={cartProduct} />₪
