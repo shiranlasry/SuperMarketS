@@ -6,6 +6,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { store } from "./app/store";
 import Layout from "./views/layouts/Layout";
+import { ToastContainer } from "react-toastify"; // Import from react-toastify
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 const rootElement = document.getElementById("root");
 
@@ -16,6 +19,7 @@ if (rootElement) {
     <Provider store={store}>
       <React.StrictMode>
         <App />
+        <ToastContainer /> {/* Place the ToastContainer here */}
       </React.StrictMode>
     </Provider>
   );

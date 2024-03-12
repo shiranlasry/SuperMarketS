@@ -7,14 +7,14 @@ $rami-blue: #1579f2;
 
   .cart-content {
     width: calc(100% - 10px);
-    position: relative; /* Change position to relative */
-    height: 100%; /* Set height to 100% */
+    position: relative;
+    height: 100%;
     background-color: #f3f5f8;
     list-style-type: none;
     padding: 0;
     margin: 0;
     z-index: 2;
-    overflow-y: auto; /* Add overflow-y property to the cart content */
+    overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: $rami-blue #f1f1f1;
     border-radius: 15px;
