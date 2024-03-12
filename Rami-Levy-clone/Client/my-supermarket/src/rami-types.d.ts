@@ -181,7 +181,6 @@ export interface OrderForList{
 export interface Delivery {
   delivery_id: number;
   status: number |null;
-  city_id: number |null;
   delivery_finish_date: string;
   delivery_start_time: string;
 }

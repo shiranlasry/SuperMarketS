@@ -67,7 +67,11 @@ const CartSummery: React.FC<CartSummeryProps> = ({
   const toggleModal = (modalType) => {
     setShowModal({ ...showModal, [modalType]: !showModal[modalType] });
   };
-
+  const formatTimeRange = (startTime: string): string => {
+    const startHour = new Date(`01/01/2000 ${startTime}`);
+        
+    return `${startHour.toLocaleTimeString([],{ hour: '2-digit', minute: '2-digit' })}`;
+  };
   return (
     <div className="cart-summery-content">
       {orderContact && (
@@ -119,8 +123,14 @@ const CartSummery: React.FC<CartSummeryProps> = ({
             <div className="col">
               {selectedDelivery ? (
                 <p>
-                  {selectedDelivery.delivery_finish_date}{" "}
-                  {selectedDelivery.delivery_start_time}
+                  {new Date(selectedDelivery.delivery_finish_date).toLocaleDateString("he-IL", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour12: false
+                  })} ,  {formatTimeRange(selectedDelivery.delivery_start_time)}
+                  
                 </p>
               ) : (
                 <p>בחר מועד משלוח</p>

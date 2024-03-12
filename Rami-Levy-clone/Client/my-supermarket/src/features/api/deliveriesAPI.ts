@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const updateDeliveryStatusApi = async (delivery_id: number) => {
     try {
-        
+        debugger
         const response = await axios.post('/api/deliveries/update-delivery-status', { delivery_id });
         const { ok, results } = response.data;
         
