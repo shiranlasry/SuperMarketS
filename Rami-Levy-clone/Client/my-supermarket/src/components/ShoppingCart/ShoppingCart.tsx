@@ -1,39 +1,35 @@
 import React, { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import Logo from "../../assets/logos/rami-levy-online.png";
+import { updateDeliveryStatusApi } from "../../features/api/deliveriesAPI";
+import { addNewUserContactAPI } from "../../features/api/usersContactsAPI";
+import { updateCartStatusApi } from "../../features/cart/cartAPI";
 import {
   activeCartSelector,
   isOpenCartSelector,
   isToPayPressedSelector,
   setIsOpenCart,
 } from "../../features/cart/cartSlice";
+import {
+  getUserAddressesApi,
+  getUserFromTokenApi,
+} from "../../features/logged_in_user/loggedInUserAPI";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import { addNewOrderAPI } from "../../features/orders/ordersAPI";
+import { getAllProductsApi } from "../../features/products/productsAPI";
 import { productsSelector } from "../../features/products/productsSlice";
 import {
   Address,
   Delivery,
   Order,
-  Product,
-  ProductsList,
-  Sales,
 } from "../../rami-types";
-import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
-import "./shopping-cart.scss";
-import { getAllProductsApi } from "../../features/products/productsAPI";
-import CartSummery from "./CartSummery/CartSummery";
-import { selectSales } from "../../features/sales/salesSlice";
-import { getSalesAPI } from "../../features/sales/salesAPI";
-import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
-import { updateDeliveryStatusApi } from "../../features/api/deliveriesAPI";
-import { addNewUserContactAPI } from "../../features/api/usersContactsAPI";
-import BeforePayModal from "./CartSummery/Modals/BeforePayModal";
-import { Modal } from "react-bootstrap";
-import { addNewOrderAPI } from "../../features/orders/ordersAPI";
-import {
-  getUserAddressesApi,
-  getUserFromTokenApi,
-} from "../../features/logged_in_user/loggedInUserAPI";
 import ProductCounter from "../ProductCounter/ProductCounter";
 import ProductPrice from "../ProductPrice/ProductPrice";
+import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
+import CartSummery from "./CartSummery/CartSummery";
+import BeforePayModal from "./CartSummery/Modals/BeforePayModal";
+import "./shopping-cart.scss";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -53,7 +49,7 @@ const ShoppingCart: React.FC = () => {
   const initialOrder: Order = {
     order_id: null,
     cart_id: null,
-    user_id: null,
+    user_id: loggedInUser?.user_id || null,
     user_contact_id: null,
     delivery_id: null,
     order_creation_date: Date.now().toString(),
@@ -64,7 +60,7 @@ const ShoppingCart: React.FC = () => {
   const [newOrder, setNewOrder] = useState<Order>(initialOrder);
   const [showBeforePayModal, setShowBeforePayModal] = useState(false);
 
-  const hanelsetNewOrder = (field: string, value: string | number) => {
+  const handleSetNewOrder = (field: string, value: string | number) => {
     setNewOrder({ ...newOrder, [field]: value });
   };
 
@@ -78,16 +74,24 @@ const ShoppingCart: React.FC = () => {
 
   useEffect(() => {
     if (activeCart) {
-      hanelsetNewOrder("cart_id", activeCart.cart_id);
+      handleSetNewOrder("cart_id", activeCart.cart_id);
     }
   }, [activeCart]);
 
   useEffect(() => {
+    
     if (!loggedInUser) {
       getUserToken();
     }
     if (loggedInUser && loggedInUser.user_id) {
-      hanelsetNewOrder("user_id", loggedInUser.user_id);
+      handleSetNewOrder("user_id", loggedInUser.user_id);
+      setOrderContact(
+        {
+          full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
+          phone_number: loggedInUser.phone_number,
+        }
+      )
+      
     }
   }, [loggedInUser]);
 
@@ -97,13 +101,14 @@ const ShoppingCart: React.FC = () => {
       dispatch(getUserAddressesApi((response.payload as any).user_id));
     }
   };
+
   const updateContactId = async () => {
     const insertId = await addNewUserContactAPI(
       orderContact.full_name,
       orderContact.phone_number
     );
     if (insertId) {
-      hanelsetNewOrder("user_contact_id", insertId);
+      handleSetNewOrder("user_contact_id", insertId);
     }
   };
   useEffect(() => {
@@ -117,13 +122,17 @@ const ShoppingCart: React.FC = () => {
   };
 
   const sendOrder = async () => {
+   
     if (!selectedDelivery) {
-      alert("יש לבחור אזור משלוח");
+      alert("לי תחליפי אותי לטוסטים גילי תכעס יש לבחור אזור משלוח");
       return;
     }
     if (!orderContact.full_name || !orderContact.phone_number) {
-      alert("יש למלא פרטי קשר");
+      alert("לי תחליפי אותי לטוסטים גילי תכעס יש למלא פרטי קשר");
       return;
+    }
+    else {
+      updateContactId()
     }
     // update delivery status
 
@@ -147,9 +156,21 @@ const ShoppingCart: React.FC = () => {
       newOrder.user_contact_id &&
       newOrder.delivery_id &&
       newOrder.cart_id &&
-      newOrder.user_id
+      newOrder.user_id &&
+      newOrder.order_creation_date &&
+      newOrder.status &&
+      newOrder.alternative_products &&
+      newOrder.how_receive_shipment
     ) {
       const response = await dispatch(addNewOrderAPI(newOrder));
+      if (response.payload) {
+        if (activeCart) {
+          dispatch(updateCartStatusApi({cart_id:activeCart?.cart_id,status_id:2}));
+        }
+        setIsOpenCart();
+       //reload the page
+        window.location.reload();
+      }
     }
   };
 
@@ -171,23 +192,27 @@ const ShoppingCart: React.FC = () => {
                   (product) => product.product_id === cartProduct.product_id
                 );
                 if (product) {
+                  const imageData =
+                    product.product_img_data_a && product.product_img_data_a.data
+                      ? `data:image/jpeg;base64,${convertToBase64(
+                          product.product_img_data_a.data
+                        )}`
+                      : null;
                   return (
                     <li className="cart-item" key={cartProduct.cart_id}>
                       <div className="product-details-cart">
-                        <img
-                          src={`data:image/jpeg;base64,${convertToBase64(
-                            product.product_img_data_a.data
-                          )}`}
-                          alt={product.product_name}
-                        />
+                        {imageData && (
+                          <img src={imageData} alt={product.product_name} />
+                        )}
                         <h5 className="prod-name-cart">
                           {product.product_name}
                         </h5>
                         <h5 className="prod-counter">
-                          <ProductCounter product={product} location={"cart"} />
+                          <ProductCounter
+                            product={product}
+                            location={"cart"}
+                          />
                         </h5>
-                        {/* Render SVG image */}
-
                         <p className="cart-items-price">
                           <ProductPrice product={cartProduct} />₪
                         </p>
@@ -202,20 +227,16 @@ const ShoppingCart: React.FC = () => {
       )}
       {isToPayPressed && (
         <ul className="cart-content">
-          {isToPayPressed && (
-            <ul className="cart-content">
-              <CartSummery
-                orderContact={orderContact}
-                setOrderContact={setOrderContact}
-                selectedAddress={selectedAddress}
-                setSelectedAddress={setSelectedAddress}
-                selectedDelivery={selectedDelivery}
-                setSelectedDelivery={setSelectedDelivery}
-                setNewOrder={hanelsetNewOrder}
-                newOrder={newOrder}
-              />
-            </ul>
-          )}
+          <CartSummery
+            orderContact={orderContact}
+            setOrderContact={setOrderContact}
+            selectedAddress={selectedAddress}
+            setSelectedAddress={setSelectedAddress}
+            selectedDelivery={selectedDelivery}
+            setSelectedDelivery={setSelectedDelivery}
+            setNewOrder={handleSetNewOrder}
+            newOrder={newOrder}
+          />
           <Modal
             show={showBeforePayModal}
             onHide={() => setShowBeforePayModal(false)}

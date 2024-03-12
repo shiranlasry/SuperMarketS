@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { deleteSingleImageAPI } from "../../../features/api/imagesAPI";
 import { useAppDispatch } from "../../../app/hook";
-import { updateProductImageAPi } from "../../../features/api/productsAPI";
+import { updateProductImageAPi } from "../../../features/products/productsAPI";
 import { getAllProductsApi } from "../../../features/products/productsAPI";
 
 

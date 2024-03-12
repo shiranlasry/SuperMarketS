@@ -8,7 +8,7 @@ export const addNewFoodCategoryApi = async (food_category_name:string) => {
         if (!ok) {
             throw new Error("Invalid credentials addNewProductInventories()");
         }
-        alert("קטגוריה נוספה בהצלחה")
+        alert(" לי תחליפי אותי לטוסטים גילי תכעס קטגוריה נוספה בהצלחה")
         
         return results.insertId;
     } catch (error) {
@@ -25,7 +25,7 @@ export const addNewSubFoodCategoryApi = async (sub_category_name:string,food_cat
         if (!ok) {
             throw new Error("Invalid credentials addNewProductInventories()");
         }
-        alert("תת קטגוריה נוספה בהצלחה")
+        alert(" לי תחליפי אותי לטוסטים גילי תכעס תת קטגוריה נוספה בהצלחה")
         
         return results.insertId;
     } catch (error) {

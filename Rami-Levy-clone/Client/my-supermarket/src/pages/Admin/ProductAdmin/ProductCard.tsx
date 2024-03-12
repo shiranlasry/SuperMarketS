@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Product } from "../../../rami-types";
 import "./ProductCard.scss";
 import {
@@ -9,9 +8,8 @@ import {
 import { useAppDispatch } from "../../../app/hook";
 import UpdateProduct from "./UpdateProduct";
 import { deleteImagesWithProductIdAPI } from "../../../features/api/imagesAPI";
-import { deleteProduct } from "../../../features/api/productsAPI";
+import { deleteProduct } from "../../../features/products/productsAPI";
 import { deleteInventoryAPI } from "../../../features/api/inventoryAPI";
-import { updateProductImages } from "./../../../features/api/productsAPI";
 import UpdateImage from "./UpdateImage";
 import RamiBtn from "../../../components/RamiBtn/RamiBtn";
 type ProductCardProps = {

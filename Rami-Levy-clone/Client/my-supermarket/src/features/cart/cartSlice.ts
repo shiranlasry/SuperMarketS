@@ -4,7 +4,7 @@ import {  createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/store'; // Assuming you have a RootState type defined
 import { CartItem } from '../../rami-types';
-import { addNewCartApi, getUserActiveCartApi, getUserActiveCartListApi } from './cartAPI';
+import { updateCartStatusApi,addNewCartApi, getUserActiveCartApi, getUserActiveCartListApi } from './cartAPI';
 
 
 
@@ -82,6 +82,17 @@ const CartSlice = createSlice({
       .addCase(getUserActiveCartListApi.rejected, (state) => {
         state.status = Status.FAILED;
       })
+      .addCase(updateCartStatusApi.pending, (state) => {
+        state.status = Status.LOADING;
+      })
+      .addCase(updateCartStatusApi.fulfilled, (state, action) => {
+        state.status = Status.IDLE;
+        state.activeCart = null;
+      })
+      .addCase(updateCartStatusApi.rejected, (state) => {
+        state.status = Status.FAILED;
+      });
+      
       
   },
 });

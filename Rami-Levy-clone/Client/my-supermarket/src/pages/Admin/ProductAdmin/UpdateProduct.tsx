@@ -6,7 +6,7 @@ import {
   UpdateProductFields,
 } from "../../../rami-types";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
-import { updateProductDetailes } from "../../../features/api/productsAPI";
+import { updateProductDetailes } from "../../../features/products/productsAPI";
 import {
   foodCategoriesSelector,
   subFoodCategoriesSelector,
@@ -82,20 +82,10 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
     }
   };
 
-  const validateName = (name: string) => {
-    const productFromDB = allProducts?.find(
-      (product: Product) => product.product_name === name
-    );
-    if (productFromDB !== undefined) {
-      alert("שם המוצר כבר קיים במערכת");
-      return true;
-    }
-    return false;
-  }
+
 
   // Function to handle updating the product
   const handleUpdateProduct = async () => {
-    if(validateName(updatedProduct.product_name)) return;
     const response = await dispatch(updateProductDetailes(updatedProduct));
     if (response.payload) {
       alert("Product updated successfully");

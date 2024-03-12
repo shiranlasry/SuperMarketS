@@ -7,12 +7,10 @@ import Logo from "../../assets/logos/rami-levy-online.png";
 import Shopping from "../../assets/logos/rami-levy-shopping.png";
 import UserMenu from "../../components/UserMenu/UserMenu";
 import {
-  addNewCartApi,
   getUserActiveCartApi,
   getUserActiveCartListApi,
 } from "../../features/cart/cartAPI";
 import {
-  activeCartSelector,
   isOpenCartSelector,
   isToPayPressedSelector,
   setIsOpenCart,
