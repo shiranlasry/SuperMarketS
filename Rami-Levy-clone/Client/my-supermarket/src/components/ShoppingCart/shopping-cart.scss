@@ -2,25 +2,27 @@ $rami-blue: #1579f2;
 
 .shopping-cart {
   left: 1.2rem;
-  height: 100%;
+  height: 100vh;
   width: 300px;
 
   .cart-content {
-    width: 295px;
-    position: fixed;
-    height: 100%;
+    width: calc(100% - 10px);
+    position: relative; /* Change position to relative */
+    height: 100%; /* Set height to 100% */
     background-color: #f3f5f8;
     list-style-type: none;
     padding: 0;
     margin: 0;
     z-index: 2;
-    overflow-y: scroll;
+    overflow-y: auto; /* Add overflow-y property to the cart content */
     scrollbar-width: thin;
     scrollbar-color: $rami-blue #f1f1f1;
     border-radius: 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 
     &::-webkit-scrollbar {
-      width: 10px;
+      width: 7px;
       border-radius: 15px;
     }
 
@@ -29,9 +31,8 @@ $rami-blue: #1579f2;
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: $rami-blue; /* Color of the handle */
-      border-radius: 15px; /* Roundness of the handle */
-      height: 30px; /* Adjust the height of the scrollbar thumb */
+      background-color: $rami-blue;
+      border-radius: 15px;
     }
 
     .cart-item {
@@ -86,6 +87,7 @@ $rami-blue: #1579f2;
       font-size: 80%;
     }
   }
+
   .rami-online-cart {
     position: fixed;
     width: 20px;
