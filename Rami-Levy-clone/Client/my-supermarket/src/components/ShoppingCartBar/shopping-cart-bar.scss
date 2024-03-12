@@ -1,3 +1,5 @@
+$rami-blue: #1579f2;
+
 .shopping-cart-bar {
   position: fixed;
   display: flex;
@@ -11,7 +13,7 @@
   border-radius: 10px;
   font-size: 1.2rem;
   color: white;
-  background-color: #1579f2;
+  background-color: $rami-blue;
   transition: bottom 0.3s ease;
   z-index: 2;
 
@@ -20,7 +22,7 @@
   }
 
   &.open {
-    top: 90%;
+    top: 88%;
     left: 0.7rem;
   }
 

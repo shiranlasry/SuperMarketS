@@ -18,6 +18,7 @@ import {
 import "./updateProduct.scss";
 import { getAllProductsApi } from "../../../features/products/productsAPI";
 import { productsSelector } from "../../../features/products/productsSlice";
+import RamiBtn from "../../../components/RamiBtn/RamiBtn";
 
 interface UpdateProductProps {
   product: Product;
@@ -82,8 +83,6 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
     }
   };
 
-
-
   // Function to handle updating the product
   const handleUpdateProduct = async () => {
     const response = await dispatch(updateProductDetailes(updatedProduct));
@@ -95,66 +94,69 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
   };
   return (
     <div id="update-product">
-      <h1>עדכון פרטי מוצר</h1>
-      <label>שם מוצר:</label>
+      <h1 className="prod-info-title">עדכון פרטי מוצר</h1>
+
       <input
         type="text"
         name="product_name"
+        placeholder="שם המוצר:"
         value={updatedProduct.product_name}
         onChange={handleInputChange}
       />
-      <label>מחיר:</label>
       <input
         type="number"
         name="product_price"
+        placeholder="מחיר:"
         value={updatedProduct.product_price || ""}
         onChange={handleInputChange}
       />
-      <label>תיאור המוצר:</label>
       <textarea
         name="product_description"
+        placeholder="תיאור המוצר:"
         value={updatedProduct.product_description}
         onChange={handleInputChange}
       />
-      <label>מדינת ייצוא:</label>
       <input
         type="text"
         name="export_country"
+        placeholder="מדינת ייצוא:"
         value={updatedProduct.export_country}
         onChange={handleInputChange}
       />
-      <label>מותג:</label>
       <input
         type="text"
         name="brand"
+        placeholder="מותג"
         value={updatedProduct.brand}
         onChange={handleInputChange}
       />
-      <label>תוכן:</label>
+
       <input
         type="text"
         name="content"
+        placeholder="תוכן"
         value={updatedProduct.content}
         onChange={handleInputChange}
       />
-      <label>מידע על אלרגנים:</label>
+
       <input
         type="text"
         name="allergy_info"
+        placeholder="מידע על אלרגנים"
         value={updatedProduct.allergy_info}
         onChange={handleInputChange}
       />
-      <label>סוג המוצר:</label>
       <input
         type="text"
         name="type"
+        placeholder="סוג המוצר:"
         value={updatedProduct.type}
         onChange={handleInputChange}
       />
-      <label htmlFor="food_category_id">קטגורית מזון ראשית:</label>
       <select
         id="food_category_id"
         name="food_category_id"
+        aria-placeholder=">קטגורית מזון ראשית:"
         value={updatedProduct.food_category_id || ""}
         onChange={handleInputChange}
         required
@@ -172,10 +174,10 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
       </select>
       {updatedProduct.food_category_id && subFoodCategories && (
         <>
-          <label htmlFor="sub_food_category_id">קטגוריה משנית:</label>
           <select
             id="sub_food_category_id"
             name="sub_food_category_id"
+            aria-placeholder="קטגוריה משנית:"
             value={updatedProduct.sub_food_category_id || ""}
             onChange={handleInputChange}
             required
@@ -200,41 +202,47 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
           </select>
         </>
       )}
-      <label>הצעת הגשה</label>
       <input
         type="text"
         name="serving_suggestion"
+        placeholder=" הצעת הגשה"
         value={updatedProduct.serving_suggestion}
         onChange={handleInputChange}
       />
-      <label>רכיבי המוצר:</label>
       <input
         type="text"
         name="product_components"
+        placeholder="רכיבי המוצר"
         value={updatedProduct.product_components}
         onChange={handleInputChange}
       />
-      <label>כשרות:</label>
+
       <input
         type="text"
         name="cosher"
+        placeholder="כשרות"
         value={updatedProduct.cosher}
         onChange={handleInputChange}
       />
-      <label>חלב ישראלי:</label>
+
       <input
         type="text"
         name="israel_milk"
+        placeholder="חלב ישראלי:"
         value={updatedProduct.israel_milk}
         onChange={handleInputChange}
       />
       <div>
-        <button className="saveBtn" type="button" onClick={handleUpdateProduct}>
+        <RamiBtn
+          className="saveBtn"
+          type="button"
+          onClick={handleUpdateProduct}
+        >
           שמור
-        </button>{" "}
-        <button className="cancelBtn" type="button" onClick={onClose}>
+        </RamiBtn>{" "}
+        <RamiBtn className="cancelBtn" type="button" onClick={onClose}>
           ביטול
-        </button>
+        </RamiBtn>
       </div>
     </div>
   );

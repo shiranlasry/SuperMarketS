@@ -2,34 +2,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
 
-  // .counter {
-  //   width: 50px;
-  //   position: absolute;
-  //   display: flex;
-  //   flex-direction: row;
-  //   justify-content: center;
-  //   align-items: center;
-  //   z-index: 2;
-  //   left: calc(50% - 37px);
-  //   top: calc(50% - 75px);
-
-  //   .counter-button {
-  //     background-color: transparent;
-  //     border: none;
-  //     font-size: 3rem;
-  //     color: white;
-  //     text-shadow: 1px 1px 2px black;
-  //     font-family: "Courier New", Courier, monospace;
-  //   }
-
-  //   .counter-quantity {
-  //     font-size: 5rem;
-  //     color: white;
-  //     text-shadow: 1px 1px 2px black;
-  //     font-family: "Courier New", Courier, monospace;
-  //   }
-  // }
-
   .product-card {
     width: 280px;
     height: 360px;
