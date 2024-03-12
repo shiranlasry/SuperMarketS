@@ -1,19 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Product } from "../../rami-types";
-import "./product-modal.scss"; // Import CSS file for styling
-import { activeCartSelector } from "../../features/cart/cartSlice";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
-import {
-  UpdateAmountProductCartListApi,
-  addNewCartApi,
-  addProductToCartListApi,
-  getUserActiveCartListApi,
-} from "../../features/cart/cartAPI";
-import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
-import { Button, Modal } from "react-bootstrap";
+import React, { useState } from "react";
+import { Modal } from "react-bootstrap";
 import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
+import { Product } from "../../rami-types";
 import ProductCounter from "../ProductCounter/ProductCounter";
+import "./product-modal.scss"; // Import CSS file for styling
 
 interface ProductModalProps {
   product: Product;

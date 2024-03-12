@@ -84,8 +84,6 @@ import productsImagesRoutes from "./API/products/productsImages/productsImagesRo
 app.use("/api/products-images", productsImagesRoutes)
 import navbarRoutes from "./API/navbar/navbarRoutes"
 app.use("/api/navbar-items", navbarRoutes)
-import listsRoutes from "./API/lists/listsRoutes"
-app.use("/api/lists", listsRoutes)
 import cartsRoutes from "./API/carts/cartsRoutes"
 app.use("/api/carts", cartsRoutes)
 import ordersRoutes from "./API/orders/ordersRoutes"

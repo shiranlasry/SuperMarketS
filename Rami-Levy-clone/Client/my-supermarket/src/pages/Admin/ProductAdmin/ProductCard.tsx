@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Product } from "../../../rami-types";
 import "./ProductCard.scss";
 import {
@@ -9,9 +8,8 @@ import {
 import { useAppDispatch } from "../../../app/hook";
 import UpdateProduct from "./UpdateProduct";
 import { deleteImagesWithProductIdAPI } from "../../../features/api/imagesAPI";
-import { deleteProduct } from "../../../features/api/productsAPI";
+import { deleteProduct } from "../../../features/products/productsAPI";
 import { deleteInventoryAPI } from "../../../features/api/inventoryAPI";
-import { updateProductImages } from "./../../../features/api/productsAPI";
 import UpdateImage from "./UpdateImage";
 import RamiBtn from "../../../components/RamiBtn/RamiBtn";
 type ProductCardProps = {
@@ -57,7 +55,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     alert("Inventory updated successfully");
   };
 
-  const UpdateProductFields = () => {
+  const updateProductFields = () => {
     setIsUpdateProduct(true);
   };
 
@@ -78,7 +76,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <h3 className="product-desc">מספר מוצר: {product.product_id}</h3>
       <h3 className="product-desc">מוצר: {product.product_name}</h3>
       <h3 className="product-desc">{product.product_price} ₪</h3>
-      <RamiBtn onClick={UpdateProductFields}>עדכן פרטי מוצר</RamiBtn>
+      <RamiBtn onClick={updateProductFields}>עדכן פרטי מוצר</RamiBtn>
       <RamiBtn
         onClick={() => {
           setIsDeleteProduct(true);

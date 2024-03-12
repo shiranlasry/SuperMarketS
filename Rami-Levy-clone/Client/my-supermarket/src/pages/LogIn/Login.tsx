@@ -50,7 +50,7 @@ const Login: React.FC<LoginProps> = ({ onClose, RegisterPressed }) => {
         return;
       }
       dispatch(getUserAddressesApi(resultAction.payload.user_id));
-      alert("התחברת בהצלחה");
+      alert("  זה איום ונורא גילי תהרוג אותנו!!  גילי תהרוג אותנו! ");
       onClose();
     } catch (error) {
       console.error(error);

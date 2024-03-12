@@ -7,6 +7,7 @@ import {
   UpdateAmountProductCartListApi,
   addNewCartApi,
   addProductToCartListApi,
+  getUserActiveCartApi,
   getUserActiveCartListApi,
 } from "../../features/cart/cartAPI";
 import { Button, Modal } from "react-bootstrap";
@@ -26,6 +27,22 @@ const ProductCounter: React.FC<{ product: Product; location: string }> = ({
 
   const dispatch = useAppDispatch();
 
+  const getUserActivCart = async () => {
+    if (loggedInUser && loggedInUser.user_id) {
+       await dispatch(getUserActiveCartApi(loggedInUser.user_id));
+    }
+  
+  }
+  useEffect(()=>{
+    if (loggedInUser && loggedInUser.user_id) {
+      if (!activeCart) {
+
+        getUserActivCart();
+      
+      }
+    }
+  },[loggedInUser])
+
   useEffect(() => {
     // set the quantity of the product in the cart from the active cart list
     if (activeCart && activeCart.cartList) {
@@ -41,6 +58,7 @@ const ProductCounter: React.FC<{ product: Product; location: string }> = ({
   }, [activeCart?.cartList]);
   // Function to handle increasing the quantity
   const increaseQuantity = async () => {
+    
     // if the user is not logged in, show the login modal
     if (!loggedInUser || !loggedInUser.user_id) {
       setShowLoginModal(true);
@@ -49,6 +67,7 @@ const ProductCounter: React.FC<{ product: Product; location: string }> = ({
     // if there is no active cart, create a new one
     if (!activeCart) {
       await dispatch(addNewCartApi(loggedInUser.user_id));
+      window.location.reload();
     }
     // if the product is already in the cart, update the amount
     if (activeCart?.cart_id && activeCart.cartList) {
@@ -56,9 +75,7 @@ const ProductCounter: React.FC<{ product: Product; location: string }> = ({
         (p) => p.product_id === product.product_id
       );
       if (
-        productInCart &&
-        productInCart.product_amount > 0 &&
-        productInCart.product_id
+        productInCart && productInCart.product_amount > 0 && productInCart.product_id
       ) {
         const args: {
           product_id: number;

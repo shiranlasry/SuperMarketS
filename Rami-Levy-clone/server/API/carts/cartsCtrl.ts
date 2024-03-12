@@ -217,7 +217,7 @@ export const deleteCart = async (req: express.Request, res: express.Response) =>
     }
 }
 
-export const updateCart = async (req: express.Request, res: express.Response) => {
+export const updateCartStatus = async (req: express.Request, res: express.Response) => {
     try {
         const { cart_id, status_id } = req.body
         if (!cart_id   || !status_id) {

@@ -150,9 +150,8 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
       if (imagesProductFiles && imagesProductFiles.length > 0) {
         await saveProductImages(insertProductId, imagesProductFiles);
       }
-
-      // Optionally, display a success message to the user
-      alert("Product added successfully");
+    
+      alert("במוצר נוצר בהצלחה, לי תחליפי אותי לטוסטים גילי תכעס");
       navigate("/manage_products");
     } catch (error) {
       console.error("Error adding new product on handelAddNewProduct", error);

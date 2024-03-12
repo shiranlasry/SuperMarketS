@@ -1,23 +1,13 @@
-import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Product, Sales } from "../../rami-types";
-import "./productCard.scss";
+import React, { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
-import { activeCartSelector } from "../../features/cart/cartSlice";
-import { Button, Modal } from "react-bootstrap";
-import Login from "../../pages/LogIn/Login";
-import Register from "../../pages/Register/Register";
-import ProductModal from "../ProductModal/ProductModal"; // Import the ProductModal component
-import {
-  UpdateAmountProductCartListApi,
-  addNewCartApi,
-  addProductToCartListApi,
-  getUserActiveCartListApi,
-} from "../../features/cart/cartAPI";
-import { selectSales } from "../../features/sales/salesSlice";
 import { getSalesAPI } from "../../features/sales/salesAPI";
+import { selectSales } from "../../features/sales/salesSlice";
+import { Product, Sales } from "../../rami-types";
 import ProductCounter from "../ProductCounter/ProductCounter";
+import ProductModal from "../ProductModal/ProductModal"; // Import the ProductModal component
+import "./productCard.scss";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const dispatch = useAppDispatch();

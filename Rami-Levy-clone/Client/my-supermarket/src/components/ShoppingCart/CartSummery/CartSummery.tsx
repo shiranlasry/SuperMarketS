@@ -51,19 +51,17 @@ const CartSummery: React.FC<CartSummeryProps> = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (loggedInUser) {
-      setOrderContact({
-        full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
-        phone_number: loggedInUser.phone_number,
-      });
-      // Select the default address if available
-      if (loggedInUser.addresses) {
+   
+      if (loggedInUser && loggedInUser.addresses) {
         const defaultAddress = loggedInUser.addresses.find(
           (address) => address.is_default
         );
         setSelectedAddress(defaultAddress || null);
       }
-    }
+      else if (loggedInUser && loggedInUser.user_id){
+        dispatch(getUserAddressesApi(loggedInUser.user_id))
+      }
+    
   }, [loggedInUser]);
 
   const toggleModal = (modalType) => {

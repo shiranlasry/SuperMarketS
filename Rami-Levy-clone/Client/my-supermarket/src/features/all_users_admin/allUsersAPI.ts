@@ -46,7 +46,7 @@ export const deleteUserApi = createAsyncThunk<User[] | null,number |null>('delet
         if (!ok) {
             throw new Error("Invalid credentials deleteUserApi()");
         }
-       alert("שלום ולא להתראות")
+       alert(" לי תחליפי אותי לטוסטים גילי תכעס שלום ולא להתראות" )
         return results;
 
     } catch (error) {
@@ -65,7 +65,7 @@ export const updatePasswordApi = createAsyncThunk<User | null, { user_id:number|
         if (!ok) {
             throw new Error("Invalid credentials updatePasswordApi()");
         }
-        alert("Password updated successfully")
+        alert("סיסמא עודכנה בהצלחה ,  לי תחליפי אותי לטוסטים גילי תכעס")
     } catch (error) {
         console.error(error) // this is temporary
         return null;

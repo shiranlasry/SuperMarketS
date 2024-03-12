@@ -15,17 +15,23 @@ interface AddNewSubFoodCategoryProps {
 const AddNewSubFoodCategory: React.FC<AddNewSubFoodCategoryProps> = ({
   onClose,
 }) => {
-  const FoodCategories = useAppSelector(foodCategoriesSelector);
+  const foodCategories = useAppSelector(foodCategoriesSelector);
   const navBarItems = useAppSelector(navBarItemsSelector);
   const dispatch = useAppDispatch();
+  const getFoodCategories = async () => {
+    await dispatch(getFoodCategoriesApi());
+  };
+
   useEffect(() => {
-    if (!FoodCategories) {
-      dispatch(getFoodCategoriesApi());
+    if (!foodCategories) {
+      getFoodCategories();
     }
     if (!navBarItems) {
       dispatch(getAllNavBarItemsApi());
     }
   }, []);
+
+
   const handelAddNewSubFoodCategory = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
@@ -63,11 +69,16 @@ const AddNewSubFoodCategory: React.FC<AddNewSubFoodCategoryProps> = ({
         />
         <label htmlFor="food_category_id">קטגורית מזון</label>
         <select id="food_category_id" name="food_category_id">
-          {FoodCategories?.map((category) => (
-            <RamiBtn value={category.food_category_id}>
-              {category.food_category_name}
-            </RamiBtn>
-          ))}
+          <option value="">בחר קטגורית מזון</option>
+          {foodCategories &&
+            foodCategories.map((category) => (
+              <option
+                key={category.food_category_id}
+                value={category.food_category_id}
+              >
+                {category.food_category_name}
+              </option>
+            ))}
         </select>
         <label htmlFor="navbar_item_id">קטגורית תפריט</label>
         <select id="navbar_item_id" name="navbar_item_id">
