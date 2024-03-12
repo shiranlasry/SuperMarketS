@@ -26,23 +26,6 @@ const ProductCounter: React.FC<{ product: Product; location: string }> = ({
   const [showRegisterModal, setShowRegisterModal] = useState(false);
 
   const dispatch = useAppDispatch();
-
-  const getUserActivCart = async () => {
-    if (loggedInUser && loggedInUser.user_id) {
-       await dispatch(getUserActiveCartApi(loggedInUser.user_id));
-    }
-  
-  }
-  useEffect(()=>{
-    if (loggedInUser && loggedInUser.user_id) {
-      if (!activeCart) {
-
-        getUserActivCart();
-      
-      }
-    }
-  },[loggedInUser])
-
   useEffect(() => {
     // set the quantity of the product in the cart from the active cart list
     if (activeCart && activeCart.cartList) {
@@ -67,7 +50,6 @@ const ProductCounter: React.FC<{ product: Product; location: string }> = ({
     // if there is no active cart, create a new one
     if (!activeCart) {
       await dispatch(addNewCartApi(loggedInUser.user_id));
-      window.location.reload();
     }
     // if the product is already in the cart, update the amount
     if (activeCart?.cart_id && activeCart.cartList) {

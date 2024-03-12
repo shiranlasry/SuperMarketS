@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hook";
 import Logo from "../../assets/logos/rami-levy-online.png";
 import { updateDeliveryStatusApi } from "../../features/api/deliveriesAPI";
 import { addNewUserContactAPI } from "../../features/api/usersContactsAPI";
-import { updateCartStatusApi } from "../../features/cart/cartAPI";
+import { addNewCartApi, getUserActiveCartApi, updateCartStatusApi } from "../../features/cart/cartAPI";
 import {
   activeCartSelector,
   isOpenCartSelector,
@@ -28,6 +28,7 @@ import BeforePayModal from "./CartSummery/Modals/BeforePayModal";
 import "./shopping-cart.scss";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -54,6 +55,10 @@ const ShoppingCart: React.FC = () => {
     status: 1,
     alternative_products: "צרו קשר לתיאום",
     how_receive_shipment: "יש מישהו בבית",
+    delivery_finish_date:"",
+    delivery_start_time:"",
+    contact_phone_number:"",
+    contact_name:"",
   };
   const [newOrder, setNewOrder] = useState<Order>(initialOrder);
   const [showBeforePayModal, setShowBeforePayModal] = useState(false);
@@ -61,13 +66,14 @@ const ShoppingCart: React.FC = () => {
   const handleSetNewOrder = (field: string, value: string | number) => {
     setNewOrder({ ...newOrder, [field]: value });
   };
-
+  const navigate = useNavigate()
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!allProducts) {
       dispatch(getAllProductsApi());
     }
+   
   }, []);
 
   useEffect(() => {
@@ -81,12 +87,14 @@ const ShoppingCart: React.FC = () => {
       getUserToken();
     }
     if (loggedInUser && loggedInUser.user_id) {
+      //getUserActiveCart(loggedInUser.user_id)
       handleSetNewOrder("user_id", loggedInUser.user_id);
       setOrderContact({
         full_name: loggedInUser.first_name + " " + loggedInUser.last_name,
         phone_number: loggedInUser.phone_number,
       });
     }
+    
   }, [loggedInUser]);
 
   const getUserToken = async () => {
@@ -117,11 +125,11 @@ const ShoppingCart: React.FC = () => {
 
   const sendOrder = async () => {
     if (!selectedDelivery) {
-      toast.error("לי תחליפי אותי לטוסטים גילי תכעס יש לבחור אזור משלוח");
+      toast.error("בחר זמן משלוח  ");
       return;
     }
     if (!orderContact.full_name || !orderContact.phone_number) {
-      toast.error("לי תחליפי אותי לטוסטים גילי תכעס יש למלא פרטי קשר");
+      toast.error("מלא את פרטי איש קשר");
       return;
     } else {
       updateContactId();
@@ -156,14 +164,18 @@ const ShoppingCart: React.FC = () => {
     ) {
       const response = await dispatch(addNewOrderAPI(newOrder));
       if (response.payload) {
+      
         if (activeCart) {
-          dispatch(
+          await dispatch(
             updateCartStatusApi({ cart_id: activeCart?.cart_id, status_id: 2 })
           );
         }
-        setIsOpenCart();
-        //reload the page
-        window.location.reload();
+       
+        // navigate to order summary with order_id = response.payload
+        const order_id = response.payload
+        navigate(`/order-summary/${order_id}`);
+        setShowBeforePayModal(false); // Close the modal
+        window.location.reload()
       }
     }
   };

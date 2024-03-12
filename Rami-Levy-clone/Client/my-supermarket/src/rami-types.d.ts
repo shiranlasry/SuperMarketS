@@ -9,7 +9,12 @@ export interface Order {
   cart_id: number |null;
   user_id: number |null;
   user_contact_id: number |null;
+  contact_name: string;
+  contact_phone_number: string;
+
   delivery_id: number |null;
+  delivery_start_time: string |null;
+  delivery_finish_date: string |null;
   order_creation_date: string |null;
   status: number |null;
   alternative_products: string;

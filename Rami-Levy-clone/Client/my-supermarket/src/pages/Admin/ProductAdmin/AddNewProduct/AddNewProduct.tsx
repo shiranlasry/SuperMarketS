@@ -24,6 +24,7 @@ import "./AddNewProduct.scss";
 import RamiBtn from "./../../../../components/RamiBtn/RamiBtn";
 import { productsSelector } from "../../../../features/products/productsSlice";
 import { getAllProductsApi } from "../../../../features/products/productsAPI";
+import { toast } from "react-toastify";
 
 interface AddNewProductProps {
   onClose: () => void;
@@ -151,8 +152,8 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
         await saveProductImages(insertProductId, imagesProductFiles);
       }
     
-      alert("במוצר נוצר בהצלחה, לי תחליפי אותי לטוסטים גילי תכעס");
-      navigate("/manage_products");
+      toast.success("מוצר נוסף בהצלחה למאגר המוצרים");
+     
     } catch (error) {
       console.error("Error adding new product on handelAddNewProduct", error);
     }

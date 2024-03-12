@@ -113,6 +113,7 @@ export const updateCartStatusApi = createAsyncThunk<
       cart_id,
       status_id,
     });
+    
     const { ok, results } = response.data;
     if (!ok) {
       throw new Error("Invalid credentials updateCartStatusApi()");

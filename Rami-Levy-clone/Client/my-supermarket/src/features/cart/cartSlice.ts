@@ -5,6 +5,7 @@ import {  createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store'; // Assuming you have a RootState type defined
 import { CartItem } from '../../rami-types';
 import { updateCartStatusApi,addNewCartApi, getUserActiveCartApi, getUserActiveCartListApi } from './cartAPI';
+import { stat } from 'fs';
 
 
 
@@ -85,9 +86,11 @@ const CartSlice = createSlice({
       .addCase(updateCartStatusApi.pending, (state) => {
         state.status = Status.LOADING;
       })
-      .addCase(updateCartStatusApi.fulfilled, (state, action) => {
+      .addCase(updateCartStatusApi.fulfilled, (state,action) => {
         state.status = Status.IDLE;
+        // אמור לאפס את העגלה הפעילה ואחר כך להגיע להדר ולהוסיף עגלה חדשה
         state.activeCart = null;
+        state.isOpenCart = false;
       })
       .addCase(updateCartStatusApi.rejected, (state) => {
         state.status = Status.FAILED;

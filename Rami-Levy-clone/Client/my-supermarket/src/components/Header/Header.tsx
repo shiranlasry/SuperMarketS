@@ -7,6 +7,7 @@ import Logo from "../../assets/logos/rami-levy-online.png";
 import Shopping from "../../assets/logos/rami-levy-shopping.png";
 import UserMenu from "../../components/UserMenu/UserMenu";
 import {
+  addNewCartApi,
   getUserActiveCartApi,
   getUserActiveCartListApi,
 } from "../../features/cart/cartAPI";
@@ -65,18 +66,21 @@ const Header = () => {
   const handelGetUserActiveCart = async (user_id: number) => {
     try {
       const response = await dispatch(getUserActiveCartApi(user_id));
-
+  
       if (response.payload && (response.payload as CartItem).cart_id) {
-        dispatch(getUserActiveCartListApi((response.payload as CartItem).cart_id));
-      }
+        const cartId = (response.payload as CartItem).cart_id;
+        await dispatch(getUserActiveCartListApi(cartId));
+      } 
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching user active cart:", error);
     }
   };
+  
 //if there is ,get active cart  every time the user changes
   useEffect(() => {
+    
     if (loggedInUser && loggedInUser.user_id) {
-      handelGetUserActiveCart(loggedInUser.user_id);
+      handelGetUserActiveCart(loggedInUser.user_id).catch(error => console.error("Error in useEffect:", error));
     }
   }, [loggedInUser]);
   
