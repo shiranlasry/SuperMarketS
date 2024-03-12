@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import {  Order, ProductsList } from "../../rami-types";
+import { toast } from "react-toastify";
 
 
 export const getUserOrdersAPI = createAsyncThunk<Order[] | null, number>("getUserOrdersListAPI", async (user_id: number) => {
@@ -38,6 +39,22 @@ export const getUserOrderCartDetailsAPI = createAsyncThunk<ProductsList[] | null
     }
 });
 
+export const getOrderByIdAPI = createAsyncThunk<Order | null, number>("getOrderByIdAPI", async (order_id: number) => {
+    try {
+        const response = await axios.get(`/api/orders/${order_id}`);
+        const { ok, results } = response.data;
+        if (!ok) {
+            throw new Error("Invalid credentials getOrderByIdAPI()");
+        }
+        debugger;
+        const order = results[0] as Order;
+        return order
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+});
+
 export const addNewOrderAPI = createAsyncThunk<number | null, Order>("addNewOrderAPI", async (newOrder: Order) => {
     try {
         const response = await axios.post("/api/orders/add-new-order", newOrder);
@@ -45,8 +62,8 @@ export const addNewOrderAPI = createAsyncThunk<number | null, Order>("addNewOrde
         if (!ok) {
             throw new Error("Invalid credentials addNewOrderAPI()");
         }
-        alert("Big son of a bitch! הצלחתי");
-        return results.insertId;
+        toast.success("הזמנה התקבלה בהצלחה ");
+        return results;
     } catch (error) {
         console.error("Error addNewOrder:", error);
         return null;

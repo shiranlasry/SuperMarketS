@@ -19,6 +19,7 @@ import ProductsByFoodCategory from "./components/ProductsByFoodCategory/Products
 import CheckOutOffers from "./components/CheckOutOffers/CheckOutOffers";
 import SalesList from "./components/SalesList/SalesList";
 import ManageSales from "./pages/Admin/ManageSales/ManageSales";
+import OrderSummary from "./components/OrderSummary/OrderSummary";
 function App() {
   const router = createBrowserRouter([
     {
@@ -33,13 +34,13 @@ function App() {
         },
 
         { path: "/admin", element: <AdminMainPage /> },
-        { path: "/add_new_product", element: <AddNewProduct /> },
+       
         { path: "/manage_users", element: <UsersManage /> },
         { path: "/manage_products", element: <ProductsAdmin /> },
         { path: "/update_user", element: <UpdateUser /> },
         { path: "/category-visual/:id", element: <CategoryVisual /> },
         { path: "/*", element: <ErrorPage /> },
-        { path: "/add_new_food_category", element: <AddNewFoodCategory /> },
+     
         { path: "/personal_profil", element: <PersonalProfil /> },
         {
           path: "/navbar_item_products/:navbar_item_id",
@@ -69,7 +70,12 @@ function App() {
           element: <ProductsByFoodCategory />,
         },
         { path: "/check_out_offers", element: <CheckOutOffers /> },
-        { path: "/manage_sales", element: <ManageSales />}
+        { path: "/manage_sales", element: <ManageSales />},
+        {
+          path: "/order-summary/:order_id",
+          element: <OrderSummary />,
+        },
+
       ],
     },
   ]);
