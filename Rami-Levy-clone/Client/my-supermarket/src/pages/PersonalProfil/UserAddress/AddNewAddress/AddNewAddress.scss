@@ -1,3 +1,5 @@
+$rami-blue: #1579f2;
+
 .new-address-main {
   display: flex;
   flex-direction: column;
@@ -21,13 +23,16 @@
 
 .address-info {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  text-align: center;
   flex-wrap: wrap;
   gap: 2rem;
 
   .addNew-add {
     border: none;
-    border-bottom: 1px solid black;
+    border: 1px solid lightgray;
+    border-radius: 7px;
+    padding: 6px;
     margin: 1rem;
 
     &:focus {
@@ -50,4 +55,8 @@
 
 .custom-modal-rounded {
   border-radius: 15px !important;
+}
+.new-address-title {
+  color: $rami-blue;
+  margin-top: 0.5rem;
 }

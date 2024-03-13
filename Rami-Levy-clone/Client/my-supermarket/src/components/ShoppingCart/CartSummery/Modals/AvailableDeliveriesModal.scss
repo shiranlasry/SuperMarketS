@@ -3,32 +3,51 @@ $rami-blue: #1579f2;
 .days-scroll-container {
   display: flex;
   overflow-x: auto;
-  padding-bottom: 20px; /* Add some bottom padding for space */
-  margin-bottom: -20px; /* Compensate for the padding to avoid horizontal scrollbar */
-  scrollbar-width: thin; /* Adjust the scrollbar width */
+  padding-bottom: 20px;
+  margin-bottom: -20px;
+}
+
+.days-scroll-container::-webkit-scrollbar {
+  width: 10px;
+  scrollbar-width: thin;
+}
+
+.days-scroll-container::-webkit-scrollbar-track {
+  background: lightgray;
+}
+
+.days-scroll-container::-webkit-scrollbar-thumb {
+  background: #1579f2; /* Use the color value directly */
+  border-radius: 5px;
+}
+
+.days-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #0f54a9;
 }
 
 .day-container {
   flex-shrink: 0;
   margin-right: 20px;
-  padding: 20px; /* Add padding for each day */
-  background-color: pink;
-  border-radius: 10px; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-  transition: transform 0.3s; 
- cursor: pointer; 
+  padding: 20px;
+  color: white;
+  background-color: $rami-blue;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  cursor: pointer;
 }
 
 .day-container:hover {
-  transform: translateY(-5px); /* Lift the day container on hover */
+  transform: translateY(-5px);
 }
 
 .selected {
   background-color: $rami-blue;
   color: white;
+  background-color: #0d3e7a;
+  padding: 5px;
   font-weight: bold;
   border-radius: 5px;
-  padding: 5px;
   cursor: pointer;
 }
 
