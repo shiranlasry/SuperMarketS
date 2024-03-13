@@ -8,6 +8,7 @@ import "./personal-profil.scss";
 import AddPaymentMethod from "./UserPayment/UserPayment";
 import UserOrders from "./UserOrders/UserOrders";
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import InfoCenter from "../../components/InfoCenter/InfoCenter";
 
 interface PersonalProfilProps {
   onMenuClick?: (buttonName: string) => void;
@@ -18,6 +19,7 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
   const [showUserAddress, setShowUserAddress] = useState(false);
   const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
   const [showOrders, setShowOrders] = useState(false);
+  const [showInfoCenter, setShowInfoCenter] = useState(false);
   const [activeButton, setActiveButton] = useState<string | null>(null);
   const loggedInUser = useAppSelector(loggedInUserSelector);
 
@@ -35,24 +37,28 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
         setShowUserAddress(false);
         setShowAddPaymentMethod(false);
         setShowOrders(false);
+        setShowInfoCenter(false);
         break;
       case "userAddress":
         setShowUserDetails(false);
         setShowUserAddress(true);
         setShowAddPaymentMethod(false);
         setShowOrders(false);
+        setShowInfoCenter(false);
         break;
       case "addPaymentMethod":
         setShowUserDetails(false);
         setShowUserAddress(false);
         setShowAddPaymentMethod(true);
         setShowOrders(false);
+        setShowInfoCenter(false);
         break;
       case "orders":
         setShowUserDetails(false);
         setShowUserAddress(false);
         setShowAddPaymentMethod(false);
         setShowOrders(true);
+        setShowInfoCenter(false);
         break;
       default:
         // Handle default case if necessary
@@ -261,8 +267,12 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
           </svg>
           <p>ההזמנות שלי</p>
         </button>
-        <button className="personal-details-btn">
-          {" "}
+        <button
+          className={`personal-details-btn ${
+            activeButton === "InfoCenter" ? "active" : ""
+          }`}
+          onClick={() => handleButtonClick("InfoCenter")}
+        >
           <svg
             data-v-6f1b17ad=""
             xmlns="http://www.w3.org/2000/svg"
@@ -408,6 +418,7 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
         {showUserAddress && <UserAddress />}
         {showAddPaymentMethod && <AddPaymentMethod />}
         {showOrders && <UserOrders />}
+        {showInfoCenter && <InfoCenter />}
       </div>
       <div className="Personal-profil-lists"></div>
     </div>
