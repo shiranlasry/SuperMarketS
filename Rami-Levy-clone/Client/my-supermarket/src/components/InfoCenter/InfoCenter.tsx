@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"; // Import Link from React Router
 import "./info-center.scss";
 
 export default function InfoCenter() {
@@ -22,10 +23,11 @@ export default function InfoCenter() {
         </div>
       </div>
       <div className="info-links">
-        <p>סניפי הרשת</p>
-        <p>הצהרת נגישות</p>
-        <p>מדיניות פרטיות</p>
-        <p>תקנון ותנאי שימוש</p>
+        <Link to="#">סניפי הרשת</Link>
+        {/* Use Link to navigate to the accessibility page */}
+        <Link to="/accessibility">הצהרת נגישות</Link>
+        <Link to="#">מדיניות פרטיות</Link>
+        <Link to="#">תקנון ותנאי שימוש</Link>
       </div>
     </div>
   );

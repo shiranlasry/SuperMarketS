@@ -1,15 +1,14 @@
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
-import { productsSelector } from "../../../features/products/productsSlice";
-import { getSalesAPI, addSaleAPI } from "../../../features/sales/salesAPI";
-import { selectSales } from "../../../features/sales/salesSlice";
-import { Sales, Product } from "../../../rami-types";
-import { useEffect, useState } from "react";
-import { getAllProductsApi } from "../../../features/products/productsAPI";
-import SalesList from "../../../components/SalesList/SalesList";
-import "./manageSales.scss";
+import AddNewSale from "../../../components/AddNewSale/AddNewSale";
 import SaleCard from "../../../components/SaleCard/SaleCard";
 import UpdateSale from "../../../components/UpdateSale/UpdateSale";
-import AddNewSale from "../../../components/AddNewSale/AddNewSale";
+import { getAllProductsApi } from "../../../features/products/productsAPI";
+import { productsSelector } from "../../../features/products/productsSlice";
+import { getSalesAPI } from "../../../features/sales/salesAPI";
+import { selectSales } from "../../../features/sales/salesSlice";
+import { Sales } from "../../../rami-types";
+import "./manageSales.scss";
 
 const ManageSales = () => {
   const allProducts = useAppSelector(productsSelector);

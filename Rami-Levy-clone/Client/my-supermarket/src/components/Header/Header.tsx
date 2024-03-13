@@ -7,7 +7,6 @@ import Logo from "../../assets/logos/rami-levy-online.png";
 import Shopping from "../../assets/logos/rami-levy-shopping.png";
 import UserMenu from "../../components/UserMenu/UserMenu";
 import {
-  addNewCartApi,
   getUserActiveCartApi,
   getUserActiveCartListApi,
 } from "../../features/cart/cartAPI";
@@ -20,7 +19,7 @@ import { getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserA
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
-import { CartItem, ProductsList, Sales, User } from "../../rami-types";
+import { CartItem, User } from "../../rami-types";
 import "../../views/layouts/layout.scss";
 import CartIcon from "../CartIcon/CartIcon";
 import { ClosedCart } from "../ClosedCart/ClosedCart";
@@ -31,8 +30,6 @@ import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./Header.scss";
 
-import { selectSales } from "../../features/sales/salesSlice";
-import { getSalesAPI } from "../../features/sales/salesAPI";
 import UpperBar from "../UpperBar/UpperBar";
 
 const Header = () => {
@@ -46,7 +43,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-
+  const navigateToAccessibility = () => {
+    navigate("/accessibility"); // Navigate to the "/accessibility" route
+  };
 
   // Toggle the menu state
   const toggleMenu = () => {
@@ -66,24 +65,24 @@ const Header = () => {
   const handelGetUserActiveCart = async (user_id: number) => {
     try {
       const response = await dispatch(getUserActiveCartApi(user_id));
-  
+
       if (response.payload && (response.payload as CartItem).cart_id) {
         const cartId = (response.payload as CartItem).cart_id;
         await dispatch(getUserActiveCartListApi(cartId));
-      } 
+      }
     } catch (error) {
       console.error("Error fetching user active cart:", error);
     }
   };
-  
-//if there is ,get active cart  every time the user changes
+
+  //if there is ,get active cart  every time the user changes
   useEffect(() => {
-    
     if (loggedInUser && loggedInUser.user_id) {
-      handelGetUserActiveCart(loggedInUser.user_id).catch(error => console.error("Error in useEffect:", error));
+      handelGetUserActiveCart(loggedInUser.user_id).catch((error) =>
+        console.error("Error in useEffect:", error)
+      );
     }
   }, [loggedInUser]);
-  
 
   // Close the login modal when the register modal is shown
   useEffect(() => {
@@ -103,7 +102,6 @@ const Header = () => {
     setShowLoginModal(true);
   };
 
-
   return (
     <div className="header-main">
       <button className="to-main-navBar" onClick={() => navigate("/")}>
@@ -119,7 +117,9 @@ const Header = () => {
       <SearchBar />
       <UpperBar />
       <NightMode />
-      <button className="access">הצהרת נגישות</button>
+      <button className="access" onClick={navigateToAccessibility}>
+        הצהרת נגישות
+      </button>
       {!loggedInUser && (
         <button
           className="hp-loginBtn"

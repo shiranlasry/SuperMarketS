@@ -24,6 +24,7 @@ import UserPayment from "./pages/PersonalProfil/UserPayment/UserPayment";
 import UserDetails from "./pages/PersonalProfil/UserDetails/UserDetails";
 import UserAddress from "./pages/PersonalProfil/UserAddress/UserAddress";
 import InfoCenter from "./components/InfoCenter/InfoCenter";
+import { Accessibility } from "./pages/Accessibility/Accessibility";
 function App() {
   const router = createBrowserRouter([
     {
@@ -55,7 +56,7 @@ function App() {
         { path: "/user_payment", element: <UserPayment /> },
         { path: "/user_address", element: <UserAddress /> },
         { path: "/info_center", element: <InfoCenter /> },
-
+        { path: "/accessibility", element: <Accessibility /> },
         {
           path: "/navbar_item_products/:navbar_item_id/:title",
           element: <NavBarItemProducts />,

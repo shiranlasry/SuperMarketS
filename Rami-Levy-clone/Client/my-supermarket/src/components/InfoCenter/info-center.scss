@@ -57,4 +57,10 @@ $rami-blue: #1579f2;
 }
 .info-links {
   margin: auto 30vw;
+  display: flex;
+  flex-direction: column;
+  a {
+    text-decoration: none;
+    color: black; // Change this to the desired color
+  }
 }
