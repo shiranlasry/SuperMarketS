@@ -41,7 +41,10 @@ export const updateSaleAPI = createAsyncThunk<Sales, Sales>(
   "updateSaleAPI",
   async (sale) => {
     try {
-      const response = await axios.put(`/api/sales/update-sale/${sale.sale_id}`, sale);
+      const response = await axios.put(
+        `/api/sales/update-sale/${sale.sale_id}`,
+        sale
+      );
       const { ok, results } = response.data;
       if (!ok) {
         throw new Error("Invalid credentials updateSaleAPI()");

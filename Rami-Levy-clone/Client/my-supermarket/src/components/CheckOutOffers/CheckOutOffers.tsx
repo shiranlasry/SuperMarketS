@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/hook";
 import {
   setIsOpenCartTrue,
   setIsToPayPressedFalse,
   setIsToPayPressedTrue,
 } from "../../features/cart/cartSlice";
-import { productsSelector } from "../../features/products/productsSlice";
-import { useSelector } from "react-redux";
 import { getAllProductsApi } from "../../features/products/productsAPI";
+import { productsSelector } from "../../features/products/productsSlice";
+import PersonalProfil from "../../pages/PersonalProfil/PersonalProfil";
 import { Product } from "../../rami-types";
 import ProductCard from "../ProductCard/ProductCard";
-import PersonalProfil from "../../pages/PersonalProfil/PersonalProfil";
 import "./check-out-offers.scss";
 
 const CheckOutOffers = () => {
