@@ -12,6 +12,7 @@ import ChengeContactModal from "./Modals/ChengeContactModal";
 import ChengeAddressModal from "./Modals/ChengeAddressModal";
 import AvailableDeliveriesModal from "./Modals/AvailableDeliveriesModal";
 import RamiBtn from "../../RamiBtn/RamiBtn";
+import ShowOrderProductsModal from "./Modals/ShowOrderProductsModal";
 
 interface CartSummeryProps {
   orderContact: {
@@ -150,9 +151,26 @@ const CartSummery: React.FC<CartSummeryProps> = ({
               <p>מודאל להצגת המוצרים של העגלה </p>
             </div>
             <div className="col">
-              <RamiBtn className="summary-btn">שינוי</RamiBtn>
+              <RamiBtn className="summary-btn"
+                onClick={() => toggleModal("showProducts")}
+              >שינוי</RamiBtn>
             </div>
           </div>
+          <Modal
+            show={showModal.showProducts}
+            onHide={() => toggleModal("showProducts")}
+            dialogClassName="custom-modal"
+          >
+            <Modal.Body>
+              <ShowOrderProductsModal
+                onClose={() => toggleModal("showProducts")}
+                
+              />
+            </Modal.Body>
+          </Modal>
+
+
+
           <Modal
             show={showModal.changeContact}
             onHide={() => toggleModal("changeContact")}

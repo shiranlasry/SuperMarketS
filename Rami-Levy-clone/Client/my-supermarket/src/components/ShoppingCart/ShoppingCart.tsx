@@ -137,7 +137,7 @@ const ShoppingCart: React.FC = () => {
     // update delivery status
 
     if (selectedDelivery) {
-      debugger
+      
       await updateDeliveryStatusApi(selectedDelivery.delivery_id);
     }
     // add user_contact_id to database and get the id

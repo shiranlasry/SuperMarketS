@@ -34,7 +34,7 @@ export interface ProductsList {
   product_name: string;
   product_description: string;
   product_price: number=0;
-  product_img_name_a: string='';
+  product_img_name_a:string;
   product_img_name_b: string= '';
   product_img_data_a: string= '';
   product_img_data_b: string= '';

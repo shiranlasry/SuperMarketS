@@ -62,7 +62,14 @@ export const  getUserActiveCartList= async (req: express.Request, res: express.R
             res.status(400).send({ ok: false, error: 'missing required fields' })
             return
         }
-        const query = "SELECT l.*, p.* FROM lists l INNER JOIN products p ON l.product_id = p.product_id WHERE l.cart_id = ?;"
+        const query = `
+        SELECT l.*, p.*,pi.* FROM lists l
+        INNER JOIN products p
+        ON l.product_id = p.product_id
+        INNER JOIN products_images pi
+        ON pi.product_id=p.product_id
+        WHERE l.cart_id = ?;
+        `
         connection.query(query, [cart_id], (err, results, fields) => {
             try {
                 if (err) throw err;
