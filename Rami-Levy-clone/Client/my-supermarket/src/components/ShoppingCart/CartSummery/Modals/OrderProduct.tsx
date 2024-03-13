@@ -6,6 +6,7 @@ import ProductCounter from '../../../ProductCounter/ProductCounter';
 import { useAppDispatch, useAppSelector } from '../../../../app/hook';
 import { selectSales } from '../../../../features/sales/salesSlice';
 import { getSalesAPI } from '../../../../features/sales/salesAPI';
+import './OrderProduct.scss'; // Import your CSS file for styling
 
 interface OrderProductProps {
     product: ProductsList
@@ -29,52 +30,41 @@ const OrderProduct: React.FC<OrderProductProps> = ({ product }) => {
         : '';
     const [currentImage, setCurrentImage] = useState(base64ImageA);
 
-
-
     const checkDiscount = () => {
         if (allSales.length > 0 && product.product_price) {
             const sale = allSales.find((s) => s.product_id === product.product_id);
             if (sale) {
                 return (
-                    <div className="card-price">
-                        <p className="card-price-discount">
-                            מחיר מבצע: {sale.sale_price}
-                            <span className="card-shekel">₪</span>
-                            <span className="per-unit"> ליח'</span>
-                        </p>
-                        <p className="card-original-price">
-                            מחיר מקור: {product.product_price}
-                            <span className="card-shekel">₪</span>
-                            <span className="per-unit"> ליח'</span>
-                        </p>
+                    <div className="card-discount">
+                        <p className="discount-text">מחיר מבצע: {sale.sale_price} <span className="card-shekel">₪</span> ליח'</p>
+                        <p className="original-price">מחיר מקור: <span className="original-price-value">{product.product_price} <span className="card-shekel">₪</span></span></p>
                     </div>
                 );
             }
         }
         return (
-            <p className="card-price">
-                {product.product_price} <span className="card-shekel">₪</span>{' '}
-                <span className="per-unit">ליח'</span>
-            </p>
+            <p className="original-price">מחיר: {product.product_price} <span className="card-shekel">₪</span> ליח'</p>
         );
     };
 
     return (
         <div className="row mb-2">
-            <div className="card " >
-                <ProductCounter product={product} location={'card'} />
-                <img
-                    src={`data:image/jpeg;base64,${currentImage}`}
-                    className="card-img-top"
-                    alt="Product Image"
-                />
-                <div className="card-body">
-                    <h5 className="card-title">{product.product_name}</h5>
-                    <p className="card-text">{product.product_description}</p>
-                    {checkDiscount()}
+            <div className="product-card-new-order">
+               
+                <div className="product-details">
+                    <img
+                        src={`data:image/jpeg;base64,${currentImage}`}
+                        className="card-img"
+                        alt="Product Image"
+                    />
+                     <ProductCounter product={product} location={'cart'} />
+                    <div className="card-content">
+                        <h2 className="card-title">{product.product_name}</h2>
+                        {checkDiscount()}
+                        <p className="card-text">כמות: {product.product_amount}</p>
+                    </div>
                 </div>
             </div>
-         
         </div>
     );
 };
