@@ -23,8 +23,13 @@ const ShoppingCartBar: React.FC<Props> = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const toPayPressed = async () => {
-    await dispatch(setIsToPayPressedTrue());
-    navigate("/check_out_offers");
+    try {
+      await dispatch(setIsToPayPressedTrue());
+      navigate("/check_out_offers");
+    } catch (error) {
+      console.error("Error sending order", error);
+    }
+   
   };
 
   return (

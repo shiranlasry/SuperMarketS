@@ -41,8 +41,8 @@ const ProductCounter: React.FC<{ product: Product|ProductsList; location: string
   }, [activeCart?.cartList]);
   // Function to handle increasing the quantity
   const increaseQuantity = async () => {
-    
-    // if the user is not logged in, show the login modal
+    try {
+       // if the user is not logged in, show the login modal
     if (!loggedInUser || !loggedInUser.user_id) {
       setShowLoginModal(true);
       return;
@@ -82,9 +82,16 @@ const ProductCounter: React.FC<{ product: Product|ProductsList; location: string
         }
       }
     }
+      
+    } catch (error) {
+      console.error(error);
+    }
+    
+   
   };
   const decreaseQuantity = async () => {
-    // need to handle the case when the user is not logged in
+    try {
+       // need to handle the case when the user is not logged in
     if (!loggedInUser || !loggedInUser.user_id) {
       setShowLoginModal(true);
       return;
@@ -113,6 +120,10 @@ const ProductCounter: React.FC<{ product: Product|ProductsList; location: string
         dispatch(getUserActiveCartListApi(args.cart_id));
       }
     }
+    } catch (error) {
+      console.error(error);
+    }
+   
   };
 
   return (

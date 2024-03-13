@@ -52,30 +52,28 @@ const ShoppingCart: React.FC = () => {
     user_id: loggedInUser?.user_id || null,
     user_contact_id: null,
     delivery_id: null,
-    order_creation_date: new Date().toLocaleDateString('he-IL'),
+    order_creation_date: new Date().toLocaleDateString("he-IL"),
     status: 1,
     alternative_products: "צרו קשר לתיאום",
     how_receive_shipment: "יש מישהו בבית",
-    delivery_finish_date:"",
-    delivery_start_time:"",
-    contact_phone_number:"",
-    contact_name:"",
+    delivery_finish_date: "",
+    delivery_start_time: "",
+    contact_phone_number: "",
+    contact_name: "",
   };
   const [newOrder, setNewOrder] = useState<Order>(initialOrder);
   const [showBeforePayModal, setShowBeforePayModal] = useState(false);
 
   const handleSetNewOrder = (field: string, value: string | number) => {
-
     setNewOrder({ ...newOrder, [field]: value });
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!allProducts) {
       dispatch(getAllProductsApi());
     }
-   
   }, []);
 
   useEffect(() => {
@@ -96,23 +94,30 @@ const ShoppingCart: React.FC = () => {
         phone_number: loggedInUser.phone_number,
       });
     }
-    
   }, [loggedInUser]);
 
   const getUserToken = async () => {
-    const response = await dispatch(getUserFromTokenApi());
-    if (response.payload) {
-      dispatch(getUserAddressesApi((response.payload as any).user_id));
+    try {
+      const response = await dispatch(getUserFromTokenApi());
+      if (response.payload) {
+        dispatch(getUserAddressesApi((response.payload as any).user_id));
+      }
+    } catch (error) {
+      console.error("Error getting user token", error);
     }
   };
 
   const updateContactId = async () => {
-    const insertId = await addNewUserContactAPI(
-      orderContact.full_name,
-      orderContact.phone_number
-    );
-    if (insertId) {
-      handleSetNewOrder("user_contact_id", insertId);
+    try {
+      const insertId = await addNewUserContactAPI(
+        orderContact.full_name,
+        orderContact.phone_number
+      );
+      if (insertId) {
+        handleSetNewOrder("user_contact_id", insertId);
+      }
+    } catch (error) {
+      console.error("Error adding new user contact", error);
     }
   };
   useEffect(() => {
@@ -126,61 +131,69 @@ const ShoppingCart: React.FC = () => {
   };
 
   const sendOrder = async () => {
-    if (!selectedDelivery) {
-      toast.error("בחר זמן משלוח  ");
-      return;
-    }
-    if (!orderContact.full_name || !orderContact.phone_number) {
-      toast.error("מלא את פרטי איש קשר");
-      return;
-    } else {
-      updateContactId();
-    }
-    // update delivery status
+    try {
+      if (!selectedDelivery) {
+        toast.error("בחר זמן משלוח  ");
+        return;
+      }
+      if (!orderContact.full_name || !orderContact.phone_number) {
+        toast.error("מלא את פרטי איש קשר");
+        return;
+      } else {
+        updateContactId();
+      }
+      // update delivery status
 
-    if (selectedDelivery) {
-      
-      await updateDeliveryStatusApi(selectedDelivery.delivery_id);
-    }
-    // add user_contact_id to database and get the id
+      if (selectedDelivery) {
+        await updateDeliveryStatusApi(selectedDelivery.delivery_id);
+      }
+      // add user_contact_id to database and get the id
 
-    if (
-      newOrder.user_contact_id &&
-      newOrder.delivery_id &&
-      newOrder.cart_id &&
-      newOrder.user_id
-    ) {
-      setShowBeforePayModal(true);
+      if (
+        newOrder.user_contact_id &&
+        newOrder.delivery_id &&
+        newOrder.cart_id &&
+        newOrder.user_id
+      ) {
+        setShowBeforePayModal(true);
+      }
+    } catch (error) {
+      console.error("Error sending order", error);
     }
   };
 
   const addNewUserOrder = async () => {
-    if (
-      newOrder.user_contact_id &&
-      newOrder.delivery_id &&
-      newOrder.cart_id &&
-      newOrder.user_id &&
-      newOrder.order_creation_date &&
-      newOrder.status &&
-      newOrder.alternative_products &&
-      newOrder.how_receive_shipment
-    ) {
-      debugger;
-      const response = await dispatch(addNewOrderAPI(newOrder));
-      if (response.payload) {
-      
-        if (activeCart) {
-          await dispatch(
-            updateCartStatusApi({ cart_id: activeCart?.cart_id, status_id: 2 })
-          );
+    try {
+      if (
+        newOrder.user_contact_id &&
+        newOrder.delivery_id &&
+        newOrder.cart_id &&
+        newOrder.user_id &&
+        newOrder.order_creation_date &&
+        newOrder.status &&
+        newOrder.alternative_products &&
+        newOrder.how_receive_shipment
+      ) {
+        const response = await dispatch(addNewOrderAPI(newOrder));
+        if (response.payload) {
+          if (activeCart) {
+            await dispatch(
+              updateCartStatusApi({
+                cart_id: activeCart?.cart_id,
+                status_id: 2,
+              })
+            );
+          }
+
+          // navigate to order summary with order_id = response.payload
+          const order_id = response.payload;
+          navigate(`/order-summary/${order_id}`);
+          setShowBeforePayModal(false); // Close the modal
+          window.location.reload();
         }
-       
-        // navigate to order summary with order_id = response.payload
-        const order_id = response.payload
-        navigate(`/order-summary/${order_id}`);
-        setShowBeforePayModal(false); // Close the modal
-        window.location.reload()
       }
+    } catch (error) {
+      console.error("Error sending order", error);
     }
   };
 
