@@ -52,7 +52,7 @@ const Login: React.FC<LoginProps> = ({ onClose, RegisterPressed }) => {
         return;
       }
       dispatch(getUserAddressesApi(resultAction.payload.user_id));
-      toast.success(`ברוך הבא ${resultAction.payload.first_name}`);
+      toast.success(`ברוכ/ה הבא/ה ${resultAction.payload.first_name}`);
       onClose();
     } catch (error) {
       console.error(error);
