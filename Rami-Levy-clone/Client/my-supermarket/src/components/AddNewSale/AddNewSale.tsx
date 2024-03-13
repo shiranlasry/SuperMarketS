@@ -13,17 +13,21 @@ interface AddNewSalePrps {
 }
 
 const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
-  const [newSale, setNewSale] = useState({
+  const [newSale, setNewSale] = useState<Sales>({
+    sale_id: null,
     sale_description: "",
-    sale_discount: undefined,
+    sale_discount: null,
     sale_expiration_date: "",
-    product_id: undefined,
+    product_id: null,
     sale_price: 0,
   });
   const dispatch = useAppDispatch();
 
-  const handleInputChange = (e) => {
-    const { name, value, valueAsNumber } = e.target;
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
+    const valueAsNumber = parseFloat(value);
     switch (name) {
       case "sale_discount":
         if (valueAsNumber < 0 || valueAsNumber > 100) {
@@ -82,14 +86,14 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!checkNewSale()) return console.error("שדות חסרים");
     if (!isExist()) return toast.error("מוצר זה כבר במבצע");
     const productInSale = products.findIndex(
       (product) => product.product_id === newSale.product_id
     );
-    if (productInSale && products && newSale.sale_discount !== undefined) {
+    if (productInSale && products && newSale.sale_discount) {
       const price = products[productInSale].product_price;
       newSale.sale_price = price
         ? price * (1 - newSale.sale_discount / 100)
@@ -97,10 +101,11 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
     }
     dispatch(addSaleAPI(newSale));
     setNewSale({
+      sale_id: null,
       sale_description: "",
-      sale_discount: undefined,
+      sale_discount: 0,
       sale_expiration_date: "",
-      product_id: undefined,
+      product_id: 0,
       sale_price: 0,
     });
     window.location.reload();
@@ -108,7 +113,7 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
 
   return (
     <div className="add-sale-form">
-      <h2 className="add-sale-title">הוספת מצבע חדש</h2>
+      <h2 className="add-sale-title">הוספת מבצע חדש</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -117,36 +122,42 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
           placeholder="סוג הנחה"
           onChange={handleInputChange}
         />
-        <input
+   
+          <input
           type="number"
           name="sale_discount"
-          value={newSale.sale_discount}
+          value={newSale?.sale_discount }
           placeholder=" %הנחה"
           onChange={handleInputChange}
         />
+        
+      
         <input
           type="date"
           name="sale_expiration_date"
           value={newSale.sale_expiration_date}
           onChange={handleInputChange}
         />
-        <select
-          name="product_id"
-          value={newSale.product_id}
-          onChange={handleInputChange}
-          className="select-sale"
-        >
-          {/* Render options for product selection */}
-          {products &&
-            products.map((product) => (
-              <option
-                key={product.product_id}
-                value={product.product_id?.toString()}
-              >
-                {product.product_name}
-              </option>
-            ))}
-        </select>
+       
+          <select
+            name="product_id"
+            value={newSale?.product_id}
+            onChange={handleInputChange}
+            className="select-sale"
+          >
+            {/* Render options for product selection */}
+            {products &&
+              products.map((product) => (
+                <option
+                  key={product.product_id}
+                  value={product.product_id?.toString()}
+                >
+                  {product.product_name}
+                </option>
+              ))}
+          </select>
+      
+
         <RamiBtn type="submit" className="add-sale-btn">
           הוסף מבצע
         </RamiBtn>
