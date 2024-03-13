@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../../../../app/hook";
-import { loggedInUserSelector } from "../../../../features/logged_in_user/loggedInUserSlice";
-import { citiesSelector } from "../../../../features/cities/citiesSlice";
-import { streetsSelector } from "../../../../features/streets/streetsSlice";
-import { getAllCitiesAPI } from "../../../../features/cities/citiesAPI";
-import { getAllStreetsAPI } from "../../../../features/streets/streetsAPI";
-import { addNewUserAddressApi } from "../../../../features/logged_in_user/loggedInUserAPI";
-import { Address, City, Street } from "../../../../rami-types";
+import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./AddNewAddress.scss";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAppDispatch, useAppSelector } from "../../../../app/hook";
 import RamiBtn from "../../../../components/RamiBtn/RamiBtn";
+import { getAllCitiesAPI } from "../../../../features/cities/citiesAPI";
+import { citiesSelector } from "../../../../features/cities/citiesSlice";
+import { addNewUserAddressApi } from "../../../../features/logged_in_user/loggedInUserAPI";
+import { loggedInUserSelector } from "../../../../features/logged_in_user/loggedInUserSlice";
+import { getAllStreetsAPI } from "../../../../features/streets/streetsAPI";
+import { streetsSelector } from "../../../../features/streets/streetsSlice";
+import { Address, City, Street } from "../../../../rami-types";
+import "./AddNewAddress.scss";
 
 type AddressProps = {
   onClose: () => void;
@@ -66,7 +68,7 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
       // NEED to add validation logic here before dispatching the action
       const response = await dispatch(addNewUserAddressApi(newAddress));
       if (response.payload) {
-        alert("Address added successfully");
+        toast.success("Address added successfully");
         onClose();
       }
     } catch (error) {

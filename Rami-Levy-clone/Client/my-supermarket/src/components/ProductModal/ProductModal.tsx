@@ -6,7 +6,6 @@ import { Product, ProductsList } from "../../rami-types";
 import ProductCounter from "../ProductCounter/ProductCounter";
 import "./product-modal.scss"; // Import CSS file for styling
 
-
 interface ProductModalProps {
   product: Product;
   onClose: () => void;
@@ -21,7 +20,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
   const [currentImage, setCurrentImage] = useState(base64ImageA);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  
 
   return (
     <div className="modal-container">
@@ -44,7 +42,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
             className="d-block product-img"
             alt="Product Image"
           />
-         
         </div>
         <div className="product-buttons">
           <button onClick={onClose}>סגור</button>

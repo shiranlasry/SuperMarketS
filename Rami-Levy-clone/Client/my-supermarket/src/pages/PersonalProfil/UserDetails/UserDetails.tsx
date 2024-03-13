@@ -9,6 +9,8 @@ import DeleteUserPersonal from "../DeleteUser/DeleteUserPersonal";
 import UpdateUserPassword from "../UpdateUserPassword/UpdateUserPassword";
 import "./UserDetails.scss"; // Import the separate SCSS file for styling
 import { validate } from "uuid";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserDetails = () => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
@@ -32,18 +34,12 @@ const UserDetails = () => {
   };
   const dispatch = useAppDispatch();
 
-
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
-    // Validate phone number if the input name is 'phone_number'
-    // if (name === "phone_number") {
-    //   phoneValidation(validatePhoneNumber(value));
-    // }
 
     setUpdatesFields((prevState) => ({
       ...prevState,
@@ -57,18 +53,18 @@ const UserDetails = () => {
   const validatePhoneNumber = (phone: string) => {
     const phoneRegex = /^0([2-4689]|5\d|6\d)(-?\d{7})$/;
     if (!phoneRegex.test(phone)) {
-      alert("מספר טלפון לא תקין");
+      toast.error("מספר טלפון לא תקין");
       return false;
     }
     return true;
-  };  
+  };
 
   const validateAge = (date: string) => {
     const birthDate = new Date(date);
     const today = new Date();
     const age = today.getFullYear() - birthDate.getFullYear();
     if (age < 18) {
-      alert("אתה צעיר מדי להיות משתמש באתר, השימוש באתר מגיל 18");
+      toast.error("אתה צעיר מדי להיות משתמש באתר, השימוש באתר מגיל 18");
       return false;
     }
     return true;
@@ -82,10 +78,13 @@ const UserDetails = () => {
       !updatesFields.birth_date ||
       !updatesFields.phone_number
     ) {
-      alert("אנא מלא את כל השדות");
+      toast.warning("אנא מלא את כל השדות");
       return;
     }
-    if (validatePhoneNumber(updatesFields.phone_number) && validateAge(updatesFields.birth_date)) {
+    if (
+      validatePhoneNumber(updatesFields.phone_number) &&
+      validateAge(updatesFields.birth_date)
+    ) {
       await dispatch(updateUserDetailsApi(updatesFields));
       dispatch(getUserByIdApi(updatesFields.user_id));
     }

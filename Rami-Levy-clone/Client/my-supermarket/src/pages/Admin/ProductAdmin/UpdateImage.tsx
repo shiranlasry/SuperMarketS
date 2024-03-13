@@ -6,6 +6,8 @@ import { updateProductImageAPi } from "../../../features/products/productsAPI";
 import { getAllProductsApi } from "../../../features/products/productsAPI";
 import RamiBtn from "../../../components/RamiBtn/RamiBtn";
 import "./update-image.scss";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface UpdateImageProps {
   product_id: number | null;
@@ -60,14 +62,14 @@ const UpdateImage: React.FC<UpdateImageProps> = ({
 
     if (isA) {
       if (!newImageA) {
-        alert("לא נבחרה תמונה");
+        toast.error("לא נבחרה תמונה");
         return;
       }
       formData.append("imagesProduct", newImageA);
       formData.append("field_name", "A");
     } else {
       if (!newImageB) {
-        alert("לא נבחרה תמונה");
+        toast.error("לא נבחרה תמונה");
         return;
       }
       formData.append("imagesProduct", newImageB);

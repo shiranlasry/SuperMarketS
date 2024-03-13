@@ -2,8 +2,6 @@ import { useState } from "react";
 import AddNewAddress from "./AddNewAddress/AddNewAddress";
 import AddressCard from "./AddressCard/AddressCard";
 import "./UserAddress.scss";
-import { useSelector } from "react-redux";
-import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInUserSlice";
 
 const UserAddress = () => {
   const [addNewAddressPressed, setAddNewAddressPressed] = useState(false);
