@@ -1,13 +1,19 @@
-.users-manage-main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    button{
-        margin: 10px;
-    }
-     
+.users-manage-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  button {
+    margin: 10px;
+  }
+
+  .search-email {
+    margin: 0.8rem;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+  }
 }

@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../app/hook';
-import { rolesSelector } from '../../../../features/roles/rolesSlice';
-import { getAllRolesAPI } from '../../../../features/roles/rolesAPI';
-import { User, Role } from '../../../../rami-types';
-import { getAllUsersApi, updateUserRoleApi } from '../../../../features/all_users_admin/allUsersAPI';
-import '../scss/UpdateUserRole.scss';
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../app/hook";
+import { rolesSelector } from "../../../../features/roles/rolesSlice";
+import { getAllRolesAPI } from "../../../../features/roles/rolesAPI";
+import { User, Role } from "../../../../rami-types";
+import {
+  getAllUsersApi,
+  updateUserRoleApi,
+} from "../../../../features/all_users_admin/allUsersAPI";
+import "../scss/UpdateUserRole.scss";
 
 type UserProps = {
   user: User;
@@ -27,32 +30,33 @@ const UpdateUserRole: React.FC<UserProps> = ({ user, onClose }) => {
     setSelectedRole(roleId);
     // You may dispatch an action to update user's role here
   };
-  const saveUserRole = async () => {  
+  const saveUserRole = async () => {
     const userRoleargs = {
-        user_id: user.user_id,
-        role_id: selectedRole,
-    }
-    await dispatch (updateUserRoleApi(userRoleargs));
+      user_id: user.user_id,
+      role_id: selectedRole,
+    };
+    await dispatch(updateUserRoleApi(userRoleargs));
     dispatch(getAllUsersApi());
     onClose();
-  }
+  };
 
   return (
-    <div className='update-user-role'>
-      <h1>עדכון הרשאה למשתמש</h1>
+    <div className="update-user-role">
+      <h1 className="update-forle-title">עדכון הרשאה למשתמש</h1>
       <div>
         <label>שם מלא:</label>
-        <span>{`${user.first_name} ${user.last_name}`}</span>
+        <span> {`${user.first_name} ${user.last_name}`}</span>
       </div>
       <div>
         <label>בחר הרשאה:</label>
-        <select value={selectedRole || ''} onChange={handleRoleChange}>
+        <select value={selectedRole || ""} onChange={handleRoleChange}>
           <option value="">Select Role</option>
-          {rolesDB &&rolesDB.map((role: Role) => (
-            <option key={role.role_id} value={role.role_id}>
-              {role.role_name}
-            </option>
-          ))}
+          {rolesDB &&
+            rolesDB.map((role: Role) => (
+              <option key={role.role_id} value={role.role_id}>
+                {role.role_name}
+              </option>
+            ))}
         </select>
         <button onClick={saveUserRole}>עדכן</button>
         <button onClick={onClose}>ביטול</button>

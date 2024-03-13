@@ -1,3 +1,5 @@
+$rami-blue: #1579f2;
+
 .update-user-role {
   position: fixed;
   top: 50%;
@@ -9,54 +11,14 @@
   border-radius: 8px;
   z-index: 999;
 
-  //DEFINE CLASSNAME
+  select {
+    margin: 3px;
+  }
 
-  // h1 {
-  //   font-size: 20px;
-  //   margin-bottom: 20px;
-  // }
-
-  //DEFINE CLASSNAME
-
-  // div {
-  //   margin-bottom: 15px;
-
-  //DEFINE CLASSNAME
-
-  // label {
-  //   display: block;
-  //   font-weight: bold;
-  //   margin-bottom: 5px;
-  // }
-
-  //DEFINE CLASSNAME
-
-  // span {
-  //   display: block;
-  //   margin-bottom: 10px;
-  // }
-
-  //DEFINE CLASSNAME
-
-  // select {
-  //   width: 100%;
-  //   padding: 10px;
-  //   border: 1px solid #ccc;
-  //   border-radius: 4px;
-  //   font-size: 16px;
-  //   margin-top: 5px;
-  // }
-
-  //DEFINE CLASSNAME
-
-  // button {
-  //   padding: 10px 20px;
-  //   margin-right: 10px;
-  //   border: none;
-  //   border-radius: 4px;
-  //   cursor: pointer;
-  //   font-size: 16px;
-  // }
+  .update-forle-title {
+    color: $rami-blue;
+    font-size: 1.7rem;
+  }
 
   .saveBtn {
     background-color: #007bff;
