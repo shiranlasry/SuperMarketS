@@ -1,6 +1,6 @@
-import React from "react";
-import { Product } from "../../types/productTypes";
-import ProductCard from "../ProductCard/ProductCard";
+import React from 'react';
+import ProductCard from '../ProductCard/ProductCard';
+import { Product } from '../../types/productTypes';
 
 type FeedProps = {
   products: Product[];

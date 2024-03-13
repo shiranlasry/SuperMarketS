@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { activeCartSelector } from "../../features/cart/cartSlice";
-import { getSalesAPI } from "../../features/sales/salesAPI";
+import React, { useEffect, useState } from "react";
+import { Product, ProductsList, Sales } from "../../rami-types";
 import { selectSales } from "../../features/sales/salesSlice";
-import { ProductsList, Sales } from "../../rami-types";
+import { activeCartSelector } from "../../features/cart/cartSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { getSalesAPI } from "../../features/sales/salesAPI";
 import "./cart-total-price.scss";
 
 const CartToatlPrice = () => {
