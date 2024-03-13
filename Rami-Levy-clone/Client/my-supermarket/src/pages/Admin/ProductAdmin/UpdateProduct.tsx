@@ -19,6 +19,8 @@ import "./updateProduct.scss";
 import { getAllProductsApi } from "../../../features/products/productsAPI";
 import { productsSelector } from "../../../features/products/productsSlice";
 import RamiBtn from "../../../components/RamiBtn/RamiBtn";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface UpdateProductProps {
   product: Product;
@@ -68,7 +70,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
     if (name === "product_price") {
       const price = parseFloat(value);
       if (price < 0) {
-        alert("מחיר לא יכול להיות שלילי");
+        toast.error("מחיר לא יכול להיות שלילי");
         return;
       }
       setUpdatedProduct((prevState) => ({
@@ -87,7 +89,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
   const handleUpdateProduct = async () => {
     const response = await dispatch(updateProductDetailes(updatedProduct));
     if (response.payload) {
-      alert("Product updated successfully");
+      toast.success("המוצר עודכן בהצלחה");
       dispatch(getAllProductsApi());
     }
     onClose();

@@ -11,6 +11,8 @@ import { Address, City, Street } from "../../../../rami-types";
 import { useNavigate } from "react-router-dom";
 import "./AddNewAddress.scss";
 import RamiBtn from "../../../../components/RamiBtn/RamiBtn";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type AddressProps = {
   onClose: () => void;
@@ -66,7 +68,7 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
       // NEED to add validation logic here before dispatching the action
       const response = await dispatch(addNewUserAddressApi(newAddress));
       if (response.payload) {
-        alert("Address added successfully");
+        toast.success("Address added successfully");
         onClose();
       }
     } catch (error) {
