@@ -1,27 +1,28 @@
+$rami-blue: #1579f2;
+
 .category-visual-container {
+  height: 100%;
   display: grid;
-  justify-content: space-around;
   padding: 1rem;
 }
 
 .product-sub-category {
   display: flex;
   flex-direction: column;
-  width: fit-content;
 }
 
 .product-sub-category {
   margin: 20px 0;
   padding: 8px;
-  color: #1579f2;
-  font-size: 1.8rem;
-  text-align: center;
+  font-size: 0.9rem;
+  color: $rami-blue;
+  text-align: right;
   margin-right: 1.5rem;
-  // width: 100%; /* Ensure the sub-category heading takes full width */
 }
 
 .sub-category-title {
   text-align: right;
+
   margin-bottom: 1rem;
 }
 
@@ -34,4 +35,5 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  gap: 1.5rem;
 }

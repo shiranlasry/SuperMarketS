@@ -1,7 +1,8 @@
-$button: #1579f2;
+$rami-blue: #1579f2;
 
 .home-container {
-  height: 100%;
+  margin-top: 2rem;
+  color: $rami-blue;
 }
 
 .home-content {
@@ -33,7 +34,7 @@ $button: #1579f2;
 .hp-loginBtn {
   margin: 1rem 0 0 0;
   float: left;
-  color: $button;
+  color: $rami-blue;
   user-select: none;
   font-size: 0.5;
   background-color: #f3f5f8;

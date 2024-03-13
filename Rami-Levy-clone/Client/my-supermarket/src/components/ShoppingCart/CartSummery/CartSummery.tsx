@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInUserSlice";
-import { Address } from "../../../rami-types";
+import { Address, Delivery, Order } from "../../../rami-types";
+import "./cartSummery.scss";
 import {
   getUserAddressesApi,
   getUserFromTokenApi,
@@ -9,8 +10,37 @@ import {
 import { Modal } from "react-bootstrap";
 import ChengeContactModal from "./Modals/ChengeContactModal";
 import ChengeAddressModal from "./Modals/ChengeAddressModal";
+import AvailableDeliveriesModal from "./Modals/AvailableDeliveriesModal";
+import RamiBtn from "../../RamiBtn/RamiBtn";
+import ShowOrderProductsModal from "./Modals/ShowOrderProductsModal";
 
-const CartSummery = () => {
+interface CartSummeryProps {
+  orderContact: {
+    full_name: string;
+    phone_number: string;
+  };
+  setOrderContact: (contact: {
+    full_name: string;
+    phone_number: string;
+  }) => void;
+  selectedAddress: Address | null;
+  setSelectedAddress: (address: Address | null) => void;
+  selectedDelivery: Delivery | null;
+  setSelectedDelivery: (delivery: Delivery | null) => void;
+  newOrder: Order;
+  setNewOrder: (field: string, value: string | number) => void;
+}
+
+const CartSummery: React.FC<CartSummeryProps> = ({
+  orderContact,
+  setOrderContact,
+  selectedAddress,
+  setSelectedAddress,
+  selectedDelivery,
+  setSelectedDelivery,
+  newOrder,
+  setNewOrder,
+}) => {
   const loggedInUser = useAppSelector(loggedInUserSelector);
   const [showModal, setShowModal] = useState({
     changeContact: false,
@@ -18,58 +48,57 @@ const CartSummery = () => {
     changeDelivery: false,
     showProducts: false,
   });
-  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!loggedInUser) {
-      getUserToken();
-    } else {
-      // Select the default address if available
-      if (loggedInUser.addresses) {
+   
+      if (loggedInUser && loggedInUser.addresses) {
         const defaultAddress = loggedInUser.addresses.find(
           (address) => address.is_default
         );
         setSelectedAddress(defaultAddress || null);
       }
-    }
+      else if (loggedInUser && loggedInUser.user_id){
+        dispatch(getUserAddressesApi(loggedInUser.user_id))
+      }
+    
   }, [loggedInUser]);
-
-  const getUserToken = async () => {
-    const response = await dispatch(getUserFromTokenApi());
-    if (response.payload) {
-      dispatch(getUserAddressesApi(response.payload.user_id));
-    }
-  };
 
   const toggleModal = (modalType) => {
     setShowModal({ ...showModal, [modalType]: !showModal[modalType] });
   };
-
+  const formatTimeRange = (startTime: string): string => {
+    const startHour = new Date(`01/01/2000 ${startTime}`);
+        
+    return `${startHour.toLocaleTimeString([],{ hour: '2-digit', minute: '2-digit' })}`;
+  };
   return (
     <div className="cart-summery-content">
-      {loggedInUser && (
+      {orderContact && (
         <>
           <div className="row align-items-center">
             <div className="col">
-              <p>
-                {loggedInUser.first_name} {loggedInUser.last_name}
-              </p>
+              <p>{orderContact.full_name}</p>
             </div>
             <div className="col">
-              <button
-                className="btn btn-primary"
+              <RamiBtn
+                className="summary-btn"
                 onClick={() => toggleModal("changeContact")}
               >
                 שינוי
-              </button>
+              </RamiBtn>
             </div>
           </div>
-          {/* Display selected address */}
-          {selectedAddress && (
+          {selectedAddress ? (
             <div className="row align-items-center">
               <div className="col">
-                <p>{selectedAddress.address_name}</p>
+                <p>
+                  {selectedAddress.street_name} {selectedAddress.house_number} ,{" "}
+                  {selectedAddress.city_name}
+                </p>
+                <p>דירה {selectedAddress.apartment} </p>
+                <p>קומה {selectedAddress.floor} </p>
               </div>
               <div className="col">
                 <button
@@ -80,13 +109,41 @@ const CartSummery = () => {
                 </button>
               </div>
             </div>
+          ) : (
+            <div className="choose-address-summary">
+              <p>בחר כתובת למשלוח</p>
+              <RamiBtn
+                className="summary-btn"
+                onClick={() => toggleModal("changeAddress")}
+              >
+                שינוי
+              </RamiBtn>
+            </div>
           )}
           <div className="row align-items-center">
             <div className="col">
-              <p>פרטי משלוח</p>
+              {selectedDelivery ? (
+                <p>
+                  {new Date(selectedDelivery.delivery_finish_date).toLocaleDateString("he-IL", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour12: false
+                  })} ,  {formatTimeRange(selectedDelivery.delivery_start_time)}
+                  
+                </p>
+              ) : (
+                <p>בחר מועד משלוח</p>
+              )}
             </div>
             <div className="col">
-              <button className="btn btn-primary">שינוי</button>
+              <RamiBtn
+                onClick={() => toggleModal("changeAddress")}
+                className="summary-btn"
+              >
+                שינוי
+              </RamiBtn>
             </div>
           </div>
           <div className="row align-items-center">
@@ -94,30 +151,67 @@ const CartSummery = () => {
               <p>מודאל להצגת המוצרים של העגלה </p>
             </div>
             <div className="col">
-              <button className="btn btn-primary">שינוי</button>
+              <RamiBtn className="summary-btn"
+                onClick={() => toggleModal("showProducts")}
+              >שינוי</RamiBtn>
             </div>
           </div>
+          <Modal
+            show={showModal.showProducts}
+            onHide={() => toggleModal("showProducts")}
+            dialogClassName="custom-modal"
+          >
+            <Modal.Body>
+              <ShowOrderProductsModal
+                onClose={() => toggleModal("showProducts")}
+                
+              />
+            </Modal.Body>
+          </Modal>
+
+
+
+          <Modal
+            show={showModal.changeContact}
+            onHide={() => toggleModal("changeContact")}
+            dialogClassName="custom-modal"
+          >
+            <Modal.Body>
+              <ChengeContactModal
+                onClose={() => toggleModal("changeContact")}
+                orderContact={orderContact}
+                setOrderContact={setOrderContact}
+                newOrder={newOrder}
+                setNewOrder={setNewOrder}
+              />
+            </Modal.Body>
+          </Modal>
+          <Modal
+            show={showModal.changeAddress}
+            onHide={() => toggleModal("changeAddress")}
+            dialogClassName="two-in-one-modal"
+          >
+            <Modal.Body className="two-in-one-modal-body">
+              <div className="address-section">
+                <ChengeAddressModal
+                  setSelectedAddress={setSelectedAddress}
+                  selectedAddress={selectedAddress}
+                  setNewOrder={setNewOrder}
+                  onClose={() => toggleModal("changeAddress")}
+                />
+              </div>
+              <div className="deliveries-section">
+                <AvailableDeliveriesModal
+                  setSelectedDelivery={setSelectedDelivery}
+                  selectedDelivery={selectedDelivery}
+                  setNewOrder={setNewOrder}
+                  onClose={() => toggleModal("changeAddress")}
+                />
+              </div>
+            </Modal.Body>
+          </Modal>
         </>
       )}
-
-      <Modal
-        show={showModal.changeContact}
-        onHide={() => toggleModal("changeContact")}
-        dialogClassName="custom-modal"
-      >
-        <Modal.Body>
-          <ChengeContactModal onClose={() => toggleModal("changeContact")} />
-        </Modal.Body>
-      </Modal>
-      <Modal
-        show={showModal.changeAddress}
-        onHide={() => toggleModal("changeAddress")}
-        dialogClassName="custom-modal"
-      >
-        <Modal.Body>
-          <ChengeAddressModal onClose={() => toggleModal("changeAddress")} />
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-import CategoryVisual from "./components/catagoryVisual/CatagoryVisual";
+import CategoryVisual from "./components/catagoryVisual/catagoryVisual";
 import ErrorPage from "./pages/404-page/ErrorPage";
 import AdminMainPage from "./pages/Admin/AdminMainPage";
 import AddNewFoodCategory from "./pages/Admin/ProductAdmin/AddNewFoodCategory/AddNewFoodCategory";
@@ -18,7 +18,13 @@ import UserOrders from "./pages/PersonalProfil/UserOrders/UserOrders";
 import ProductsByFoodCategory from "./components/ProductsByFoodCategory/ProductsByFoodCategory";
 import CheckOutOffers from "./components/CheckOutOffers/CheckOutOffers";
 import SalesList from "./components/SalesList/SalesList";
-
+import ManageSales from "./pages/Admin/ManageSales/ManageSales";
+import OrderSummary from "./components/OrderSummary/OrderSummary";
+import UserPayment from "./pages/PersonalProfil/UserPayment/UserPayment";
+import UserDetails from "./pages/PersonalProfil/UserDetails/UserDetails";
+import UserAddress from "./pages/PersonalProfil/UserAddress/UserAddress";
+import InfoCenter from "./components/InfoCenter/InfoCenter";
+import { Accessibility } from "./pages/Accessibility/Accessibility";
 function App() {
   const router = createBrowserRouter([
     {
@@ -33,20 +39,24 @@ function App() {
         },
 
         { path: "/admin", element: <AdminMainPage /> },
-        { path: "/add_new_product", element: <AddNewProduct /> },
+
         { path: "/manage_users", element: <UsersManage /> },
         { path: "/manage_products", element: <ProductsAdmin /> },
         { path: "/update_user", element: <UpdateUser /> },
         { path: "/category-visual/:id", element: <CategoryVisual /> },
         { path: "/*", element: <ErrorPage /> },
-        { path: "/add_new_food_category", element: <AddNewFoodCategory /> },
-        { path: "/personal_profil", element: <PersonalProfil /> },
+
+        { path: "/personal_profil/:selected", element: <PersonalProfil /> },
+        { path: "/user_details", element: <UserDetails /> },
         {
           path: "/navbar_item_products/:navbar_item_id",
           element: <NavBarItemProducts />,
         },
         { path: "/user_orders", element: <UserOrders /> },
-
+        { path: "/user_payment", element: <UserPayment /> },
+        { path: "/user_address", element: <UserAddress /> },
+        { path: "/info_center", element: <InfoCenter /> },
+        { path: "/accessibility", element: <Accessibility /> },
         {
           path: "/navbar_item_products/:navbar_item_id/:title",
           element: <NavBarItemProducts />,
@@ -55,11 +65,6 @@ function App() {
           path: "/products_by_food_category/:food_category_id/",
           element: <ProductsByFoodCategory />,
         },
-        {path:"/navbar_item_products/:navbar_item_id/:title" , element :<NavBarItemProducts/>},
-        {path:"/products_by_food_category/:food_category_id/" , element :<ProductsByFoodCategory/>},
-        {path:"/check_out_offers" , element :<CheckOutOffers/>},
-        { path: "/products_by_food_category/:food_category_id/", element: <ProductsByFoodCategory /> },
-        {path:"/sales" , element :<SalesList/>},
         {
           path: "/navbar_item_products/:navbar_item_id/:title",
           element: <NavBarItemProducts />,
@@ -69,6 +74,25 @@ function App() {
           element: <ProductsByFoodCategory />,
         },
         { path: "/check_out_offers", element: <CheckOutOffers /> },
+        {
+          path: "/products_by_food_category/:food_category_id/",
+          element: <ProductsByFoodCategory />,
+        },
+        { path: "/sales", element: <SalesList /> },
+        {
+          path: "/navbar_item_products/:navbar_item_id/:title",
+          element: <NavBarItemProducts />,
+        },
+        {
+          path: "/products_by_food_category/:food_category_id/",
+          element: <ProductsByFoodCategory />,
+        },
+        { path: "/check_out_offers", element: <CheckOutOffers /> },
+        { path: "/manage_sales", element: <ManageSales /> },
+        {
+          path: "/order-summary/:order_id",
+          element: <OrderSummary />,
+        },
       ],
     },
   ]);

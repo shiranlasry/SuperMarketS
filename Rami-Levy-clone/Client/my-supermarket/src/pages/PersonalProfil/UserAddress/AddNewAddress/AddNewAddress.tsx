@@ -10,6 +10,9 @@ import { addNewUserAddressApi } from "../../../../features/logged_in_user/logged
 import { Address, City, Street } from "../../../../rami-types";
 import { useNavigate } from "react-router-dom";
 import "./AddNewAddress.scss";
+import RamiBtn from "../../../../components/RamiBtn/RamiBtn";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type AddressProps = {
   onClose: () => void;
@@ -25,6 +28,7 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
     street_name: "",
     floor: null,
     apartment: null,
+    house_number: null,
     zip_code: "",
     phone_number: "",
     is_default: true,
@@ -64,7 +68,7 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
       // NEED to add validation logic here before dispatching the action
       const response = await dispatch(addNewUserAddressApi(newAddress));
       if (response.payload) {
-        alert("Address added successfully");
+        toast.success("Address added successfully");
         onClose();
       }
     } catch (error) {
@@ -73,142 +77,149 @@ const AddNewAddress: React.FC<AddressProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="new-address-main">
-      {/* <img className="new-map-img" src="/src/assets/img/map.png" /> */}
-      <div className="addNew-content">
-        <Modal
-          show={true}
-          onHide={onClose}
-          dialogClassName="custom-modal-dialog"
-          contentClassName="custom-modal-content custom-modal-rounded"
-        >
-          <div className="modal-header">
-            <h4 className="modal-title">כתובת חדשה</h4>
-          </div>
-          <Modal.Body>
-            <form onSubmit={handleSubmit}>
-              <div className="address-info">
-                <div>
-                  {/* <label htmlFor="city"></label> */}
-                  <select
-                    id="city"
-                    name="city_id"
-                    className="addNew-add"
-                    value={newAddress.city_id || ""}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">עיר *</option>
-                    {cities &&
-                      cities.map((city: City) => (
-                        <option key={city.city_id} value={city.city_id}>
-                          {city.city_name}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-                <div>
-                  {/* <label htmlFor="street">Street:</label> */}
-                  <select
-                    id="street"
-                    name="street_id"
-                    className="addNew-add"
-                    value={newAddress.street_id || ""}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">רחוב *</option>
-                    {streets &&
-                      streets.map((street: Street) => (
-                        <option key={street.street_id} value={street.street_id}>
-                          {street.street_name}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-
-                <div>
-                  {/* <label htmlFor="apartment">Apartment:</label> */}
-                  <input
-                    type="text"
-                    id="apartment"
-                    name="apartment"
-                    placeholder="מספר בית*"
-                    className="addNew-add"
-                    value={newAddress.apartment || ""}
-                    onChange={handleInputChange}
-                  />
-                  <div>
-                    {/* <label htmlFor="zipCode">ZIP Code:</label> */}
-                    <input
-                      type="text"
-                      id="zipCode"
-                      name="zip_code"
-                      placeholder="מיקוד"
-                      className="addNew-add"
-                      value={newAddress.zip_code || ""}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div>
-                    {/* <label htmlFor="floor">Floor:</label> */}
-                    <input
-                      type="text"
-                      id="floor"
-                      name="floor"
-                      placeholder="קומה *"
-                      className="addNew-add"
-                      value={newAddress.floor || ""}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                <div>
-                  {/* <label htmlFor="phone_number">Phone Number:</label> */}
-                  <input
-                    type="text"
-                    id="phone_number"
-                    name="phone_number"
-                    placeholder="טלפון"
-                    className="addNew-add "
-                    value={newAddress.phone_number || ""}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div>
-                  {/* <label htmlFor="phone_number">Phone Number:</label> */}
-                  <input
-                    type="text"
-                    id="address_name"
-                    name="address_name"
-                    placeholder="שם הכתובת"
-                    className="addNew-add add-name"
-                    value={newAddress.address_name || ""}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-              <div className="add-new-buttons d-flex justify-content-end">
-                <Button
-                  variant="primary"
-                  style={{ width: "130px", height: "40px" }}
-                  type="submit"
-                  className="mx-3 rounded-3"
-                >
-                  שמור
-                </Button>
-                <Button
-                  variant="secondary"
-                  style={{ width: "130px", height: "40px" }}
-                  onClick={onClose}
-                  className="rounded-3"
-                >
-                  בטל
-                </Button>
-              </div>
-            </form>
-          </Modal.Body>
-        </Modal>
+    <Modal
+      show={true}
+      onHide={onClose}
+      dialogClassName="custom-modal-dialog"
+      contentClassName="custom-modal-content custom-modal-rounded"
+    >
+      <div className="modal-header">
+        <h4 className="new-address-title">כתובת חדשה</h4>
       </div>
-    </div>
+      <Modal.Body>
+        <form onSubmit={handleSubmit}>
+          <div className="address-info">
+            <div>
+              {/* <label htmlFor="city"></label> */}
+              <select
+                id="city"
+                name="city_id"
+                className="addNew-add"
+                value={newAddress.city_id || ""}
+                onChange={handleInputChange}
+              >
+                <option value="">עיר *</option>
+                {cities &&
+                  cities.map((city: City) => (
+                    <option key={city.city_id} value={city.city_id}>
+                      {city.city_name}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div>
+              {/* <label htmlFor="street">Street:</label> */}
+              <select
+                id="street"
+                name="street_id"
+                className="addNew-add"
+                value={newAddress.street_id || ""}
+                onChange={handleInputChange}
+              >
+                <option value="">רחוב *</option>
+                {streets &&
+                  streets.map((street: Street) => (
+                    <option key={street.street_id} value={street.street_id}>
+                      {street.street_name}
+                    </option>
+                  ))}
+              </select>
+            </div>
+
+            <div>
+              {/* <label htmlFor="apartment">house_number:</label> */}
+              <input
+                type="text"
+                id="house_number"
+                name="house_number"
+                placeholder="מספר בית*"
+                className="addNew-add"
+                value={newAddress.house_number || ""}
+                onChange={handleInputChange}
+              />
+              <div>
+                {/* <label htmlFor="zipCode">ZIP Code:</label> */}
+                <input
+                  type="text"
+                  id="zipCode"
+                  name="zip_code"
+                  placeholder="מיקוד"
+                  className="addNew-add"
+                  value={newAddress.zip_code || ""}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                {/* <label htmlFor="floor">Floor:</label> */}
+                <input
+                  type="text"
+                  id="floor"
+                  name="floor"
+                  placeholder="קומה *"
+                  className="addNew-add"
+                  value={newAddress.floor || ""}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                {/* <label htmlFor="floor">apartment:</label> */}
+                <input
+                  type="text"
+                  id="apartment"
+                  name="apartment"
+                  placeholder="דירה *"
+                  className="addNew-add"
+                  value={newAddress.apartment || ""}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div>
+              {/* <label htmlFor="phone_number">Phone Number:</label> */}
+              <input
+                type="text"
+                id="phone_number"
+                name="phone_number"
+                placeholder="טלפון"
+                className="addNew-add "
+                value={newAddress.phone_number || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              {/* <label htmlFor="phone_number">Phone Number:</label> */}
+              <input
+                type="text"
+                id="address_name"
+                name="address_name"
+                placeholder="שם הכתובת"
+                className="addNew-add add-name"
+                value={newAddress.address_name || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <div className="add-new-buttons d-flex justify-content-end">
+            <RamiBtn
+              variant="primary"
+              style={{ width: "130px", height: "40px" }}
+              type="submit"
+              className="mx-3 rounded-3"
+            >
+              שמור
+            </RamiBtn>
+            <RamiBtn
+              variant="secondary"
+              style={{ width: "130px", height: "40px" }}
+              onClick={onClose}
+              className="rounded-3"
+            >
+              בטל
+            </RamiBtn>
+          </div>
+        </form>
+      </Modal.Body>
+    </Modal>
   );
 };
 

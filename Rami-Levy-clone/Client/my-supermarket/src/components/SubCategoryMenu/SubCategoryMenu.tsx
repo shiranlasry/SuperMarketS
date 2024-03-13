@@ -68,15 +68,10 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => {
     map.get(category.food_category_id)?.subcategories.push(category);
     return map;
   }, new Map<number, { categoryName: string; subcategories: typeof filteredCategories }>());
-const ShowPruductsByFoodCategory = (categoryData: { categoryName: string; subcategories: typeof filteredCategories },categoryId: number) => {
-  console.log(categoryData);
-  console.log(categoryId);
-
-
-}
+ 
   return (
     <div
-      className="sub-category-menu"
+      className="container-fluid sub-category-menu"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -85,11 +80,9 @@ const ShowPruductsByFoodCategory = (categoryData: { categoryName: string; subcat
           <div key={index} className="category-container">
             <div className="sub-cat-container">
               <div className="sub-cat-name">
-                <Link 
-                to={`/products_by_food_category/${foodCategoryId}/`}>
+                <Link to={`/products_by_food_category/${foodCategoryId}/`}>
                   {categoryData.categoryName}
                 </Link>
-                
               </div>
               <ul className="sub-cat-items">
                 {categoryData.subcategories
@@ -103,10 +96,10 @@ const ShowPruductsByFoodCategory = (categoryData: { categoryName: string; subcat
               {categoryData.subcategories.length > 7 && (
                 <div
                   className="sub-cat-chevron"
-                  onClick={() => handleCategoryExpand(categoryId)}
+                  onClick={() => handleCategoryExpand(foodCategoryId)}
                 >
                   <span className="chevron-icon">
-                    {isCategoryExpanded(categoryId) ? "▲" : "▼"}
+                    {isCategoryExpanded(foodCategoryId) ? "▲" : "▼"}
                   </span>
                 </div>
               )}

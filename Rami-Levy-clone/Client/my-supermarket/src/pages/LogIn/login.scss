@@ -2,14 +2,10 @@ $button: #1579f2;
 
 .login-main {
   width: fit-content;
-  margin: 1rem auto auto auto;
-  padding: 2rem 1.5rem 3rem 1.5rem;
+  margin: 1rem auto 1rem auto;
   justify-content: center;
   text-align: center;
   width: fit-content;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
   .exit-log-svg {
     float: left;
@@ -56,8 +52,7 @@ $button: #1579f2;
     }
     input {
       height: 40px;
-      min-width: fit-content;
-      width: 500px;
+      min-width: 370px;
       margin-bottom: 5px;
       background-color: #f3f5f8;
       border: none;

@@ -5,12 +5,20 @@ export interface FoodCategories
 }
 
 export interface Order {
-  order_id: number;
-  cart_id: number;
-  user_id: number;
-  delivery_id: number;
-  order_creation_date: Date;
-  status_id: number;
+  order_id: number |null;
+  cart_id: number |null;
+  user_id: number |null;
+  user_contact_id: number |null;
+  contact_name: string;
+  contact_phone_number: string;
+
+  delivery_id: number |null;
+  delivery_start_time: string |null;
+  delivery_finish_date: string |null;
+  order_creation_date: string |null;
+  status: number |null;
+  alternative_products: string;
+  how_receive_shipment: string;
 }
 export interface CartItem{
   cart_id: number;
@@ -26,7 +34,7 @@ export interface ProductsList {
   product_name: string;
   product_description: string;
   product_price: number=0;
-  product_img_name_a: string='';
+  product_img_name_a:string;
   product_img_name_b: string= '';
   product_img_data_a: string= '';
   product_img_data_b: string= '';
@@ -91,6 +99,7 @@ export interface Product  {
     street_name: string;
     floor: number|null;
     apartment: number |null;
+    house_number: number|null;
     zip_code: string;
     phone_number:string;
     is_default:boolean;
@@ -135,7 +144,7 @@ export interface Product  {
     to : string;
   }
   
-export interface updateProductFields {
+export interface UpdateProductFields {
   product_id: number | undefined;
   sub_food_category_id: number | undefined;
   food_category_id: number | undefined;
@@ -171,9 +180,9 @@ export interface OrderForList{
 
 export interface Delivery {
   delivery_id: number;
-  order_id: number;
-  status_id: number;
-  delivery_finish_date: Date;
+  status: number |null;
+  delivery_finish_date: string;
+  delivery_start_time: string;
 }
 
 export interface Status {
@@ -193,5 +202,6 @@ export interface Sales {
   sale_discount: number;
   sale_expiration_date: string;
   product_id: number;
+  sale_price: number;
 }
 

@@ -3,8 +3,8 @@ import "./footer.scss";
 const Footer = () => {
   return (
     <footer className="site-footer">
-      <div className="row no-gutters">
-        <div className="col-12 col-md-6 col-xl-2 pl-3 pl-lg-5 pr-3 pr-lg-5 pt-4 py-4">
+      <div className="row footer-themes">
+        <div className="col-12 col-md-6 col-xl-3 pl-3 pl-lg-4 pr-3 pr-lg-5 pt-4 py-4">
           <ul>
             <li>
               <h5>רמי לוי באינטרנט</h5>

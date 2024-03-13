@@ -1,98 +1,43 @@
 .cards-container {
-  .counter {
-    width: 50px;
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-
-    left: calc(50% - 37px);
-    top: calc(50% - 75px);
-
-    .counter-button {
-      background-color: transparent;
-      border: none;
-      font-size: 3rem;
-      color: white;
-      text-shadow: 1px 1px 2px black;
-      font-family: "Courier New", Courier, monospace;
-    }
-
-    .counter-quantity {
-      font-size: 5rem;
-      color: white;
-      text-shadow: 1px 1px 2px black;
-      font-family: "Courier New", Courier, monospace;
-    }
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
 
   .product-card {
     width: 280px;
-    height: 380px;
-    margin: 0.5rem;
+    height: 360px;
+    margin: 0.2rem;
     padding: 8px;
-    border: 1px solid #ddd; /* Add a border for separation */
+    border: 1px solid #ddd;
     border-radius: 15px;
     cursor: pointer;
 
-    @media screen and (max-width: 1700px) {
-      width: 260px;
-      height: 330px;
+    @media screen and (max-width: 1620px) {
+      width: 240px;
+      height: 340px;
     }
 
-    @media screen and (max-width: 1650px) {
-      width: 230px;
-      height: 290px;
-    }
-    @media screen and (max-width: 1520px) {
+    @media screen and (max-width: 1340px) {
       width: 210px;
-      height: 280px;
-    }
-    @media screen and (max-width: 1320px) {
-      width: 180px;
-      height: 270px;
+      height: 340px;
     }
 
-    @media screen and (max-width: 1150px) {
-      width: 165px;
-      height: 260px;
-    }
     @media screen and (max-width: 990px) {
-      width: 190px;
-      height: 275px;
-    }
-
-    .card-body {
-      padding: 12px;
+      width: 240px;
+      height: 350px;
     }
 
     .card-title {
-      font-size: 1.1em;
-      color: #333; /* Darken the title color */
+      font-size: 1em;
+      max-height: 32px;
+      color: #333;
       font-weight: bold;
-      margin-bottom: 8px;
-
-      @media screen and (max-width: 1520px) {
-        font-size: 20px;
-        margin-bottom: 5px;
-      }
-      @media screen and (max-width: 1320px) {
-        font-size: 20px;
-        margin-bottom: 5px;
-      }
-
-      @media screen and (max-width: 990px) {
-        font-size: 20px;
-        margin-bottom: 5px;
-      }
+      margin-bottom: 7px;
     }
 
     .card-desc {
       font-size: 0.9rem;
-      color: #666; /* Dim the description color */
-      margin-bottom: 12px;
+      color: #666;
+      margin-bottom: 10px;
     }
 
     .card-price {
@@ -121,32 +66,14 @@
 
     .product-img {
       margin: 1rem;
-      height: 200px;
-      width: 80%;
+      max-height: 200px;
+      width: 190px;
+      padding-top: 0.5rem;
       border-radius: 12px; /* Round corners of the image */
 
       @media screen and (max-width: 1700px) {
         height: 180px;
         margin: 0;
-      }
-
-      @media screen and (max-width: 1650px) {
-        height: 150px;
-        margin: 0;
-      }
-
-      @media screen and (max-width: 1590px) {
-        height: 140px;
-      }
-      @media screen and (max-width: 1520px) {
-        height: 140px;
-      }
-
-      @media screen and (max-width: 1320px) {
-        height: 130px;
-      }
-      @media screen and (max-width: 990px) {
-        height: 140px;
       }
     }
 

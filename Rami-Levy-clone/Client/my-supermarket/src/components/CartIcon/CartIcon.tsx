@@ -1,39 +1,9 @@
-import { useEffect, useState } from "react";
-import { useAppSelector } from "../../app/hook";
-import { activeCartSelector } from "../../features/cart/cartSlice";
+import CartToatlPrice from "../CartToatlPrice/CartToatlPrice";
 import "../ShoppingCart/shopping-cart.scss";
-import { ProductsList } from "../../rami-types";
 import "./cart-icon.scss";
 
 const CartIcon = () => {
-  const activeCart = useAppSelector(activeCartSelector);
-
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  const calaTotalPrice = (cartList: ProductsList[]) => {
-    let totalPrice = 0;
-    cartList.forEach((cartItem: ProductsList) => {
-      totalPrice += cartItem.product_price * cartItem.product_amount;
-    });
-    return totalPrice;
-  };
-
-  useEffect(() => {
-    if (activeCart && activeCart.cartList) {
-      setTotalPrice(calaTotalPrice(activeCart.cartList));
-    }
-  }, [activeCart]);
-  const formatPrice = (price: number) => {
-    const [main, decimal] = price.toFixed(2).split(".");
-    return (
-      <span>
-        <span className="main-price">{main}.</span>
-        <sup className="decimal-price">{decimal}</sup>
-      </span>
-    );
-  };
-  // Function to toggle the shopping cart open/close state
-
+  
   return (
     <div className="cart-icon">
       <svg
@@ -105,7 +75,9 @@ const CartIcon = () => {
         </svg>
       </svg>
       {/* Use Bootstrap styling for price */}
-      <button className="cart-price">{formatPrice(totalPrice)} ₪</button>
+      <button className="cart-price">
+        <CartToatlPrice />
+      </button>
     </div>
   );
 };

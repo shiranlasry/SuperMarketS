@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../../app/hook";
+import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { updateUserDetailsApi } from "../../../features/all_users_admin/allUsersAPI";
 import { getUserByIdApi } from "../../../features/logged_in_user/loggedInUserAPI";
 import { loggedInUserSelector } from "../../../features/logged_in_user/loggedInUserSlice";
 import DeleteUserPersonal from "../DeleteUser/DeleteUserPersonal";
 import UpdateUserPassword from "../UpdateUserPassword/UpdateUserPassword";
 import "./UserDetails.scss"; // Import the separate SCSS file for styling
+import { validate } from "uuid";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserDetails = () => {
-  const loggedInUser = useSelector(loggedInUserSelector);
+  const loggedInUser = useAppSelector(loggedInUserSelector);
   const initialUserDetails = {
     user_id: loggedInUser ? loggedInUser.user_id : null,
     first_name: loggedInUser ? loggedInUser.first_name : "",
@@ -30,6 +33,7 @@ const UserDetails = () => {
     setIsPopChangePassword(true);
   };
   const dispatch = useAppDispatch();
+
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
@@ -38,9 +42,9 @@ const UserDetails = () => {
     const { name, value } = e.target;
 
     // Validate phone number if the input name is 'phone_number'
-    if (name === "phone_number") {
-      // setPhoneValidation(validatePhoneNumber(value));
-    }
+    // if (name === "phone_number") {
+    //   phoneValidation(validatePhoneNumber(value));
+    // }
 
     setUpdatesFields((prevState) => ({
       ...prevState,
@@ -51,6 +55,26 @@ const UserDetails = () => {
     }));
   };
 
+  const validatePhoneNumber = (phone: string) => {
+    const phoneRegex = /^0([2-4689]|5\d|6\d)(-?\d{7})$/;
+    if (!phoneRegex.test(phone)) {
+      toast.error("מספר טלפון לא תקין");
+      return false;
+    }
+    return true;
+  };
+
+  const validateAge = (date: string) => {
+    const birthDate = new Date(date);
+    const today = new Date();
+    const age = today.getFullYear() - birthDate.getFullYear();
+    if (age < 18) {
+      toast.error("אתה צעיר מדי להיות משתמש באתר, השימוש באתר מגיל 18");
+      return false;
+    }
+    return true;
+  };
+
   const updateUserDetails = async () => {
     if (
       !updatesFields.first_name ||
@@ -59,11 +83,16 @@ const UserDetails = () => {
       !updatesFields.birth_date ||
       !updatesFields.phone_number
     ) {
-      alert("אנא מלא את כל השדות");
+      toast.warning("אנא מלא את כל השדות");
       return;
     }
-    await dispatch(updateUserDetailsApi(updatesFields));
-    dispatch(getUserByIdApi(updatesFields.user_id));
+    if (
+      validatePhoneNumber(updatesFields.phone_number) &&
+      validateAge(updatesFields.birth_date)
+    ) {
+      await dispatch(updateUserDetailsApi(updatesFields));
+      dispatch(getUserByIdApi(updatesFields.user_id));
+    }
   };
   return (
     <div className="user-details-container">
@@ -122,14 +151,6 @@ const UserDetails = () => {
               required
             />
           </div>
-          {/* <div className="user-details-field">
-            <input
-              type="text"
-              name="another_number"
-              id="another_number"
-              placeholder="טלפון נוסף"
-            />
-          </div> */}
           <div className="set-gender">
             <div className="gender-title">
               <label>אני</label>

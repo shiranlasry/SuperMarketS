@@ -10,7 +10,7 @@ interface UserMenuProps {
   onClose: () => void;
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
+const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser, onClose }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -39,10 +39,35 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
   const handleNavigateToAdmin = () => {
     onClose();
     navigate("/admin");
+   
   };
   const handleNavigatePersonalProfil = () => {
     onClose();
-    navigate("/personal_profil");
+    const btn = "userDetails";
+    navigate(`/personal_profil/${btn}`);
+  };
+  const handleNavigateUserAddress = () => {
+    onClose();
+    const btn = "userAddress";
+    navigate(`/personal_profil/${btn}`);
+  };
+
+  const handleNavigateToaddPaymentMethod = () => {
+    onClose();
+    const btn = "addPaymentMethod";
+    navigate(`/personal_profil/${btn}`);
+  };
+
+  const handleNavigateToOrders = () => {
+    onClose();
+    const btn = "orders";
+    navigate(`/personal_profil/${btn}`);
+  };
+
+  const handleNavigateToInfoCenter = () => {
+    onClose();
+    const btn = "InfoCenter";
+    navigate(`/personal_profil/${btn}`);
   };
 
   return (
@@ -135,7 +160,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
               fill="#0079f2"
             ></path>
           </svg>
-          <a href="#">ניהול כתובות</a>
+          <a onClick={handleNavigateUserAddress} href="#">
+            ניהול כתובות
+          </a>
         </li>
         <li>
           <svg
@@ -167,7 +194,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
               fill="#0079f2"
             ></path>
           </svg>
-          <a href="#">תשלום</a>
+          <a onClick={handleNavigateToaddPaymentMethod} href="#">
+            תשלום
+          </a>
         </li>
         <li>
           <svg
@@ -211,7 +240,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
               fill="#0079f2"
             ></path>
           </svg>
-          <a href="#">ההזמנות שלי</a>
+          <a onClick={handleNavigateToOrders} href="#">
+            ההזמנות שלי
+          </a>
         </li>
         <li>
           <svg
@@ -249,7 +280,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
               fill="#0079f2"
             ></path>
           </svg>
-          <a href="#">מרכז מידע</a>
+          <a onClick={handleNavigateToInfoCenter} href="#">
+            מרכז מידע
+          </a>
         </li>
 
         {loggedInUser?.role_id === 1 && (
@@ -431,15 +464,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
           </a>
         </li>
       </ul>
-      {/* <button
-        className="btn btn-secondary"
-        onClick={handleLogOut}
-        title="Logout"
-        data-toggle="tooltip"
-        data-placement="bottom"
-      >
-        Logout
-      </button> */}
     </div>
   );
 };

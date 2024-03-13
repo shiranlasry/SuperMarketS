@@ -1,25 +1,31 @@
-// subCategoryMenu.scss
+$rami-blue: #1579f2;
+
 .sub-category-menu {
   text-align: right;
   display: flex;
   flex-direction: row;
   background-color: #f3f5f8;
   position: absolute;
-  right: 0.1rem;
-  top: 5.6rem;
-  width: 83vw;
+  right: 0.2rem;
+  top: 5.7rem;
+  width: fit-content;
   height: 380px;
   border-radius: 10px;
   font-size: 1rem;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px,
+    rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
   z-index: 999;
+
+  @media screen and (max-width: 990px) {
+    display: none;
+  }
 }
 
 .category-container {
   display: block;
   height: 250px;
   width: 250px;
-  margin-top: 0.4rem;
+  margin-top: 0.8rem;
   margin-left: 2rem;
   position: relative; /* Add relative positioning */
 }
@@ -65,5 +71,6 @@
 }
 
 .sub-cat-name {
-  padding-right: 0.2rem;
+  color: $rami-blue;
+  margin-bottom: 1rem;
 }

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAppDispatch } from "../../app/hook";
 import {
   getUserAddressesApi,
   logInUserApi,
@@ -45,12 +47,11 @@ const Login: React.FC<LoginProps> = ({ onClose, RegisterPressed }) => {
       }
       const resultAction: any = await dispatch(logInUserApi(arg));
       if (!resultAction.payload) {
-        alert("שם משתמש או סיסמא לא נכונים");
-        console.log("Invalid credentials");
+        toast.error("שם משתמש או סיסמא לא נכונים");
         return;
       }
       dispatch(getUserAddressesApi(resultAction.payload.user_id));
-      alert("התחברת בהצלחה");
+      toast.success(`ברוכ/ה הבא/ה ${resultAction.payload.first_name}`);
       onClose();
     } catch (error) {
       console.error(error);

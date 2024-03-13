@@ -1,48 +1,75 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { useAppDispatch } from "../../app/hook";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { logOutUserApi } from "../../features/logged_in_user/loggedInUserAPI";
 import UserAddress from "./UserAddress/UserAddress";
 import UserDetails from "./UserDetails/UserDetails";
 import "./personal-profil.scss";
 import AddPaymentMethod from "./UserPayment/UserPayment";
 import UserOrders from "./UserOrders/UserOrders";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import InfoCenter from "../../components/InfoCenter/InfoCenter";
 
-const PersonalProfil = () => {
+interface PersonalProfilProps {
+  isSelectedOption?: () => void;
+}
+
+const PersonalProfil: React.FC<PersonalProfilProps> = ({
+  isSelectedOption,
+}) => {
+  const selected = useParams().selected;
   const [showUserDetails, setShowUserDetails] = useState(false);
   const [showUserAddress, setShowUserAddress] = useState(false);
   const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
   const [showOrders, setShowOrders] = useState(false);
+  const [showInfoCenter, setShowInfoCenter] = useState(false);
   const [activeButton, setActiveButton] = useState<string | null>(null);
+  const loggedInUser = useAppSelector(loggedInUserSelector);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleButtonClick = (buttonName: string) => {
     setActiveButton(buttonName); // Set the active button
+    if (isSelectedOption) {
+      isSelectedOption();
+    }
+    // Call the function passed as a prop from the parent component
     switch (buttonName) {
       case "userDetails":
         setShowUserDetails(true);
         setShowUserAddress(false);
         setShowAddPaymentMethod(false);
         setShowOrders(false);
+        setShowInfoCenter(false);
         break;
       case "userAddress":
         setShowUserDetails(false);
         setShowUserAddress(true);
         setShowAddPaymentMethod(false);
         setShowOrders(false);
+        setShowInfoCenter(false);
         break;
       case "addPaymentMethod":
         setShowUserDetails(false);
         setShowUserAddress(false);
         setShowAddPaymentMethod(true);
         setShowOrders(false);
+        setShowInfoCenter(false);
         break;
       case "orders":
         setShowUserDetails(false);
         setShowUserAddress(false);
         setShowAddPaymentMethod(false);
         setShowOrders(true);
+        setShowInfoCenter(false);
+        break;
+      case "InfoCenter":
+        setShowUserDetails(false);
+        setShowUserAddress(false);
+        setShowAddPaymentMethod(false);
+        setShowOrders(false);
+        setShowInfoCenter(true);
         break;
       default:
         // Handle default case if necessary
@@ -50,11 +77,11 @@ const PersonalProfil = () => {
     }
   };
 
-  // const setAllFalse = () => {
-  //   setShowUserDetails(false);
-  //   setShowUserAddress(false);
-  //   setShowAddPaymentMethod(false);
-  // };
+  useEffect(() => {
+    if (selected) {
+      handleButtonClick(selected);
+    }
+  }, [selected]);
 
   const handelLogout = () => {
     dispatch(logOutUserApi());
@@ -113,7 +140,13 @@ const PersonalProfil = () => {
               stroke-linejoin="round"
             ></path>
           </svg>
-          <p>פרטים אישיים</p>
+          {loggedInUser ? (
+            <p>
+              {loggedInUser.first_name} {loggedInUser.last_name}
+            </p>
+          ) : (
+            <p>פרטים אישיים</p>
+          )}
         </button>
         <button
           className={`personal-details-btn ${
@@ -196,8 +229,12 @@ const PersonalProfil = () => {
           </svg>
           <p>תשלום</p>
         </button>
-        <button className="personal-details-btn"
-          onClick={() => handleButtonClick("orders")}>
+        <button
+          className={`personal-details-btn ${
+            activeButton === "orders" ? "active" : ""
+          }`}
+          onClick={() => handleButtonClick("orders")}
+        >
           <svg
             data-v-6f1b17ad=""
             xmlns="http://www.w3.org/2000/svg"
@@ -241,8 +278,12 @@ const PersonalProfil = () => {
           </svg>
           <p>ההזמנות שלי</p>
         </button>
-        <button className="personal-details-btn">
-          {" "}
+        <button
+          className={`personal-details-btn ${
+            activeButton === "InfoCenter" ? "active" : ""
+          }`}
+          onClick={() => handleButtonClick("InfoCenter")}
+        >
           <svg
             data-v-6f1b17ad=""
             xmlns="http://www.w3.org/2000/svg"
@@ -387,7 +428,8 @@ const PersonalProfil = () => {
         {showUserDetails && <UserDetails />}
         {showUserAddress && <UserAddress />}
         {showAddPaymentMethod && <AddPaymentMethod />}
-        { showOrders && <UserOrders />}
+        {showOrders && <UserOrders />}
+        {showInfoCenter && <InfoCenter />}
       </div>
       <div className="Personal-profil-lists"></div>
     </div>

@@ -1,93 +1,81 @@
 .search-menu-container {
-    position: relative;
-    /* Ensure relative positioning */
-    top: 100%;
-    /* Position it below the search bar */
-    left: 45%;
-    width: 50vw;
-    /* Set the width to 50% of the viewport width */
+  position: relative;
+  top: 100%;
+  left: 45%;
+  width: 50vw;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  .search-result {
+    position: absolute;
+    top: calc(100% + 10px);
+    width: 65vw;
+    max-height: 85vh;
+    /* Changed to max-height to enable scrolling */
+    overflow-y: auto;
+    /* Enable scrolling */
     background-color: white;
-    /* Set the background color */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    /* Add a box shadow for a nice effect */
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-wrap: wrap;
+
+    .no-results {
+      padding: 10px;
+      width: 60%;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding-top: 20px;
+      padding-right: 20px;
+    }
+
+    .product-list {
+      padding: 10px;
+      width: 60%;
+      display: flex;
+      flex-wrap: wrap;
+      overflow-y: scroll;
+
+      .product-card {
+        /* Add styles for ProductCard component */
+        /* Adjust width */
+        margin-bottom: 1rem;
+        /* Add margin */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Add box shadow */
+        border-radius: 5px;
+        /* Add border radius */
+        overflow: hidden;
+        /* Hide overflow */
+      }
+    }
 
     .name-list {
-        ul {
-            font-weight: 600;
-            font-size: 1.2rem;
-            list-style-type: none;
-            /* Remove bullet points */
-            padding: 0;
+      flex: 1;
+      /* Take remaining space */
+      padding: 10px;
 
-            li {
-                /* Styling for each name */
-                margin-bottom: 0.5rem;
-                /* Add some spacing between names */
-                padding: 0.5rem;
-                /* Add padding */
-                border-radius: 5px;
-                /* Add border radius for rounded corners */
+      ul {
+        list-style-type: none;
+        padding: 0;
+        font-weight: 600;
+        font-size: 1.2rem;
 
-                &:hover {
-                    background-color: #c7c7c717;
-                    /* Darker background color on hover */
-                    cursor: pointer;
-                    /* Add a pointer on hover */
-                    border-radius: 10px
-                }
-            }
+        li {
+          margin-bottom: 0.5rem;
+          padding: 0.5rem;
+          border-radius: 5px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #c7c7c717;
+            border-radius: 10px;
+          }
         }
+      }
     }
-
-
-    .search-menu {
-        position: absolute;
-        top: calc(100% + 10px);
-        /* Adjust the distance from the search bar */
-        max-width: 65vw;
-        height: 80vh;
-        /* Maximum height of 50vh */
-        /* Enable scrolling if the content exceeds 50vh */
-        background-color: white;
-        /* Example background color */
-        border: 1px solid #ccc;
-        /* Example border */
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        /* Example box shadow */
-        z-index: 1000;
-        /* Ensure it's above other elements */
-        display: flex;
-        flex-wrap: wrap;
-        overflow-y: scroll;
-
-        .product-list {
-            position: relative;
-            padding: 10px;
-            display: flex;
-            flex-direction: row;
-            gap: 1rem;
-
-            .product-card {
-               
-            }
-
-
-        }
-
-        .name-list {
-
-            /* Styling for the name list */
-            ul {
-                list-style-type: none;
-                /* Remove bullet points */
-                padding: 0;
-
-                li {
-                    /* Styling for each name */
-                    margin-bottom: 0.5rem;
-                    /* Add some spacing between names */
-                }
-            }
-        }
-    }
+  }
 }

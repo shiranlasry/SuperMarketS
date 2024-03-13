@@ -1,0 +1,97 @@
+$rami-blue: #1579f2;
+
+.modal-order {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.change-address-title {
+  color: $rami-blue;
+  font-size: 1.7rem;
+}
+
+.modal-order-contact {
+  margin-bottom: 20px;
+  margin-left: 4rem;
+}
+
+.full_name,
+.phone_number {
+  margin-bottom: 10px;
+}
+
+.full_name label,
+.phone_number label {
+  display: block;
+  font-weight: bold;
+}
+
+.full_name input,
+.phone_number input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-bottom: 1px solid black;
+}
+.contact-phone,
+.contact-name {
+  color: #5d5d5d;
+}
+.modal-order-highlights {
+}
+
+.modal-order-receive,
+.modal-order-alternative {
+  color: $rami-blue;
+  margin-bottom: 10px;
+}
+
+.modal-order-receive label,
+.modal-order-alternative label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.modal-order-receive select,
+.modal-order-alternative select {
+  outline: none;
+  width: 100%;
+  border: none;
+}
+
+.no-address-title {
+  margin: 0.5rem 0 0.5rem 0;
+  color: $rami-blue;
+  font-size: 1.3rem;
+}
+
+.contact-title,
+.order-requests-title {
+  color: $rami-blue;
+  font-size: 1.3rem;
+}
+
+.contact-phone-label,
+.full-contact-name {
+  color: $rami-blue;
+  font-size: 0.8rem;
+}
+
+.contact-btns {
+  margin: 10.5rem 17rem 0 0;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: 540px) {
+    margin: 11rem 6rem 0 0;
+  }
+
+  @media screen and (max-width: 420px) {
+    margin: 13.5rem 4rem 0 0;
+  }
+}

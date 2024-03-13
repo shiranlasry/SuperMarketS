@@ -1,6 +1,7 @@
 .nav-item {
   width: 120px;
   height: 92px;
+  padding-top: 8px;
   border: none;
   border-radius: 8px;
   text-align: center;
@@ -15,99 +16,33 @@
     border-radius: 6px;
   }
 
-  @media screen and (max-width: 1920px) {
-    font-size: 15px;
-    width: 105px;
-    height: 95px;
-  }
-
-  @media screen and (max-width: 1900px) {
-    font-size: 15px;
+  @media screen and (max-width: 1910px) {
     width: 100px;
-    height: 95px;
-  }
-
-  @media screen and (max-width: 1830px) {
-    font-size: 15px;
-    width: 97px;
-    height: 95px;
-  }
-
-  @media screen and (max-width: 1780px) {
-    font-size: 15px;
-    width: 93px;
-    height: 95px;
-  }
-
-  @media screen and (max-width: 1720px) {
-    font-size: 15px;
-    width: 90px;
-    height: 95px;
-  }
-  @media screen and (max-width: 1670px) {
-    font-size: 15px;
-    width: 88px;
-    height: 95px;
-  }
-  @media screen and (max-width: 1640px) {
-    font-size: 15px;
-    width: 85px;
-    height: 95px;
-  }
-
-  @media screen and (max-width: 1590px) {
-    font-size: 15px;
-    width: 82px;
-    height: 95px;
-  }
-
-  @media screen and (max-width: 1540px) {
-    width: 79px;
     font-size: 13px;
     height: 95px;
   }
 
-  @media screen and (max-width: 1480px) {
-    width: 74px;
-    font-size: 13px;
-    height: 95px;
+  @media screen and (max-width: 1550px) {
+    width: 92px;
   }
 
-  @media screen and (max-width: 1420px) {
-    width: 70px;
-    font-size: 13px;
-    height: 95px;
+  @media screen and (max-width: 1220px) {
+    width: 60px;
+    font-size: 11px;
   }
-
-  @media screen and (max-width: 1380px) {
-    width: 65px;
-    font-size: 13px;
-    height: 95px;
-  }
-
-  @media screen and (max-width: 1280px) {
-    width: 58px;
-    font-size: 13px;
-    height: 95px;
-  }
-
-  @media screen and (max-width: 1170px) {
-    width: 54px;
-    font-size: 13px;
-    height: 95px;
-  }
-  @media screen and (max-width: 1100px) {
-    width: 45px;
-    font-size: 13px;
+  @media screen and (max-width: 1060px) {
+    width: 43px;
+    font-size: 10px;
     height: 95px;
   }
 
   @media screen and (max-width: 950px) {
     display: flex;
     flex-direction: column;
-    height: 40px;
-    text-align: right;
+    justify-content: right;
+    height: 100%;
     width: 100%;
+    font-size: 14px;
   }
 }
 
@@ -133,6 +68,10 @@
     width: 200px;
     margin-right: 1.5rem;
     padding: 0;
+  }
+
+  svg {
+    width: 40px;
   }
 }
 

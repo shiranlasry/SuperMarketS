@@ -214,7 +214,6 @@ export const deleteProduct = async (
   res: express.Response
 ) => {
   try {
-    console.log("params", req.params);
     const { product_id } = req.params;
     if (!product_id) {
       res.status(400).send({ ok: false, error: "missing required fields" });

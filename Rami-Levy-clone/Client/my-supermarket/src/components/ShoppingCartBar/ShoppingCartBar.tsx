@@ -1,25 +1,23 @@
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
+import React from "react";
 import "./shopping-cart-bar.scss";
 import { setIsToPayPressedTrue } from "../../features/cart/cartSlice";
 import { useAppDispatch } from "../../app/hook";
-import { is } from "@babel/types";
 import { useNavigate } from "react-router-dom";
+import CartToatlPrice from "../CartToatlPrice/CartToatlPrice";
 
 interface Props {
-  totalPrice: number;
   isOpen: boolean;
-  toggleCart: () => void; // Function to toggle the cart
-  // sendOrder: () => void; // Function to send the order
+  toggleCart: () => void;
+  sendOrder?: () => void;
   isToPayPressed: boolean;
 }
 
 const ShoppingCartBar: React.FC<Props> = ({
-  totalPrice,
   isOpen,
   toggleCart,
-  // sendOrder,
+  sendOrder,
   isToPayPressed,
 }) => {
   const dispatch = useAppDispatch();
@@ -27,9 +25,6 @@ const ShoppingCartBar: React.FC<Props> = ({
   const toPayPressed = async () => {
     await dispatch(setIsToPayPressedTrue());
     navigate("/check_out_offers");
-  };
-  const goToCheckout = () => {
-    debugger;
   };
 
   return (
@@ -53,14 +48,16 @@ const ShoppingCartBar: React.FC<Props> = ({
             </button>
           </div>
           <div>
-            <span className="total-price-bar">{totalPrice}</span>{" "}
-            <span className="shekel-bar">₪</span>
+            <span className="total-price-bar">
+              <CartToatlPrice />
+            </span>{" "}
+            {/* <span className="shekel-bar">₪</span> */}
           </div>
         </>
       )}
 
       {isToPayPressed && (
-        <button className={`toggle-pay-text `} onClick={goToCheckout}>
+        <button className={`toggle-pay-text `} onClick={sendOrder}>
           תשלום
         </button>
       )}

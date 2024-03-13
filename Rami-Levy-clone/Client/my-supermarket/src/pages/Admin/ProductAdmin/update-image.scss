@@ -1,0 +1,36 @@
+$rami-blue: #1579f2;
+
+.img-update-main {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  input {
+    margin: 5px;
+  }
+
+  .update-imgs-title {
+    color: $rami-blue;
+    margin: 2rem 0;
+    font-size: 2rem;
+  }
+
+  .update-delete-btns {
+    display: flex;
+    flex-direction: row;
+    margin: 2rem 0;
+  }
+
+  .exit-img-upload {
+    margin-top: 2rem;
+  }
+}
+#imagesProduct1 {
+  margin: 1rem;
+}
+
+.imgs-update-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}

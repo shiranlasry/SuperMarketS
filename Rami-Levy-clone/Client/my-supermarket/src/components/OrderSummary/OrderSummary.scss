@@ -1,0 +1,30 @@
+.order-summary-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+  }
+  
+  .order-summary-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .order-summary-info {
+    padding: 20px;
+  }
+  
+  .order-success {
+    font-size: 24px;
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  .disclaimer {
+    margin-top: 20px;
+    font-style: italic;
+    color: #dc3545;
+  }
+  

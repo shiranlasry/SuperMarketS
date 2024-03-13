@@ -1,37 +1,17 @@
-import { useEffect, useState } from "react";
-import { useAppSelector } from "../../app/hook";
-import { activeCartSelector } from "../../features/cart/cartSlice";
+import CartToatlPrice from "../CartToatlPrice/CartToatlPrice";
 import "./closed-cart.scss";
-import { ProductsList } from "../../rami-types";
+
+const formatPrice = (price: number) => {
+  const [main, decimal] = price.toFixed(2).split(".");
+  return (
+    <span>
+      <span className="main-price">{main}.</span>
+      <sup className="decimal-price">{decimal}</sup>
+    </span>
+  );
+};
 
 export const ClosedCart = () => {
-  const activeCart = useAppSelector(activeCartSelector);
-
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  const calaTotalPrice = (cartList: ProductsList[]) => {
-    let totalPrice = 0;
-    cartList.forEach((cartItem: ProductsList) => {
-      totalPrice += cartItem.product_price * cartItem.product_amount;
-    });
-    return totalPrice;
-  };
-
-  useEffect(() => {
-    if (activeCart && activeCart.cartList) {
-      setTotalPrice(calaTotalPrice(activeCart.cartList));
-    }
-  }, [activeCart]);
-  const basketPrice = 0.0;
-  const formatPrice = (price: number) => {
-    const [main, decimal] = price.toFixed(2).split(".");
-    return (
-      <span>
-        <span className="main-price">{main}.</span>
-        <sup className="decimal-price">{decimal}</sup>
-      </span>
-    );
-  };
   return (
     <div className="closed-cart-main">
       <div className="closed-cart">
@@ -103,7 +83,9 @@ export const ClosedCart = () => {
             ></path>
           </svg>
         </svg>
-        <div className="price">{formatPrice(totalPrice)}</div>
+        <div className="price">
+          <CartToatlPrice />
+        </div>
       </div>
       <div className="closed-basket">
         <svg
@@ -149,7 +131,9 @@ export const ClosedCart = () => {
             fill="#0079c0"
           ></path>
         </svg>
-        <div className="price">{formatPrice(basketPrice)}</div>
+        <div className="basket-price">
+          {formatPrice(0.0)} <span className="basket-shekel">₪</span>
+        </div>
       </div>
     </div>
   );

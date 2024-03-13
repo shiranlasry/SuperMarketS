@@ -7,12 +7,10 @@ import Logo from "../../assets/logos/rami-levy-online.png";
 import Shopping from "../../assets/logos/rami-levy-shopping.png";
 import UserMenu from "../../components/UserMenu/UserMenu";
 import {
-  addNewCartApi,
   getUserActiveCartApi,
   getUserActiveCartListApi,
 } from "../../features/cart/cartAPI";
 import {
-  activeCartSelector,
   isOpenCartSelector,
   isToPayPressedSelector,
   setIsOpenCart,
@@ -21,7 +19,7 @@ import { getUserFromTokenApi } from "../../features/logged_in_user/loggedInUserA
 import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
-import { ProductsList, User } from "../../rami-types";
+import { CartItem, User } from "../../rami-types";
 import "../../views/layouts/layout.scss";
 import CartIcon from "../CartIcon/CartIcon";
 import { ClosedCart } from "../ClosedCart/ClosedCart";
@@ -31,9 +29,8 @@ import SearchBar from "../SearchBar/SearchBar";
 import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
 import ShoppingCartBar from "../ShoppingCartBar/ShoppingCartBar";
 import "./Header.scss";
-import { addNewOrderApi, updateOrderApi } from "../../features/api/ordersAPI";
-import { addNewDeliveryApi } from "../../features/api/deliveriesAPI";
-import { updateCartAPI } from "../../features/api/cartsAPI";
+
+import UpperBar from "../UpperBar/UpperBar";
 
 const Header = () => {
   const loggedInUser: User | null = useAppSelector(loggedInUserSelector);
@@ -41,26 +38,15 @@ const Header = () => {
   const isToPayPressed: boolean = useAppSelector(isToPayPressedSelector);
   const dispatch = useAppDispatch();
 
-  const activeCart = useAppSelector(activeCartSelector);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const [totalPrice, setTotalPrice] = useState(0);
 
-  const calaTotalPrice = (cartList: ProductsList[]) => {
-    let totalPrice = 0;
-    cartList.forEach((cartItem: ProductsList) => {
-      totalPrice += cartItem.product_price * cartItem.product_amount;
-    });
-    return totalPrice;
+  const navigateToAccessibility = () => {
+    navigate("/accessibility"); // Navigate to the "/accessibility" route
   };
 
-  useEffect(() => {
-    if (activeCart && activeCart.cartList) {
-      setTotalPrice(calaTotalPrice(activeCart.cartList));
-    }
-  }, [activeCart]);
   // Toggle the menu state
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
@@ -75,21 +61,28 @@ const Header = () => {
       dispatch(getUserFromTokenApi());
     }
   }, []);
-  //if there is a logged in user, get the active cart
+  // get the active cart
   const handelGetUserActiveCart = async (user_id: number) => {
-    const response = await dispatch(getUserActiveCartApi(user_id));
-   
-    if (response.payload && response.payload.cart_id) {
-      dispatch(getUserActiveCartListApi(response.payload.cart_id));
+    try {
+      const response = await dispatch(getUserActiveCartApi(user_id));
+
+      if (response.payload && (response.payload as CartItem).cart_id) {
+        const cartId = (response.payload as CartItem).cart_id;
+        await dispatch(getUserActiveCartListApi(cartId));
+      }
+    } catch (error) {
+      console.error("Error fetching user active cart:", error);
     }
   };
 
+  //if there is ,get active cart  every time the user changes
   useEffect(() => {
     if (loggedInUser && loggedInUser.user_id) {
-      handelGetUserActiveCart(loggedInUser.user_id);
+      handelGetUserActiveCart(loggedInUser.user_id).catch((error) =>
+        console.error("Error in useEffect:", error)
+      );
     }
   }, [loggedInUser]);
-  //if there is an active cart, get the active cart list
 
   // Close the login modal when the register modal is shown
   useEffect(() => {
@@ -108,25 +101,7 @@ const Header = () => {
     setShowRegisterModal(false);
     setShowLoginModal(true);
   };
-  // const sendOrder = async () => {
-  //   if (activeCart !== null) {
-  //     const order_id = await addNewOrderApi(
-  //       activeCart.cart_id,
-  //       activeCart.user_id,
-  //       new Date()
-  //     );
-  //     const delivery_id = await addNewDeliveryApi(order_id, new Date());
-  //     await updateOrderApi(order_id, delivery_id, 2);
-  //     await updateCartAPI(activeCart.cart_id, 2);
-  //     createNewCart();
-  //   }
-  // };
-  const createNewCart = async () => {
-    if (activeCart !== null) {
-      dispatch(addNewCartApi(activeCart.user_id));
-      window.location.reload();
-    }
-  }
+
   return (
     <div className="header-main">
       <button className="to-main-navBar" onClick={() => navigate("/")}>
@@ -140,8 +115,11 @@ const Header = () => {
         />
       </button>
       <SearchBar />
+      <UpperBar />
       <NightMode />
-      <button className="access">הצהרת נגישות</button>
+      <button className="access" onClick={navigateToAccessibility}>
+        הצהרת נגישות
+      </button>
       {!loggedInUser && (
         <button
           className="hp-loginBtn"
@@ -257,10 +235,8 @@ const Header = () => {
       <NavBar />
       {!isOpenCart && (
         <ShoppingCartBar
-          totalPrice={totalPrice}
           isOpen={isOpenCart}
           toggleCart={toggleCart}
-           //sendOrder={sendOrder}
           isToPayPressed={isToPayPressed}
         />
       )}
@@ -280,7 +256,7 @@ const Header = () => {
           onHide={handleCloseLogin}
           dialogClassName="custom-modal"
         >
-          <Modal.Body>
+          <Modal.Body className="login-modal custom-modal-body">
             <Login
               onClose={handleCloseLogin}
               RegisterPressed={() => setShowRegisterModal(true)}

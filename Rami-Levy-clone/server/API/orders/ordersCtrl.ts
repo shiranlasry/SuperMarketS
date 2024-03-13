@@ -1,5 +1,5 @@
-import connection from "../../DB/database";
 import express from "express";
+import connection from "../../DB/database";
 
 //in DB: order_id, cart_id, user_id, delivery_id, order_creation_date(DATETIME), status_id
 
@@ -34,7 +34,30 @@ export const getOrderById = async (
       res.status(400).send({ ok: false, error: "missing required fields" });
       return;
     }
-    const query = "SELECT * FROM  rami_levy_db.orders WHERE order_id = ?;";
+    const query = `
+        SELECT
+        o.order_id,
+        o.cart_id,
+        o.user_id,
+        o.order_creation_date,
+        o.status AS order_status,
+        o.alternative_products,
+        o.how_receive_shipment,
+        dc.delivery_id,
+        dc.delivery_finish_date,
+        dc.delivery_start_time,
+        uc.user_contact_id,
+        uc.contact_name,
+        uc.contact_phone_number
+    FROM
+        orders o
+    JOIN
+        deliveries dc ON o.delivery_id = dc.delivery_id
+    JOIN
+        users_contacts uc ON o.user_contact_id = uc.user_contact_id
+    WHERE
+        o.order_id =?;
+        `;
     connection.query(query, [order_id], (err, results, fields) => {
       try {
         if (err) throw err;
@@ -55,21 +78,35 @@ export const addNewOrder = async (
   res: express.Response
 ) => {
   try {
-    const { cart_id, user_id, order_creation_date } = req.body;
-    console.log("addNewOrder Server", cart_id, user_id, order_creation_date);
-    if (!cart_id || !user_id || !order_creation_date) {
-      res.status(400).send({ ok: false, error: "missing required fields" });
-      return;
-    }
-    const query =
-      "INSERT INTO rami_levy_db.orders (cart_id, user_id, delivery_id, order_creation_date, status_id) VALUES (?, ?, ?, ?, ?);";
+    const {
+      cart_id,
+      user_id,
+      delivery_id,
+      order_creation_date,
+      user_contact_id,
+      status,
+      how_receive_shipment,
+      alternative_products,
+    } = req.body;
+
+    const query = `INSERT INTO rami_levy_db.orders (cart_id, user_id, delivery_id, order_creation_date, user_contact_id, status, how_receive_shipment, alternative_products) VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
     connection.query(
       query,
-      [cart_id, user_id, null, order_creation_date, 2],
+      [
+        cart_id,
+        user_id,
+        delivery_id,
+        order_creation_date,
+        user_contact_id,
+        status,
+        how_receive_shipment,
+        alternative_products,
+      ],
       (err, results, fields) => {
         try {
           if (err) throw err;
-          res.send({ ok: true, results });
+          //@ts-ignore
+          res.send({ ok: true, results: results.insertId });
         } catch (error) {
           console.error(error);
           res.status(500).send({ ok: false, error });
@@ -95,15 +132,6 @@ export const updateOrder = async (
       order_creation_date,
       status_id,
     } = req.body;
-    console.log(
-      "updateOrder Server",
-      order_id,
-      cart_id,
-      user_id,
-      delivery_id,
-      order_creation_date,
-      status_id
-    );
 
     // Check if order_id is provided
     if (!order_id) {
@@ -242,8 +270,7 @@ export const getUserOrderCartDetails = async (
     connection.query(query, [cart_id], (err, results, fields) => {
       try {
         if (err) throw err;
-        console.log("getUserOrderCartDetails", results);
-       
+
         res.send({ ok: true, results });
       } catch (error) {
         console.error(error);

@@ -1,18 +1,25 @@
+$rami-blue: #1579f2;
+
 .user-details-container {
-  margin: auto;
   display: flex;
   flex-direction: column;
-  max-width: 780px;
-  width: fit-content;
+  width: 800px;
   height: fit-content;
   padding: 16px 0 16px 0;
+  margin-right: 5rem;
   background-color: #fff;
   border-radius: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
+  @media screen and (max-width: 1120px) {
+    width: 310px;
+    height: fit-content;
+  }
+
   .user-details-title {
     padding-right: 1rem;
     margin: 0 1rem 0 1rem;
+    color: $rami-blue;
     border-bottom: 1px solid #f3f5f8;
   }
 
@@ -57,6 +64,11 @@
     background-color: #cccccc00;
     border: none;
     margin-right: 35rem;
+
+    @media screen and (max-width: 1120px) {
+      width: 230px;
+      margin: 1rem 6rem 0 0;
+    }
   }
 
   .update-details-btn {

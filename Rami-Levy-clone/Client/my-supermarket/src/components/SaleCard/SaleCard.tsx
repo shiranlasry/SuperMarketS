@@ -2,7 +2,7 @@ import React from "react";
 import { Product, Sales } from "../../rami-types";
 import "./saleCard.scss";
 
-const SaleCard: React.FC<{ sale: Sales; product: Product }> = ({
+const SaleCard: React.FC<{ sale: Sales; product: Product | undefined }> = ({
   sale,
   product,
 }) => {
@@ -15,9 +15,9 @@ const SaleCard: React.FC<{ sale: Sales; product: Product }> = ({
       <h3 className="description">{sale.sale_description}</h3>
       <img
         src={`data:image/jpeg;base64,${setImg(
-          product.product_img_data_a.data
+          product?.product_img_data_a.data
         )}`}
-        alt={product.product_img_name_a}
+        alt={product?.product_img_name_a}
       />
       <h3 className="discount">{`${sale.sale_discount}%`}</h3>
     </div>

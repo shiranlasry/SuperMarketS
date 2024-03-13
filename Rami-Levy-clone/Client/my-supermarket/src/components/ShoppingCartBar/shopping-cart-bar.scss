@@ -1,49 +1,66 @@
+$rami-blue: #1579f2;
+
 .shopping-cart-bar {
   position: fixed;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   flex-direction: row;
-  width: 282px;
+  width: 285px;
   height: 55px;
   padding: 8px;
   margin-top: 0.5rem;
   border-radius: 10px;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: white;
-  background-color: #1579f2;
+  background-color: $rami-blue;
   transition: bottom 0.3s ease;
   z-index: 2;
 
+  @media screen and (max-width: 990px) {
+    margin-left: 100rem;
+  }
+
   &.open {
-    top: 90vh;
+    top: 88%;
+    left: 0.7rem;
   }
 
   &.closed {
-    top: 6rem;
+    top: 5.7rem;
     left: 1.7rem;
   }
-  &.to-pay-pressed{
-    background-color: red !important;
+  &.to-pay-pressed {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #db1f26 !important;
   }
   .toggle-cart-button {
     color: white;
     border: 1px solid white;
-    width: 40px;
-    height: 40px;
-    margin-left: 3rem;
+    width: 45px;
+    height: 35px;
+    margin-left: 2.2rem;
     font-size: 1rem;
     border-radius: 7px;
     padding: 5px;
     background: transparent;
     cursor: pointer;
-
-    @media screen and (max-width: 1580px) {
-      margin-left: 2rem;
-    }
   }
 
   .total-price-bar {
     font-weight: bolder;
     font-size: 1.6rem;
+  }
+
+  .big-digits {
+    font-size: 28px;
+  }
+
+  .small-digits {
+    font-size: 14px;
+    vertical-align: super;
   }
 
   .shekel-bar {
@@ -52,6 +69,7 @@
   }
 
   .toggle-pay-text {
+    padding-top: 4px;
     background-color: transparent;
     border: none;
     color: white;
