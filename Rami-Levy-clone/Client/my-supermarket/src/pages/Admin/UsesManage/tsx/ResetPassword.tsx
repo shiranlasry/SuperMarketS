@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { User } from "../../../../rami-types";
+import { useAppDispatch } from "../../../../app/hook";
+import RamiBtn from "../../../../components/RamiBtn/RamiBtn";
 import {
   getAllUsersApi,
   updatePasswordApi,
 } from "../../../../features/all_users_admin/allUsersAPI";
-import { useAppDispatch } from "../../../../app/hook";
+import { User } from "../../../../rami-types";
 import "../scss/ResetPassword.scss";
-import RamiBtn from "../../../../components/RamiBtn/RamiBtn";
 
 interface ResetPasswordModalProps {
   user: User;

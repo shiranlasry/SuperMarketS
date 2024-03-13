@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { logOutUserApi } from "../../features/logged_in_user/loggedInUserAPI";
+import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
 import UserAddress from "./UserAddress/UserAddress";
 import UserDetails from "./UserDetails/UserDetails";
-import "./personal-profil.scss";
-import AddPaymentMethod from "./UserPayment/UserPayment";
 import UserOrders from "./UserOrders/UserOrders";
-import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUserSlice";
+import AddPaymentMethod from "./UserPayment/UserPayment";
+import "./personal-profil.scss";
 
 interface PersonalProfilProps {
   onMenuClick?: (buttonName: string) => void;

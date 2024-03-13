@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hook";
-import { rolesSelector } from "../../../../features/roles/rolesSlice";
-import { getAllRolesAPI } from "../../../../features/roles/rolesAPI";
-import { User, Role } from "../../../../rami-types";
 import {
   getAllUsersApi,
   updateUserRoleApi,
 } from "../../../../features/all_users_admin/allUsersAPI";
+import { getAllRolesAPI } from "../../../../features/roles/rolesAPI";
+import { rolesSelector } from "../../../../features/roles/rolesSlice";
+import { Role, User } from "../../../../rami-types";
 import "../scss/UpdateUserRole.scss";
 
 type UserProps = {

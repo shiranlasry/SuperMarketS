@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { User } from "../../rami-types";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { User } from "../../rami-types";
 
 export const getAllUsersApi = createAsyncThunk<User[] | null, void>(
   "get-all-users",
