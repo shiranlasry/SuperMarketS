@@ -1,7 +1,9 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import "./Register.scss";
 import { User } from "../../rami-types";
 import registerAPI from "../../features/api/usersAPI";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface RegisterProps {
   onClose: () => void;
@@ -99,26 +101,28 @@ const Register: React.FC<RegisterProps> = ({ onClose }) => {
     try {
       // validate password
       if (passwordValidation || confirmPasswordValidation) {
-        alert("הסיסמה חייבת להכיל לפחות 8 תווים, אות גדולה, אות קטנה ומספר");
+        toast.info(
+          "הסיסמה חייבת להכיל לפחות 8 תווים, אות גדולה, אות קטנה ומספר"
+        );
         return;
       }
 
       // validate ID
       if (IDValidation) {
-        alert("מספר תעודת הזהות הישראלית אינו תקין");
+        toast.error("מספר תעודת הזהות הישראלית אינו תקין");
         return;
       }
 
       // validate email
       if (emailValidation) {
-        alert("כתובת הדואר האלקטרוני אינה תקינה");
+        toast.error("כתובת הדואר האלקטרוני אינה תקינה");
         return;
       }
 
       // if all fields are valid
       const resultAction: any = await registerAPI(newUser);
       if (resultAction.ok) {
-        alert("ההרשמה בוצעה בהצלחה");
+        toast.success("ההרשמה בוצעה בהצלחה");
         // Call the sendEmail endpoint
         const response = await fetch("/api/send-email", {
           method: "POST",

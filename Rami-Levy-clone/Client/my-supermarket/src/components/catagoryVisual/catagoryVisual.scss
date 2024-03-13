@@ -9,7 +9,6 @@ $rami-blue: #1579f2;
 .product-sub-category {
   display: flex;
   flex-direction: column;
-  width: fit-content;
 }
 
 .product-sub-category {
@@ -23,6 +22,7 @@ $rami-blue: #1579f2;
 
 .sub-category-title {
   text-align: right;
+
   margin-bottom: 1rem;
 }
 
