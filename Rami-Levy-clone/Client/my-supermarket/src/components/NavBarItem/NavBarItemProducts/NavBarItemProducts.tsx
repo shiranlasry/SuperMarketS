@@ -10,7 +10,7 @@ const NavBarItemProducts = () => {
   const { title } = useParams<{ navbarItemId: string; title: string }>();
   const productsByNavbarItemID = useAppSelector(productsByNavbarItemIDSelector);
   const navigate = useNavigate();
-  console.log("title", title);
+
   if (title === "מבצעים") {
     navigate("/sales");
   }

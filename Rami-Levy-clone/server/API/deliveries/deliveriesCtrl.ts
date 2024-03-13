@@ -48,7 +48,6 @@ export const getDeliveryById = async (req: express.Request, res: express.Respons
 export const updateDeliveryStatus = async (req: express.Request, res: express.Response) => {
     try {
         const { delivery_id } = req.body;
-        console.log('delivery_id', delivery_id);
         if (!delivery_id) {
             return res.status(400).send({ ok: false, error: 'Missing required fields' });
         }
@@ -62,7 +61,6 @@ export const updateDeliveryStatus = async (req: express.Request, res: express.Re
                 console.error(err);
                 return res.status(500).send({ ok: false, error: 'Failed to add delivery' });
             }
-            console.log('results', results);
             res.send({ ok: true, results });
         });
     } catch (error) {

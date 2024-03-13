@@ -1,16 +1,16 @@
 import { ChangeEvent, useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
+import RamiBtn from "../../../components/RamiBtn/RamiBtn";
 import { getAllProductsApi } from "../../../features/products/productsAPI";
 import { productsSelector } from "../../../features/products/productsSlice";
 import { Product } from "../../../rami-types";
+import AddNewFoodCategory from "./AddNewFoodCategory/AddNewFoodCategory";
+import AddNewProduct from "./AddNewProduct/AddNewProduct";
+import AddNewSubFoodCategory from "./AddNewSubFoodCategory/AddNewSubFoodCategory";
 import ProductCard from "./ProductCard";
 import "./ProductsAdmin.scss";
-import { Modal } from "react-bootstrap";
-import AddNewSubFoodCategory from "./AddNewSubFoodCategory/AddNewSubFoodCategory";
-import AddNewProduct from "./AddNewProduct/AddNewProduct";
-import AddNewFoodCategory from "./AddNewFoodCategory/AddNewFoodCategory";
-import RamiBtn from "../../../components/RamiBtn/RamiBtn";
 
 const ProductsAdmin = () => {
   const AllProducts = useAppSelector(productsSelector);
@@ -54,7 +54,7 @@ const ProductsAdmin = () => {
   const NewFoodCategoryPressed = () => {
     setAddNewFoodCategoryPressed(true);
   };
-  console.log(filteredProducts.map((product) => product.product_id));
+
   return (
     <>
       <div className="products-admin-container">

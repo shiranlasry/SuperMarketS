@@ -59,7 +59,6 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ product, onClose }) => {
     if (!allProducts) {
       dispatch(getAllProductsApi());
     }
-    console.log("Product:", product);
   }, []);
   const handleInputChange = (
     e: React.ChangeEvent<

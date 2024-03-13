@@ -60,23 +60,24 @@ export const deleteUserApi = createAsyncThunk<User[] | null, number | null>(
     }
   }
 );
+interface UserUpdatePassword {
+  user_id: number | null;
+  password: string;
 
-export const updatePasswordApi = createAsyncThunk<
-  User | null,
-  { user_id: number | null; password: string }
+}
+export const updatePasswordApi = createAsyncThunk<void, UserUpdatePassword
 >("update-password", async (arg) => {
   try {
     const response = await axios.put("/api/users/update-password", arg);
-    const { ok, results } = response.data;
-    console.log("results:" + results);
-
+    const { ok } = response.data;
+   
     if (!ok) {
       throw new Error("Invalid credentials updatePasswordApi()");
     }
     toast.success("סיסמא עודכנה בהצלחה");
   } catch (error) {
     console.error(error); // this is temporary
-    return null;
+   
   }
 });
 interface UserUpdateDetails {

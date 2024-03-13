@@ -10,13 +10,12 @@ export const getAllProductsApi = createAsyncThunk<Product[] | null, void>(
   async () => {
     try {
       const response = await axios.get("/api/products-details");
-      console.log("response", response);
+
       const { ok, results } = response.data;
       if (!ok) {
         throw new Error("Invalid credentials getAllProductsApi()");
       }
-      // Save the data into session storage
-      // sessionStorage.setItem('all_products', JSON.stringify(results));
+
       return results;
     } catch (error) {
       console.error(error);
@@ -70,12 +69,11 @@ export const updateProductDetailes = createAsyncThunk<
   UpdateProductFields
 >("update-product-detailes", async (updatedProduct) => {
   try {
-    console.log("updatedProduct", updatedProduct);
     const response = await axios.patch(
       "/api/products-details/update-product-detailes",
       updatedProduct
     );
-    const { ok, results } = response.data;
+    const { ok } = response.data;
     if (!ok) {
       throw new Error("Invalid credentials updateProductDetailes()");
     }
@@ -94,12 +92,11 @@ export const deleteProduct = createAsyncThunk<
     const response = await axios.delete(
       `/api/products-details/delete-product/${product_id.product_id}`
     );
-    console.log("response", response);
     const { ok, results } = response.data;
     if (!ok) {
       throw new Error("Invalid credentials deleteProduct()");
     }
-    toast.success("מוצר נמחק בהצלחה מסחררת");
+    toast.success("מוצר נמחק בהצלחה ");
     return results.insertId;
   } catch (error) {
     console.error("Error deleteProduct:", error);
@@ -112,7 +109,6 @@ export const updateProductImageAPi = createAsyncThunk<
   FormData
 >("update-product-image", async (formData) => {
   try {
-    // const response = await axios.post("/api/products-images/update-product-image", imagesProduct);
     const response = await axios.post(
       "/api/products-images/update-product-image",
       formData,
@@ -122,8 +118,6 @@ export const updateProductImageAPi = createAsyncThunk<
         },
       }
     );
-
-    console.log(response);
 
     const { ok } = response.data;
 

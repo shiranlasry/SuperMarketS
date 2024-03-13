@@ -1,5 +1,5 @@
-import connection from "../../DB/database";
 import express from "express";
+import connection from "../../DB/database";
 
 //in DB: order_id, cart_id, user_id, delivery_id, order_creation_date(DATETIME), status_id
 
@@ -57,7 +57,7 @@ export const getOrderById = async (
         users_contacts uc ON o.user_contact_id = uc.user_contact_id
     WHERE
         o.order_id =?;
-        `
+        `;
     connection.query(query, [order_id], (err, results, fields) => {
       try {
         if (err) throw err;
@@ -88,17 +88,7 @@ export const addNewOrder = async (
       how_receive_shipment,
       alternative_products,
     } = req.body;
-    console.log(
-      "addNewOrder Server",
-      cart_id,
-      user_id,
-      delivery_id,
-      order_creation_date,
-      user_contact_id,
-      status,
-      how_receive_shipment,
-      alternative_products,
-    );
+
     const query = `INSERT INTO rami_levy_db.orders (cart_id, user_id, delivery_id, order_creation_date, user_contact_id, status, how_receive_shipment, alternative_products) VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
     connection.query(
       query,
@@ -116,15 +106,13 @@ export const addNewOrder = async (
         try {
           if (err) throw err;
           //@ts-ignore
-          res.send({ ok: true, results: results.insertId});
+          res.send({ ok: true, results: results.insertId });
         } catch (error) {
           console.error(error);
           res.status(500).send({ ok: false, error });
         }
       }
     );
-    
-  
   } catch (error) {
     console.error(error);
     res.status(500).send({ ok: false, error });
@@ -144,15 +132,6 @@ export const updateOrder = async (
       order_creation_date,
       status_id,
     } = req.body;
-    console.log(
-      "updateOrder Server",
-      order_id,
-      cart_id,
-      user_id,
-      delivery_id,
-      order_creation_date,
-      status_id
-    );
 
     // Check if order_id is provided
     if (!order_id) {
@@ -269,8 +248,6 @@ export const getUserOrders = async (
   }
 };
 
-
-
 export const getUserOrderCartDetails = async (
   req: express.Request,
   res: express.Response
@@ -293,8 +270,7 @@ export const getUserOrderCartDetails = async (
     connection.query(query, [cart_id], (err, results, fields) => {
       try {
         if (err) throw err;
-        console.log("getUserOrderCartDetails", results);
-       
+
         res.send({ ok: true, results });
       } catch (error) {
         console.error(error);

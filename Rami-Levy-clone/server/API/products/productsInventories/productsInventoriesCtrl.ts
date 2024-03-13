@@ -14,7 +14,7 @@ export const addNewProductInventory = async (req: express.Request, res: express.
         }
      
         const last_update_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        console.log(last_update_date)
+        
         const query = `
         INSERT INTO rami_levy_db.inventories (product_id, last_update_date, \`add\`, units_stock)   
         VALUES (?, ?, ?, ?)

@@ -68,16 +68,7 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => {
     map.get(category.food_category_id)?.subcategories.push(category);
     return map;
   }, new Map<number, { categoryName: string; subcategories: typeof filteredCategories }>());
-  const ShowPruductsByFoodCategory = (
-    categoryData: {
-      categoryName: string;
-      subcategories: typeof filteredCategories;
-    },
-    categoryId: number
-  ) => {
-    console.log(categoryData);
-    console.log(categoryId);
-  };
+ 
   return (
     <div
       className="container-fluid sub-category-menu"
@@ -105,10 +96,10 @@ const SubCategoryMenu: React.FC<SubCategoryMenuProps> = ({ navbarItemId }) => {
               {categoryData.subcategories.length > 7 && (
                 <div
                   className="sub-cat-chevron"
-                  onClick={() => handleCategoryExpand(categoryId)}
+                  onClick={() => handleCategoryExpand(foodCategoryId)}
                 >
                   <span className="chevron-icon">
-                    {isCategoryExpanded(categoryId) ? "▲" : "▼"}
+                    {isCategoryExpanded(foodCategoryId) ? "▲" : "▼"}
                   </span>
                 </div>
               )}

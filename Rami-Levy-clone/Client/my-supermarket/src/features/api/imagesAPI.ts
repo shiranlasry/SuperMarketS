@@ -27,12 +27,6 @@ export const deleteSingleImageAPI = createAsyncThunk<
   { product_id: number | null; isA: boolean }
 >("delete-single-image", async ({ product_id, isA }) => {
   try {
-    console.log(
-      "delete single pic in client product_id",
-      product_id,
-      "isA",
-      isA
-    );
     const response = await axios.patch(
       `/api/products-images/delete-single-image/${product_id}/${
         isA ? "true" : "false"

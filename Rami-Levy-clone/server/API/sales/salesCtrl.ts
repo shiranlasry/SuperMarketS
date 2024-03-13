@@ -42,7 +42,7 @@ export const getSaleById = async (req: express.Request, res: express.Response) =
 export const addNewSale = async (req: express.Request, res: express.Response) => {
     try {
         const { sale_description, sale_expiration_date, sale_discount, product_id, sale_price } = req.body;
-        console.log("addNewSale", req.body);
+      
         const query = `INSERT INTO rami_levy_db.sales (sale_description, sale_expiration_date, sale_discount, product_id, sale_price) VALUES (?,?,?,?,?);`;
         connection.query(query, [sale_description, sale_expiration_date, sale_discount, product_id, sale_price], (err, results, fields) => {
             try {

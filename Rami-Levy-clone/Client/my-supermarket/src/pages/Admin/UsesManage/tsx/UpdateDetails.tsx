@@ -50,7 +50,7 @@ const UpdateDetails: React.FC<UserProps> = ({ user, onClose }) => {
             dispatch(getAllUsersApi());
             onClose();
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 

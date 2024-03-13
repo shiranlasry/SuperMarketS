@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAppDispatch } from "../../app/hook";
 import {
   getUserAddressesApi,
   logInUserApi,
 } from "../../features/logged_in_user/loggedInUserAPI";
 import "./login.scss";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 interface LoginProps {
   onClose: () => void;
@@ -48,7 +48,6 @@ const Login: React.FC<LoginProps> = ({ onClose, RegisterPressed }) => {
       const resultAction: any = await dispatch(logInUserApi(arg));
       if (!resultAction.payload) {
         toast.error("שם משתמש או סיסמא לא נכונים");
-        console.log("Invalid credentials");
         return;
       }
       dispatch(getUserAddressesApi(resultAction.payload.user_id));

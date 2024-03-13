@@ -7,8 +7,6 @@ import { RowDataPacket } from 'mysql2';
 export const addNewContact = async (req: Request, res: Response) => {
     try {
         const { contact_name, contact_phone_number }: { contact_name: string, contact_phone_number: string } = req.body;
-        console.log('addNewContact contact_name, contact_phone_number', contact_name, contact_phone_number);
-        console.log('req.body', req.body);
         if (!contact_name || !contact_phone_number) {
             res.json({ ok: false, message: 'Invalid credentials' });
             return;

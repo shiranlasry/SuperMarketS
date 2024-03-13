@@ -39,6 +39,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser, onClose }) => {
   const handleNavigateToAdmin = () => {
     onClose();
     navigate("/admin");
+   
   };
   const handleNavigatePersonalProfil = () => {
     onClose();
