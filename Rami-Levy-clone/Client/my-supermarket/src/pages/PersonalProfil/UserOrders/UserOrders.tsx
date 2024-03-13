@@ -37,19 +37,27 @@ const UserOrders = () => {
   return (
     <div className="user-orders-main">
       <h1 className="my-orders-title">ההזמנות שלי</h1>
+      {!userOrdersList && 
+       <>
       <img className="banana" src="./src/assets/img/banana.png" />
       <p className="no-orders-title"> נראה שעדיין לא התחלת קנייה...</p>
       <RamiBtn className="user-ordersBtn" onClick={handleReturnHome}>
         קחו אותי לסופר!
       </RamiBtn>
+      </>
+      }
+     
+   
       {userOrdersList &&
         userOrdersList.map((order: Order) => {
           return (
             <div key={order.order_id}>
               <h3>מספר הזמנה: {order.order_id}</h3>
-              <h3>תאריך הזמנה: {order.order_creation_date.toString()}</h3>
-              <h3>סטטוס הזמנה: {order.status_id}</h3>
-              <button>פרטי הזמנה</button>
+              <h3>תאריך הזמנה: {order.order_creation_date?.toString() || ""}</h3>
+              <h3>סטטוס הזמנה: {order.status}</h3>
+              <RamiBtn className="user-ordersBtn" onClick={handleReturnHome}>
+                פרטי הזמנה
+              </RamiBtn>
             </div>
           );
         })}
