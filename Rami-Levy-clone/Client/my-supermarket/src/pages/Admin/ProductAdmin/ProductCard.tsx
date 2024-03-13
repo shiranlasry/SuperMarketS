@@ -12,9 +12,6 @@ import { deleteProduct } from "../../../features/products/productsAPI";
 import { deleteInventoryAPI } from "../../../features/api/inventoryAPI";
 import UpdateImage from "./UpdateImage";
 import RamiBtn from "../../../components/RamiBtn/RamiBtn";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 type ProductCardProps = {
   product: Product;
 };
@@ -55,7 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       })
     );
     setShowInventoryPopup(false);
-    toast.success("Inventory updated successfully");
+    alert("Inventory updated successfully");
   };
 
   const updateProductFields = () => {

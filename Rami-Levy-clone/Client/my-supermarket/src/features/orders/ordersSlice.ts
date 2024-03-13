@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { Order, ProductsList } from "../../rami-types";
-import {
-  getOrderByIdAPI,
-  getUserOrderCartDetailsAPI,
-  getUserOrdersAPI,
-} from "./ordersAPI";
+import { getOrderByIdAPI,getUserOrdersAPI ,getUserOrderCartDetailsAPI} from "./ordersAPI";
 
 enum Status {
   IDLE = "idle",
@@ -31,15 +27,17 @@ const initialState: OrdersState = {
 const ordersSlice = createSlice({
   name: "orders",
   initialState,
-  reducers: {},
+    reducers: {
+      
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUserOrdersAPI.pending, (state) => {
         state.status = Status.LOADING;
       })
       .addCase(getUserOrdersAPI.fulfilled, (state, action) => {
-        state.status = Status.IDLE;
-        state.userOrdersList = action.payload;
+        state.status = Status.IDLE;  
+        state.userOrdersList = action.payload; 
       })
       .addCase(getUserOrdersAPI.rejected, (state) => {
         state.status = Status.FAILED;
@@ -59,20 +57,21 @@ const ordersSlice = createSlice({
       })
       .addCase(getOrderByIdAPI.fulfilled, (state, action) => {
         state.status = Status.IDLE;
-
+       
         state.newUserOrder = action.payload;
+        
       })
       .addCase(getOrderByIdAPI.rejected, (state) => {
         state.status = Status.FAILED;
-      });
+      })
+   
+      ;
   },
 });
 
-export const userOrdersListSelector = (state: RootState) =>
-  state.orders.userOrdersList;
-export const selectedOrderDetailsSelector = (state: RootState) =>
-  state.orders.selectedOrderDetails;
-export const newUserOrderSelector = (state: RootState) =>
+export const userOrdersListSelector = (state: RootState) => state.orders.userOrdersList;
+export const selectedOrderDetailsSelector = (state: RootState) => state.orders.selectedOrderDetails;
+export const newUserOrderSelector = (state: RootState) => 
   state.orders.newUserOrder;
 export const selectOrdersStatus = (state: RootState) => state.orders.status;
 

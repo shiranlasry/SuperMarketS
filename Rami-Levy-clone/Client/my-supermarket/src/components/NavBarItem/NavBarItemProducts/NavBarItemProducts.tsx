@@ -1,10 +1,10 @@
-import { useParams } from "react-router";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../app/hook";
-import { productsByNavbarItemIDSelector } from "../../../features/products/productsSlice";
-import ProductCard from "../../ProductCard/ProductCard";
 import "./NavBarItemProducts.scss";
 import { Product } from "./types"; // Assuming you have defined Product interface in a separate file
+import { productsByNavbarItemIDSelector } from "../../../features/products/productsSlice";
+import { useAppSelector } from "../../../app/hook";
+import ProductCard from "../../ProductCard/ProductCard";
+import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const NavBarItemProducts = () => {
   const { title } = useParams<{ navbarItemId: string; title: string }>();

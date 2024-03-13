@@ -38,15 +38,14 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
     }
   }, []);
 
-  const nameValidation = (name: string) => {
-    const productName = allProducts?.find(
-      (product) => product.product_name === name
-    );
+  const nameValidation = (name:string) => {
+    const productName = allProducts?.find((product) => product.product_name === name);
     if (productName !== undefined) {
       return true;
     }
     return false;
-  };
+  }
+
 
   const initialProduct: Product = {
     product_id: null,
@@ -100,7 +99,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
     if (name === "product_price") {
       const price = parseFloat(value);
       if (price < 0) {
-        return toast.warning("המחיר חייב להיות מספר חיובי");
+        return alert("המחיר חייב להיות מספר חיובי");
       }
       setNewProduct({ ...newProduct, [name]: price });
     } else {
@@ -136,11 +135,11 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
     e.preventDefault();
     try {
       if (imgsValidation) {
-        toast.warning("אנא בחר עד 2 תמונות");
+        alert("אנא בחר עד 2 תמונות");
         return;
       }
       if (nameValidation(newProduct.product_name)) {
-        toast.error("שם קיים במערכת, אנא בחר שם חדש");
+        alert("שם קיים במערכת, אנא בחר שם חדש");
         return;
       }
       const insertProductId = await addNewProductDetailes(newProduct);
@@ -152,8 +151,9 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
       if (imagesProductFiles && imagesProductFiles.length > 0) {
         await saveProductImages(insertProductId, imagesProductFiles);
       }
-
+    
       toast.success("מוצר נוסף בהצלחה למאגר המוצרים");
+     
     } catch (error) {
       console.error("Error adding new product on handelAddNewProduct", error);
     }

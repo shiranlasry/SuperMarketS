@@ -4,8 +4,6 @@ import { Product, Sales } from "../../rami-types";
 import { useAppDispatch } from "../../app/hook";
 import { addSaleAPI } from "../../features/sales/salesAPI";
 import RamiBtn from "../RamiBtn/RamiBtn";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 interface AddNewSalePrps {
   sales: Sales[];
@@ -25,32 +23,32 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
   const handleInputChange = (e) => {
     const { name, value, valueAsNumber } = e.target;
     switch (name) {
-      case "sale_discount":
-        if (valueAsNumber < 0 || valueAsNumber > 100) {
-          return toast.info("הנחה חייבת להיות בין 0 ל-100");
-        }
-        setNewSale((prevSale) => ({
-          ...prevSale,
-          [name]: valueAsNumber,
-        }));
-        return;
-      case "sale_expiration_date":
-        if (new Date(value) < new Date()) {
-          return toast.info("תאריך תפוגה חייב להיות גדול מהיום");
-        }
-        break;
-      case "product_id":
-        const strToInt = parseInt(value);
-        if (isNaN(strToInt)) {
-          return toast.warning("נא לבחור מוצר");
-        }
-        setNewSale((prevSale) => ({
-          ...prevSale,
-          [name]: strToInt,
-        }));
-        return; // Add break statement here
-      default:
-        break;
+        case "sale_discount":
+            if (valueAsNumber < 0 || valueAsNumber > 100) {
+                return alert("הנחה חייבת להיות בין 0 ל-100");
+            }
+            setNewSale((prevSale) => ({
+                ...prevSale,
+              [name]: valueAsNumber,
+            }));
+            return;
+        case "sale_expiration_date":
+            if (new Date(value) < new Date()) {
+                return alert("תאריך תפוגה חייב להיות גדול מהיום");
+            }
+            break;
+        case "product_id":
+            const strToInt = parseInt(value);
+            if (isNaN(strToInt)) {
+                return alert("נא לבחור מוצר");
+            }
+            setNewSale((prevSale) => ({
+                ...prevSale,
+                [name]: strToInt,
+            }));
+            return; // Add break statement here
+        default:
+            break;
     }
     setNewSale((prevSale) => ({
       ...prevSale,
@@ -66,7 +64,7 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
       newSale.product_id === undefined
     ) {
       console.log(newSale);
-      return toast.warning("נא למלא את כל השדות");
+      return alert("נא למלא את כל השדות");
     }
     return true;
   };
@@ -78,6 +76,7 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
     if (newSaleItem === -1) {
       return true;
     } else {
+        
       return false;
     }
   };
@@ -85,15 +84,13 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!checkNewSale()) return console.error("שדות חסרים");
-    if (!isExist()) return toast.error("מוצר זה כבר במבצע");
+    if (!isExist()) return alert("מוצר זה כבר במבצע");;
     const productInSale = products.findIndex(
       (product) => product.product_id === newSale.product_id
     );
-    if (productInSale && products && newSale.sale_discount !== undefined) {
-      const price = products[productInSale].product_price;
-      newSale.sale_price = price
-        ? price * (1 - newSale.sale_discount / 100)
-        : 0;
+    if (productInSale  && products && newSale.sale_discount !== undefined) {
+      const  price = products[productInSale].product_price;
+      newSale.sale_price = price ? price * (1 - newSale.sale_discount / 100): 0;
     }
     dispatch(addSaleAPI(newSale));
     setNewSale({
@@ -103,7 +100,7 @@ const AddNewSale: React.FC<AddNewSalePrps> = ({ sales, products }) => {
       product_id: undefined,
       sale_price: 0,
     });
-    window.location.reload();
+      window.location.reload();
   };
 
   return (

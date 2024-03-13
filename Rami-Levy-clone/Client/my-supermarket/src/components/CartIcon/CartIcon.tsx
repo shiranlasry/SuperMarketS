@@ -3,6 +3,7 @@ import "../ShoppingCart/shopping-cart.scss";
 import "./cart-icon.scss";
 
 const CartIcon = () => {
+  
   return (
     <div className="cart-icon">
       <svg

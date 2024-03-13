@@ -63,14 +63,14 @@ const CheckOutOffers = () => {
         </div>
         {showProducts && ( // Conditionally render products based on showProducts state
           <div className="col-md-6">
-            <div className="row view-more-items">
+            <div className="row">
               <div className="col-12">
                 <h1 className="suggestions-title mt-3 mb-3">
                   אולי יעניין אותך
                 </h1>
               </div>
               {randomProducts.map((product) => (
-                <div key={product.product_id} className="col-12 col-md-4 mb-2">
+                <div key={product.product_id} className="col-12 col-md-4 mb-3">
                   <div className="product-card-wrapper">
                     <ProductCard product={product} />
                   </div>

@@ -37,6 +37,7 @@ const Header = () => {
   const isOpenCart: boolean = useAppSelector(isOpenCartSelector);
   const isToPayPressed: boolean = useAppSelector(isToPayPressedSelector);
   const dispatch = useAppDispatch();
+
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);

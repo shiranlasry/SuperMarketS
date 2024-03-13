@@ -1,20 +1,18 @@
 // cartSlice.ts
 
-import { createSlice } from "@reduxjs/toolkit";
+import {  createSlice } from '@reduxjs/toolkit';
 
-import { RootState } from "../../app/store"; // Assuming you have a RootState type defined
-import { CartItem } from "../../rami-types";
-import {
-  addNewCartApi,
-  getUserActiveCartApi,
-  getUserActiveCartListApi,
-  updateCartStatusApi,
-} from "./cartAPI";
+import { RootState } from '../../app/store'; // Assuming you have a RootState type defined
+import { CartItem } from '../../rami-types';
+import { updateCartStatusApi,addNewCartApi, getUserActiveCartApi, getUserActiveCartListApi } from './cartAPI';
+import { stat } from 'fs';
+
+
 
 enum Status {
   IDLE = "idle",
   LOADING = "loading",
-  FAILED = "failed",
+  FAILED = "failed"
 }
 interface CartState {
   activeCart: CartItem | null;
@@ -27,11 +25,11 @@ const initialState: CartState = {
   activeCart: null,
   isOpenCart: false,
   isToPayPressed: false,
-  status: Status.IDLE,
+  status: Status.IDLE
 };
 
 const CartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     setIsOpenCart: (state) => {
@@ -45,7 +43,8 @@ const CartSlice = createSlice({
     },
     setIsToPayPressedFalse: (state) => {
       state.isToPayPressed = false;
-    },
+    }
+
   },
   extraReducers: (builder) => {
     builder
@@ -77,9 +76,9 @@ const CartSlice = createSlice({
         if (Array.isArray(action.payload)) {
           // If payload is an array of cartList
           if (state.activeCart !== null) {
-            state.activeCart.cartList = action.payload;
+              state.activeCart.cartList = action.payload;
           }
-        }
+      }
       })
       .addCase(getUserActiveCartListApi.rejected, (state) => {
         state.status = Status.FAILED;
@@ -87,7 +86,7 @@ const CartSlice = createSlice({
       .addCase(updateCartStatusApi.pending, (state) => {
         state.status = Status.LOADING;
       })
-      .addCase(updateCartStatusApi.fulfilled, (state, action) => {
+      .addCase(updateCartStatusApi.fulfilled, (state,action) => {
         state.status = Status.IDLE;
         // אמור לאפס את העגלה הפעילה ואחר כך להגיע להדר ולהוסיף עגלה חדשה
         state.activeCart = null;
@@ -96,19 +95,17 @@ const CartSlice = createSlice({
       .addCase(updateCartStatusApi.rejected, (state) => {
         state.status = Status.FAILED;
       });
+      
+      
   },
 });
 
-export const {
-  setIsOpenCartTrue,
-  setIsOpenCart,
-  setIsToPayPressedTrue,
-  setIsToPayPressedFalse,
-} = CartSlice.actions;
+
+export const {setIsOpenCartTrue, setIsOpenCart, setIsToPayPressedTrue, setIsToPayPressedFalse } = CartSlice.actions;
 // Selector to get cart items from the store
 export const activeCartSelector = (state: RootState) => state.cart.activeCart;
 export const isOpenCartSelector = (state: RootState) => state.cart.isOpenCart;
-export const isToPayPressedSelector = (state: RootState) =>
-  state.cart.isToPayPressed;
+export const isToPayPressedSelector = (state: RootState) => state.cart.isToPayPressed;
+
 
 export default CartSlice.reducer;

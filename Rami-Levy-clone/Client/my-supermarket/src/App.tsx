@@ -1,25 +1,16 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-import CheckOutOffers from "./components/CheckOutOffers/CheckOutOffers";
-import InfoCenter from "./components/InfoCenter/InfoCenter";
-import NavBarItemProducts from "./components/NavBarItem/NavBarItemProducts/NavBarItemProducts";
-import OrderSummary from "./components/OrderSummary/OrderSummary";
-import ProductsByFoodCategory from "./components/ProductsByFoodCategory/ProductsByFoodCategory";
-import SalesList from "./components/SalesList/SalesList";
 import CategoryVisual from "./components/catagoryVisual/catagoryVisual";
 import ErrorPage from "./pages/404-page/ErrorPage";
 import AdminMainPage from "./pages/Admin/AdminMainPage";
-import ManageSales from "./pages/Admin/ManageSales/ManageSales";
+import AddNewFoodCategory from "./pages/Admin/ProductAdmin/AddNewFoodCategory/AddNewFoodCategory";
+import AddNewProduct from "./pages/Admin/ProductAdmin/AddNewProduct/AddNewProduct";
 import ProductsAdmin from "./pages/Admin/ProductAdmin/ProductAdmin";
 import UpdateUser from "./pages/Admin/UsesManage/tsx/UpdateUser";
 import UsersManage from "./pages/Admin/UsesManage/tsx/UsersManage";
 import Home from "./pages/Home/Home";
 import Login from "./pages/LogIn/Login";
 import PersonalProfil from "./pages/PersonalProfil/PersonalProfil";
-import UserAddress from "./pages/PersonalProfil/UserAddress/UserAddress";
-import UserDetails from "./pages/PersonalProfil/UserDetails/UserDetails";
-import UserOrders from "./pages/PersonalProfil/UserOrders/UserOrders";
-import UserPayment from "./pages/PersonalProfil/UserPayment/UserPayment";
 import Register from "./pages/Register/Register";
 import Layout from "./views/layouts/Layout";
 import NavBarItemProducts from "./components/NavBarItem/NavBarItemProducts/NavBarItemProducts";
@@ -34,7 +25,6 @@ import UserDetails from "./pages/PersonalProfil/UserDetails/UserDetails";
 import UserAddress from "./pages/PersonalProfil/UserAddress/UserAddress";
 import InfoCenter from "./components/InfoCenter/InfoCenter";
 import { Accessibility } from "./pages/Accessibility/Accessibility";
-
 function App() {
   const router = createBrowserRouter([
     {

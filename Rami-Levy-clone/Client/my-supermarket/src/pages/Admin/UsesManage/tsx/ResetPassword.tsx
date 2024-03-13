@@ -1,30 +1,20 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../../../app/hook";
-import RamiBtn from "../../../../components/RamiBtn/RamiBtn";
-import {
-  getAllUsersApi,
-  updatePasswordApi,
-} from "../../../../features/all_users_admin/allUsersAPI";
 import { User } from "../../../../rami-types";
+import { getAllUsersApi, updatePasswordApi } from "../../../../features/all_users_admin/allUsersAPI";
+import { useAppDispatch } from "../../../../app/hook";
 import "../scss/ResetPassword.scss";
+
 
 interface ResetPasswordModalProps {
   user: User;
   onClose: () => void;
 }
 
-const ResetPassword: React.FC<ResetPasswordModalProps> = ({
-  user,
-  onClose,
-}) => {
+const ResetPassword: React.FC<ResetPasswordModalProps> = ({ user, onClose }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordValidation, setPasswordValidation] = useState<string | null>(
-    null
-  );
-  const [confirmPasswordValidation, setConfirmPasswordValidation] = useState<
-    string | null
-  >(null);
+  const [passwordValidation, setPasswordValidation] = useState<string | null>(null);
+  const [confirmPasswordValidation, setConfirmPasswordValidation] = useState<string | null>(null);
   const dispatch = useAppDispatch();
 
   const validatePassword = (password: string) => {
@@ -60,15 +50,13 @@ const ResetPassword: React.FC<ResetPasswordModalProps> = ({
 
   const handleSave = async () => {
     try {
-      if (!passwordValidation && !confirmPasswordValidation) {
-        // Check password and confirm password validations
+      if (!passwordValidation && !confirmPasswordValidation) { // Check password and confirm password validations
         // Perform the password update
-        await dispatch(
-          updatePasswordApi({ user_id: user.user_id, password: password })
-        );
-
-        dispatch(getAllUsersApi());
-        onClose();
+      await dispatch(updatePasswordApi({ user_id: user.user_id, password: password }));
+        
+      dispatch(getAllUsersApi());
+      onClose();
+        
       } else {
         console.error(passwordValidation);
         console.error(confirmPasswordValidation);
@@ -81,14 +69,13 @@ const ResetPassword: React.FC<ResetPasswordModalProps> = ({
   };
 
   return (
-    <div className="reset-password-main">
+    <div className="mainResetPassword">
       <form>
-        <h1 className="reset-password-title">עדכון סיסמא</h1>
+        <h1>עדכון סיסמא</h1>
         <input
           type="password"
           name="password"
           placeholder="סיסמא חדשה"
-          className="new-pass-reset"
           value={password}
           onChange={handleInputChange}
         />
@@ -99,7 +86,6 @@ const ResetPassword: React.FC<ResetPasswordModalProps> = ({
           type="password"
           name="confirmPassword"
           placeholder="אשר סיסמא חדשה"
-          className="new-pass-reset confirm"
           value={confirmPassword}
           onChange={handleInputChange}
         />
@@ -107,12 +93,12 @@ const ResetPassword: React.FC<ResetPasswordModalProps> = ({
           <div className="error-message">{confirmPasswordValidation}</div>
         )}
         <div>
-          <RamiBtn className="saveBtn" type="button" onClick={handleSave}>
+          <button className="saveBtn" type="button" onClick={handleSave}>
             שמור
-          </RamiBtn>
-          <RamiBtn className="cancelBtn" type="button" onClick={onClose}>
+          </button>
+          <button className="cancelBtn" type="button" onClick={onClose}>
             ביטול
-          </RamiBtn>
+          </button>
         </div>
       </form>
     </div>

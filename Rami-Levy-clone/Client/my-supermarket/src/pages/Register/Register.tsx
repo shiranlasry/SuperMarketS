@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import "./Register.scss";
+import { User } from "../../rami-types";
+import registerAPI from "../../features/api/usersAPI";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import registerAPI from "../../features/api/usersAPI";
-import { User } from "../../rami-types";
-import "./Register.scss";
 
 interface RegisterProps {
   onClose: () => void;
