@@ -46,7 +46,7 @@ export const getOrderByIdAPI = createAsyncThunk<Order | null, number>("getOrderB
         if (!ok) {
             throw new Error("Invalid credentials getOrderByIdAPI()");
         }
-        debugger;
+     
         const order = results[0] as Order;
         return order
     } catch (error) {

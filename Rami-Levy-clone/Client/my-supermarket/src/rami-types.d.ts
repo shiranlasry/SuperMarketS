@@ -34,7 +34,7 @@ export interface ProductsList {
   product_name: string;
   product_description: string;
   product_price: number=0;
-  product_img_name_a: string='';
+  product_img_name_a:string;
   product_img_name_b: string= '';
   product_img_data_a: string= '';
   product_img_data_b: string= '';
@@ -181,7 +181,6 @@ export interface OrderForList{
 export interface Delivery {
   delivery_id: number;
   status: number |null;
-  city_id: number |null;
   delivery_finish_date: string;
   delivery_start_time: string;
 }

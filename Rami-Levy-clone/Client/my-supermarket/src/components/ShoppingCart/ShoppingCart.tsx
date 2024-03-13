@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hook";
 import Logo from "../../assets/logos/rami-levy-online.png";
 import { updateDeliveryStatusApi } from "../../features/api/deliveriesAPI";
 import { addNewUserContactAPI } from "../../features/api/usersContactsAPI";
-import { addNewCartApi, getUserActiveCartApi, updateCartStatusApi } from "../../features/cart/cartAPI";
+
 import {
   activeCartSelector,
   isOpenCartSelector,
@@ -137,6 +137,7 @@ const ShoppingCart: React.FC = () => {
     // update delivery status
 
     if (selectedDelivery) {
+      
       await updateDeliveryStatusApi(selectedDelivery.delivery_id);
     }
     // add user_contact_id to database and get the id

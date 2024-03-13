@@ -15,7 +15,7 @@ import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
 import "./product-counter.scss";
 
-const ProductCounter: React.FC<{ product: Product; location: string }> = ({
+const ProductCounter: React.FC<{ product: Product|ProductsList; location: string }> = ({
   product,
   location,
 }) => {

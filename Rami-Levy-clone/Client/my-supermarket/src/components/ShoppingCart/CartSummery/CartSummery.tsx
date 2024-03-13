@@ -12,6 +12,7 @@ import ChengeContactModal from "./Modals/ChengeContactModal";
 import ChengeAddressModal from "./Modals/ChengeAddressModal";
 import AvailableDeliveriesModal from "./Modals/AvailableDeliveriesModal";
 import RamiBtn from "../../RamiBtn/RamiBtn";
+import ShowOrderProductsModal from "./Modals/ShowOrderProductsModal";
 
 interface CartSummeryProps {
   orderContact: {
@@ -67,7 +68,11 @@ const CartSummery: React.FC<CartSummeryProps> = ({
   const toggleModal = (modalType) => {
     setShowModal({ ...showModal, [modalType]: !showModal[modalType] });
   };
-
+  const formatTimeRange = (startTime: string): string => {
+    const startHour = new Date(`01/01/2000 ${startTime}`);
+        
+    return `${startHour.toLocaleTimeString([],{ hour: '2-digit', minute: '2-digit' })}`;
+  };
   return (
     <div className="cart-summery-content">
       {orderContact && (
@@ -119,8 +124,14 @@ const CartSummery: React.FC<CartSummeryProps> = ({
             <div className="col">
               {selectedDelivery ? (
                 <p>
-                  {selectedDelivery.delivery_finish_date}{" "}
-                  {selectedDelivery.delivery_start_time}
+                  {new Date(selectedDelivery.delivery_finish_date).toLocaleDateString("he-IL", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour12: false
+                  })} ,  {formatTimeRange(selectedDelivery.delivery_start_time)}
+                  
                 </p>
               ) : (
                 <p>בחר מועד משלוח</p>
@@ -140,9 +151,26 @@ const CartSummery: React.FC<CartSummeryProps> = ({
               <p>מודאל להצגת המוצרים של העגלה </p>
             </div>
             <div className="col">
-              <RamiBtn className="summary-btn">שינוי</RamiBtn>
+              <RamiBtn className="summary-btn"
+                onClick={() => toggleModal("showProducts")}
+              >שינוי</RamiBtn>
             </div>
           </div>
+          <Modal
+            show={showModal.showProducts}
+            onHide={() => toggleModal("showProducts")}
+            dialogClassName="custom-modal"
+          >
+            <Modal.Body>
+              <ShowOrderProductsModal
+                onClose={() => toggleModal("showProducts")}
+                
+              />
+            </Modal.Body>
+          </Modal>
+
+
+
           <Modal
             show={showModal.changeContact}
             onHide={() => toggleModal("changeContact")}

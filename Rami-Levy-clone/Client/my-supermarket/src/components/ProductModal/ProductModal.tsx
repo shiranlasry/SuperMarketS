@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
-import { Product } from "../../rami-types";
+import { Product, ProductsList } from "../../rami-types";
 import ProductCounter from "../ProductCounter/ProductCounter";
 import "./product-modal.scss"; // Import CSS file for styling
+
 
 interface ProductModalProps {
   product: Product;
@@ -36,7 +37,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
           <p>הצעת הגשה: {product.serving_suggestion}</p>
           <p>רכיבים: {product.product_components}</p>
         </div>
-        <ProductCounter product={product} />
+        <ProductCounter product={product} location={"product-modal"} />
         <div className="carousel-item active">
           <img
             src={`data:image/jpeg;base64,${currentImage}`}
