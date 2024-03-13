@@ -1,7 +1,7 @@
-$button: #1579f2;
+$remi-blue: #1579f2;
 
 .basket-main {
-  color: $button;
+  color: $remi-blue;
   margin-left: 1.2rem;
 
   .shopping-basket {
@@ -41,7 +41,7 @@ $button: #1579f2;
     }
 
     .basket-price {
-      color: $button;
+      color: $remi-blue;
       background-color: rgba(255, 255, 255, 0);
       border: none;
       align-items: center;
@@ -50,7 +50,7 @@ $button: #1579f2;
     }
   }
   .basket-icon {
-    color: $button;
+    color: $remi-blue;
 
     .basket-svg {
       width: 50px;
