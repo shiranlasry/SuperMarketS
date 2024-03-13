@@ -165,6 +165,7 @@ const ShoppingCart: React.FC = () => {
       newOrder.alternative_products &&
       newOrder.how_receive_shipment
     ) {
+      debugger;
       const response = await dispatch(addNewOrderAPI(newOrder));
       if (response.payload) {
       

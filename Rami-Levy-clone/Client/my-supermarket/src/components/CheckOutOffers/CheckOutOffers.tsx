@@ -49,16 +49,16 @@ const CheckOutOffers = () => {
   }, [dispatch]);
 
   // Function to handle button click in Personal Profile menu
-  const handleMenuClick = (buttonName: string) => {
+  const handleOptionClick = () => {
     setShowProducts(false); // Hide products when a menu item is clicked
-    dispatch(setIsToPayPressedFalse());
+    
   };
 
   return (
     <div className="checkout-container">
       <div className="row">
         <div className="suggestions-content col-md-2">
-          <PersonalProfil onMenuClick={handleMenuClick} />{" "}
+          <PersonalProfil isSelectedOption={handleOptionClick} />
           {/* Pass handleMenuClick as a prop to PersonalProfil */}
         </div>
         {showProducts && ( // Conditionally render products based on showProducts state

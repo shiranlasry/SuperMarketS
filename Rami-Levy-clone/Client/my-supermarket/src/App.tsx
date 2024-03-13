@@ -46,7 +46,7 @@ function App() {
         { path: "/category-visual/:id", element: <CategoryVisual /> },
         { path: "/*", element: <ErrorPage /> },
 
-        { path: "/personal_profil", element: <PersonalProfil /> },
+        { path: "/personal_profil/:selected", element: <PersonalProfil /> },
         { path: "/user_details", element: <UserDetails /> },
         {
           path: "/navbar_item_products/:navbar_item_id",

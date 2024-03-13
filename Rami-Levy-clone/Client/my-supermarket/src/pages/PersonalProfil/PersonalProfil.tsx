@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { logOutUserApi } from "../../features/logged_in_user/loggedInUserAPI";
 import UserAddress from "./UserAddress/UserAddress";
@@ -11,10 +11,13 @@ import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUser
 import InfoCenter from "../../components/InfoCenter/InfoCenter";
 
 interface PersonalProfilProps {
-  onMenuClick?: (buttonName: string) => void;
+ 
+  isSelectedOption?: () => void;
+
 }
 
-const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
+const PersonalProfil: React.FC<PersonalProfilProps> = ({ isSelectedOption }) => {
+  const selected =  useParams().selected;
   const [showUserDetails, setShowUserDetails] = useState(false);
   const [showUserAddress, setShowUserAddress] = useState(false);
   const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
@@ -28,9 +31,10 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
 
   const handleButtonClick = (buttonName: string) => {
     setActiveButton(buttonName); // Set the active button
-    if (onMenuClick) {
-      onMenuClick(buttonName); // Call the onMenuClick function with the button name if provided
+    if (isSelectedOption){
+  isSelectedOption(); 
     }
+   // Call the function passed as a prop from the parent component
     switch (buttonName) {
       case "userDetails":
         setShowUserDetails(true);
@@ -66,11 +70,13 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ onMenuClick }) => {
     }
   };
 
-  // const setAllFalse = () => {
-  //   setShowUserDetails(false);
-  //   setShowUserAddress(false);
-  //   setShowAddPaymentMethod(false);
-  // };
+    useEffect(() => {
+      
+     if (selected) {
+        handleButtonClick(selected);
+      }
+
+    },[selected])
 
   const handelLogout = () => {
     dispatch(logOutUserApi());
