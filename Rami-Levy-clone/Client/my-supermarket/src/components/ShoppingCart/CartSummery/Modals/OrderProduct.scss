@@ -1,0 +1,60 @@
+// OrderProduct.scss
+
+.product-card-new-order {
+    display: flex;
+    align-items: flex-start;
+   
+    
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+    .product-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .card-img {
+            width: 80px;
+            height: 80px;
+            margin-right: 10px;
+        }
+
+        .card-content {
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .card-discount {
+            margin-bottom: 5px;
+        }
+
+        .discount-text {
+            font-weight: bold;
+            color: green; /* Adjust color for discount text */
+        }
+
+        .original-price {
+            margin: 0;
+        }
+
+        .original-price-value {
+            text-decoration: line-through;
+            color: red; /* Adjust color for original price */
+        }
+
+        .card-shekel {
+            font-size: 14px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            margin: 0;
+        }
+    }
+}

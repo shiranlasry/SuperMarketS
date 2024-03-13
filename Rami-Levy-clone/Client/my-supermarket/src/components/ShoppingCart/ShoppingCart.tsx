@@ -29,6 +29,7 @@ import "./shopping-cart.scss";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
+import { updateCartStatusApi } from "../../features/cart/cartAPI";
 
 const ShoppingCart: React.FC = () => {
   const activeCart = useAppSelector(activeCartSelector);
@@ -51,7 +52,7 @@ const ShoppingCart: React.FC = () => {
     user_id: loggedInUser?.user_id || null,
     user_contact_id: null,
     delivery_id: null,
-    order_creation_date: Date.now().toString(),
+    order_creation_date: new Date().toLocaleDateString('he-IL'),
     status: 1,
     alternative_products: "צרו קשר לתיאום",
     how_receive_shipment: "יש מישהו בבית",
@@ -64,6 +65,7 @@ const ShoppingCart: React.FC = () => {
   const [showBeforePayModal, setShowBeforePayModal] = useState(false);
 
   const handleSetNewOrder = (field: string, value: string | number) => {
+
     setNewOrder({ ...newOrder, [field]: value });
   };
   const navigate = useNavigate()
