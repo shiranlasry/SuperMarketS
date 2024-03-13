@@ -197,11 +197,11 @@ export interface DepartmentsStatus {
 }
 
 export interface Sales {
-  sale_id: number;
-  sale_description: number;
+  sale_id: number |null;
+  sale_description: string;
   sale_discount: number;
   sale_expiration_date: string;
   product_id: number;
-  sale_price: number;
+  sale_price: number|null;
 }
 

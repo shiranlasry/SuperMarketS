@@ -17,7 +17,7 @@ interface PersonalProfilProps {
 const PersonalProfil: React.FC<PersonalProfilProps> = ({
   isSelectedOption,
 }) => {
-  const selected = useParams().selected;
+  let selected = useParams().selected;
   const [showUserDetails, setShowUserDetails] = useState(false);
   const [showUserAddress, setShowUserAddress] = useState(false);
   const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
@@ -38,6 +38,7 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({
     switch (buttonName) {
       case "userDetails":
         setShowUserDetails(true);
+        selected= "userDetails";
         setShowUserAddress(false);
         setShowAddPaymentMethod(false);
         setShowOrders(false);
@@ -46,6 +47,7 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({
       case "userAddress":
         setShowUserDetails(false);
         setShowUserAddress(true);
+        selected = "userAddress";
         setShowAddPaymentMethod(false);
         setShowOrders(false);
         setShowInfoCenter(false);
@@ -54,6 +56,7 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({
         setShowUserDetails(false);
         setShowUserAddress(false);
         setShowAddPaymentMethod(true);
+        selected = "addPaymentMethod";
         setShowOrders(false);
         setShowInfoCenter(false);
         break;
@@ -62,6 +65,7 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({
         setShowUserAddress(false);
         setShowAddPaymentMethod(false);
         setShowOrders(true);
+        selected = "orders";
         setShowInfoCenter(false);
         break;
       case "InfoCenter":
@@ -70,6 +74,7 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({
         setShowAddPaymentMethod(false);
         setShowOrders(false);
         setShowInfoCenter(true);
+        selected = "InfoCenter";
         break;
       default:
         // Handle default case if necessary

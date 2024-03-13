@@ -36,56 +36,66 @@ const ChengeAddressModal: React.FC<Props> = ({
   }, [loggedInUser]);
 
   const hendalDeleteAddress = async () => {
-    if (
-      loggedInUser &&
-      selectedAddress &&
-      selectedAddress.address_id &&
-      loggedInUser.user_id
-    ) {
-      await dispatch(
-        deleteUserAddressApi({
-          address_id: selectedAddress.address_id,
-          user_id: loggedInUser.user_id,
-        })
-      );
-      if (loggedInUser && loggedInUser.user_id) {
-        const res = await dispatch(getUserAddressesApi(loggedInUser.user_id));
-        if (res.payload) {
-          const defaultAddress = (res.payload as Address[]).find(
-            (address) => address.is_default
-          );
-
-          setSelectedAddress(defaultAddress || null);
-    
-          setNewOrder("address_id", defaultAddress?.address_id || -1);
+    try {
+      if (
+        loggedInUser &&
+        selectedAddress &&
+        selectedAddress.address_id &&
+        loggedInUser.user_id
+      ) {
+        await dispatch(
+          deleteUserAddressApi({
+            address_id: selectedAddress.address_id,
+            user_id: loggedInUser.user_id,
+          })
+        );
+        if (loggedInUser && loggedInUser.user_id) {
+          const res = await dispatch(getUserAddressesApi(loggedInUser.user_id));
+          if (res.payload) {
+            const defaultAddress = (res.payload as Address[]).find(
+              (address) => address.is_default
+            );
+  
+            setSelectedAddress(defaultAddress || null);
+      
+            setNewOrder("address_id", defaultAddress?.address_id || -1);
+          }
         }
       }
+    } catch (error) {
+      console.error("Error sending order", error);  
     }
+    
   };
   const hendalSetDefaultAddress = async () => {
-    if (
-      loggedInUser &&
-      selectedAddress &&
-      selectedAddress.address_id &&
-      loggedInUser.user_id
-    ) {
-      await dispatch(
-        updateDefaultAddressApi({
-          address_id: selectedAddress.address_id,
-          user_id: loggedInUser.user_id,
-        })
-      );
-      if (loggedInUser && loggedInUser.user_id) {
-        const res = await dispatch(getUserAddressesApi(loggedInUser.user_id));
-        if (res.payload) {
-          const defaultAddress = (res.payload as Address[]).find(
-            (address) => address.is_default
-          );
-
-          setSelectedAddress(defaultAddress || null);
+    try {
+      if (
+        loggedInUser &&
+        selectedAddress &&
+        selectedAddress.address_id &&
+        loggedInUser.user_id
+      ) {
+        await dispatch(
+          updateDefaultAddressApi({
+            address_id: selectedAddress.address_id,
+            user_id: loggedInUser.user_id,
+          })
+        );
+        if (loggedInUser && loggedInUser.user_id) {
+          const res = await dispatch(getUserAddressesApi(loggedInUser.user_id));
+          if (res.payload) {
+            const defaultAddress = (res.payload as Address[]).find(
+              (address) => address.is_default
+            );
+  
+            setSelectedAddress(defaultAddress || null);
+          }
         }
       }
+    } catch (error) {
+      console.error("Error sending order", error);
     }
+    
   };
   return (
     <>

@@ -105,9 +105,15 @@ export const addNewUserAddressApi = createAsyncThunk<
   Address
 >("add-new-user-address", async (args) => {
   try {
+    if  (!args.user_id || !args.city_id || !args.street_id || !args.floor || !args.apartment || !args.zip_code || !args.phone_number || !args.address_name) {
+      toast.error("אחד או יותר מהשדות ריקים, נסה שוב");
+      throw new Error("Invalid credentials addNewUserAddressApi()");
+    }
     const response = await axios.post("/api/addresses/add-new-address", args);
-    const { ok, selectresult } = response.data;
+    const { ok, selectresult,error } = response.data;
     if (!ok) {
+      toast.error(`הכתובת לא נוספה בהצלחה, נסה שוב ${error}`);
+
       throw new Error("Invalid credentials addNewUserAddressApi()");
     }
     return selectresult;
