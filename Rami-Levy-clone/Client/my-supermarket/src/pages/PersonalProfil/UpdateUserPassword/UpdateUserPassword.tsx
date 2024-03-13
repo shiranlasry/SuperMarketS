@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import "./UpdateUserPassword.scss";
-import { User } from "../../../rami-types";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch } from "../../../app/hook";
 import { updateUserPasswordApi } from "../../../features/logged_in_user/loggedInUserAPI";
+import { User } from "../../../rami-types";
+import "./UpdateUserPassword.scss";
 
 type UserProps = {
   user: User;
@@ -66,7 +68,7 @@ const UpdateUserPassword: React.FC<UserProps> = ({ user, onClose }) => {
       !confirmPassword ||
       !user.user_id
     ) {
-      alert("אחד או יותר מהשדות אינם תקינים");
+      toast.error("אחד או יותר מהשדות אינם תקינים");
       return;
     }
     dispatch(

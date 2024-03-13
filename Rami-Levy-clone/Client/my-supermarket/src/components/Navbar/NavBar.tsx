@@ -2,11 +2,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect } from "react";
 // import { navbarItems } from '../../constants/NavbarItems';
+import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { getAllNavBarItemsApi } from "../../features/navbar_items/navbarItemsAPI";
+import { navBarItemsSelector } from "../../features/navbar_items/navbarItemsSlice";
 import NavbarItem from "../NavBarItem/NavBarItem";
 import "./navBar.scss";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { navBarItemsSelector } from "../../features/navbar_items/navbarItemsSlice";
-import { getAllNavBarItemsApi } from "../../features/navbar_items/navbarItemsAPI";
 
 const NavBar: React.FC = () => {
   //get all the items svg from redux

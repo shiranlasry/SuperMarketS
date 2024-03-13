@@ -6,7 +6,6 @@ export const addNewCartApi = createAsyncThunk<CartItem | null, number>(
   "addNewCartApi",
   async (user_id) => {
     try {
-      
       const response = await axios.post("/api/carts/add-new-cart", { user_id });
       const { ok, results } = response.data;
       if (!ok) {
@@ -113,7 +112,7 @@ export const updateCartStatusApi = createAsyncThunk<
       cart_id,
       status_id,
     });
-    
+
     const { ok, results } = response.data;
     if (!ok) {
       throw new Error("Invalid credentials updateCartStatusApi()");
