@@ -10,7 +10,7 @@ interface UserMenuProps {
   onClose: () => void;
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
+const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser, onClose }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -43,6 +43,25 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
   const handleNavigatePersonalProfil = () => {
     onClose();
     navigate("/personal_profil");
+  };
+  const handleNavigateUserAddress = () => {
+    onClose();
+    navigate("/user_address");
+  };
+
+  const handleNavigateToaddPaymentMethod = () => {
+    onClose();
+    navigate("/user_payment");
+  };
+
+  const handleNavigateToOrders = () => {
+    onClose();
+    navigate("/user_orders");
+  };
+
+  const handleNavigateToInfoCenter = () => {
+    onClose();
+    navigate("/info_center");
   };
 
   return (
@@ -135,7 +154,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
               fill="#0079f2"
             ></path>
           </svg>
-          <a href="#">ניהול כתובות</a>
+          <a onClick={handleNavigateUserAddress} href="#">
+            ניהול כתובות
+          </a>
         </li>
         <li>
           <svg
@@ -167,7 +188,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
               fill="#0079f2"
             ></path>
           </svg>
-          <a href="#">תשלום</a>
+          <a onClick={handleNavigateToaddPaymentMethod} href="#">
+            תשלום
+          </a>
         </li>
         <li>
           <svg
@@ -211,7 +234,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
               fill="#0079f2"
             ></path>
           </svg>
-          <a href="#">ההזמנות שלי</a>
+          <a onClick={handleNavigateToOrders} href="#">
+            ההזמנות שלי
+          </a>
         </li>
         <li>
           <svg
@@ -249,7 +274,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser ,onClose}) => {
               fill="#0079f2"
             ></path>
           </svg>
-          <a href="#">מרכז מידע</a>
+          <a onClick={handleNavigateToInfoCenter} href="#">
+            מרכז מידע
+          </a>
         </li>
 
         {loggedInUser?.role_id === 1 && (
