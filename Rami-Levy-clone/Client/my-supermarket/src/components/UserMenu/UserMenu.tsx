@@ -42,28 +42,31 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser, onClose }) => {
   };
   const handleNavigatePersonalProfil = () => {
     onClose();
-    const btn='userDetails'
+    const btn = "userDetails";
     navigate(`/personal_profil/${btn}`);
   };
   const handleNavigateUserAddress = () => {
     onClose();
-    const btn='userAddress'
+    const btn = "userAddress";
     navigate(`/personal_profil/${btn}`);
   };
 
   const handleNavigateToaddPaymentMethod = () => {
     onClose();
-    navigate("/user_payment");
+    const btn = "addPaymentMethod";
+    navigate(`/personal_profil/${btn}`);
   };
 
   const handleNavigateToOrders = () => {
     onClose();
-    navigate("/user_orders");
+    const btn = "orders";
+    navigate(`/personal_profil/${btn}`);
   };
 
   const handleNavigateToInfoCenter = () => {
     onClose();
-    navigate("/info_center");
+    const btn = "InfoCenter";
+    navigate(`/personal_profil/${btn}`);
   };
 
   return (
@@ -460,7 +463,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ loggedInUser, onClose }) => {
           </a>
         </li>
       </ul>
-  
     </div>
   );
 };

@@ -11,13 +11,13 @@ import { loggedInUserSelector } from "../../features/logged_in_user/loggedInUser
 import InfoCenter from "../../components/InfoCenter/InfoCenter";
 
 interface PersonalProfilProps {
- 
   isSelectedOption?: () => void;
-
 }
 
-const PersonalProfil: React.FC<PersonalProfilProps> = ({ isSelectedOption }) => {
-  const selected =  useParams().selected;
+const PersonalProfil: React.FC<PersonalProfilProps> = ({
+  isSelectedOption,
+}) => {
+  const selected = useParams().selected;
   const [showUserDetails, setShowUserDetails] = useState(false);
   const [showUserAddress, setShowUserAddress] = useState(false);
   const [showAddPaymentMethod, setShowAddPaymentMethod] = useState(false);
@@ -31,10 +31,10 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ isSelectedOption }) => 
 
   const handleButtonClick = (buttonName: string) => {
     setActiveButton(buttonName); // Set the active button
-    if (isSelectedOption){
-  isSelectedOption(); 
+    if (isSelectedOption) {
+      isSelectedOption();
     }
-   // Call the function passed as a prop from the parent component
+    // Call the function passed as a prop from the parent component
     switch (buttonName) {
       case "userDetails":
         setShowUserDetails(true);
@@ -64,19 +64,24 @@ const PersonalProfil: React.FC<PersonalProfilProps> = ({ isSelectedOption }) => 
         setShowOrders(true);
         setShowInfoCenter(false);
         break;
+      case "InfoCenter":
+        setShowUserDetails(false);
+        setShowUserAddress(false);
+        setShowAddPaymentMethod(false);
+        setShowOrders(false);
+        setShowInfoCenter(true);
+        break;
       default:
         // Handle default case if necessary
         break;
     }
   };
 
-    useEffect(() => {
-      
-     if (selected) {
-        handleButtonClick(selected);
-      }
-
-    },[selected])
+  useEffect(() => {
+    if (selected) {
+      handleButtonClick(selected);
+    }
+  }, [selected]);
 
   const handelLogout = () => {
     dispatch(logOutUserApi());

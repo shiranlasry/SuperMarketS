@@ -1,8 +1,9 @@
 $rami-blue: #1579f2;
 
 .info-cener-main {
-  margin: 4rem auto;
-  padding: 1rem;
+  width: 900px;
+  margin: 3.5rem auto;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-items: center;
@@ -56,9 +57,18 @@ $rami-blue: #1579f2;
   }
 }
 .info-links {
-  margin: auto 30vw;
+  width: 750px;
+  margin: auto;
   display: flex;
   flex-direction: column;
+  align-items: right;
+  @media screen and (max-width: 1400px) {
+    width: 620px;
+  }
+  @media screen and (max-width: 1100px) {
+    width: 550px;
+  }
+
   a {
     text-decoration: none;
     color: black; // Change this to the desired color

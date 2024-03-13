@@ -7,19 +7,16 @@ export default function InfoCenter() {
       <h1 className="info-center-title"> נושאים פופולריים</h1>
       <div className="info-content">
         <div className="info-icon">
-          <img className="my-orders-icon" src="./src/assets/img/faq.png" />
+          <img className="my-orders-icon" src="/src/assets/img/faq.png" />
         </div>
         <div className="info-icon">
           <img
             className="my-orders-icon clock"
-            src="./src/assets/img/clock.png"
+            src="/src/assets/img/lock-pass.png"
           />
         </div>
         <div className="info-icon">
-          <img
-            className="my-orders-icon"
-            src="./src/assets/img/lock-pass.png"
-          />
+          <img className="my-orders-icon" src="/src/assets/img/lock-pass.png" />
         </div>
       </div>
       <div className="info-links">
