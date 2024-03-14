@@ -1,3 +1,5 @@
+$remi-blue: #1579f2;
+
 .sales-list {
   padding-top: 30px;
   width: 95vw;
@@ -5,5 +7,6 @@
   flex-wrap: wrap;
   justify-content: right;
   align-items: center;
+  color: $remi-blue;
   gap: 1rem;
 }

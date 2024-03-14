@@ -7,8 +7,9 @@
     height: 360px;
     margin: 0.2rem;
     padding: 8px;
-    border: 1px solid #ddd;
     border-radius: 15px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+
     cursor: pointer;
 
     @media screen and (max-width: 1620px) {
@@ -65,15 +66,14 @@
     }
 
     .product-img {
-      margin: 1rem;
+      margin-bottom: 1rem;
       max-height: 200px;
       width: 190px;
-      padding-top: 0.5rem;
+      padding-top: 1rem;
       border-radius: 12px; /* Round corners of the image */
 
       @media screen and (max-width: 1700px) {
         height: 180px;
-        margin: 0;
       }
     }
 
@@ -81,5 +81,38 @@
     .carousel-control-next-icon {
       background-color: #1579f2; /* Change carousel control buttons background color */
     }
+  }
+
+  .card-price-discount {
+    font-size: 1rem;
+    margin-bottom: 0;
+
+    .sale-tag {
+      position: absolute;
+      text-align: center;
+      width: 74px;
+      height: 24px;
+      padding: 3px;
+      right: 0rem;
+      top: 0rem;
+      font-size: 0.9rem;
+      border-radius: 15px 15px 0 15px;
+      color: white;
+      background-color: #2485da;
+    }
+
+    .rami-club-img {
+      position: absolute;
+      top: 0.3rem;
+      right: 3.9rem;
+      height: 19px;
+      width: 22px;
+    }
+  }
+
+  .card-original-price {
+    text-decoration: line-through;
+    color: #929191;
+    font-size: 1rem;
   }
 }

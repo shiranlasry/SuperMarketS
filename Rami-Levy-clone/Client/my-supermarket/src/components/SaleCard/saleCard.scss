@@ -1,31 +1,48 @@
-.sale-card {
+.sales-main {
+  margin-right: 1rem;
+
+  .sale-card {
     width: 280px;
     height: 380px;
     position: relative;
     background-color: #fff;
-    
+    border-radius: 15px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 
     img {
-        position: absolute;
-        top: 20%;
-        height: 70%;
-        width: 100%;
-        border-radius: 12px;
-        /* Round corners of the image */
+      position: absolute;
+      top: 20%;
+      height: 70%;
+      width: 100%;
+      border-radius: 12px;
     }
 
-    .discount{
-        position: absolute;
-        top: 90%;
-        left: 5%;
+    .discount {
+      position: absolute;
+      top: 90%;
+      left: 5%;
     }
 
-    .description{
-        font-size: 1rem;
-        color: #666;
+    .description {
+      position: absolute;
+      text-align: center;
+      width: 74px;
+      height: 24px;
+      padding: 3px;
+      right: 0rem;
+      top: 0rem;
+      font-size: 0.9rem;
+      border-radius: 15px 15px 0 15px;
+      color: white;
+      background-color: #2485da;
+
+      .rami-club-img {
         position: absolute;
-        top:0;
-        left:80%;
-        /* Dim the description color */
+        top: 0.3rem;
+        right: 3.9rem;
+        height: 19px;
+        width: 22px;
+      }
     }
+  }
 }
