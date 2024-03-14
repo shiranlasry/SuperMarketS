@@ -59,14 +59,17 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         return (
           <div className="card-price">
             <p className="card-price-discount">
-              מחיר מבצע: {sale.sale_price}
-              <span className="card-shekel">₪</span>
+              {sale.sale_price}
+              <span className="sale-tag"> מבצע</span>
+              <span className="card-shekel"> ₪</span>
               <span className="per-unit"> ליח'</span>
+              <img
+                className="rami-club-img"
+                src="/src/assets/img/rami-club.png"
+              />
             </p>
             <p className="card-original-price">
-              מחיר מקור: {product.product_price}
-              <span className="card-shekel">₪</span>
-              <span className="per-unit"> ליח'</span>
+              {product.product_price} ₪ ליח'
             </p>
           </div>
         );

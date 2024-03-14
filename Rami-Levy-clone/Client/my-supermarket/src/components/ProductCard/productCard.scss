@@ -82,4 +82,38 @@
       background-color: #1579f2; /* Change carousel control buttons background color */
     }
   }
+
+  .card-price-discount {
+    font-size: 1rem;
+    margin-bottom: 0;
+    margin-top: 15px;
+
+    .sale-tag {
+      position: absolute;
+      text-align: center;
+      width: 74px;
+      height: 24px;
+      padding: 3px;
+      right: 0rem;
+      top: 0rem;
+      font-size: 0.7rem;
+      border-radius: 15px 15px 0 15px;
+      color: white;
+      background-color: #2485da;
+    }
+
+    .rami-club-img {
+      position: absolute;
+      top: 0.3rem;
+      right: 3.6rem;
+      height: 19px;
+      width: 22px;
+    }
+  }
+
+  .card-original-price {
+    text-decoration: line-through;
+    color: #666;
+    font-size: 1rem;
+  }
 }

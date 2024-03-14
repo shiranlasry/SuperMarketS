@@ -69,7 +69,7 @@ import cartsRoutes from "./API/carts/cartsRoutes";
 import categoriesRoutes from "./API/categories/categoriesRoutes";
 import citiesRoutes from "./API/cities/citiesRoutes";
 import deliveries from "./API/deliveries/deliveriesRoutes";
-import departmentsStatus from "./API/departmentsStatus/departmentsStatusRoutes";
+// import departmentsStatus from "./API/departmentsStatus/departmentsStatusRoutes";
 import navbarRoutes from "./API/navbar/navbarRoutes";
 import ordersRoutes from "./API/orders/ordersRoutes";
 import productsDetailsRoutes from "./API/products/productsDetais/productsDetaisRoutes";
@@ -91,7 +91,7 @@ app.use("/api/navbar-items", navbarRoutes);
 app.use("/api/carts", cartsRoutes);
 app.use("/api/orders", ordersRoutes);
 app.use("/api/deliveries", deliveries);
-app.use("/api/departments-status", departmentsStatus);
+// app.use("/api/departments-status", departmentsStatus);
 app.use("/api/sales", sales);
 app.use("/api/users-contacts", usersContacts);
 
