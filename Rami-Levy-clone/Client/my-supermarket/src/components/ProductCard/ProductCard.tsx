@@ -6,14 +6,14 @@ import { getSalesAPI } from "../../features/sales/salesAPI";
 import { selectSales } from "../../features/sales/salesSlice";
 import { Product, Sales } from "../../rami-types";
 import ProductCounter from "../ProductCounter/ProductCounter";
-import ProductModal from "../ProductModal/ProductModal"; // Import the ProductModal component
+import ProductModal from "../ProductModal/ProductModal";
 import "./productCard.scss";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const dispatch = useAppDispatch();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [showProductModal, setShowProductModal] = useState(false); // State for showing ProductModal
+  const [showProductModal, setShowProductModal] = useState(false);
   const allSales = useAppSelector<Sales[]>(selectSales);
 
   useEffect(() => {
@@ -38,17 +38,14 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const handleCardClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-    // Check if the click occurred on the buttons inside the card
     const target = event.target as HTMLElement;
     if (
       target.classList.contains("counter-button") ||
       target.parentElement?.classList.contains("counter-button")
     ) {
-      // Click occurred on the buttons, do not open the modal
       return;
     }
 
-    // Click occurred on the card, open the modal
     setShowProductModal(true);
   };
 
@@ -56,10 +53,16 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     if (allSales.length > 0 && product.product_price) {
       const sale = allSales.find((s) => s.product_id === product.product_id);
       if (sale) {
+        const formattedSalePrice = sale.sale_price.toFixed(2); // Format sale price
+        const formattedOriginalPrice = product.product_price.toFixed(2); // Format original price
+
         return (
           <div className="card-price">
             <p className="card-price-discount">
-              {sale.sale_price}
+              {formattedSalePrice.split(".")[0]}.
+              <span className="decimal-part">
+                {formattedSalePrice.split(".")[1]}
+              </span>
               <span className="sale-tag"> מבצע</span>
               <span className="card-shekel"> ₪</span>
               <span className="per-unit"> ליח'</span>
@@ -69,15 +72,20 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
               />
             </p>
             <p className="card-original-price">
-              {product.product_price} ₪ ליח'
+              {formattedOriginalPrice} ₪ ליח'{" "}
             </p>
           </div>
         );
       }
     }
+    const formattedProductPrice = product.product_price.toFixed(2); // Format product price
     return (
       <p className="card-price">
-        {product.product_price} <span className="card-shekel">₪</span>{" "}
+        {formattedProductPrice.split(".")[0]}.
+        <span className="decimal-part">
+          {formattedProductPrice.split(".")[1]}
+        </span>
+        <span className="card-shekel"> ₪</span>{" "}
         <span className="per-unit">ליח'</span>
       </p>
     );
@@ -106,15 +114,9 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <div className="card-body">
           <p className="card-title">{product.product_name}</p>
           <p className="card-desc">{product.product_description}</p>
-          {/* <p className="card-price">
-            {product.product_price} <span className="card-shekel">₪</span>{" "}
-            <span className="per-unit">ליח'</span>
-          </p> */}
           {checkDiscount()}
         </div>
       </div>
-      {/* Render ProductModal when showProductModal is true */}
-
       <Modal
         id={"modal-product"}
         show={showProductModal}
