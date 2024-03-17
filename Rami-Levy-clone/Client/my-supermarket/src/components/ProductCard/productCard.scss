@@ -57,6 +57,11 @@
         font-size: 0.9rem;
         font-weight: 500;
       }
+
+      .decimal-part {
+        vertical-align: super;
+        font-size: 60%;
+      }
     }
 
     .carousel-item {
@@ -72,8 +77,9 @@
       padding-top: 1rem;
       border-radius: 12px; /* Round corners of the image */
 
-      @media screen and (max-width: 1700px) {
-        height: 180px;
+      @media screen and (min-width: 1700px) {
+        height: 200px;
+        width: 200px;
       }
     }
 
@@ -84,7 +90,6 @@
   }
 
   .card-price-discount {
-    font-size: 1rem;
     margin-bottom: 0;
 
     .sale-tag {
