@@ -80,3 +80,21 @@ export const addNewOrderAPI = createAsyncThunk<number | null, Order>(
     }
   }
 );
+
+export const getAllOrdersSalesDetailsAPI = createAsyncThunk<
+  ProductsList[] | null,
+  void
+>("getAllOrdersSalesDetailsAPI", async () => {
+  try {
+    const response = await axios.get("/api/orders/get-all-orders-sales-details");
+    const { ok, results } = response.data;
+    if (!ok) {
+      throw new Error("Invalid credentials getAllOrdersSalesDetailsAPI()");
+    }
+
+    return results as ProductsList[];
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+});

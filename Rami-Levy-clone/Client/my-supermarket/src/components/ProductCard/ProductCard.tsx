@@ -4,12 +4,12 @@ import { Modal } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { getSalesAPI } from "../../features/sales/salesAPI";
 import { selectSales } from "../../features/sales/salesSlice";
-import { Product, Sales } from "../../rami-types";
+import { Product, ProductsList, Sales } from "../../rami-types";
 import ProductCounter from "../ProductCounter/ProductCounter";
 import ProductModal from "../ProductModal/ProductModal";
 import "./productCard.scss";
 
-const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+const ProductCard: React.FC<{ product: Product |ProductsList }> = ({ product }) => {
   const dispatch = useAppDispatch();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -53,15 +53,15 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     if (allSales.length > 0 && product.product_price) {
       const sale = allSales.find((s) => s.product_id === product.product_id);
       if (sale) {
-        const formattedSalePrice = sale.sale_price.toFixed(2); // Format sale price
+        const formattedSalePrice = sale.sale_price?.toFixed(2); // Format sale price
         const formattedOriginalPrice = product.product_price.toFixed(2); // Format original price
 
         return (
           <div className="card-price">
             <p className="card-price-discount">
-              {formattedSalePrice.split(".")[0]}.
+              {formattedSalePrice?.split(".")[0]}.
               <span className="decimal-part">
-                {formattedSalePrice.split(".")[1]}
+                {formattedSalePrice?.split(".")[1]}
               </span>
               <span className="sale-tag"> מבצע</span>
               <span className="card-shekel"> ₪</span>
@@ -78,12 +78,12 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         );
       }
     }
-    const formattedProductPrice = product.product_price.toFixed(2); // Format product price
+    const formattedProductPrice = product.product_price?.toFixed(2); // Format product price
     return (
       <p className="card-price">
-        {formattedProductPrice.split(".")[0]}.
+        {formattedProductPrice?.split(".")[0]}.
         <span className="decimal-part">
-          {formattedProductPrice.split(".")[1]}
+          {formattedProductPrice?.split(".")[1]}
         </span>
         <span className="card-shekel"> ₪</span>{" "}
         <span className="per-unit">ליח'</span>
@@ -126,7 +126,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <Modal.Body>
           <ProductModal
             onClose={() => setShowProductModal(false)}
-            product={product}
+            product={product as Product}
           />
         </Modal.Body>
       </Modal>

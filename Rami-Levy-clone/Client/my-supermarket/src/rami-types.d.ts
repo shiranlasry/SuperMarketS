@@ -27,17 +27,18 @@ export interface CartItem{
   cartList:ProductsList[] = []; 
 }
 export interface ProductsList {
-  product_list_id: number;
-  cart_id: number;
-  product_id: number;
-  product_amount: number=0;
+  product_list_id: number|null;
+  cart_id: number |null;
+  product_id: number|null;
+  product_amount: number|null=0;
   product_name: string;
   product_description: string;
-  product_price: number=0;
+  product_price: number|null=0;
   product_img_name_a:string;
   product_img_name_b: string= '';
   product_img_data_a: string= '';
   product_img_data_b: string= '';
+  total_quantity: number|null=0;
 }
 export interface SubFoodCategories {
   navbar_item_id: number;
@@ -80,7 +81,7 @@ export interface Product  {
   cosher: string;
   product_components: string;
   serving_suggestion: string;
-
+  units_stock: number | null;
   };
   export interface Inventories {
     inventory_id: number;
