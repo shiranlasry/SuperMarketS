@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
-import { Product, ProductsList } from "../../rami-types";
+import { Product } from "../../rami-types";
 import ProductCounter from "../ProductCounter/ProductCounter";
 import "./product-modal.scss"; // Import CSS file for styling
 

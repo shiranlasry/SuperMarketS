@@ -23,7 +23,7 @@ const ProductPrice : React.FC<{product: ProductsList}> = ({product}) => {
         if (product) {
           if (allSales.length > 0) {
             const sale = allSales.find((s) => s.product_id === product.product_id);
-            if (sale) {
+            if (sale && sale.sale_price) {
                 setPrice(sale.sale_price*product.product_amount);
             }
             else {

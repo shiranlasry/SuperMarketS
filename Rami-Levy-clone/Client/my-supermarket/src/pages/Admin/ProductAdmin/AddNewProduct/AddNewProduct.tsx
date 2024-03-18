@@ -75,6 +75,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
     cosher: "",
     product_components: "",
     serving_suggestion: "",
+    units_stock: null,
   };
 
   const [imagesProductFiles, setImagesProductFiles] = useState<File[]>();
@@ -85,7 +86,6 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onClose }) => {
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const [imgsValidation, setImgsValidation] = useState(false);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getFoodCategoriesApi());

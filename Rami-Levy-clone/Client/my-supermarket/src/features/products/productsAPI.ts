@@ -9,6 +9,7 @@ export const getAllProductsApi = createAsyncThunk<Product[] | null, void>(
   "get-all-products",
   async () => {
     try {
+      debugger;
       const response = await axios.get("/api/products-details");
 
       const { ok, results } = response.data;

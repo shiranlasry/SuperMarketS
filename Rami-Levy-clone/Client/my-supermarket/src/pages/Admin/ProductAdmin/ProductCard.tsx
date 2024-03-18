@@ -23,7 +23,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [showInventoryPopup, setShowInventoryPopup] = useState(false);
   const [isDeleteProduct, setIsDeleteProduct] = useState(false);
   const [currentInventory, setCurrentInventory] = useState<number | undefined>(
-    product.units_stock
+    product?.units_stock? product.units_stock : 0
   );
   const [isUpdateProduct, setIsUpdateProduct] = useState(false);
   const [isUpdateImages, setIsUpdateImages] = useState(false);

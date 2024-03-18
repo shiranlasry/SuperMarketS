@@ -282,3 +282,61 @@ export const getUserOrderCartDetails = async (
     res.status(500).send({ ok: false, error });
   }
 };
+
+export const getAllOrdersSalesDetails = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    console.log("getAllOrdersSalesDetails");
+    const query = `
+        SELECT 
+        l.product_id,
+        SUM(l.product_amount) AS total_quantity,
+        p.product_name,
+        p.product_description,
+        p.product_price,
+        i.product_img_name_a,
+        i.product_img_name_b,
+        i.product_img_data_b,
+        i.product_img_data_a
+    FROM 
+        orders o
+    LEFT JOIN 
+        lists l ON o.cart_id = l.cart_id
+    LEFT JOIN 
+        products p ON l.product_id = p.product_id
+    LEFT JOIN 
+        products_images i ON i.product_id = p.product_id
+    GROUP BY 
+        l.product_id,
+        p.product_name,
+        p.product_description,
+        p.product_price,
+        i.product_img_name_a,
+        i.product_img_name_b,
+        i.product_img_data_b,
+        i.product_img_data_a; `;
+
+    connection.query(query, (err, results, fields) => {
+      try {
+        if (err) throw err;
+        
+        // Parse total_quantity as a number
+        //@ts-ignore
+        results.forEach(result => {
+          result.total_quantity = parseInt(result.total_quantity);
+          // Use parseFloat() if you expect floating-point values
+        });
+        res.send({ ok: true, results });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ ok: false, error });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ ok: false, error });
+  }
+};
+
