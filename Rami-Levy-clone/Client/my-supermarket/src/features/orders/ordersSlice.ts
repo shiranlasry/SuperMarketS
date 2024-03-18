@@ -71,7 +71,7 @@ const ordersSlice = createSlice({
       })
       .addCase(getAllOrdersSalesDetailsAPI.fulfilled, (state, action) => {
         state.status = Status.IDLE;
-        debugger;
+       
         state.allOrdersSalesDetails = action.payload;
       })
       .addCase(getAllOrdersSalesDetailsAPI.rejected, (state) => {
