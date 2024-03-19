@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { ProductsList, Sales } from '../../../../rami-types';
-import { Modal } from 'react-bootstrap';
-import ProductModal from '../../../ProductModal/ProductModal';
 import ProductCounter from '../../../ProductCounter/ProductCounter';
 import { useAppDispatch, useAppSelector } from '../../../../app/hook';
 import { selectSales } from '../../../../features/sales/salesSlice';

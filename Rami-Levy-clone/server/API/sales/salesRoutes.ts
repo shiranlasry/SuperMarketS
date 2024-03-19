@@ -6,8 +6,8 @@ import { getAllSales, getSaleById, addNewSale, updateSale, deleteSale } from './
 const router = express.Router();
 
 router
-    .get('', isAdmin, getAllSales)
-    .get('/:sale_id', isAdmin, getSaleById)
+    .get('', getAllSales)
+    .get('/:sale_id', getSaleById)
     .post('/add-new-sale', isAdmin, addNewSale)
     .put('/update-sale/:sale_id', isAdmin, updateSale)
     .delete('/delete-sale/:sale_id', isAdmin, deleteSale);

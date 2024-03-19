@@ -1,13 +1,13 @@
 import React from "react";
 import "./home.scss";
+import BestSellers from "./BestSellers/BestSellers";
 
 const Home: React.FC = () => {
   return (
     <div>
       <div className="home-container">
         <div className="home-content">
-          <h1 className="home-greet">ברוך הבא לרמי לוי</h1>
-          <p>הקניון שלך באינטרנט</p>
+          <BestSellers />
         </div>
       </div>
     </div>

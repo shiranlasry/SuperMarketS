@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Product, ProductsList, Sales } from "../../rami-types";
+import  { useEffect, useState } from "react";
+import {  ProductsList, Sales } from "../../rami-types";
 import { selectSales } from "../../features/sales/salesSlice";
 import { activeCartSelector } from "../../features/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
@@ -34,7 +34,7 @@ const CartToatlPrice = () => {
       const discount = allSales.find(
         (sale) => sale.product_id === cartItem.product_id
       );
-      if (discount) {
+      if (discount && discount.sale_price) {
         totalPrice += discount.sale_price * cartItem.product_amount;
       } else totalPrice += cartItem.product_price * cartItem.product_amount;
     });
