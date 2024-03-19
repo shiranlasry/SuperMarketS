@@ -9,7 +9,9 @@ import ProductCounter from "../ProductCounter/ProductCounter";
 import ProductModal from "../ProductModal/ProductModal";
 import "./productCard.scss";
 
-const ProductCard: React.FC<{ product: Product |ProductsList }> = ({ product }) => {
+const ProductCard: React.FC<{ product: Product | ProductsList }> = ({
+  product,
+}) => {
   const dispatch = useAppDispatch();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -97,7 +99,7 @@ const ProductCard: React.FC<{ product: Product |ProductsList }> = ({ product }) 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="product-card card" onClick={handleCardClick}>
+      <div className="product-card custom-card" onClick={handleCardClick}>
         <ProductCounter product={product} location={"card"} />
 
         <div className="carousel slide" data-bs-ride="carousel">
