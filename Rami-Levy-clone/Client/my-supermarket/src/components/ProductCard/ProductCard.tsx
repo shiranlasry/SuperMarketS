@@ -99,7 +99,7 @@ const ProductCard: React.FC<{ product: Product | ProductsList }> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="product-card custom-card" onClick={handleCardClick}>
+      <div className="product-card card" onClick={handleCardClick}>
         <ProductCounter product={product} location={"card"} />
 
         <div className="carousel slide" data-bs-ride="carousel">

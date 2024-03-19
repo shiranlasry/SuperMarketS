@@ -9,6 +9,7 @@
     padding: 8px 8px 0 8px;
     border-radius: 15px;
     background-color: #fff;
+    border: none;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 
     cursor: pointer;
@@ -76,8 +77,7 @@
       max-height: 200px;
       width: 190px;
       padding-top: 1rem;
-      border-radius: 12px; /* Round corners of the image */
-
+      border-radius: 12px;
       @media screen and (min-width: 1700px) {
         height: 200px;
         width: 200px;
@@ -86,7 +86,7 @@
 
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
-      background-color: #1579f2; /* Change carousel control buttons background color */
+      background-color: #1579f2;
     }
   }
 
