@@ -13,7 +13,7 @@ interface ProductModalProps {
 
 const formatPrice = (price: number | null) => {
   if (price === null) {
-    return ""; // or any other placeholder value
+    return "";
   }
 
   const [main, decimal] = price.toFixed(2).split(".");
