@@ -235,7 +235,7 @@ const ShoppingCart: React.FC = () => {
                           <ProductCounter product={product} location={"cart"} />
                         </h5>
                         <p className="cart-items-price">
-                          <ProductPrice product={cartProduct} />₪
+                          <ProductPrice product={cartProduct} /> ₪
                         </p>
                       </div>
                     </li>

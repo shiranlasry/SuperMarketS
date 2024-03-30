@@ -11,6 +11,20 @@ interface ProductModalProps {
   onClose: () => void;
 }
 
+const formatPrice = (price: number | null) => {
+  if (price === null) {
+    return ""; // or any other placeholder value
+  }
+
+  const [main, decimal] = price.toFixed(2).split(".");
+  return (
+    <span>
+      <span className="main-price">{main}.</span>
+      <sup className="decimal-price">{decimal}</sup>
+    </span>
+  );
+};
+
 const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
   const base64ImageA = product.product_img_data_a
     ? btoa(
@@ -28,11 +42,11 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
           <button className="close-prodBtn" onClick={onClose}>
             X
           </button>
-
           <h1>{product.product_name}</h1>
           <p>{product.product_description}</p>
           <p className="prod-price">
-            {product.product_price} <span className="ILS-sign">₪</span>
+            {formatPrice(product.product_price)}{" "}
+            <span className="ILS-sign">₪</span>
           </p>
           <p>יצרן: {product.brand}</p>
           <p>מדינת ייצוא: {product.export_country}</p>

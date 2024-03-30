@@ -57,12 +57,19 @@ $rami-blue: #1579f2;
 
 .prod-price {
   color: $rami-blue;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 600;
 
   .ILS-sign {
     font-size: 0.875em;
     font-weight: 400;
+  }
+
+  .decimal-price {
+    font-size: 60%; // Adjust as needed
+    position: relative;
+    top: -0.5em; // Adjust as needed
+    left: 0.2em; // Adjust as needed
   }
 }
 .prod-desc {
