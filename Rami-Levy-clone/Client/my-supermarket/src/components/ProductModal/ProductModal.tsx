@@ -4,8 +4,7 @@ import Login from "../../pages/LogIn/Login";
 import Register from "../../pages/Register/Register";
 import { Product } from "../../rami-types";
 import ProductCounter from "../ProductCounter/ProductCounter";
-import "./product-modal.scss"; // Import CSS file for styling
-
+import "./product-modal.scss";
 
 interface ProductModalProps {
   product: Product;
@@ -21,19 +20,24 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
   const [currentImage, setCurrentImage] = useState(base64ImageA);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  
 
   return (
     <div className="modal-container">
       <div className="product-modal">
         <div className="product-details">
+          <button className="close-prodBtn" onClick={onClose}>
+            X
+          </button>
+
           <h1>{product.product_name}</h1>
           <p>{product.product_description}</p>
-          <p>מחיר: {product.product_price} ₪</p>
+          <p className="prod-price">
+            {product.product_price} <span className="ILS-sign">₪</span>
+          </p>
           <p>יצרן: {product.brand}</p>
           <p>מדינת ייצוא: {product.export_country}</p>
         </div>
-        <div>
+        <div className="prod-desc">
           <p>הצעת הגשה: {product.serving_suggestion}</p>
           <p>רכיבים: {product.product_components}</p>
         </div>
@@ -44,10 +48,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
             className="d-block product-img"
             alt="Product Image"
           />
-         
-        </div>
-        <div className="product-buttons">
-          <button onClick={onClose}>סגור</button>
         </div>
       </div>
       <Modal
