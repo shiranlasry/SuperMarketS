@@ -18,7 +18,7 @@ const OrderSummary = () => {
   }, [dispatch, order_id]);
 
   return (
-    <div className="order-summary">
+    <div className="order-summary-main">
       <div className="order-summary-header">
         <h1 className="display-4">סיכום הזמנה</h1>
       </div>

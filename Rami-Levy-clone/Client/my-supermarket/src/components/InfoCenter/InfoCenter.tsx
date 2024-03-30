@@ -12,7 +12,7 @@ export default function InfoCenter() {
         <div className="info-icon">
           <img
             className="my-orders-icon clock"
-            src="/src/assets/img/lock-pass.png"
+            src="/src/assets/img/clock.png"
           />
         </div>
         <div className="info-icon">

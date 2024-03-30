@@ -51,18 +51,17 @@ const CheckOutOffers = () => {
   // Function to handle button click in Personal Profile menu
   const handleOptionClick = () => {
     setShowProducts(false); // Hide products when a menu item is clicked
-    
   };
 
   return (
     <div className="checkout-container">
-      <div className="row">
+      <div className=" row">
         <div className="suggestions-content col-md-2">
           <PersonalProfil isSelectedOption={handleOptionClick} />
           {/* Pass handleMenuClick as a prop to PersonalProfil */}
         </div>
         {showProducts && ( // Conditionally render products based on showProducts state
-          <div className="col-md-6">
+          <div className="suggestions-prods col-md-6">
             <div className="row">
               <div className="col-12">
                 <h1 className="suggestions-title mt-3 mb-3">
